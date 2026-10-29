@@ -1,0 +1,46 @@
+{
+  "acceptance": {
+    "id": "E05",
+    "request": "Rename vendor image names from a lookup list (multi-row Mapping from JSON arrays)",
+    "maxRules": 2
+  },
+  "name": "Vendor Names To Catalogue",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [
+    {
+      "id": "Mapping",
+      "comment": "Vendor names to catalogue names",
+      "config": {
+        "SOURCE": [
+          "IMG_0001",
+          "IMG_0002"
+        ],
+        "TARGET": [
+          "Hero Shot",
+          "Detail Shot, Côté B"
+        ]
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "Two listed names mapped, an unlisted one untouched",
+      "files": [
+        "IMG_0001.JPG",
+        "IMG_0002.jpg",
+        "IMG_0003.jpg"
+      ],
+      "expect": [
+        "Hero Shot.jpg",
+        "Detail Shot, Côté B.jpg",
+        "IMG_0003.jpg"
+      ]
+    }
+  ]
+}

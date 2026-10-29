@@ -1,0 +1,34 @@
+{
+  "acceptance": {
+    "id": "T11",
+    "request": "Swap 'Artist - Title' to 'Title - Artist'",
+    "maxRules": 2,
+    "expectedDesign": "Rearrange, exact pattern, delimiter ' - ', pattern '$2 - $1'"
+  },
+  "name": "Swap Artist Title",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "Rearrange",
+      "comment": "Artist - Title to Title - Artist",
+      "config": {
+        "DELIMITERTYPE": 2,
+        "DELIMETERS": " - ",
+        "NEWPATTERN": "$2 - $1"
+      }
+    }
+  ],
+  "tests": [
+    {
+      "in": "Daft Punk - One More Time.mp3",
+      "out": "One More Time - Daft Punk.mp3"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "acceptance": {
+    "id": "T05",
+    "request": "Fix brand casing only, touch nothing else",
+    "maxRules": 1,
+    "expectedDesign": "preserve tail"
+  },
+  "name": "CASE Brand Casing",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "preserve"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [],
+  "tests": [
+    {
+      "in": "learn github and node.js basics.md",
+      "out": "learn GitHub and Node.js basics.md"
+    },
+    {
+      "in": "my iphone and macbook notes.txt",
+      "out": "my iPhone and MacBook notes.txt"
+    },
+    {
+      "in": "blender to figma export.PNG",
+      "out": "Blender to Figma export.png"
+    },
+    {
+      "in": "Holiday Photos 2024.JPG",
+      "out": "Holiday Photos 2024.jpg"
+    }
+  ]
+}

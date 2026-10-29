@@ -1,0 +1,71 @@
+{
+  "acceptance": {
+    "id": "E03",
+    "request": "Remove the download counter and serialize duplicates, CLI-safe (stock serializer)",
+    "maxRules": 3
+  },
+  "name": "Remove Download Counter Stock",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "stock",
+  "rules": [
+    {
+      "id": "RegEx",
+      "comment": "Strip browser duplicate counters",
+      "config": {
+        "EXPRESSION": " *(\\(\\d+\\)|-\\d+)$",
+        "REPLACE": ""
+      }
+    },
+    {
+      "id": "Case",
+      "comment": "Capitalize + extension lower",
+      "config": {
+        "WHAT": 3,
+        "PRESERVECASE": 1
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "Colliding batch is serialized by the stock script",
+      "files": [
+        "Save (5).svg",
+        "Save-6.svg",
+        "Save-7.svg"
+      ],
+      "expect": [
+        "Save.svg",
+        "Save (2).svg",
+        "Save (3).svg"
+      ]
+    },
+    {
+      "name": "LIMIT: a serialized name equal to another file's current name refuses the batch",
+      "files": [
+        "Save (2).svg",
+        "Save-6.svg"
+      ],
+      "expect": [
+        "Save (2).svg",
+        "Save-6.svg"
+      ],
+      "expectExit": 1
+    },
+    {
+      "name": "No collision, nothing added",
+      "files": [
+        "Photo (4).png",
+        "Other.png"
+      ],
+      "expect": [
+        "Photo.png",
+        "Other.png"
+      ]
+    }
+  ]
+}

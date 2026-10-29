@@ -1,0 +1,182 @@
+{
+  "space_id": 0,
+  "scales": [
+    {
+      "name": "Red",
+      "swatches": [
+        {
+          "tone": "50",
+          "hex": "FFEBEE"
+        },
+        {
+          "tone": "100",
+          "hex": "FFCDD2"
+        },
+        {
+          "tone": "200",
+          "hex": "EF9A9A"
+        },
+        {
+          "tone": "300",
+          "hex": "E57373"
+        },
+        {
+          "tone": "400",
+          "hex": "EF5350"
+        },
+        {
+          "tone": "500",
+          "hex": "F44336"
+        },
+        {
+          "tone": "600",
+          "hex": "E53935"
+        },
+        {
+          "tone": "700",
+          "hex": "D32F2F"
+        },
+        {
+          "tone": "800",
+          "hex": "C62828"
+        },
+        {
+          "tone": "900",
+          "hex": "B71C1C"
+        },
+        {
+          "tone": "A100",
+          "hex": "FF8A80"
+        },
+        {
+          "tone": "A200",
+          "hex": "FF5252"
+        },
+        {
+          "tone": "A400",
+          "hex": "FF1744"
+        },
+        {
+          "tone": "A700",
+          "hex": "D50000"
+        }
+      ]
+    },
+    {
+      "name": "Deep Purple",
+      "swatches": [
+        {
+          "tone": "50",
+          "hex": "EDE7F6"
+        },
+        {
+          "tone": "100",
+          "hex": "D1C4E9"
+        },
+        {
+          "tone": "200",
+          "hex": "B39DDB"
+        },
+        {
+          "tone": "300",
+          "hex": "9575CD"
+        },
+        {
+          "tone": "400",
+          "hex": "7E57C2"
+        },
+        {
+          "tone": "500",
+          "hex": "673AB7"
+        },
+        {
+          "tone": "600",
+          "hex": "5E35B1"
+        },
+        {
+          "tone": "700",
+          "hex": "512DA8"
+        },
+        {
+          "tone": "800",
+          "hex": "4527A0"
+        },
+        {
+          "tone": "900",
+          "hex": "311B92"
+        },
+        {
+          "tone": "A100",
+          "hex": "B388FF"
+        },
+        {
+          "tone": "A200",
+          "hex": "7C4DFF"
+        },
+        {
+          "tone": "A400",
+          "hex": "651FFF"
+        },
+        {
+          "tone": "A700",
+          "hex": "6200EA"
+        }
+      ]
+    },
+    {
+      "name": "Gray",
+      "swatches": [
+        {
+          "tone": "50",
+          "hex": "FAFAFA"
+        },
+        {
+          "tone": "100",
+          "hex": "F5F5F5"
+        },
+        {
+          "tone": "200",
+          "hex": "EEEEEE"
+        },
+        {
+          "tone": "300",
+          "hex": "E0E0E0"
+        },
+        {
+          "tone": "400",
+          "hex": "BDBDBD"
+        },
+        {
+          "tone": "500",
+          "hex": "9E9E9E"
+        },
+        {
+          "tone": "600",
+          "hex": "757575"
+        },
+        {
+          "tone": "700",
+          "hex": "616161"
+        },
+        {
+          "tone": "800",
+          "hex": "424242"
+        },
+        {
+          "tone": "900",
+          "hex": "212121"
+        }
+      ]
+    }
+  ],
+  "standalone": [
+    {
+      "name": "Black",
+      "hex": "000000"
+    },
+    {
+      "name": "White",
+      "hex": "FFFFFF"
+    }
+  ]
+}

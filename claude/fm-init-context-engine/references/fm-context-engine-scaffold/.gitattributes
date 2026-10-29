@@ -1,0 +1,11 @@
+# Template files are copied verbatim into target projects — keep line endings
+# deterministic (LF in repo and working tree) so installs are byte-identical
+# regardless of the machine's core.autocrlf setting.
+#
+# The sh commit-msg hook is the load-bearing case: CRLF in a #!/bin/sh script
+# breaks execution in some environments ("\r: command not found").
+
+* text=auto
+templates/** text eol=lf
+docs/** text eol=lf
+*.md text eol=lf

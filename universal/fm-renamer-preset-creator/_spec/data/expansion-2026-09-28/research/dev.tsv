@@ -1,0 +1,3395 @@
+term	pack	confidence	note
+Kotlin	dev	high	JVM language (kotlinlang.org)
+Kotlin Multiplatform	dev	high	JetBrains cross-platform Kotlin
+Zig	dev	high	systems language (ziglang.org)
+Nim	dev	high	systems language; also rare English word
+Elixir	dev	high	BEAM language; also common word
+Erlang	dev	high	BEAM language
+Haskell	dev	high	functional language
+Clojure	dev	high	JVM Lisp
+ClojureScript	dev	high	Clojure compiling to JS; internal caps
+Scala	dev	high	JVM language
+Groovy	dev	high	JVM language; also common word
+Dart	dev	high	Google language (dart.dev); also common word
+Julia	dev	high	scientific language; also a given name
+Lua	dev	high	scripting language (lua.org)
+Luau	dev	high	Roblox Lua dialect (luau.org)
+MoonScript	dev	high	language compiling to Lua; internal caps
+Fortran	dev	high	modern official casing (not FORTRAN)
+Delphi	dev	high	Object Pascal IDE/language
+Gleam	dev	high	BEAM language (gleam.run); also common word
+Mojo	dev	high	Modular language; also common word
+Odin	dev	high	systems language; also a name
+Vala	dev	high	GNOME language
+Haxe	dev	high	cross-platform language (haxe.org)
+Raku	dev	high	formerly Perl 6
+Solidity	dev	high	Ethereum smart-contract language; also common word
+Vyper	dev	high	Ethereum smart-contract language
+VHDL	dev	high	hardware description language
+Verilog	dev	high	hardware description language
+SystemVerilog	dev	high	HDL; internal caps
+TypeSpec	dev	high	Microsoft API description language (typespec.io)
+Cython	dev	high	Python C-extension language (cython.org)
+Smalltalk	dev	high	OO language
+Prolog	dev	high	logic language
+Racket	dev	high	Lisp dialect; also common word
+Agda	dev	high	dependently typed language
+Coq	dev	high	proof assistant (renamed Rocq in 2025)
+Rocq	dev	high	Rocq Prover (formerly Coq)
+Idris	dev	medium	dependently typed language
+APL	dev	high	array language acronym
+ABAP	dev	high	SAP language
+Apex	dev	high	Salesforce language; also common word
+VBA	dev	high	Visual Basic for Applications
+VB.NET	dev	high	Visual Basic .NET
+VB6	dev	high	Visual Basic 6
+JScript	dev	high	Microsoft JS dialect; internal caps
+Carbon	dev	medium	Google experimental C++ successor; also common word
+Pascal	dev	medium	language; also a name/unit
+Object Pascal	dev	high	Pascal dialect
+Free Pascal	dev	high	Pascal compiler (freepascal.org)
+Lazarus	dev	medium	Free Pascal IDE; also biblical name
+Ada	dev	medium	language; also a name
+Octave	dev	medium	GNU Octave; also music word
+GNU Octave	dev	high	MATLAB-like language
+Scheme	dev	medium	Lisp dialect; also common word
+Common Lisp	dev	high	Lisp dialect
+Emacs Lisp	dev	high	Emacs extension language
+Elisp	dev	high	Emacs Lisp short name
+Fennel	dev	medium	Lisp on Lua; also common word
+Janet	dev	medium	Lisp-like language; also a name
+Chapel	dev	medium	parallel language; also common word
+Pony	dev	low	actor language; also common word
+MoonBit	dev	high	WASM-first language (moonbitlang.com); internal caps
+Roc	dev	medium	functional language (roc-lang.org)
+Hare	dev	low	systems language; also common word
+Wren	dev	medium	scripting language; also a bird
+Squirrel	dev	low	scripting language; also common word
+AngelScript	dev	high	game scripting language; internal caps
+UnrealScript	dev	high	legacy Unreal scripting language
+GML	dev	medium	GameMaker Language acronym
+Metal	dev	high	Apple GPU API/shading language; also common word
+Vulkan	dev	high	Khronos GPU API
+SPIR-V	dev	high	Khronos shader IR
+ShaderLab	dev	high	Unity shader language; internal caps
+Slang	dev	medium	shading language (shader-slang.org); also common word
+HCL	dev	high	HashiCorp Configuration Language
+Bicep	dev	high	Azure IaC language; also common word
+Starlark	dev	high	Bazel config language
+Jsonnet	dev	high	data templating language (jsonnet.org)
+CUE	dev	high	configuration language (cuelang.org); also common word
+Dhall	dev	high	configuration language
+Pkl	dev	high	Apple configuration language (pkl-lang.org)
+KCL	dev	medium	CNCF configuration language
+Nix	os	high	Nix language / package manager
+Rego	security	high	OPA policy language
+Cypher	dev	high	Neo4j query language; also common word
+openCypher	dev	high	open Cypher spec; lowercase start
+GQL	dev	medium	ISO graph query language (distinct from GraphQL)
+SPARQL	web	high	RDF query language
+KQL	dev	high	Kusto Query Language
+PromQL	dev	high	Prometheus query language
+LogQL	dev	high	Grafana Loki query language
+TraceQL	dev	high	Grafana Tempo query language
+HiveQL	dev	high	Hive query language
+Power Query	dev	high	Microsoft data transformation (M language)
+DAX	dev	high	Data Analysis Expressions (Power BI)
+M365	cloud	high	Microsoft 365 abbreviation
+Mermaid	dev	high	diagram-as-code tool; also common word
+PlantUML	dev	high	diagram-as-code; internal caps
+Graphviz	dev	high	graph visualization (graphviz.org)
+DOT	dev	medium	Graphviz DOT language; also common word
+D2	dev	medium	Terrastruct diagram language (2 chars)
+Typst	dev	high	typesetting language (typst.app)
+LaTeX	dev	high	typesetting system; internal caps
+BibTeX	dev	high	LaTeX bibliography tool
+XeLaTeX	dev	high	LaTeX engine
+LuaTeX	dev	high	TeX engine
+LuaLaTeX	dev	high	LaTeX engine
+pdfLaTeX	dev	high	LaTeX engine; lowercase start
+MiKTeX	dev	high	Windows TeX distribution
+TeX Live	dev	high	TeX distribution
+Overleaf	cloud	high	online LaTeX editor
+KaTeX	web	high	math rendering library (katex.org)
+MathJax	web	high	math rendering library
+AsciiMath	web	medium	math markup
+Pug	dev	high	HTML template engine; also common word
+Haml	dev	high	HTML template language
+Liquid	dev	high	Shopify template language; also common word
+Jinja	dev	high	Python template engine
+Jinja2	dev	high	Jinja version 2
+Nunjucks	dev	high	Mozilla JS template engine
+Mustache	dev	high	logic-less templates; also common word
+Twig	dev	high	PHP template engine; also common word
+Blade	dev	high	Laravel template engine; also common word
+Razor	dev	high	ASP.NET markup syntax; also common word
+Thymeleaf	dev	high	Java template engine
+templ	dev	medium	Go HTML templating (templ.guide writes lowercase)
+Less	dev	high	CSS preprocessor; also common word
+Stylus	dev	high	CSS preprocessor; also common word
+TSX	dev	high	TypeScript JSX
+MJS	dev	medium	ES module file extension
+CJS	dev	high	CommonJS abbreviation
+MTS	dev	low	TypeScript ESM extension; ambiguous acronym
+Markdown	web	high	markup language (capital M)
+GFM	web	high	GitHub Flavored Markdown
+MyST	web	medium	MyST Markdown (Jupyter Book)
+Djot	web	medium	markup language
+Org mode	dev	medium	Emacs outline format (orgmode.org writes Org mode)
+Textile	web	low	markup language; also common word
+BBCode	web	high	bulletin board markup
+KDL	web	high	KDL document language (kdl.dev)
+HOCON	web	high	Human-Optimized Config Object Notation
+JSONC	web	high	JSON with comments
+Hjson	web	high	human JSON (hjson.github.io)
+JSON Schema	web	high	JSON validation vocabulary (json-schema.org)
+JSON-LD	web	high	linked data JSON (W3C)
+JSON-RPC	web	high	RPC protocol
+JSON Lines	web	high	newline-delimited JSON (jsonlines.org)
+JSON Patch	web	medium	RFC 6902
+JSON Pointer	web	medium	RFC 6901
+JSONPath	web	high	JSON query syntax; internal caps
+JMESPath	web	high	JSON query language
+XML-RPC	web	high	RPC protocol
+INI	web	high	config file format
+TSV	web	high	tab-separated values
+PSV	web	low	pipe-separated values
+Protocol Buffers	web	high	Google serialization (official long name)
+Avro	web	high	Apache Avro data format
+Apache Avro	web	high	serialization format
+Thrift	web	medium	Apache Thrift; also common word
+Apache Thrift	web	high	RPC/serialization framework
+Cap'n Proto	web	high	serialization format (capnproto.org)
+Parquet	web	high	columnar format; also common word (flooring)
+Apache Parquet	web	high	columnar storage format
+ORC	web	medium	Optimized Row Columnar format; also fantasy creature
+Apache Arrow	dev	high	columnar in-memory format
+Apache Iceberg	dev	high	open table format
+Apache Hudi	dev	high	lakehouse table format
+Delta Lake	dev	high	lakehouse table format
+NetCDF	web	high	scientific data format; internal caps
+HDF5	web	high	Hierarchical Data Format 5
+GeoJSON	web	high	geographic JSON (RFC 7946)
+TopoJSON	web	high	topology JSON
+GeoPackage	web	medium	OGC geospatial format
+GPX	web	high	GPS Exchange Format
+iCalendar	web	high	calendar format (RFC 5545); lowercase i
+iCal	web	high	calendar format / Apple app; lowercase i
+OPML	web	high	Outline Processor Markup Language
+JSON Feed	web	high	feed format (jsonfeed.org)
+Atom	web	low	syndication format; also common word
+WebFinger	web	high	RFC 7033 discovery protocol
+ActivityPub	web	high	W3C federation protocol
+ActivityStreams	web	high	W3C social vocabulary
+AT Protocol	web	high	Bluesky protocol (atproto.com)
+ATProto	web	medium	AT Protocol short name
+Nostr	web	high	decentralized protocol
+Open Graph	web	high	Open Graph protocol (ogp.me)
+oEmbed	web	high	embed protocol; lowercase o
+Schema.org	web	high	structured data vocabulary
+OData	web	high	Open Data Protocol; internal caps
+SOAP	web	high	XML messaging protocol; also common word
+REST	web	high	architectural style; also common word
+RESTful	web	high	REST-conforming
+CloudEvents	web	high	CNCF event spec
+Swagger	web	high	OpenAPI tooling / former spec name
+Swagger UI	web	high	OpenAPI docs UI
+SwaggerHub	web	high	SmartBear API platform
+RAML	web	high	RESTful API Modeling Language
+API Blueprint	web	medium	API description language
+gRPC-Web	web	high	gRPC for browsers
+ConnectRPC	dev	high	Buf's Connect RPC protocol
+Buf	dev	medium	protobuf tooling (buf.build); also common word
+Smithy	dev	medium	AWS interface definition language; also common word
+Base64	web	high	binary-to-text encoding
+Base64URL	web	medium	URL-safe Base64
+Base32	web	medium	binary-to-text encoding
+Base58	web	medium	Bitcoin-style encoding
+UTF-8	web	high	Unicode encoding (hyphenated form)
+UTF-16	web	high	Unicode encoding
+UTF-32	web	medium	Unicode encoding
+UCS-2	web	medium	legacy Unicode encoding
+Unicode	web	high	character standard
+Punycode	web	high	IDN encoding
+IDN	web	high	internationalized domain name
+CLDR	web	high	Unicode Common Locale Data Repository
+ICU	web	high	International Components for Unicode; also medical ICU
+BOM	web	medium	byte order mark; also bill of materials
+LF	web	low	line feed (2 chars)
+HTTP2	web	high	HTTP/2 without slash
+HTTP3	web	high	HTTP/3 without slash
+SPDY	web	high	Google protocol (HTTP/2 precursor)
+WebSub	web	high	W3C pub/sub protocol
+Server-Sent Events	web	high	SSE (WHATWG)
+EventSource	web	high	SSE browser API; internal caps
+Fetch API	web	high	browser fetch standard
+XMLHttpRequest	web	high	browser API; internal caps
+XHR	web	high	XMLHttpRequest abbreviation
+Shadow DOM	web	high	web component encapsulation
+Virtual DOM	web	high	UI diffing technique
+VDOM	web	medium	virtual DOM abbreviation
+CSSOM	web	high	CSS Object Model
+Web Components	web	high	custom elements standard
+Custom Elements	web	medium	web component API; plain words
+Service Worker	web	high	browser background worker
+Service Workers	web	high	plural
+Web Workers	web	high	browser threads
+Web Worker	web	high	singular
+WebUSB	web	high	browser USB API
+WebHID	web	high	browser HID API
+Web Serial	web	medium	browser serial API
+Web Bluetooth	web	medium	browser Bluetooth API
+WebCodecs	web	high	browser codec API
+Web Audio API	web	high	browser audio API
+Web MIDI	web	medium	browser MIDI API
+WebVR	web	high	deprecated VR API
+WebSQL	web	medium	deprecated Web SQL Database
+OPFS	web	high	Origin Private File System
+SharedArrayBuffer	web	high	JS shared memory; internal caps
+ArrayBuffer	web	high	JS binary buffer; internal caps
+IntersectionObserver	web	high	browser API; internal caps
+ResizeObserver	web	high	browser API; internal caps
+MutationObserver	web	high	browser API; internal caps
+AbortController	web	high	browser API; internal caps
+structuredClone	web	high	browser API; lowercase start
+requestAnimationFrame	web	high	browser API; lowercase start
+requestIdleCallback	web	high	browser API; lowercase start
+querySelectorAll	web	high	DOM API; lowercase start
+removeEventListener	web	high	DOM API; lowercase start
+getBoundingClientRect	web	high	DOM API; lowercase start
+createElement	web	high	DOM API; lowercase start
+appendChild	web	high	DOM API; lowercase start
+textContent	web	high	DOM property; lowercase start
+outerHTML	web	high	DOM property; lowercase start
+postMessage	web	high	browser API; lowercase start
+globalThis	web	high	JS global; lowercase start
+console.log	web	medium	JS logging call
+JSON.stringify	web	medium	JS API
+JSON.parse	web	medium	JS API
+Promise.all	web	medium	JS API
+TC39	web	high	ECMAScript committee
+WCAG	web	high	Web Content Accessibility Guidelines
+ARIA	web	high	accessibility attributes; also musical term/name
+WAI-ARIA	web	high	W3C accessibility spec
+WAI	web	medium	W3C Web Accessibility Initiative
+VPAT	web	high	accessibility conformance report
+SPA	web	high	single-page application; also common word (spa)
+SPAs	web	high	plural
+MPA	web	high	multi-page application
+PWAs	web	high	plural of PWA
+ISR	web	high	incremental static regeneration
+RSC	web	high	React Server Components
+RSCs	web	high	plural
+Server Components	web	high	React Server Components short form
+Server Actions	web	medium	React/Next.js feature
+App Router	dev	high	Next.js router
+Pages Router	dev	high	Next.js legacy router
+Core Web Vitals	web	high	Google UX metrics
+LCP	web	high	Largest Contentful Paint
+INP	web	high	Interaction to Next Paint
+CLS	web	high	Cumulative Layout Shift
+FCP	web	high	First Contentful Paint
+TBT	web	medium	Total Blocking Time
+TTI	web	medium	Time to Interactive
+FID	web	medium	First Input Delay (retired metric)
+CrUX	web	high	Chrome UX Report; mixed case
+Lighthouse	web	high	Google auditing tool; also common word
+Lighthouse CI	web	high	Lighthouse in CI
+AMP	web	medium	Accelerated Mobile Pages; also common word
+robots.txt	web	high	crawler directives file
+sitemap.xml	web	high	sitemap file
+llms.txt	web	high	LLM site guidance file (llmstxt.org)
+security.txt	web	high	RFC 9116 file
+ads.txt	web	medium	IAB authorized sellers file
+ICANN	web	high	domain name authority
+WHOIS	web	high	domain lookup protocol
+RDAP	web	high	WHOIS successor
+gTLD	web	high	generic TLD; lowercase start
+ccTLD	web	high	country-code TLD; lowercase start
+TLDs	web	high	plural
+DoQ	web	medium	DNS over QUIC
+ECH	web	high	Encrypted Client Hello
+ESNI	web	medium	Encrypted SNI (superseded by ECH)
+HAR	web	high	HTTP Archive file
+CORP	web	medium	Cross-Origin Resource Policy; also word-like
+COOP	web	medium	Cross-Origin Opener Policy; also common word (coop)
+COEP	web	medium	Cross-Origin Embedder Policy
+SRI	web	high	Subresource Integrity
+SameSite	web	high	cookie attribute; internal caps
+HttpOnly	web	high	cookie attribute; internal caps
+FedCM	web	high	Federated Credential Management
+CSS Grid	web	high	CSS layout module
+Flexbox	web	high	CSS flexible box layout
+Container Queries	web	medium	CSS feature
+View Transitions	web	medium	browser API
+Popover API	web	medium	browser API
+CSS Nesting	web	medium	CSS feature
+CSS Modules	web	high	scoped CSS convention
+CSS-in-JS	web	high	styling approach
+OKLCH	web	medium	CSS color space (spec writes OkLCh; OKLCH common)
+Oklab	web	high	color space (Björn Ottosson; CSS Color 4)
+Display P3	web	medium	wide-gamut color space
+HWB	web	medium	CSS hue-whiteness-blackness color
+BEM	web	high	Block Element Modifier CSS methodology
+CUBE CSS	web	medium	CSS methodology
+Atomic CSS	web	medium	CSS methodology
+Normalize.css	web	high	CSS reset library
+modern-normalize	web	medium	CSS reset library; lowercase
+Open Props	web	high	CSS custom properties library
+Pico CSS	web	high	minimal CSS framework
+Water.css	web	medium	classless CSS
+Tachyons	web	medium	functional CSS library
+Pure.css	web	medium	Yahoo CSS library
+Animate.css	web	high	CSS animation library
+JPEG XL	web	high	image format
+JXL	web	high	JPEG XL file extension
+HEIF	web	high	High Efficiency Image Format
+APNG	web	high	animated PNG
+QOI	web	medium	Quite OK Image format
+dotLottie	web	high	Lottie container format; lowercase start
+SVGR	dev	high	SVG to React transformer
+Blink	web	high	Chromium engine; also common word
+Gecko	web	high	Firefox engine
+EdgeHTML	web	high	legacy Edge engine; internal caps
+Trident	web	medium	IE engine; also common word
+Chromium	web	high	open-source browser
+Servo	web	high	Rust browser engine
+Ladybird	web	high	independent browser; also common word
+Vivaldi	web	high	browser; also composer name
+Safari	web	high	Apple browser; also common word
+Microsoft Edge	web	high	browser (spaced form)
+Zen Browser	web	high	Firefox-based browser
+Floorp	web	high	Firefox-based browser
+Waterfox	web	high	Firefox-based browser
+Tor Browser	web	high	privacy browser
+Firefox Nightly	web	high	Firefox pre-release channel
+Firefox Developer Edition	web	high	Firefox dev channel
+Chrome Canary	web	high	Chrome pre-release channel
+Chrome DevTools	web	high	browser devtools
+Chrome Web Store	web	high	extension store
+Manifest V3	web	high	browser extension platform
+Manifest V2	web	high	legacy extension platform
+MV3	web	high	Manifest V3 abbreviation
+web-ext	dev	high	Mozilla extension CLI; lowercase
+WXT	dev	high	web extension framework (wxt.dev)
+Plasmo	dev	high	browser extension framework
+CRXJS	dev	high	Vite plugin for Chrome extensions
+CRX	web	high	Chrome extension package
+AMO	web	medium	addons.mozilla.org
+Tampermonkey	web	high	userscript manager
+Violentmonkey	web	high	userscript manager
+Greasemonkey	web	high	userscript manager
+VXLAN	web	high	virtual extensible LAN
+SD-WAN	web	high	software-defined WAN
+NFV	web	medium	network functions virtualization
+RTT	web	high	round-trip time
+SCP	web	high	secure copy; also SCP Foundation
+Telnet	web	high	legacy remote protocol
+PTP	web	medium	Precision Time Protocol / Picture Transfer Protocol
+Syslog	web	high	logging protocol
+STOMP	web	high	messaging protocol; also common word
+CoAP	web	high	Constrained Application Protocol; mixed case
+SIP	web	high	Session Initiation Protocol; also common word (sip)
+SRT	web	high	Secure Reliable Transport / SubRip subtitles
+MPEG-DASH	web	high	adaptive streaming standard
+LLDP	web	medium	Link Layer Discovery Protocol
+VRRP	web	medium	Virtual Router Redundancy Protocol
+HSRP	web	medium	Cisco Hot Standby Router Protocol
+IPAM	web	high	IP address management
+DHCPv6	web	high	DHCP for IPv6
+SLAAC	web	high	IPv6 stateless autoconfiguration
+ICMPv6	web	high	ICMP for IPv6
+NAT64	web	medium	IPv6-IPv4 translation
+IKEv2	web	high	Internet Key Exchange v2
+L2TP	web	high	Layer 2 Tunneling Protocol
+GRE	web	medium	Generic Routing Encapsulation
+LLMNR	web	medium	Link-Local Multicast Name Resolution
+Zeroconf	web	medium	zero-configuration networking
+Bonjour	web	medium	Apple zeroconf; also French word
+SMB3	web	medium	SMB version 3
+SMBv1	web	medium	legacy SMB version
+NFSv4	web	high	NFS version 4
+VLANs	web	high	plural
+LANs	web	medium	plural
+WANs	web	medium	plural
+NICs	web	medium	plural
+RFCs	web	high	plural
+Wget	dev	high	GNU Wget (official capital W)
+aria2	os	high	download utility; lowercase
+socat	os	high	socket relay tool; lowercase
+rsync	os	high	file sync tool; lowercase
+Wireshark	security	high	packet analyzer
+TShark	security	medium	Wireshark CLI
+mitmproxy	security	high	intercepting proxy; lowercase
+Fiddler	dev	high	Telerik web debugging proxy; also common word
+Charles Proxy	dev	high	HTTP debugging proxy
+Proxyman	dev	high	HTTP debugging proxy
+localtunnel	dev	medium	tunneling tool; lowercase
+React	dev	high	UI library (react.dev); also common word
+React Native	dev	high	mobile framework
+React Router	dev	high	routing library / framework (v7)
+React Query	dev	high	former name of TanStack Query
+React Hook Form	dev	high	form library (react-hook-form.com)
+React Email	dev	high	email components (react.email)
+React Aria	dev	high	Adobe accessibility hooks
+React Spectrum	dev	high	Adobe design system
+React Three Fiber	dev	high	React renderer for Three.js
+R3F	dev	high	React Three Fiber abbreviation
+React Flow	dev	high	node graph library (xyflow)
+React Bits	dev	high	animated component collection
+React Compiler	dev	high	React auto-memoizing compiler
+React Native Reusables	dev	high	shadcn-style RN components
+ReactDOM	dev	high	react-dom API object; internal caps
+Preact	dev	high	lightweight React alternative
+Remix	dev	high	full-stack web framework; also common word
+Gatsby	dev	high	React static site framework; also a name
+Svelte	dev	high	UI compiler framework
+Angular	dev	high	Google framework; also common word
+Angular Material	dev	high	Angular component library
+Vue	dev	high	Vue.js short name
+Nuxt	dev	high	Vue meta-framework (current casing; Nuxt.js legacy)
+Nuxt UI	dev	high	Nuxt component library
+Lit	dev	high	Google web components library; also common word
+Stencil	dev	high	Ionic web component compiler; also common word
+Ember.js	dev	high	JS framework
+Backbone.js	dev	high	JS MVC library
+Alpine.js	dev	high	lightweight JS framework (dotted form)
+Hotwire	dev	high	Basecamp HTML-over-the-wire
+Stimulus	dev	high	Hotwire JS framework; also common word
+Marko	dev	high	eBay UI framework
+Riot.js	dev	medium	UI library
+Meteor	dev	high	full-stack JS platform; also common word
+Waku	dev	high	minimal React framework
+Analog	dev	low	Angular meta-framework; also common word
+TanStack Start	dev	high	full-stack React framework
+TanStack Query	dev	high	async state library
+TanStack Router	dev	high	type-safe router
+TanStack Table	dev	high	headless table library
+TanStack Form	dev	high	form library
+TanStack DB	dev	high	client DB library
+TanStack Virtual	dev	high	virtualization library
+SWR	dev	high	Vercel data-fetching hooks
+Redux Toolkit	dev	high	official Redux toolset
+RTK Query	dev	high	Redux Toolkit data fetching
+RTK	dev	medium	Redux Toolkit abbreviation
+Zustand	dev	high	state management library
+Jotai	dev	high	atomic state library
+Recoil	dev	high	Meta state library; also common word
+Valtio	dev	high	proxy state library
+Pinia	dev	high	Vue store
+Vuex	dev	high	legacy Vue store
+Immer	dev	high	immutable state library
+Lodash	dev	high	utility library
+Underscore.js	dev	high	utility library
+Ramda	dev	high	functional utility library
+date-fns	dev	high	date utility library; lowercase
+Moment.js	dev	high	date library
+Luxon	dev	high	date library
+Day.js	dev	high	date library (dotted form)
+Axios	dev	high	HTTP client
+ofetch	dev	high	UnJS fetch wrapper; lowercase
+Yup	dev	high	schema validation; also common word
+Joi	dev	high	schema validation
+Valibot	dev	high	schema validation
+ArkType	dev	high	runtime type validation; internal caps
+Ajv	dev	high	JSON Schema validator
+TypeBox	dev	high	JSON Schema type builder; internal caps
+Standard Schema	dev	medium	validator interface spec
+Formik	dev	high	React form library
+Mantine	dev	high	React component library
+Chakra UI	dev	high	React component library (spaced)
+Material UI	dev	high	MUI React components
+Joy UI	dev	high	MUI component library
+Base UI	dev	high	unstyled components (MUI/Radix team)
+Ant Design	dev	high	React UI library
+Semantic UI	dev	high	UI framework
+Bulma	dev	high	CSS framework
+Tailwind	dev	high	Tailwind CSS short name; also common word
+Tailwind CSS	dev	high	utility CSS framework (spaced form)
+Tailwind UI	dev	high	former name of Tailwind Plus
+Tailwind Plus	dev	high	Tailwind Labs component kits (renamed 2025)
+Tailwind Variants	dev	high	variant API for Tailwind
+Tailwind Labs	dev	high	company behind Tailwind CSS
+tailwind-merge	dev	high	class merge utility; lowercase
+tailwindcss-animate	dev	high	Tailwind plugin; lowercase
+tw-animate-css	dev	high	shadcn v4 animation CSS; lowercase
+Catalyst	dev	medium	Tailwind Plus app UI kit; also common word
+Flowbite	dev	high	Tailwind component library
+Preline	dev	high	Tailwind component library
+HeroUI	dev	high	React UI library formerly NextUI (heroui.com)
+NextUI	dev	high	former name of HeroUI
+Park UI	dev	high	Ark UI styled components
+Ark UI	dev	high	headless components (Chakra team)
+Radix Themes	dev	high	Radix styled components
+Radix Primitives	dev	high	Radix headless components
+Radix Colors	dev	high	Radix color scales
+Magic UI	dev	high	animated shadcn-style components
+Aceternity UI	dev	high	animated component collection
+Origin UI	dev	medium	shadcn-style component collection
+Kibo UI	dev	medium	shadcn registry components
+shadcn-vue	dev	high	Vue port of shadcn/ui
+shadcn-svelte	dev	high	Svelte port of shadcn/ui
+tweakcn	dev	medium	shadcn theme editor; lowercase
+class-variance-authority	dev	high	CVA variant utility
+clsx	dev	high	classnames utility; lowercase
+cmdk	dev	high	command menu component; lowercase
+Sonner	dev	high	toast component
+Vaul	dev	high	drawer component
+Lucide	dev	high	icon library (lucide.dev)
+Phosphor Icons	dev	high	icon family
+Tabler Icons	dev	high	icon set
+Material Symbols	dev	high	Google icon font
+Remix Icon	dev	high	icon set
+Bootstrap Icons	dev	high	icon set
+Feather Icons	dev	medium	icon set
+Ionicons	dev	high	Ionic icon set
+Octicons	dev	high	GitHub icon set
+Codicons	dev	high	VS Code icon set
+Fluent UI	dev	high	Microsoft design system
+Fluent 2	dev	high	Microsoft design language
+Fluent Design	dev	high	Microsoft design language
+Carbon Design System	dev	high	IBM design system
+Primer	dev	medium	GitHub design system; also common word
+Polaris	dev	medium	Shopify design system; also a star
+Material Design	dev	high	Google design language
+Material 3	dev	high	Material Design 3
+Material You	dev	high	Material Design 3 branding
+Cupertino	dev	medium	Apple-style widgets (Flutter); also a city
+Grommet	dev	medium	React UI framework
+Vuetify	dev	high	Vue component library
+Quasar	dev	high	Vue framework; also astronomy term
+Element Plus	dev	high	Vue 3 component library
+Naive UI	dev	high	Vue 3 component library
+Ionic	dev	high	hybrid mobile UI toolkit; also common word
+Onsen UI	dev	medium	hybrid mobile UI
+Framework7	dev	high	mobile UI framework
+Shoelace	dev	high	web components library; also common word
+Web Awesome	dev	high	Shoelace successor (Font Awesome)
+Tamagui	dev	high	universal React UI kit
+NativeWind	dev	high	Tailwind for React Native
+gluestack-ui	dev	high	universal component library; lowercase
+Unistyles	dev	medium	React Native styling library
+styled-components	dev	high	CSS-in-JS library; lowercase
+vanilla-extract	dev	high	zero-runtime CSS-in-TS; lowercase
+Panda CSS	dev	high	CSS-in-JS (Chakra team)
+UnoCSS	dev	high	atomic CSS engine; internal caps
+Windi CSS	dev	high	Tailwind-compatible CSS (sunset)
+StyleX	dev	high	Meta styling system; internal caps
+Linaria	dev	medium	zero-runtime CSS-in-JS
+Chromatic	dev	high	Storybook visual testing; also common word
+Ladle	dev	medium	Storybook alternative; also common word
+Histoire	dev	medium	Vue/Svelte story tool
+Slidev	dev	high	Markdown slides for developers
+reveal.js	dev	high	HTML presentations; lowercase
+Marp	dev	high	Markdown presentations
+impress.js	dev	medium	HTML presentations; lowercase
+Embla Carousel	dev	high	carousel library
+Swiper	dev	high	slider library
+Splide	dev	medium	slider library
+Floating UI	dev	high	positioning library (Popper successor)
+Popper	dev	medium	positioning library
+Tippy.js	dev	high	tooltip library
+dnd-kit	dev	medium	React drag-and-drop toolkit (site writes dnd kit)
+SortableJS	dev	high	drag-and-drop list library
+Tiptap	dev	high	headless editor (tiptap.dev; not TipTap)
+ProseMirror	dev	high	rich-text toolkit
+Lexical	dev	high	Meta editor framework; also common word
+Slate	dev	medium	rich-text framework; also common word
+Quill	dev	medium	rich-text editor; also common word
+TinyMCE	dev	high	rich-text editor
+Editor.js	dev	high	block editor
+BlockNote	dev	high	block-based editor
+Monaco Editor	dev	high	VS Code editor component
+Shiki	dev	high	syntax highlighter
+highlight.js	dev	high	syntax highlighter; lowercase
+markdown-it	dev	high	Markdown parser; lowercase
+Markdoc	dev	high	Stripe Markdown framework
+rehype	dev	high	HTML processor (unified); lowercase
+remark	dev	medium	Markdown processor (unified); lowercase; also common word
+Excalidraw	dev	high	virtual whiteboard
+tldraw	dev	high	infinite canvas SDK; lowercase
+draw.io	dev	high	diagram tool; lowercase
+diagrams.net	dev	high	draw.io web domain name
+Lucidchart	dev	high	diagramming SaaS
+Penpot	dev	high	open-source design tool
+Zeplin	dev	high	design handoff tool
+Figma Make	dev	high	Figma AI prototyping tool
+Tokens Studio	dev	high	design tokens Figma plugin (tokens.studio)
+Style Dictionary	dev	high	design token build tool
+DTCG	web	high	Design Tokens Community Group format
+Anime.js	dev	high	animation library
+Motion	dev	medium	animation library formerly Framer Motion; also common word
+Lottie	dev	high	animation format/library
+Rive	dev	high	interactive animation tool
+Theatre.js	dev	high	animation editor library
+PixiJS	dev	high	2D WebGL renderer; internal caps
+Phaser	dev	high	HTML5 game framework; also common word
+p5.js	dev	high	creative coding library; lowercase
+Paper.js	dev	high	vector graphics library
+Fabric.js	dev	high	canvas library
+Konva	dev	high	canvas library
+Babylon.js	dev	high	3D engine (dotted form)
+A-Frame	dev	high	WebXR framework
+Drei	dev	medium	React Three Fiber helpers
+Recharts	dev	high	React charts
+nivo	dev	medium	React data viz (nivo.rocks writes lowercase)
+visx	dev	high	Airbnb visualization primitives; lowercase
+ApexCharts	dev	high	charting library; internal caps
+Highcharts	dev	high	charting library
+Plotly	dev	high	charting library
+Vega-Lite	dev	high	visualization grammar
+Observable Plot	dev	high	charting library
+AG Grid	dev	high	data grid
+Handsontable	dev	high	spreadsheet grid
+Tabulator	dev	medium	table library
+xyflow	dev	medium	React Flow / Svelte Flow org; lowercase
+Svelte Flow	dev	high	node graph library for Svelte
+Vue Flow	dev	medium	node graph library for Vue
+Leaflet	dev	high	map library; also common word
+Mapbox	dev	high	mapping platform
+MapLibre	dev	high	open map rendering; internal caps
+deck.gl	dev	high	WebGL data viz; lowercase
+CesiumJS	dev	high	3D globe library
+Turf.js	dev	high	geospatial analysis
+useLayoutEffect	dev	high	React hook; lowercase start
+useTransition	dev	high	React hook; lowercase start
+useOptimistic	dev	high	React hook; lowercase start
+useActionState	dev	high	React hook; lowercase start
+useSyncExternalStore	dev	high	React hook; lowercase start
+useDeferredValue	dev	high	React hook; lowercase start
+useImperativeHandle	dev	high	React hook; lowercase start
+useFormStatus	dev	high	React DOM hook; lowercase start
+useId	dev	high	React hook; lowercase start
+useQuery	dev	high	TanStack Query hook; lowercase start
+useMutation	dev	high	TanStack Query hook; lowercase start
+useSWR	dev	high	SWR hook; lowercase start
+useRouter	dev	high	Next.js hook; lowercase start
+useNavigate	dev	high	React Router hook; lowercase start
+useParams	dev	high	router hook; lowercase start
+useSearchParams	dev	high	router hook; lowercase start
+useForm	dev	high	React Hook Form hook; lowercase start
+Vite	dev	high	frontend build tool (vite.dev)
+Rollup	dev	high	JS bundler; also common word
+Rolldown	dev	high	Rust bundler for Vite (VoidZero)
+Rspack	dev	high	Rust webpack-compatible bundler (rspack.rs)
+Rsbuild	dev	high	Rspack-based build tool
+Rslib	dev	high	Rspack library builder
+Rspress	dev	high	Rspack static site generator
+Rsdoctor	dev	high	Rspack build analyzer
+Rstest	dev	high	Rspack-based test runner (rstest.rs)
+Rstack	dev	medium	Rspack tool family name
+Turbopack	dev	high	Vercel Rust bundler
+Parcel	dev	high	zero-config bundler; also common word
+Babel	dev	high	JS compiler; also common word
+Browserify	dev	high	legacy bundler
+Snowpack	dev	high	legacy ESM build tool
+Gulp	dev	high	task runner; also common word
+Grunt	dev	high	task runner; also common word
+tsup	dev	high	TS bundler; lowercase
+tsdown	dev	high	Rolldown-based library bundler; lowercase
+unbuild	dev	high	UnJS build tool; lowercase
+ts-node	dev	high	TS execution for Node; lowercase
+tsgo	dev	high	TypeScript 7 native (Go) compiler CLI; lowercase
+Oxc	dev	high	JavaScript Oxidation Compiler (oxc.rs)
+Oxlint	dev	high	Oxc linter (oxc.rs)
+Oxfmt	dev	high	Oxc formatter (oxc.rs)
+VoidZero	dev	high	company behind Vite/Vitest/Rolldown/Oxc
+UnJS	dev	high	unified JS tooling org; internal caps
+dprint	dev	high	code formatter; lowercase
+Lightning CSS	dev	high	Rust CSS transformer
+cssnano	dev	high	CSS minifier; lowercase
+Autoprefixer	dev	high	PostCSS vendor prefixer
+Terser	dev	high	JS minifier
+UglifyJS	dev	high	legacy JS minifier; internal caps
+Closure Compiler	dev	high	Google JS optimizer
+typescript-eslint	dev	high	TS ESLint tooling; lowercase
+Lerna	dev	high	JS monorepo tool
+moonrepo	dev	high	moon build system org; lowercase (moonrepo.dev)
+Bazel	dev	high	Google build system
+Buck2	dev	high	Meta build system
+Ninja	dev	medium	build system; also common word
+Meson	dev	high	build system; also physics term
+Maven	dev	high	Java build tool (Apache Maven)
+Apache Ant	dev	high	Java build tool
+sbt	dev	high	Scala build tool; lowercase
+Leiningen	dev	high	Clojure build tool
+Premake	dev	high	build configuration tool
+xmake	dev	high	Lua-based build utility; lowercase
+Cargo	dev	medium	Rust package manager; also common word
+crates.io	dev	high	Rust package registry; lowercase
+Clippy	dev	medium	Rust linter; also MS Office assistant
+rustfmt	dev	high	Rust formatter; lowercase
+rust-analyzer	dev	high	Rust language server; lowercase
+gopls	dev	high	Go language server; lowercase
+golangci-lint	dev	high	Go linter aggregator; lowercase
+Delve	dev	medium	Go debugger; also common word
+GoReleaser	dev	high	Go release automation
+vcpkg	dev	high	Microsoft C++ package manager; lowercase
+Conan	dev	medium	C/C++ package manager; also a name
+Changesets	dev	high	versioning/changelog tool
+Renovate	dev	high	dependency update bot; also common word
+Dependabot	dev	high	GitHub dependency bot
+Husky	dev	high	Git hooks manager; also common word
+lint-staged	dev	high	run linters on staged files; lowercase
+Lefthook	dev	high	Git hooks manager
+commitlint	dev	high	commit message linter; lowercase
+Commitizen	dev	high	conventional commit CLI
+Conventional Commits	dev	high	commit message spec
+semantic-release	dev	high	release automation; lowercase
+release-it	dev	high	release automation; lowercase
+Verdaccio	dev	high	private npm registry
+Knip	dev	high	unused code finder
+madge	dev	medium	dependency graph tool; lowercase
+publint	dev	medium	package lint tool; lowercase
+Module Federation	dev	high	micro-frontend runtime
+single-spa	dev	high	micro-frontend framework; lowercase
+Workbox	dev	high	Google service worker library
+Browsersync	dev	high	live-reload server
+nodemon	dev	high	Node auto-restart tool; lowercase
+zx	dev	high	Google shell scripting in JS; lowercase
+execa	dev	medium	process execution library; lowercase
+Commander.js	dev	high	CLI framework
+yargs	dev	high	CLI argument parser; lowercase
+oclif	dev	high	Salesforce CLI framework; lowercase
+Inquirer.js	dev	high	CLI prompts
+picocolors	dev	medium	terminal colors library; lowercase
+chalk	dev	medium	terminal colors library; lowercase; also common word
+dotenv	dev	high	env file loader; lowercase
+dotenvx	dev	high	encrypted dotenv; lowercase
+cross-env	dev	high	cross-platform env vars; lowercase
+rimraf	dev	high	rm -rf for Node; lowercase
+node_modules	dev	high	npm dependency folder
+package.json	dev	high	npm manifest
+package-lock.json	dev	high	npm lockfile
+pnpm-lock.yaml	dev	medium	pnpm lockfile
+tsconfig.json	dev	high	TypeScript config
+pyproject.toml	dev	high	Python project config
+Cargo.toml	dev	high	Rust manifest
+go.mod	dev	high	Go module file
+Corepack	dev	high	Node package manager shim
+Yarn	dev	high	JS package manager; also common word
+Yarn Berry	dev	high	Yarn 2+ codename
+Volta	dev	medium	JS toolchain manager; also a name
+nvm-windows	dev	high	Node version manager for Windows
+mise	dev	high	polyglot tool version manager (mise.jdx.dev); lowercase
+Homebrew	dev	high	macOS/Linux package manager
+MacPorts	dev	high	macOS package manager
+Chocolatey	dev	high	Windows package manager
+Scoop	dev	medium	Windows package manager; also common word
+UniGetUI	dev	high	Windows package manager GUI (formerly WingetUI)
+WingetUI	dev	medium	former name of UniGetUI
+Ninite	dev	high	bulk Windows installer
+JSR	dev	high	JavaScript Registry (jsr.io)
+unpkg	dev	high	npm CDN; lowercase
+cdnjs	dev	high	library CDN; lowercase
+esm.sh	dev	high	ESM CDN
+Skypack	dev	high	ESM CDN
+Packagist	dev	high	PHP package registry
+Maven Central	dev	high	Java package registry
+pub.dev	dev	high	Dart/Flutter package registry
+Hex.pm	dev	high	Elixir package registry
+CPAN	dev	high	Perl package archive
+CRAN	dev	high	R package archive
+CTAN	dev	high	TeX package archive
+Hackage	dev	high	Haskell package archive
+opam	dev	high	OCaml package manager; lowercase
+Open VSX	dev	high	open extension registry
+Visual Studio Marketplace	dev	high	extension marketplace
+Deno	dev	high	JS/TS runtime
+Deno Deploy	cloud	high	Deno edge hosting
+Bun	dev	high	JS runtime/toolkit; also common word
+workerd	cloud	high	Cloudflare Workers runtime; lowercase
+WinterTC	web	high	Ecma TC55 server-side JS interop (formerly WinterCG)
+WinterCG	web	high	former name of WinterTC
+LLRT	cloud	high	AWS Low Latency Runtime
+Hermes	dev	high	React Native JS engine; also mythological name
+SpiderMonkey	dev	high	Firefox JS engine
+JavaScriptCore	dev	high	WebKit JS engine
+QuickJS	dev	high	small JS engine
+GraalJS	dev	high	GraalVM JS
+GraalPy	dev	high	GraalVM Python
+TruffleRuby	dev	high	GraalVM Ruby
+Nashorn	dev	medium	legacy JVM JS engine
+Duktape	dev	medium	embeddable JS engine
+BEAM	dev	high	Erlang virtual machine; also common word
+Wasmtime	dev	high	Bytecode Alliance WASM runtime
+Wasmer	dev	high	WASM runtime
+WasmEdge	dev	high	CNCF WASM runtime
+WAMR	dev	medium	WebAssembly Micro Runtime
+WASIX	dev	medium	Wasmer POSIX extension to WASI
+Emscripten	dev	high	C/C++ to WASM toolchain
+wasm-pack	dev	high	Rust WASM packager; lowercase
+wasm-bindgen	dev	high	Rust/JS WASM bindings; lowercase
+Pyodide	dev	high	Python in WASM
+PyScript	dev	high	Python in the browser
+Node-RED	dev	high	flow-based programming tool
+NW.js	dev	high	Node-WebKit desktop runtime
+Fastify	dev	high	Node web framework
+Koa	dev	high	Node web framework
+Hono	dev	high	edge web framework (hono.dev)
+Elysia	dev	high	Bun web framework
+Nitro	dev	medium	UnJS server toolkit; also common word
+Vinxi	dev	medium	full-stack SDK
+Sails.js	dev	high	Node MVC framework
+LoopBack	dev	high	IBM Node API framework; internal caps
+FeathersJS	dev	medium	Node real-time framework (site brands it Feathers)
+Motia	dev	medium	backend framework (Rising Stars 2025)
+Flask	dev	high	Python microframework; also common word
+Starlette	dev	high	Python ASGI framework
+Litestar	dev	high	Python ASGI framework
+Sanic	dev	medium	Python async framework
+Django REST Framework	dev	high	DRF
+DRF	dev	medium	Django REST Framework abbreviation
+Pydantic	dev	high	Python data validation
+SQLModel	dev	high	Python SQL ORM (FastAPI author)
+Alembic	dev	high	SQLAlchemy migrations
+Celery	dev	medium	Python task queue; also a vegetable
+Gunicorn	dev	high	Python WSGI server
+Uvicorn	dev	high	Python ASGI server
+Granian	dev	medium	Rust HTTP server for Python
+HTTPX	dev	high	Python HTTP client
+urllib3	dev	high	Python HTTP library; lowercase
+Scrapy	dev	high	Python web crawler
+Beautiful Soup	dev	high	Python HTML parser
+BeautifulSoup	dev	high	package/class name form
+lxml	dev	high	Python XML library; lowercase
+Streamlit	dev	high	Python data apps
+Gradio	dev	high	Python ML demos
+NiceGUI	dev	high	Python web UI; internal caps
+Flet	dev	high	Python Flutter UI
+Kivy	dev	high	Python GUI framework
+BeeWare	dev	high	Python native apps; internal caps
+CustomTkinter	dev	high	modern Tkinter widgets; internal caps
+Tkinter	dev	high	Python Tk bindings
+pywebview	dev	high	Python webview wrapper; lowercase
+Ruby on Rails	dev	high	Ruby web framework
+Sinatra	dev	medium	Ruby microframework; also a name
+Hanami	dev	medium	Ruby framework
+Sidekiq	dev	high	Ruby background jobs
+Bundler	dev	high	Ruby dependency manager
+RVM	dev	high	Ruby Version Manager
+Symfony	dev	high	PHP framework
+Laravel Herd	dev	high	Laravel local dev environment
+Laravel Forge	cloud	high	Laravel server management
+Laravel Vapor	cloud	high	Laravel serverless hosting
+Laravel Cloud	cloud	high	Laravel hosting platform
+Laravel Sail	dev	medium	Laravel Docker environment
+Inertia.js	dev	high	server-driven SPA adapter
+Filament	dev	medium	Laravel admin panel; also common word
+Pest	dev	medium	PHP testing framework; also common word
+Larastan	dev	high	PHPStan for Laravel
+Rector	dev	medium	PHP refactoring tool
+Psalm	dev	medium	PHP static analyzer; also common word
+FrankenPHP	dev	high	PHP app server; internal caps
+RoadRunner	dev	high	PHP app server; internal caps
+Swoole	dev	high	PHP async runtime
+Xdebug	dev	high	PHP debugger
+PHP-FPM	dev	high	PHP FastCGI Process Manager
+Laminas	dev	high	PHP framework (Zend successor)
+Yii	dev	high	PHP framework
+Phalcon	dev	medium	PHP framework
+Phoenix	dev	medium	Elixir web framework; also common word
+Phoenix LiveView	dev	high	Elixir real-time UI
+Spring Boot	dev	high	Java framework
+Spring Framework	dev	high	Java framework
+Quarkus	dev	high	Java framework
+Micronaut	dev	high	JVM framework
+Vert.x	dev	high	JVM reactive toolkit
+Helidon	dev	medium	Oracle Java microservices
+Jakarta EE	dev	high	enterprise Java
+Java EE	dev	high	enterprise Java (legacy name)
+J2EE	dev	high	legacy enterprise Java
+Apache Tomcat	dev	high	Java servlet container
+Tomcat	dev	high	servlet container short name
+Jetty	dev	medium	Java web server; also common word
+Netty	dev	high	Java networking framework
+Undertow	dev	medium	Java web server; also common word
+Lombok	dev	high	Java boilerplate library; also an island
+Log4j	dev	high	Java logging library; mixed case
+Logback	dev	high	Java logging library
+Temurin	dev	high	Eclipse Adoptium OpenJDK build
+Eclipse Temurin	dev	high	OpenJDK distribution
+Adoptium	dev	high	Eclipse Java project
+Amazon Corretto	dev	high	OpenJDK distribution
+Azul Zulu	dev	medium	OpenJDK distribution
+axum	dev	medium	Rust web framework (tokio-rs README lowercase; often written Axum)
+wgpu	dev	high	Rust WebGPU implementation; lowercase
+winit	dev	high	Rust windowing library; lowercase
+Rustls	security	high	Rust TLS library
+GORM	dev	high	Go ORM
+sqlc	dev	high	SQL to type-safe code generator; lowercase
+SeaORM	dev	high	Rust async ORM; internal caps
+SQLx	dev	high	Rust async SQL toolkit; internal caps
+Strapi	dev	high	headless CMS
+Payload CMS	dev	high	TS headless CMS
+Payload	dev	medium	Payload CMS short name; also common word
+Directus	dev	high	headless CMS
+Sanity	dev	medium	headless CMS; also common word
+Contentful	dev	high	headless CMS
+Storyblok	dev	high	headless CMS
+Prismic	dev	high	headless CMS
+Hygraph	dev	high	GraphQL CMS (formerly GraphCMS)
+GraphCMS	dev	high	former name of Hygraph
+Builder.io	dev	high	visual CMS
+TinaCMS	dev	high	Git-backed CMS
+Decap CMS	dev	high	formerly Netlify CMS
+Netlify CMS	dev	high	former name of Decap CMS
+Craft CMS	dev	high	PHP CMS
+Statamic	dev	high	Laravel CMS
+October CMS	dev	medium	Laravel CMS
+Drupal	dev	high	PHP CMS
+Joomla	dev	high	PHP CMS (official mark includes trailing !)
+TYPO3	dev	high	PHP CMS
+Magento	dev	high	e-commerce platform
+Adobe Commerce	cloud	high	Magento commercial edition
+Umbraco	dev	high	.NET CMS
+Sitecore	dev	high	.NET DXP
+Kentico	dev	high	.NET CMS
+Contentstack	cloud	high	headless CMS
+Wagtail	dev	high	Django CMS
+Medusa	dev	medium	headless commerce; also mythological name
+Saleor	dev	high	GraphQL commerce
+Vendure	dev	high	TS headless commerce
+Sylius	dev	high	PHP commerce
+Shopify Hydrogen	dev	high	Shopify React framework
+WP-CLI	dev	high	WordPress CLI
+WPGraphQL	dev	high	WordPress GraphQL plugin
+Gutenberg	dev	medium	WordPress block editor; also a name
+Jetpack	dev	medium	WordPress plugin / Android Jetpack
+Yoast	dev	medium	WordPress SEO plugin
+WPML	dev	medium	WordPress multilingual plugin
+Laragon	dev	high	Windows dev environment
+LocalWP	dev	medium	Local WordPress dev tool
+Docusaurus	dev	high	Meta docs framework
+Nextra	dev	high	Next.js docs framework
+Starlight	dev	medium	Astro docs theme; also common word
+Fumadocs	dev	high	Next.js docs framework
+Mintlify	cloud	high	docs platform
+Read the Docs	cloud	high	docs hosting
+Sphinx	dev	high	Python docs generator; also common word
+Material for MkDocs	dev	high	MkDocs theme
+docsify	dev	medium	docs site generator (docsify.js.org lowercase)
+Zola	dev	high	Rust static site generator
+11ty	dev	high	Eleventy alias
+Bridgetown	dev	medium	Ruby static site generator
+Lume	dev	medium	Deno static site generator
+Pelican	dev	medium	Python static site generator; also a bird
+Gridsome	dev	medium	Vue static site generator
+Wiki.js	dev	high	wiki software
+DokuWiki	dev	high	wiki software
+MediaWiki	dev	high	wiki software
+Logseq	dev	high	outliner/knowledge base
+Anytype	dev	high	local-first workspace
+AppFlowy	dev	high	open-source Notion alternative
+AFFiNE	dev	high	workspace app (official stylization)
+Electron	dev	high	desktop app framework (electronjs.org); also physics word
+Electron Forge	dev	high	Electron packaging toolchain
+electron-builder	dev	high	Electron packager; lowercase
+Electron Fiddle	dev	high	Electron playground
+electron-vite	dev	high	Vite tooling for Electron; lowercase
+electron-store	dev	medium	Electron persistence; lowercase
+electron-updater	dev	medium	Electron auto-update; lowercase
+BrowserWindow	dev	high	Electron API class; internal caps
+ipcMain	dev	high	Electron API; lowercase start
+ipcRenderer	dev	high	Electron API; lowercase start
+contextBridge	dev	high	Electron API; lowercase start
+webContents	dev	high	Electron API; lowercase start
+nativeTheme	dev	medium	Electron API; lowercase start
+safeStorage	dev	medium	Electron API; lowercase start
+Electrobun	dev	high	Bun-based desktop framework (blackboard.sh)
+Tauri	dev	high	Rust desktop/mobile framework
+Wails	dev	high	Go desktop framework
+Neutralinojs	dev	high	lightweight desktop framework
+Photino	dev	medium	.NET lightweight desktop framework
+CefSharp	dev	high	.NET Chromium wrapper
+CEF	dev	high	Chromium Embedded Framework
+WebView2	dev	high	Microsoft Edge WebView control
+WinUI 3	dev	high	Windows UI Library 3
+WinUI3	dev	high	WinUI 3 unspaced
+WinUI 2	dev	medium	Windows UI Library 2 (UWP)
+WinUI Gallery	dev	medium	WinUI sample app
+WinUIEx	dev	medium	WinUI extensions library
+Windows App SDK	dev	high	Project Reunion successor
+WinAppSDK	dev	high	Windows App SDK abbreviation
+Win2D	dev	high	Direct2D wrapper for WinUI
+CsWin32	dev	high	Win32 P/Invoke source generator
+CsWinRT	dev	high	C#/WinRT projection
+Win32	dev	high	Windows API
+Win64	dev	medium	64-bit Windows API
+Avalonia	dev	high	cross-platform .NET UI (avaloniaui.net)
+Avalonia UI	dev	high	spaced form
+FluentAvalonia	dev	high	Fluent controls for Avalonia
+SukiUI	dev	high	Avalonia theme library
+Semi.Avalonia	dev	medium	Avalonia theme
+Material.Avalonia	dev	medium	Avalonia Material theme
+Uno Platform	dev	high	cross-platform .NET UI
+Xamarin	dev	high	legacy .NET mobile
+Xamarin.Forms	dev	high	legacy .NET MAUI predecessor
+Blazor	dev	high	.NET web UI framework
+Blazor Server	dev	medium	Blazor hosting model
+Blazor WebAssembly	dev	high	Blazor hosting model
+Blazor Hybrid	dev	high	Blazor in native apps
+MudBlazor	dev	high	Blazor component library
+Blazorise	dev	high	Blazor component library
+Radzen	dev	high	Blazor components/tools
+Syncfusion	dev	high	component vendor
+Telerik	dev	high	component vendor (Progress)
+Infragistics	dev	high	component vendor
+ComponentOne	dev	high	component vendor (MESCIUS)
+Actipro	dev	medium	WPF/Avalonia control vendor
+WPF UI	dev	high	Fluent WPF library (lepoco)
+HandyControl	dev	high	WPF control library
+MahApps.Metro	dev	high	WPF Metro UI toolkit
+Caliburn.Micro	dev	high	MVVM framework
+MVVM Toolkit	dev	high	CommunityToolkit.Mvvm
+CommunityToolkit.Mvvm	dev	high	MVVM Toolkit package
+Windows Community Toolkit	dev	high	Microsoft helper library
+Template Studio	dev	medium	Windows app project templates
+H.NotifyIcon	dev	medium	tray icon library for WinUI/WPF
+XAML Islands	dev	medium	UWP controls in desktop apps
+Mac Catalyst	dev	high	iPad apps on macOS
+Compose Multiplatform	dev	high	JetBrains UI framework
+Jetpack Compose	dev	high	Android UI toolkit
+Flutter	dev	high	Google UI toolkit; also common word
+FlutterFlow	dev	high	visual Flutter builder
+Dioxus	dev	high	Rust UI framework
+Leptos	dev	high	Rust web framework
+Slint	dev	high	Rust/C++ UI toolkit
+egui	dev	high	Rust immediate-mode GUI; lowercase
+GPUI	dev	high	Zed UI framework
+Makepad	dev	medium	Rust UI framework
+Ratatui	dev	high	Rust TUI library
+Bubble Tea	dev	high	Go TUI framework (Charm); also a drink
+Textual	dev	medium	Python TUI framework; also common word
+wxWidgets	dev	high	C++ GUI toolkit; lowercase wx
+Dear ImGui	dev	high	immediate-mode GUI
+GTK4	dev	high	GTK version 4
+libadwaita	dev	high	GNOME widget library; lowercase
+Qt Quick	dev	high	Qt declarative UI
+Qt Creator	dev	high	Qt IDE
+Qt6	dev	high	Qt version 6
+Lynx	dev	medium	ByteDance cross-platform framework; also an animal
+Valdi	dev	medium	Snap cross-platform UI framework
+Expo	dev	high	React Native platform; also common word
+Expo Router	dev	high	file-based RN router
+EAS	dev	high	Expo Application Services
+Capacitor	dev	medium	Ionic native runtime; also common word
+Cordova	dev	high	Apache hybrid framework
+Apache Cordova	dev	high	hybrid mobile framework
+Reanimated	dev	medium	React Native animation library
+React Navigation	dev	high	RN navigation library
+Riverpod	dev	high	Flutter state management
+GetX	dev	high	Flutter framework; internal caps
+BLoC	dev	high	Flutter Business Logic Component pattern
+Freezed	dev	medium	Dart code generator
+Serverpod	dev	high	Dart backend
+Jaspr	dev	medium	Dart web framework
+Ktor	dev	high	Kotlin web framework
+Koin	dev	high	Kotlin DI
+Hilt	dev	medium	Android DI; also common word
+Retrofit	dev	medium	Android HTTP client; also common word
+Moshi	dev	medium	Kotlin JSON library
+Gson	dev	high	Google JSON library
+Android	os	high	mobile OS
+AOSP	os	high	Android Open Source Project
+Android Studio	dev	high	Android IDE
+Android SDK	dev	high	Android software development kit
+Android NDK	dev	high	Android native development kit
+NDK	dev	high	native development kit
+ADB	dev	high	Android Debug Bridge
+AGP	dev	medium	Android Gradle Plugin
+ProGuard	dev	high	Java/Android shrinker; internal caps
+DexGuard	dev	high	Android obfuscator; internal caps
+AAB	dev	high	Android App Bundle
+AAR	dev	high	Android library archive
+Xcode	dev	high	Apple IDE (lowercase c)
+Swift Package Manager	dev	high	Swift dependency manager
+SwiftPM	dev	high	Swift Package Manager short name
+Carthage	dev	medium	Cocoa dependency manager; also ancient city
+App Store Connect	cloud	high	Apple developer portal
+XCTest	dev	high	Apple test framework
+XCUITest	dev	high	Apple UI test framework
+Swift Testing	dev	medium	Swift test framework (2024)
+SwiftLint	dev	high	Swift linter
+SwiftFormat	dev	high	Swift formatter
+Tuist	dev	high	Xcode project generator
+XcodeGen	dev	high	Xcode project generator
+SwiftData	dev	high	Apple persistence framework
+MetalKit	dev	high	Apple framework
+GameplayKit	dev	high	Apple framework
+WeatherKit	dev	high	Apple framework
+SiriKit	dev	high	Apple framework
+PassKit	dev	high	Apple framework
+ActivityKit	dev	high	Apple Live Activities framework
+App Intents	dev	medium	Apple framework
+TCA	dev	medium	The Composable Architecture (Swift)
+Alamofire	dev	high	Swift HTTP library
+SnapKit	dev	high	Swift Auto Layout DSL
+Detox	dev	medium	RN end-to-end testing; also common word
+Maestro	dev	medium	mobile UI testing; also common word
+Robolectric	dev	high	Android unit testing
+Mockito	dev	high	Java mocking
+MockK	dev	high	Kotlin mocking; capital K
+Kotest	dev	high	Kotlin testing
+ASP.NET Core	dev	high	.NET web framework
+ASP.NET MVC	dev	high	ASP.NET MVC framework
+ADO.NET	dev	high	.NET data access
+Entity Framework	dev	high	.NET ORM
+Entity Framework Core	dev	high	.NET ORM
+EF Core	dev	high	Entity Framework Core abbreviation
+EFCore	dev	medium	unspaced namespace-style form
+Dapper	dev	high	.NET micro-ORM; also common word
+NHibernate	dev	high	.NET ORM
+Roslyn	dev	high	.NET compiler platform
+Mono	dev	medium	open-source .NET runtime; also common word
+CIL	dev	medium	Common Intermediate Language
+MSIL	dev	high	Microsoft Intermediate Language
+BCL	dev	medium	.NET Base Class Library
+TFM	dev	medium	target framework moniker
+Native AOT	dev	high	.NET ahead-of-time compilation
+NativeAOT	dev	high	unspaced form
+ReadyToRun	dev	high	.NET precompilation; internal caps
+IL2CPP	dev	high	Unity IL to C++ backend
+Aspire	dev	medium	cloud-native app stack (formerly .NET Aspire; aspire.dev); also common word
+YARP	dev	high	Yet Another Reverse Proxy
+Kestrel	dev	high	ASP.NET Core web server; also a bird
+OWIN	dev	high	Open Web Interface for .NET
+Razor Pages	dev	high	ASP.NET Core page model
+Minimal APIs	dev	medium	ASP.NET Core feature
+Moq	dev	high	.NET mocking library
+Shouldly	dev	high	.NET assertion library
+AutoFixture	dev	high	.NET test data library
+TUnit	dev	high	.NET test framework (tunit.dev)
+Reqnroll	dev	high	SpecFlow successor BDD framework
+Coverlet	dev	high	.NET code coverage
+StyleCop	dev	high	.NET style analyzer
+Roslynator	dev	high	Roslyn analyzers
+CSharpier	dev	high	C# formatter
+Serilog	dev	high	.NET structured logging
+log4net	dev	high	.NET logging; lowercase
+Polly	dev	high	.NET resilience library; also a name
+Hangfire	dev	high	.NET background jobs
+Quartz.NET	dev	high	.NET job scheduler
+Orleans	dev	medium	Microsoft virtual actor framework; also a city
+Akka.NET	dev	high	.NET actor framework
+Akka	dev	high	actor toolkit
+Swashbuckle	dev	high	ASP.NET Core Swagger tooling
+NSwag	dev	high	.NET OpenAPI toolchain
+Refit	dev	medium	.NET REST client generator
+RestSharp	dev	high	.NET REST client
+Flurl	dev	high	.NET fluent URL/HTTP library
+Newtonsoft.Json	dev	high	Json.NET package
+Json.NET	dev	high	.NET JSON library
+System.Text.Json	dev	high	.NET JSON serializer
+Magick.NET	dev	high	.NET ImageMagick wrapper
+Humanizer	dev	medium	.NET string humanizer
+Spectre.Console	dev	high	.NET console UI library
+System.CommandLine	dev	high	.NET CLI parser
+CliWrap	dev	high	.NET process wrapper
+Terminal.Gui	dev	high	.NET TUI toolkit
+ABP Framework	dev	high	.NET application framework
+Orchard Core	dev	high	.NET CMS framework
+Piranha CMS	dev	medium	.NET CMS
+Autofac	dev	high	.NET DI container
+Ninject	dev	high	.NET DI container
+Castle Windsor	dev	high	.NET DI container
+Simple Injector	dev	medium	.NET DI container
+Scrutor	dev	high	.NET DI assembly scanning
+Mapster	dev	high	.NET object mapper
+Fody	dev	high	.NET IL weaving
+PostSharp	dev	high	.NET AOP framework
+EventStoreDB	dev	high	event database (renamed KurrentDB 2025)
+KurrentDB	dev	high	formerly EventStoreDB (kurrent.io)
+Npgsql	dev	high	.NET PostgreSQL provider
+linq2db	dev	high	.NET LINQ database library; lowercase
+SqlKata	dev	high	.NET query builder
+RepoDB	dev	high	.NET hybrid ORM
+OpenIddict	dev	high	.NET OpenID Connect server
+Duende IdentityServer	security	high	.NET identity server
+Semantic Kernel	dev	high	Microsoft AI orchestration SDK
+ML.NET	dev	high	.NET machine learning
+ILGPU	dev	high	.NET GPU compiler
+ComputeSharp	dev	high	.NET DirectX compute library
+Rx.NET	dev	high	Reactive Extensions for .NET
+DynamicData	dev	medium	reactive collections library
+PLINQ	dev	medium	Parallel LINQ
+TPL	dev	medium	Task Parallel Library
+VSTO	dev	high	Visual Studio Tools for Office
+BAML	dev	medium	compiled XAML
+DCOM	os	high	Distributed COM
+WiX Toolset	dev	high	Windows installer toolset
+Inno Setup	dev	high	Windows installer builder
+Advanced Installer	dev	high	MSI authoring tool
+InstallShield	dev	high	installer authoring tool
+Squirrel.Windows	dev	high	Windows app installer/updater
+Velopack	dev	high	cross-platform installer/updater
+MSIX	dev	high	Windows app package format
+dnSpyEx	dev	high	maintained dnSpy fork
+de4dot	dev	high	.NET deobfuscator; lowercase
+JetBrains Rider	dev	high	.NET IDE
+RustRover	dev	high	JetBrains Rust IDE
+IntelliJ IDEA	dev	high	JetBrains Java IDE (spaced)
+JetBrains Fleet	dev	medium	JetBrains editor
+IEnumerable	dev	high	.NET interface; internal caps
+IQueryable	dev	high	.NET interface; internal caps
+IAsyncEnumerable	dev	high	.NET interface; internal caps
+IDisposable	dev	high	.NET interface; internal caps
+ILogger	dev	high	.NET logging interface
+DbContext	dev	high	EF Core context class
+HttpClient	dev	high	.NET HTTP client class
+IHttpClientFactory	dev	high	.NET HTTP client factory
+CancellationToken	dev	high	.NET cancellation struct
+ValueTask	dev	high	.NET task type
+StringBuilder	dev	high	.NET string builder
+ObservableCollection	dev	high	.NET collection
+INotifyPropertyChanged	dev	high	.NET binding interface
+ICommand	dev	high	.NET command interface
+RelayCommand	dev	high	MVVM command class
+DependencyProperty	dev	high	WPF/WinUI property system
+DataTemplate	dev	high	XAML templating
+DataGrid	dev	high	XAML/web grid control
+UserControl	dev	high	XAML control type
+StackPanel	dev	high	XAML layout panel
+TextBox	dev	high	UI control
+ComboBox	dev	high	UI control
+ListView	dev	high	UI control
+TreeView	dev	high	UI control
+Pester	dev	high	PowerShell test framework
+platyPS	dev	medium	PowerShell help generator (v0.x platyPS; v1 module is Microsoft.PowerShell.PlatyPS)
+PSResourceGet	dev	high	Microsoft.PowerShell.PSResourceGet module
+SecretManagement	dev	high	PowerShell secrets module
+SecretStore	dev	high	PowerShell secret vault
+Plaster	dev	medium	PowerShell scaffolding; also common word
+InvokeBuild	dev	high	PowerShell build automation module
+Invoke-Build	dev	high	InvokeBuild command
+psake	dev	high	PowerShell build automation; lowercase
+PSFramework	dev	high	PowerShell framework module
+dbatools	dev	high	SQL Server PowerShell module; lowercase
+ImportExcel	dev	high	PowerShell Excel module
+PSWriteHTML	dev	high	PowerShell HTML report module
+PSWriteColor	dev	high	PowerShell color output module
+PSWindowsUpdate	dev	high	PowerShell Windows Update module
+BurntToast	dev	high	PowerShell toast notifications
+posh-git	dev	high	Git prompt for PowerShell; lowercase
+Oh My Posh	os	high	prompt theme engine
+Terminal-Icons	dev	high	PowerShell file icons module
+PSFzf	dev	high	fzf wrapper for PowerShell
+ZLocation	dev	medium	PowerShell directory jumper
+PSDesiredStateConfiguration	dev	high	PowerShell DSC module
+DSC	dev	high	Desired State Configuration
+JEA	os	medium	Just Enough Administration
+ModuleBuilder	dev	medium	PowerShell module build tool
+PowerShellEditorServices	dev	high	PowerShell language server
+PowerShell ISE	dev	high	legacy PowerShell editor
+PowerShell 7	dev	high	current PowerShell major version
+PowerShell Core	dev	high	PowerShell 6+ legacy name
+PowerShell Gallery	dev	high	PowerShell package registry
+Windows PowerShell	os	high	PowerShell 5.1 (spaced form)
+PSModulePath	dev	high	PowerShell env variable
+PSScriptRoot	dev	medium	PowerShell automatic variable
+PSEdition	dev	medium	PowerShell edition property
+PSObject	dev	high	PowerShell object type
+PSCredential	dev	high	PowerShell credential type
+PSSession	dev	high	PowerShell remoting session
+PSDrive	dev	high	PowerShell drive
+PSProvider	dev	medium	PowerShell provider
+PSRemoting	dev	high	PowerShell remoting
+PSVersionTable	dev	high	PowerShell automatic variable
+PSBoundParameters	dev	high	PowerShell automatic variable
+PSCmdlet	dev	high	PowerShell cmdlet base class
+CmdletBinding	dev	high	PowerShell attribute
+ValidateSet	dev	high	PowerShell validation attribute
+ValidateScript	dev	high	PowerShell validation attribute
+ValidateNotNullOrEmpty	dev	high	PowerShell validation attribute
+ValueFromPipeline	dev	high	PowerShell parameter attribute
+SupportsShouldProcess	dev	high	PowerShell CmdletBinding argument
+ShouldProcess	dev	high	PowerShell confirmation method
+ErrorActionPreference	dev	high	PowerShell preference variable
+ExecutionPolicy	dev	high	PowerShell execution policy
+ArgumentCompleter	dev	high	PowerShell attribute
+DynamicParam	dev	medium	PowerShell dynamic parameter block
+ForEach-Object	dev	high	PowerShell cmdlet
+Where-Object	dev	high	PowerShell cmdlet
+Select-Object	dev	high	PowerShell cmdlet
+Sort-Object	dev	high	PowerShell cmdlet
+Group-Object	dev	high	PowerShell cmdlet
+Measure-Object	dev	high	PowerShell cmdlet
+New-Object	dev	high	PowerShell cmdlet
+Get-ChildItem	dev	high	PowerShell cmdlet
+Get-Content	dev	high	PowerShell cmdlet
+Set-Content	dev	high	PowerShell cmdlet
+Out-File	dev	high	PowerShell cmdlet
+Test-Path	dev	high	PowerShell cmdlet
+Join-Path	dev	high	PowerShell cmdlet
+Split-Path	dev	high	PowerShell cmdlet
+Resolve-Path	dev	high	PowerShell cmdlet
+New-Item	dev	high	PowerShell cmdlet
+Remove-Item	dev	high	PowerShell cmdlet
+Copy-Item	dev	high	PowerShell cmdlet
+Move-Item	dev	high	PowerShell cmdlet
+Rename-Item	dev	high	PowerShell cmdlet
+Get-Item	dev	high	PowerShell cmdlet
+Start-Process	dev	high	PowerShell cmdlet
+Invoke-WebRequest	dev	high	PowerShell cmdlet
+Invoke-RestMethod	dev	high	PowerShell cmdlet
+Invoke-Command	dev	high	PowerShell cmdlet
+Invoke-Expression	dev	high	PowerShell cmdlet
+ConvertTo-Json	dev	high	PowerShell cmdlet
+ConvertFrom-Json	dev	high	PowerShell cmdlet
+Export-Csv	dev	high	PowerShell cmdlet
+Import-Csv	dev	high	PowerShell cmdlet
+Import-Module	dev	high	PowerShell cmdlet
+Export-ModuleMember	dev	high	PowerShell cmdlet
+Write-Host	dev	high	PowerShell cmdlet
+Write-Output	dev	high	PowerShell cmdlet
+Write-Verbose	dev	high	PowerShell cmdlet
+Write-Error	dev	high	PowerShell cmdlet
+Format-Table	dev	high	PowerShell cmdlet
+Format-List	dev	high	PowerShell cmdlet
+Out-GridView	dev	high	PowerShell cmdlet
+Get-CimInstance	dev	high	PowerShell cmdlet
+Get-WmiObject	dev	high	legacy PowerShell cmdlet
+Get-Process	dev	high	PowerShell cmdlet
+Get-Service	dev	high	PowerShell cmdlet
+Get-Help	dev	high	PowerShell cmdlet
+Get-Command	dev	high	PowerShell cmdlet
+Get-Member	dev	high	PowerShell cmdlet
+Add-Type	dev	high	PowerShell cmdlet
+Start-Job	dev	high	PowerShell cmdlet
+Set-StrictMode	dev	high	PowerShell cmdlet
+Set-ExecutionPolicy	dev	high	PowerShell cmdlet
+Enter-PSSession	dev	high	PowerShell cmdlet
+Register-ArgumentCompleter	dev	high	PowerShell cmdlet
+PowerCLI	dev	high	VMware PowerShell module
+PnP.PowerShell	dev	high	SharePoint PnP PowerShell module
+PnP	dev	medium	Microsoft Patterns and Practices
+Microsoft Graph	cloud	high	Microsoft 365 API
+AzureAD	cloud	high	legacy Azure AD PowerShell module
+MSOnline	cloud	high	legacy MSOL PowerShell module
+ExchangeOnlineManagement	cloud	high	Exchange Online PowerShell module
+Az.Accounts	cloud	medium	Az PowerShell module
+AWS.Tools	cloud	medium	AWS PowerShell modules
+ThreadJob	dev	high	PowerShell ThreadJob module
+PoshRSJob	dev	high	PowerShell runspace jobs
+Pode	dev	high	PowerShell web server framework
+PowerShell Universal	dev	high	Ironman Software platform
+Universal Dashboard	dev	medium	legacy PowerShell web dashboard
+PwshSpectreConsole	dev	high	PowerShell Spectre.Console wrapper module
+cmdlets	dev	high	plural of cmdlet; lowercase
+SingleInstanceAccumulator	dev	medium	Explorer multi-select helper (GitHub Beej126)
+AHKv2	dev	medium	AutoHotkey v2 abbreviation
+Visual Studio	dev	high	Microsoft IDE (spaced form)
+Visual Studio Code	dev	high	Microsoft editor (spaced form)
+Cursor	dev	high	AI code editor; also common word
+Windsurf	dev	high	AI code editor; also common word
+Zed	dev	high	code editor (zed.dev); also a name
+Sublime Text	dev	high	code editor
+Sublime Merge	dev	high	Git client
+Neovim	dev	high	Vim fork (neovim.io)
+Emacs	dev	high	text editor
+GNU Emacs	dev	high	text editor
+Doom Emacs	dev	high	Emacs configuration framework
+Spacemacs	dev	high	Emacs distribution
+Helix	dev	medium	modal editor; also common word
+Kakoune	dev	high	modal editor
+nano	dev	medium	GNU nano editor; lowercase; also common prefix
+Notepad3	dev	high	Notepad replacement
+EmEditor	dev	high	Windows text editor; internal caps
+Geany	dev	high	lightweight IDE
+KDevelop	dev	high	KDE IDE
+Lapce	dev	high	Rust code editor
+Eclipse	dev	medium	Java IDE; also common word
+Eclipse Theia	dev	high	cloud/desktop IDE framework
+LazyVim	dev	high	Neovim distribution
+NvChad	dev	high	Neovim configuration
+AstroNvim	dev	high	Neovim configuration
+LunarVim	dev	high	Neovim distribution
+lazy.nvim	dev	high	Neovim plugin manager; lowercase
+coc.nvim	dev	high	Neovim LSP client; lowercase
+mason.nvim	dev	medium	Neovim package manager; lowercase
+vim-plug	dev	high	Vim plugin manager; lowercase
+NERDTree	dev	high	Vim file explorer; internal caps
+Tree-sitter	dev	high	incremental parser (tree-sitter.github.io)
+GitLens	dev	high	VS Code Git extension
+Error Lens	dev	high	VS Code diagnostics extension
+Live Share	dev	high	VS Code collaboration
+Live Server	dev	medium	VS Code dev server extension
+IntelliSense	dev	high	Microsoft code completion; internal caps
+IntelliCode	dev	high	Microsoft AI completion; internal caps
+Pylance	dev	high	VS Code Python language server
+Pyright	dev	high	Python type checker
+OmniSharp	dev	high	C# language server
+C# Dev Kit	dev	high	VS Code C# extension
+Dev Containers	dev	high	container dev environment spec
+devcontainer	dev	high	dev container config; lowercase
+devcontainer.json	dev	medium	dev container config file
+Remote-SSH	dev	high	VS Code remote extension
+Thunder Client	dev	high	VS Code REST client
+REST Client	dev	high	VS Code HTTP client extension
+CSpell	dev	high	code spell checker (cspell.org)
+markdownlint	dev	high	Markdown linter; lowercase
+vscode-icons	dev	high	VS Code icon theme; lowercase
+Material Icon Theme	dev	medium	VS Code icon theme
+One Dark Pro	dev	high	editor theme
+Catppuccin	dev	high	pastel theme family
+Tokyo Night	dev	high	editor theme
+Gruvbox	dev	high	editor theme
+Solarized	dev	high	color scheme
+Monokai	dev	high	color scheme
+Dracula	dev	medium	theme; also novel/character name
+Rosé Pine	dev	high	theme family (non-ASCII é)
+Everforest	dev	high	editor theme
+Kanagawa	dev	medium	editor theme; also a place
+Nord	dev	medium	Arctic color palette; also common word
+Night Owl	dev	medium	editor theme
+Quokka.js	dev	high	JS scratchpad extension
+Wallaby.js	dev	high	JS test runner extension
+VSCodeVim	dev	high	Vim emulation for VS Code
+Codespaces	cloud	high	GitHub Codespaces short form
+GitHub Codespaces	cloud	high	cloud dev environments
+Gitpod	cloud	high	cloud dev environments (rebranded Ona in Sept 2025)
+DevPod	dev	high	open-source dev environments
+Daytona	dev	medium	dev environment manager; also a city
+Replit	cloud	high	online IDE
+Google Colab	cloud	high	hosted Jupyter
+Colab	cloud	high	Google Colab short form
+Kaggle	cloud	high	data science platform
+Jupyter	dev	high	notebook project
+Jupyter Notebook	dev	high	notebook app
+JupyterHub	dev	high	multi-user Jupyter
+JupyterLite	dev	high	WASM Jupyter
+marimo	dev	high	reactive Python notebook; lowercase (marimo.io)
+Deepnote	cloud	high	collaborative notebooks
+Firebase Studio	cloud	high	Google cloud IDE (formerly Project IDX)
+Project IDX	cloud	medium	former name of Firebase Studio
+Claude Code	dev	high	Anthropic coding agent CLI
+Codex CLI	dev	high	OpenAI coding agent CLI
+Gemini CLI	dev	high	Google coding agent CLI
+Qwen Code	dev	high	Alibaba coding agent CLI
+Aider	dev	high	AI pair programming CLI
+Cline	dev	high	VS Code AI agent
+Roo Code	dev	high	VS Code AI agent
+Kilo Code	dev	high	VS Code AI agent (kilo.ai)
+OpenCode	dev	medium	terminal AI coding agent (opencode.ai; repo lowercase)
+Kiro	dev	high	AWS agentic IDE
+Trae	dev	medium	ByteDance AI IDE (logo styled TRAE)
+Tabnine	dev	high	AI code completion
+Codeium	dev	high	AI code completion (company rebranded as Windsurf)
+Supermaven	dev	high	AI code completion
+Sourcegraph	dev	high	code search platform
+CodeRabbit	dev	high	AI code review
+Greptile	dev	medium	AI code review
+OpenHands	dev	high	open-source coding agent
+v0	dev	high	Vercel generative UI; lowercase v
+bolt.new	dev	medium	StackBlitz AI app builder; lowercase
+Lovable	dev	medium	AI app builder; also common word
+Onlook	dev	medium	visual AI editor for React
+Dyad	dev	medium	local AI app builder; also common word
+AGENTS.md	dev	high	coding agent instructions file
+CLAUDE.md	dev	high	Claude Code memory file
+GEMINI.md	dev	medium	Gemini CLI context file
+SKILL.md	dev	medium	agent skill definition file
+Windows Terminal	os	high	Microsoft terminal (spaced form)
+Command Prompt	os	high	Windows cmd
+cmd.exe	os	high	Windows command interpreter
+conhost	os	medium	Windows console host; lowercase
+Git Bash	os	high	Git for Windows Bash (spaced form)
+Git for Windows	dev	high	Windows Git distribution
+Cygwin	os	high	POSIX environment for Windows
+MinGW-w64	os	high	Windows GCC toolchain
+Bash	os	high	GNU shell; also common word
+Zsh	os	high	Z shell
+fish	os	medium	friendly interactive shell; lowercase; also common word
+Nushell	os	high	structured-data shell (nushell.sh)
+Elvish	os	medium	shell
+xonsh	os	medium	Python-powered shell (xon.sh writes lowercase)
+Ksh	os	medium	Korn shell
+tcsh	os	medium	C shell variant; lowercase
+PuTTY	dev	high	SSH client; mixed case
+MobaXterm	dev	high	Windows terminal/X server
+Termius	dev	high	SSH client
+Tabby	dev	medium	terminal emulator; also common word
+WezTerm	dev	high	GPU terminal emulator
+Alacritty	dev	high	GPU terminal emulator
+Ghostty	dev	high	terminal emulator
+kitty	dev	medium	GPU terminal (official lowercase); collides with KiTTY PuTTY fork; also common word
+ConEmu	dev	high	Windows console emulator
+Cmder	dev	high	Windows console emulator
+Clink	dev	medium	cmd.exe enhancements; also common word
+Starship	os	medium	cross-shell prompt; also common word
+Oh My Zsh	os	high	Zsh framework
+Powerlevel10k	os	high	Zsh theme
+Prezto	os	medium	Zsh framework
+tmux	os	high	terminal multiplexer; lowercase
+Zellij	os	high	terminal multiplexer
+GNU Screen	os	high	terminal multiplexer
+byobu	os	medium	terminal multiplexer wrapper; lowercase
+Mosh	os	medium	mobile shell
+zoxide	os	high	smarter cd; lowercase
+fzf	os	high	fuzzy finder; lowercase
+ripgrep	os	high	fast grep; lowercase
+eza	os	high	modern ls; lowercase
+exa	os	medium	unmaintained ls replacement; lowercase
+lazygit	dev	high	Git TUI; lowercase
+lazydocker	dev	high	Docker TUI; lowercase
+gitui	dev	high	Git TUI; lowercase
+tig	dev	medium	Git TUI; lowercase
+btop	os	high	resource monitor; lowercase
+htop	os	high	process viewer; lowercase
+ncdu	os	high	disk usage analyzer; lowercase
+duf	os	medium	disk usage utility; lowercase
+tldr	os	medium	simplified man pages; lowercase
+jq	dev	high	JSON processor; lowercase
+yq	dev	high	YAML processor; lowercase
+GitHub CLI	dev	high	gh command-line tool
+gh	dev	medium	GitHub CLI binary (2 chars)
+glab	dev	medium	GitLab CLI; lowercase
+direnv	dev	high	per-directory env; lowercase
+Taskfile	dev	high	go-task runner file
+Makefile	dev	high	make build file
+Makefiles	dev	medium	plural
+Dockerfile	dev	high	Docker build file
+Dockerfiles	dev	high	plural
+Containerfile	dev	high	OCI build file
+Jenkinsfile	dev	high	Jenkins pipeline file
+Vagrantfile	dev	high	Vagrant config file
+Procfile	dev	high	process declaration file
+Brewfile	dev	medium	Homebrew bundle file
+Gemfile	dev	high	Ruby dependency file
+Podfile	dev	high	CocoaPods dependency file
+Pipfile	dev	high	Pipenv dependency file
+CODEOWNERS	dev	high	GitHub code owners file
+CONTRIBUTING	dev	high	contributor guide filename
+LICENSE	dev	medium	license filename convention; also common word
+READMEs	dev	high	plural
+TODO	dev	high	task marker
+TODOs	dev	high	plural
+WIP	dev	high	work in progress
+LGTM	dev	medium	looks good to me
+DevToys	dev	high	Windows developer utilities
+DevUtils	dev	medium	macOS developer utilities
+regex101	dev	medium	regex tester (official lowercase)
+RegExr	dev	high	regex tester; mixed case
+CyberChef	security	high	GCHQ data transformation tool
+ray.so	dev	high	code screenshot tool
+Advent of Code	dev	high	programming puzzles
+Exercism	dev	high	coding practice
+Codewars	dev	high	coding practice
+Frontend Masters	dev	high	developer courses
+egghead.io	dev	high	developer courses
+dev.to	dev	high	DEV Community domain name
+daily.dev	dev	high	developer news
+Hacker News	dev	high	tech news site
+Stack Overflow	dev	high	Q&A site (spaced form)
+Server Fault	dev	medium	sysadmin Q&A site
+DevDocs	dev	high	API docs browser
+JetBrains Mono	dev	high	coding font (spaced form)
+Fira Code	dev	high	coding font (spaced form)
+Cascadia Code	dev	high	Microsoft coding font
+Cascadia Mono	dev	high	Microsoft coding font
+Nerd Fonts	dev	high	patched icon fonts
+Iosevka	dev	high	coding font
+Source Code Pro	dev	high	Adobe coding font
+Monaspace	dev	high	GitHub coding font family
+Geist Mono	dev	high	Vercel coding font
+IBM Plex Mono	dev	high	coding font
+0xProto	dev	high	coding font; digit start
+SF Mono	dev	high	Apple coding font
+Sysinternals	os	high	Microsoft utility suite
+Process Explorer	os	high	Sysinternals tool
+Process Monitor	os	high	Sysinternals tool
+Procmon	os	medium	Process Monitor executable name
+Autoruns	os	high	Sysinternals tool
+PsExec	os	high	Sysinternals tool; internal caps
+PsTools	os	high	Sysinternals suite; internal caps
+TCPView	os	high	Sysinternals tool
+RAMMap	os	high	Sysinternals tool
+VMMap	os	high	Sysinternals tool
+ZoomIt	os	high	Sysinternals tool
+BgInfo	os	high	Sysinternals tool
+Sysmon	security	high	Sysinternals System Monitor
+DebugView	os	high	Sysinternals tool
+WinObj	os	high	Sysinternals tool
+ProcDump	os	high	Sysinternals tool
+PowerRename	os	high	PowerToys utility
+FancyZones	os	high	PowerToys utility
+PowerToys Run	os	high	PowerToys launcher
+Dev Home	os	medium	Windows developer dashboard
+Dev Drive	os	high	ReFS developer volume
+WSLg	os	high	WSL GUI support
+WSL 2	os	high	spaced form of WSL2
+Windows Subsystem for Linux	os	high	WSL full name
+WSA	os	medium	Windows Subsystem for Android
+Hyper-V	os	high	Microsoft hypervisor (hyphenated form)
+Windows Sandbox	os	high	disposable Windows VM
+Windows Server	os	high	server OS
+Windows 11	os	high	desktop OS
+Windows 10	os	high	desktop OS
+LTSC	os	high	Long-Term Servicing Channel
+WinPE	os	high	Windows Preinstallation Environment
+WinRE	os	high	Windows Recovery Environment
+Microsoft Store	os	high	app store (spaced form)
+Windows Defender	security	high	former antivirus name
+Microsoft Defender	security	high	Microsoft security suite
+BitLocker	security	high	Windows disk encryption
+AppLocker	security	high	Windows application control
+WDAC	security	high	Windows Defender Application Control
+SmartScreen	security	high	Microsoft reputation filter
+Windows Hello	security	high	Windows biometrics
+LAPS	security	high	Local Administrator Password Solution
+Group Policy	os	high	Windows policy management
+GPO	os	high	Group Policy Object
+GPOs	os	medium	plural
+SCCM	os	high	System Center Configuration Manager
+MECM	os	high	Microsoft Endpoint Configuration Manager
+WSUS	os	high	Windows Server Update Services
+MDT	os	medium	Microsoft Deployment Toolkit
+RSAT	os	high	Remote Server Administration Tools
+CHKDSK	os	high	disk check utility
+SFC	os	medium	System File Checker
+BSOD	os	high	Blue Screen of Death
+ETW	os	high	Event Tracing for Windows
+WPR	os	medium	Windows Performance Recorder
+PDB	dev	high	program database symbols; also Protein Data Bank
+PDBs	dev	medium	plural
+EFI	os	high	Extensible Firmware Interface
+MBR	os	high	Master Boot Record
+RAID	os	high	disk array; also common word (raid)
+JBOD	os	high	just a bunch of disks
+VHDX	os	high	Hyper-V virtual disk format
+QCOW2	os	high	QEMU disk format
+WinMerge	dev	high	diff/merge tool
+Beyond Compare	dev	high	diff/merge tool
+Meld	dev	medium	diff/merge tool; also common word
+KDiff3	dev	high	diff/merge tool
+TortoiseGit	dev	high	Windows Git shell extension
+TortoiseSVN	dev	high	Windows SVN shell extension
+GitHub Desktop	dev	high	Git GUI
+GitButler	dev	high	Git client
+Total Commander	os	high	file manager
+Directory Opus	os	high	file manager
+XYplorer	os	high	file manager; mixed case
+OneCommander	os	high	file manager
+FreeCommander	os	high	file manager
+Double Commander	os	high	file manager
+WinDirStat	os	high	disk usage viewer
+TreeSize	os	high	disk usage viewer
+SpaceSniffer	os	high	disk usage viewer
+BleachBit	os	high	system cleaner
+Revo Uninstaller	os	high	uninstaller
+Bulk Crap Uninstaller	os	high	uninstaller (BCUninstaller)
+Win11Debloat	os	medium	Windows debloat script
+WinUtil	os	medium	Chris Titus Windows utility
+Rainmeter	os	high	desktop customization
+Windhawk	os	high	Windows mod platform
+ExplorerPatcher	os	high	Explorer customization
+StartAllBack	os	high	Start menu/taskbar mod
+Start11	os	high	Stardock Start menu
+Open-Shell	os	high	classic Start menu
+Nilesoft Shell	os	high	context menu customizer
+ShellExView	os	high	NirSoft shell extension viewer
+Listary	os	high	file search launcher
+Flow Launcher	os	high	Windows launcher
+Keypirinha	os	high	Windows launcher
+Raycast	os	high	macOS launcher
+Espanso	os	high	text expander
+Sandboxie	security	high	application sandbox
+Sandboxie-Plus	security	medium	Sandboxie fork
+Process Lasso	os	high	process priority manager
+GPU-Z	os	high	GPU info utility
+CrystalDiskInfo	os	high	disk health utility
+MemTest86	os	high	memory tester
+Prime95	os	high	stress tester
+LatencyMon	os	high	DPC latency monitor
+OCCT	os	medium	stability test tool
+ScreenToGif	dev	high	screen recorder
+Flameshot	os	high	screenshot tool
+Greenshot	os	high	screenshot tool
+QuickLook	os	medium	Windows file previewer
+Debian	os	high	Linux distribution
+RHEL	os	high	Red Hat Enterprise Linux
+Red Hat	os	high	Linux vendor
+Red Hat Enterprise Linux	os	high	Linux distribution
+AlmaLinux	os	high	RHEL rebuild
+Rocky Linux	os	high	RHEL rebuild (spaced form)
+Arch Linux	os	high	Linux distribution
+Manjaro	os	high	Arch-based distribution
+EndeavourOS	os	high	Arch-based distribution
+CachyOS	os	high	Arch-based distribution
+Garuda Linux	os	high	Arch-based distribution
+Pop!_OS	os	high	System76 distribution
+elementary OS	os	high	Linux distribution; lowercase e
+Zorin OS	os	high	Linux distribution
+Linux Mint	os	high	Linux distribution
+MX Linux	os	high	Linux distribution
+Kali Linux	os	high	security distribution
+ParrotOS	os	high	security distribution (parrotsec.org docs)
+Parrot OS	os	medium	spaced variant of ParrotOS
+Tails	os	medium	privacy distribution; also common word
+Qubes OS	os	high	security-focused OS
+Gentoo	os	high	source-based distribution
+Alpine Linux	os	high	minimal distribution
+Void Linux	os	high	independent distribution
+GNU Guix	os	high	functional distribution/package manager
+Guix	os	high	Guix short form
+Clear Linux	os	medium	Intel distribution
+Amazon Linux	os	high	AWS distribution
+Oracle Linux	os	high	RHEL-compatible distribution
+Raspberry Pi OS	os	high	Raspberry Pi distribution
+Raspbian	os	high	former name of Raspberry Pi OS
+Kubuntu	os	high	KDE Ubuntu flavor
+Xubuntu	os	high	Xfce Ubuntu flavor
+Ubuntu Server	os	high	server edition
+Ubuntu MATE	os	high	Ubuntu flavor
+KDE neon	os	high	KDE distribution; lowercase neon
+Bazzite	os	high	gaming Fedora Atomic distribution
+Fedora Silverblue	os	high	immutable Fedora
+SteamOS	os	high	Valve OS
+ChromiumOS	os	medium	open-source ChromeOS
+DragonFly BSD	os	high	BSD variant
+GhostBSD	os	high	BSD variant
+illumos	os	high	OpenSolaris fork; lowercase
+OpenIndiana	os	high	illumos distribution
+Solaris	os	high	Oracle Unix
+AIX	os	high	IBM Unix
+HP-UX	os	high	HP Unix
+Fuchsia	os	high	Google OS; also a color
+Tizen	os	high	Samsung OS
+KaiOS	os	high	feature-phone OS
+Haiku	os	medium	BeOS-inspired OS; also poem form
+FreeDOS	os	high	DOS-compatible OS
+Unraid	os	high	NAS OS
+Proxmox	os	high	virtualization platform
+Proxmox VE	os	high	Proxmox Virtual Environment
+Talos Linux	os	high	Kubernetes OS
+Flatcar	os	medium	container OS
+Bottlerocket	os	medium	AWS container OS
+Asahi Linux	os	high	Linux on Apple Silicon
+postmarketOS	os	high	mobile Linux; lowercase start
+LineageOS	os	high	Android distribution
+GrapheneOS	os	high	hardened Android
+CalyxOS	os	high	privacy Android
+Ubuntu Touch	os	high	mobile Ubuntu
+Sailfish OS	os	high	mobile OS
+openSUSE Tumbleweed	os	high	rolling release; lowercase open
+openSUSE Leap	os	high	regular release; lowercase open
+SUSE	os	high	Linux vendor
+SLES	os	high	SUSE Linux Enterprise Server
+KDE Plasma	os	high	desktop environment
+LXQt	os	high	desktop environment; mixed case
+LXDE	os	high	desktop environment
+MATE	os	high	desktop environment; also common word (mate)
+Hyprland	os	high	Wayland compositor
+i3wm	os	medium	i3 window manager
+bspwm	os	high	window manager; lowercase
+Wayland	os	high	display protocol
+X11	os	high	X Window System
+Xorg	os	high	X server
+Xwayland	os	high	X compatibility server on Wayland (freedesktop casing)
+Mesa	os	medium	open-source graphics drivers; also common word
+PipeWire	os	high	multimedia server; internal caps
+PulseAudio	os	high	sound server; internal caps
+ALSA	os	high	Advanced Linux Sound Architecture
+SysVinit	os	medium	init system
+OpenRC	os	high	init system
+runit	os	medium	init system; lowercase
+GRUB2	os	high	bootloader
+systemd-boot	os	high	bootloader; lowercase
+rEFInd	os	high	boot manager; mixed case
+Ventoy	os	high	multi-boot USB tool
+Rufus	os	medium	USB creation tool; also a name
+balenaEtcher	os	high	image flasher; lowercase start
+BusyBox	os	high	embedded Unix utilities
+coreutils	os	high	GNU core utilities; lowercase
+musl	os	high	C standard library; lowercase
+LUKS	security	high	Linux Unified Key Setup
+dm-crypt	security	high	Linux disk encryption; lowercase
+mdadm	os	high	Linux software RAID tool; lowercase
+Samba	os	medium	SMB server; also a dance
+SSHFS	os	high	SSH filesystem
+FUSE	os	medium	Filesystem in Userspace; also common word
+WinFsp	os	high	Windows FUSE; mixed case
+Dokany	os	medium	Windows FUSE
+APT	os	high	Debian Advanced Package Tool; also Advanced Persistent Threat
+dpkg	os	high	Debian package tool; lowercase
+yum	os	medium	RPM package manager; lowercase; also common word
+pacman	os	medium	Arch package manager; lowercase
+paru	os	medium	AUR helper; lowercase
+zypper	os	high	openSUSE package manager; lowercase
+Portage	os	medium	Gentoo package system; also common word
+Flatpak	os	high	Linux app packaging
+Flathub	os	high	Flatpak app store
+AppImage	os	high	portable Linux app format
+Snapcraft	os	high	Snap packaging tool
+sudo	os	high	privilege elevation; lowercase
+cron	os	high	job scheduler; lowercase
+crontab	os	high	cron table; lowercase
+journalctl	os	high	systemd journal CLI; lowercase
+systemctl	os	high	systemd control CLI; lowercase
+ufw	os	high	Uncomplicated Firewall; lowercase
+CrowdSec	security	high	collaborative IPS
+sshd	os	high	SSH daemon; lowercase
+Dropbear	os	medium	lightweight SSH server
+eBPF	os	high	extended BPF; lowercase e
+BPF	os	medium	Berkeley Packet Filter
+io_uring	os	high	Linux async I/O interface
+epoll	os	medium	Linux I/O event API; lowercase
+kqueue	os	medium	BSD event API; lowercase
+IOCP	os	medium	Windows I/O completion ports
+cgroups	os	high	Linux control groups; lowercase
+seccomp	security	high	Linux syscall filter; lowercase
+chroot	os	high	change root; lowercase
+x86_64	os	high	64-bit x86 architecture
+x86-64	os	high	64-bit x86 architecture
+AArch64	os	high	64-bit ARM architecture
+ARMv7	os	high	ARM architecture version
+ARMv8	os	high	ARM architecture version
+ARMv9	os	medium	ARM architecture version
+RISC-V	os	high	open ISA
+i386	os	high	32-bit x86 target; lowercase
+i686	os	medium	32-bit x86 target; lowercase
+AVX2	os	high	x86 SIMD extension
+AVX-512	os	high	x86 SIMD extension
+SR-IOV	os	medium	I/O virtualization
+NUMA	os	medium	non-uniform memory access
+Postgres	dev	high	PostgreSQL short name
+Valkey	dev	high	Linux Foundation Redis fork
+DragonflyDB	dev	high	Redis-compatible store
+Dragonfly	dev	medium	DragonflyDB short name; also an insect
+Memcached	dev	high	memory cache
+Apache Cassandra	dev	high	wide-column database
+Cassandra	dev	medium	database; also a name
+Cosmos DB	cloud	high	Azure database (spaced form)
+Firestore	cloud	high	Firebase document database
+Cloud Firestore	cloud	high	Firebase document database
+Neo4j	dev	high	graph database; lowercase j
+JanusGraph	dev	high	graph database
+Dgraph	dev	high	graph database
+TigerGraph	dev	high	graph database
+Memgraph	dev	high	graph database
+NebulaGraph	dev	high	graph database
+OrientDB	dev	high	multi-model database
+Gel	dev	low	EdgeDB renamed Gel (2025); also common word
+TiDB	dev	high	PingCAP distributed SQL
+TiKV	dev	high	distributed key-value store
+Vitess	dev	high	MySQL sharding system
+PlanetScale	cloud	high	database platform
+Xata	cloud	high	serverless database
+Turso	cloud	high	edge SQLite platform
+libSQL	dev	high	SQLite fork (Turso); lowercase lib
+LiteFS	dev	high	distributed SQLite
+Litestream	dev	high	SQLite replication
+rqlite	dev	high	distributed SQLite; lowercase
+Appwrite	cloud	high	backend platform
+Nhost	cloud	high	backend platform
+PostgREST	dev	high	REST API for Postgres
+Drizzle ORM	dev	high	TS ORM
+Drizzle Kit	dev	high	Drizzle migrations CLI
+Drizzle Studio	dev	high	Drizzle DB browser
+Prisma Studio	dev	high	Prisma DB browser
+Prisma Migrate	dev	medium	Prisma migrations
+TypeORM	dev	high	TS ORM; internal caps
+Sequelize	dev	high	Node ORM
+MikroORM	dev	high	TS ORM; internal caps
+Objection.js	dev	high	Node ORM
+Knex.js	dev	high	SQL query builder
+Kysely	dev	high	type-safe SQL builder
+Mongoose	dev	medium	MongoDB ODM; also an animal
+node-postgres	dev	high	Postgres client for Node; lowercase
+Eloquent	dev	medium	Laravel ORM; also common word
+Peewee	dev	medium	Python ORM
+Tortoise ORM	dev	high	Python async ORM
+SQLDelight	dev	high	Kotlin SQL library
+MMKV	dev	high	Tencent key-value store
+Meilisearch	dev	high	search engine (current casing; formerly MeiliSearch)
+Typesense	dev	high	search engine
+Apache Solr	dev	high	search platform
+Solr	dev	high	search platform short name
+Apache Lucene	dev	high	search library
+Lucene	dev	high	search library short name
+Manticore Search	dev	high	search engine
+Vespa	dev	medium	search/vector engine; also a scooter
+Quickwit	dev	high	log search engine
+Tantivy	dev	high	Rust search library
+Qdrant	dev	high	vector database
+ChromaDB	dev	high	vector database (Chroma)
+LanceDB	dev	high	vector database
+Zilliz	cloud	high	managed Milvus
+Apache Druid	dev	high	real-time analytics DB
+Apache Pinot	dev	high	real-time OLAP
+StarRocks	dev	high	OLAP database
+Apache Doris	dev	high	OLAP database
+Apache Kafka	dev	high	event streaming
+Kafka	dev	high	event streaming short name; also an author
+Redpanda	dev	high	Kafka-compatible streaming
+Apache Pulsar	dev	high	messaging platform
+NATS	dev	high	messaging system
+NSQ	dev	medium	messaging platform
+BullMQ	dev	high	Node job queue
+Resque	dev	medium	Ruby job queue
+Dramatiq	dev	medium	Python task queue
+Temporal	dev	medium	durable workflow engine; also common word
+Camunda	dev	high	workflow/BPMN engine
+Zeebe	dev	medium	Camunda workflow engine
+Apache Flink	dev	high	stream processing
+Apache Spark	dev	high	data processing
+Apache Beam	dev	high	data pipeline model
+Apache Airflow	dev	high	workflow orchestration
+Airflow	dev	medium	Apache Airflow short name; also common word
+Dagster	dev	high	data orchestrator
+Kestra	dev	high	workflow orchestrator
+Hadoop	dev	high	big data framework
+Apache Hive	dev	high	data warehouse
+Trino	dev	high	distributed SQL engine
+Presto	dev	medium	distributed SQL engine; also common word
+Apache Superset	dev	high	BI platform
+Redash	dev	high	BI/query tool
+Looker Studio	cloud	high	Google BI (formerly Data Studio)
+Power BI	cloud	high	Microsoft BI (spaced form)
+Sisense	cloud	high	BI platform
+Snowflake	cloud	high	cloud data warehouse; also common word
+Databricks	cloud	high	data/AI platform
+Amazon Redshift	cloud	high	AWS data warehouse
+Redshift	cloud	medium	Amazon Redshift short name; also astronomy term
+Azure Synapse	cloud	high	Azure analytics
+Microsoft Fabric	cloud	high	Microsoft analytics platform
+MotherDuck	cloud	high	managed DuckDB
+Airbyte	cloud	high	data integration
+Fivetran	cloud	high	data integration
+Meltano	dev	high	ELT platform
+RudderStack	cloud	high	customer data platform
+Mixpanel	cloud	high	product analytics
+PostHog	cloud	high	product analytics
+Plausible	cloud	medium	privacy analytics; also common word
+Umami	cloud	medium	privacy analytics; also common word
+Matomo	cloud	high	web analytics
+Fullstory	cloud	high	session replay; current brand casing (fullstory.com), formerly FullStory
+TablePlus	dev	high	database GUI
+Beekeeper Studio	dev	high	database GUI
+Adminer	dev	high	database admin tool
+MySQL Workbench	dev	high	MySQL GUI
+SSMS	dev	high	SQL Server Management Studio
+Azure Data Studio	dev	high	database tool (retired 2026)
+MongoDB Compass	dev	high	MongoDB GUI
+Studio 3T	dev	high	MongoDB IDE
+Redis Insight	dev	high	Redis GUI (current spaced form)
+RedisInsight	dev	medium	legacy unspaced form
+Navicat	dev	high	database GUI
+DbVisualizer	dev	high	database GUI; internal caps
+Sequel Ace	dev	high	MySQL GUI
+Postico	dev	high	Postgres GUI
+DB Browser for SQLite	dev	high	SQLite GUI
+psql	dev	high	Postgres CLI; lowercase
+mongosh	dev	high	MongoDB shell; lowercase
+redis-cli	dev	high	Redis CLI; lowercase
+sqlite3	dev	high	SQLite CLI; lowercase
+Flyway	dev	high	database migrations
+Liquibase	dev	high	database migrations
+dbmate	dev	medium	database migrations; lowercase
+SQLFluff	dev	high	SQL linter
+pgBackRest	dev	high	Postgres backup; lowercase start
+WAL-G	dev	medium	Postgres archival tool
+pg_dump	dev	high	Postgres dump utility
+Patroni	dev	high	Postgres HA
+Citus	dev	high	distributed Postgres
+Pgpool-II	dev	high	Postgres middleware
+pg_cron	dev	medium	Postgres job scheduler
+ParadeDB	dev	high	Postgres search extension
+PGlite	dev	high	WASM Postgres (pglite.dev)
+ElectricSQL	dev	medium	Postgres sync engine (now also branded Electric)
+Replicache	dev	high	client sync framework
+Dexie.js	dev	high	IndexedDB wrapper
+localForage	dev	high	offline storage library; lowercase start
+LMDB	dev	high	Lightning Memory-Mapped Database
+BoltDB	dev	medium	Go key-value store
+bbolt	dev	medium	BoltDB fork (etcd); lowercase
+BadgerDB	dev	high	Go key-value store
+FoundationDB	dev	high	Apple distributed database
+DataFusion	dev	high	Apache query engine
+Apache DataFusion	dev	high	query engine
+SQLGlot	dev	high	SQL parser/transpiler
+SQLCipher	dev	high	encrypted SQLite
+SingleStore	cloud	high	distributed SQL (formerly MemSQL)
+MemSQL	dev	medium	former name of SingleStore
+HarperDB	dev	medium	distributed database (company rebranded to Harper in 2025)
+VoltDB	dev	medium	in-memory database
+Aerospike	dev	high	NoSQL database
+Riak	dev	medium	distributed NoSQL
+HSQLDB	dev	medium	Java SQL database
+Firebird	dev	medium	SQL database; also common word
+Db2	dev	high	IBM Db2 (official mixed case)
+Informix	dev	medium	IBM database
+Sybase	dev	medium	SAP database
+Teradata	cloud	high	data warehouse
+Vertica	cloud	medium	analytics database
+Greenplum	dev	medium	MPP Postgres
+Oracle Database	dev	high	Oracle RDBMS
+MSSQL	dev	high	Microsoft SQL Server abbreviation
+Amazon Aurora	cloud	high	AWS relational database
+Amazon RDS	cloud	high	AWS relational database service
+Azure SQL	cloud	high	Azure SQL family
+Azure SQL Database	cloud	high	Azure managed SQL
+Cloud SQL	cloud	high	Google managed SQL
+Cloud Spanner	cloud	high	Google distributed SQL
+Spanner	cloud	medium	Cloud Spanner short name; also common word
+Bigtable	cloud	high	Google wide-column store
+AlloyDB	cloud	high	Google Postgres-compatible DB
+Amazon Neptune	cloud	high	AWS graph database
+MemoryDB	cloud	high	AWS Redis-compatible DB
+Amazon Athena	cloud	high	AWS query service
+AWS Glue	cloud	high	AWS ETL service
+Amazon EMR	cloud	high	AWS big data platform
+Amazon MSK	cloud	medium	AWS managed Kafka
+ORMs	dev	high	plural of ORM
+CTEs	dev	medium	plural of CTE
+ELT	dev	high	extract-load-transform
+DBaaS	cloud	high	database as a service
+Docker Compose	dev	high	multi-container tool
+docker-compose	dev	high	legacy Compose CLI / filename
+Docker Desktop	dev	high	Docker desktop app
+Docker Hub	cloud	high	container registry
+Docker Swarm	dev	high	Docker orchestration
+Docker Scout	security	medium	Docker image analysis
+CRI-O	dev	high	Kubernetes container runtime
+crun	dev	medium	OCI runtime; lowercase
+gVisor	dev	high	Google container sandbox; lowercase g
+Kata Containers	dev	high	VM-isolated containers
+Firecracker	dev	high	AWS microVM
+Podman	dev	high	daemonless container engine
+Podman Desktop	dev	high	Podman GUI
+Buildah	dev	high	OCI image builder
+Skopeo	dev	high	container image tool
+Kaniko	dev	high	in-cluster image builder
+BuildKit	dev	high	Docker build backend; internal caps
+buildx	dev	high	Docker Buildx CLI; lowercase
+Rancher	dev	high	Kubernetes management
+Rancher Desktop	dev	high	local Kubernetes/containers
+OrbStack	dev	high	macOS Docker/Linux VMs
+Colima	dev	high	macOS container runtime
+minikube	dev	high	local Kubernetes; lowercase
+K3s	dev	high	lightweight Kubernetes (k3s.io)
+k3d	dev	high	K3s in Docker; lowercase
+k0s	dev	high	Kubernetes distribution; lowercase
+K8s	dev	high	Kubernetes numeronym
+K9s	dev	high	Kubernetes TUI (k9scli.io)
+kube-proxy	dev	high	Kubernetes component; lowercase
+kubeconfig	dev	high	Kubernetes config file; lowercase
+Helm	dev	high	Kubernetes package manager; also common word
+Helmfile	dev	high	Helm release manager
+Kustomize	dev	high	Kubernetes config customizer
+Kompose	dev	medium	Compose to Kubernetes converter
+Skaffold	dev	high	Kubernetes dev workflow
+DevSpace	dev	high	Kubernetes dev tool
+Telepresence	dev	high	Kubernetes local dev
+Okteto	dev	high	Kubernetes dev environments
+Argo CD	dev	high	GitOps CD (official spaced form)
+Argo Workflows	dev	high	Kubernetes workflow engine
+Argo Rollouts	dev	high	progressive delivery
+Flagger	dev	medium	progressive delivery
+Spinnaker	dev	high	multi-cloud CD
+Jenkins	dev	high	CI server; also a name
+Jenkins X	dev	high	Kubernetes CI/CD
+Tekton	dev	high	Kubernetes CI/CD
+Travis CI	dev	high	CI service (spaced form)
+Azure Pipelines	cloud	high	Azure DevOps CI/CD
+Azure DevOps	cloud	high	Microsoft DevOps suite (spaced form)
+Azure Repos	cloud	high	Azure DevOps Git
+Azure Artifacts	cloud	high	Azure DevOps packages
+Azure Test Plans	cloud	high	Azure DevOps testing
+Bitbucket	cloud	high	Atlassian Git hosting
+Bitbucket Pipelines	cloud	high	Bitbucket CI/CD
+Atlassian Bamboo	dev	high	CI server
+Buildkite	dev	high	CI platform
+Drone CI	dev	high	CI platform
+Woodpecker CI	dev	high	Drone fork CI
+Codefresh	dev	high	GitOps CI/CD
+Earthly	dev	high	containerized builds
+Bitrise	cloud	high	mobile CI/CD
+Codemagic	cloud	high	mobile CI/CD
+Octopus Deploy	dev	high	deployment automation
+Spacelift	cloud	high	IaC CI/CD
+env0	cloud	high	IaC automation; lowercase
+Terragrunt	dev	high	Terraform wrapper
+Pulumi	dev	high	IaC in general-purpose languages
+AWS CDK	cloud	high	AWS Cloud Development Kit
+CDKTF	dev	high	CDK for Terraform
+CDK for Terraform	dev	high	CDKTF long name
+Crossplane	dev	high	Kubernetes control planes
+Ansible	dev	high	configuration management
+Ansible Tower	dev	high	Ansible enterprise UI
+AWX	dev	high	Ansible Tower upstream
+Chef Infra	dev	high	configuration management
+HashiCorp Packer	dev	high	image builder
+Vagrant	dev	medium	VM environment tool; also common word
+HashiCorp Vault	security	high	secrets management
+HashiCorp Nomad	dev	high	workload orchestrator
+Terraform Cloud	cloud	high	HashiCorp TF platform (now HCP Terraform)
+HCP Terraform	cloud	high	HashiCorp Cloud Platform Terraform
+HCP	cloud	medium	HashiCorp Cloud Platform
+Open Policy Agent	security	high	policy engine
+OPA	security	high	Open Policy Agent
+Kyverno	security	high	Kubernetes policy engine
+Falco	security	high	runtime security
+Trivy	security	high	vulnerability scanner
+Grype	security	high	vulnerability scanner
+Syft	security	high	SBOM generator
+Snyk	security	high	developer security platform
+Checkov	security	high	IaC scanner
+tfsec	security	high	Terraform scanner; lowercase
+Terrascan	security	medium	IaC scanner
+KICS	security	medium	IaC scanner (Checkmarx)
+kube-bench	security	high	CIS Kubernetes benchmark; lowercase
+Kubescape	security	high	Kubernetes security scanner
+Envoy	dev	high	service proxy; also common word
+Envoy Proxy	dev	high	service proxy
+Cilium	dev	high	eBPF networking
+Calico	dev	medium	Kubernetes networking; also a pattern
+Weave Net	dev	medium	container networking
+Traefik	dev	high	reverse proxy
+Caddy	dev	high	web server; also common word
+Apache HTTP Server	dev	high	httpd
+httpd	dev	medium	Apache daemon name; lowercase
+Kong	dev	medium	API gateway; also a name
+Tyk	dev	medium	API gateway
+KrakenD	dev	high	API gateway; capital D
+Apache APISIX	dev	high	API gateway
+APISIX	dev	high	API gateway short name
+MetalLB	dev	high	bare-metal load balancer
+cert-manager	security	high	Kubernetes certificate controller; lowercase
+ExternalDNS	dev	high	Kubernetes DNS controller
+Velero	dev	high	Kubernetes backup
+Longhorn	dev	medium	Kubernetes storage; also common word
+Ceph	dev	high	distributed storage
+OpenEBS	dev	high	Kubernetes storage
+Quay	dev	medium	Red Hat container registry; also common word (quay)
+Sonatype Nexus	dev	high	artifact repository
+Nexus Repository	dev	high	artifact repository
+Artifactory	dev	high	JFrog artifact repository
+JFrog Artifactory	dev	high	artifact repository
+GitHub Packages	cloud	high	GitHub package registry
+GHCR	cloud	high	GitHub Container Registry
+Artifact Registry	cloud	high	Google artifact registry
+Cosign	security	high	Sigstore signing tool
+Sigstore	security	high	software signing project
+in-toto	security	high	supply chain framework; lowercase
+SLSA	security	high	supply chain levels framework
+CycloneDX	security	high	SBOM standard
+CNAB	dev	medium	Cloud Native Application Bundle
+Dapr	dev	high	distributed application runtime
+Knative	dev	high	Kubernetes serverless
+KEDA	dev	high	Kubernetes event-driven autoscaling
+Karpenter	dev	high	Kubernetes node autoscaler
+HPA	dev	medium	Horizontal Pod Autoscaler
+VPA	dev	medium	Vertical Pod Autoscaler
+Headlamp	dev	medium	Kubernetes UI; also common word
+OKD	dev	medium	OpenShift upstream
+Tanzu	dev	high	VMware Kubernetes platform
+VMware Tanzu	dev	high	Kubernetes platform
+Nutanix	cloud	high	hyperconverged infrastructure
+XCP-ng	os	high	Xen hypervisor distribution
+Xen	os	high	hypervisor
+oVirt	os	high	virtualization management; lowercase o
+libvirt	os	high	virtualization API; lowercase
+virt-manager	os	high	VM manager GUI; lowercase
+Parallels Desktop	os	high	macOS virtualization
+VMware Fusion	os	high	macOS virtualization
+VMware Workstation	os	high	desktop virtualization
+Multipass	dev	medium	Ubuntu VM manager
+LXC	os	high	Linux containers
+LXD	os	high	container/VM manager
+Incus	os	high	LXD fork
+Distrobox	os	high	containerized distros
+Toolbx	os	high	Fedora container toolbox (containertoolbx.org)
+Devbox	dev	high	Nix-based dev environments
+Flox	dev	medium	Nix-based environments
+devenv	dev	medium	Nix dev environments; lowercase
+CRD	dev	high	Kubernetes Custom Resource Definition
+CRDs	dev	high	plural
+CNI	dev	high	Container Network Interface
+CSI	dev	medium	Container Storage Interface; also crime show
+CRI	dev	high	Container Runtime Interface
+ConfigMap	dev	high	Kubernetes resource
+ConfigMaps	dev	high	plural
+StatefulSet	dev	high	Kubernetes resource
+DaemonSet	dev	high	Kubernetes resource
+ReplicaSet	dev	high	Kubernetes resource
+CronJob	dev	high	Kubernetes resource
+PersistentVolume	dev	high	Kubernetes resource
+PVC	dev	medium	PersistentVolumeClaim; also PVC plastic
+CICD	dev	high	CI/CD without slash
+CI	dev	medium	continuous integration (2 chars)
+ChatOps	dev	high	chat-driven operations
+LLMOps	dev	high	LLM operations
+SecOps	security	high	security operations
+NoOps	dev	medium	no-operations model
+Grafana Loki	dev	high	log aggregation
+Grafana Tempo	dev	high	tracing backend
+Grafana Mimir	dev	high	metrics backend
+Grafana Alloy	dev	high	telemetry collector
+Pyroscope	dev	high	continuous profiling
+Jaeger	dev	high	distributed tracing
+Zipkin	dev	high	distributed tracing
+OTel	dev	high	OpenTelemetry abbreviation; mixed case
+OTLP	dev	high	OpenTelemetry Protocol
+Logstash	dev	high	log pipeline
+Kibana	dev	high	Elasticsearch UI
+Filebeat	dev	high	log shipper
+Metricbeat	dev	medium	metrics shipper
+ELK Stack	dev	high	Elasticsearch-Logstash-Kibana
+ELK	dev	high	ELK stack; also an animal
+Fluentd	dev	high	log collector
+Fluent Bit	dev	high	log processor
+Sumo Logic	cloud	high	log analytics
+Papertrail	cloud	high	log management
+Loggly	cloud	high	log management
+Better Stack	cloud	high	observability platform (spaced)
+Checkly	cloud	high	synthetic monitoring
+Uptime Kuma	dev	high	self-hosted uptime monitor
+Statuspage	cloud	high	Atlassian status pages
+incident.io	cloud	high	incident management; lowercase
+FireHydrant	cloud	high	incident management
+Rootly	cloud	medium	incident management
+Nagios	dev	high	infrastructure monitoring
+Zabbix	dev	high	infrastructure monitoring
+Icinga	dev	high	infrastructure monitoring
+Checkmk	dev	high	infrastructure monitoring (checkmk.com)
+PRTG	dev	high	Paessler network monitor
+Netdata	dev	high	real-time monitoring
+Telegraf	dev	high	InfluxData metrics agent
+VictoriaMetrics	dev	high	time-series database
+Thanos	dev	medium	Prometheus long-term storage
+Dynatrace	cloud	high	APM platform
+New Relic	cloud	high	observability platform (spaced form)
+Honeycomb	cloud	medium	observability platform; also common word
+Lightstep	cloud	medium	observability platform
+BugSnag	cloud	high	error monitoring (bugsnag.com casing; formerly Bugsnag)
+Rollbar	cloud	high	error monitoring
+Raygun	cloud	medium	error monitoring
+Honeybadger	cloud	medium	error monitoring
+Airbrake	cloud	medium	error monitoring
+GlitchTip	cloud	high	open-source error tracking (glitchtip.com)
+Application Insights	cloud	high	Azure APM
+App Insights	cloud	medium	Application Insights short name
+Azure Monitor	cloud	high	Azure monitoring
+Log Analytics	cloud	high	Azure log workspace
+Stackdriver	cloud	medium	former Google Cloud ops suite
+Crashlytics	cloud	high	Firebase crash reporting
+Firebase Crashlytics	cloud	high	crash reporting
+SRE	dev	high	site reliability engineering
+SREs	dev	medium	plural
+SLOs	dev	high	plural of SLO
+SLIs	dev	medium	plural of SLI
+MTTR	dev	high	mean time to recovery
+MTBF	dev	medium	mean time between failures
+RPO	dev	medium	recovery point objective
+Amazon Web Services	cloud	high	AWS long name
+Google Cloud	cloud	high	Google cloud platform (spaced form)
+Google Cloud Platform	cloud	high	GCP long name
+Microsoft Azure	cloud	high	spaced form
+Oracle Cloud	cloud	high	Oracle Cloud Infrastructure
+IBM Cloud	cloud	high	spaced form
+Tencent Cloud	cloud	high	spaced form
+Alibaba Cloud	cloud	high	spaced form
+Huawei Cloud	cloud	high	cloud provider
+Vultr	cloud	high	cloud provider
+Hetzner	cloud	high	cloud/hosting provider
+Scaleway	cloud	high	cloud provider
+UpCloud	cloud	high	cloud provider; internal caps
+Exoscale	cloud	medium	cloud provider
+Civo	cloud	high	Kubernetes cloud
+Backblaze	cloud	high	storage provider
+Backblaze B2	cloud	high	object storage
+Wasabi	cloud	medium	object storage; also a condiment
+Fly.io	cloud	high	app hosting
+Koyeb	cloud	high	serverless hosting
+Northflank	cloud	high	app hosting
+Qovery	cloud	medium	deployment platform
+Coolify	cloud	high	self-hosted PaaS
+Dokku	cloud	high	self-hosted PaaS
+CapRover	cloud	high	self-hosted PaaS
+Dokploy	cloud	high	self-hosted PaaS
+Kamal	dev	medium	37signals deploy tool
+Cloudflare R2	cloud	high	object storage
+Cloudflare D1	cloud	high	serverless SQLite
+D1	cloud	medium	Cloudflare D1 short name (2 chars)
+Workers KV	cloud	high	Cloudflare key-value store
+Durable Objects	cloud	high	Cloudflare stateful compute
+Cloudflare Tunnel	cloud	high	tunneling service
+cloudflared	cloud	high	Cloudflare tunnel daemon; lowercase
+Wrangler	cloud	high	Cloudflare Workers CLI; also common word
+Cloudflare WARP	cloud	high	VPN client
+WARP	cloud	medium	Cloudflare WARP; also common word
+Hyperdrive	cloud	medium	Cloudflare DB accelerator; also common word
+Workers AI	cloud	high	Cloudflare AI inference
+Cloudflare Access	security	high	Zero Trust access
+Turnstile	security	medium	Cloudflare CAPTCHA alternative; also common word
+Firebase Hosting	cloud	high	Firebase web hosting
+Firebase Auth	cloud	high	Firebase Authentication short name
+Firebase Authentication	cloud	high	auth service
+Cloud Functions	cloud	high	Google serverless functions
+Cloud Run	cloud	high	Google serverless containers
+Cloud Build	cloud	high	Google CI/CD
+Cloud Storage	cloud	high	Google object storage
+GCS	cloud	high	Google Cloud Storage
+Compute Engine	cloud	high	Google VMs
+GCE	cloud	high	Google Compute Engine
+App Engine	cloud	high	Google PaaS
+Dataflow	cloud	high	Google stream/batch processing
+Dataproc	cloud	high	Google managed Spark/Hadoop
+Vertex AI	cloud	high	Google ML platform
+Anthos	cloud	high	Google hybrid platform
+Apigee	cloud	high	Google API management
+Cloud Shell	cloud	high	browser shell
+gcloud	cloud	high	Google Cloud CLI; lowercase
+gsutil	cloud	high	Google Cloud Storage CLI; lowercase
+AWS Lambda	cloud	high	serverless functions
+AWS Fargate	cloud	high	serverless containers
+Fargate	cloud	high	serverless containers
+EventBridge	cloud	high	AWS event bus; internal caps
+Step Functions	cloud	high	AWS workflows
+API Gateway	cloud	high	AWS API management
+Amazon Cognito	cloud	high	AWS user auth
+Cognito	cloud	high	Amazon Cognito short name
+STS	cloud	medium	AWS Security Token Service
+Secrets Manager	cloud	high	AWS secrets service
+Parameter Store	cloud	high	AWS SSM Parameter Store
+SSM	cloud	high	AWS Systems Manager
+Route 53	cloud	high	AWS DNS (official spaced)
+Route53	cloud	high	unspaced form
+ALB	cloud	high	Application Load Balancer
+NLB	cloud	high	Network Load Balancer
+GuardDuty	security	high	AWS threat detection
+Macie	security	high	AWS data security
+Security Hub	security	high	AWS security posture
+AWS Shield	security	high	DDoS protection
+AWS WAF	security	high	web application firewall (spaced form)
+Elastic Beanstalk	cloud	high	AWS PaaS
+App Runner	cloud	high	AWS container service
+Outposts	cloud	medium	AWS on-prem
+Direct Connect	cloud	medium	AWS private connectivity
+Transit Gateway	cloud	high	AWS network hub
+CodeCommit	cloud	high	AWS Git hosting
+CodeArtifact	cloud	high	AWS package repository
+CodeCatalyst	cloud	high	AWS dev platform
+CodeWhisperer	cloud	high	AWS AI coding (now Q Developer)
+Amazon Q	cloud	high	AWS AI assistant
+Amazon Q Developer	cloud	high	AWS AI coding assistant
+Amazon Bedrock	cloud	high	AWS generative AI service
+Bedrock	cloud	medium	Amazon Bedrock short name; also common word
+Rekognition	cloud	high	AWS image recognition
+Textract	cloud	high	AWS document OCR
+Amazon Kendra	cloud	medium	AWS enterprise search
+WorkSpaces	cloud	high	AWS virtual desktops
+AppStream	cloud	high	AWS app streaming
+S3 Glacier	cloud	high	AWS archive storage
+EBS	cloud	high	Elastic Block Store
+EFS	cloud	high	Elastic File System
+FSx	cloud	high	AWS managed file systems
+DataSync	cloud	high	AWS data transfer
+Control Tower	cloud	medium	AWS multi-account governance
+IAM Identity Center	cloud	high	AWS SSO successor
+CloudShell	cloud	high	AWS browser shell
+AWS SAM	cloud	high	Serverless Application Model
+Serverless Framework	cloud	high	serverless deployment tool
+SST	dev	high	full-stack serverless framework (sst.dev)
+Chalice	cloud	medium	AWS Python serverless; also common word
+Zappa	cloud	medium	Python serverless
+AWS CLI	cloud	high	AWS command line
+Boto3	cloud	high	AWS Python SDK (AWS docs casing)
+AWS SDK	cloud	high	AWS software development kit
+LocalStack	cloud	high	local AWS emulator
+AMI	cloud	high	Amazon Machine Image
+AMIs	cloud	high	plural
+ARN	cloud	high	Amazon Resource Name
+ARNs	cloud	high	plural
+VPCs	cloud	high	plural
+Lightsail	cloud	high	AWS simple VPS
+Amazon SES	cloud	high	AWS email service
+Amazon SQS	cloud	high	AWS queue service
+Amazon S3	cloud	high	AWS object storage (spaced form)
+Amazon EC2	cloud	high	AWS compute (spaced form)
+Amazon DynamoDB	cloud	high	AWS NoSQL (spaced form)
+Amazon CloudFront	cloud	medium	AWS CDN (spaced form)
+Azure Functions	cloud	high	Azure serverless
+Azure App Service	cloud	high	Azure PaaS
+App Service	cloud	medium	Azure App Service short name
+Azure Static Web Apps	cloud	high	Azure static hosting
+Static Web Apps	cloud	medium	short name
+ACI	cloud	medium	Azure Container Instances
+Azure Container Apps	cloud	high	Azure serverless containers
+Container Apps	cloud	medium	short name
+Azure Blob Storage	cloud	high	Azure object storage
+Blob Storage	cloud	medium	short name
+Azure Files	cloud	high	Azure SMB shares
+Azure Data Factory	cloud	high	Azure ETL
+Data Factory	cloud	medium	short name
+Event Grid	cloud	high	Azure event routing
+Event Hubs	cloud	high	Azure event streaming
+Azure Service Bus	cloud	high	Azure messaging
+Service Bus	cloud	medium	short name
+Logic Apps	cloud	high	Azure workflow automation
+API Management	cloud	high	Azure APIM
+APIM	cloud	high	API Management abbreviation
+Azure Front Door	cloud	high	Azure CDN/edge
+Front Door	cloud	medium	short name
+Application Gateway	cloud	high	Azure L7 load balancer
+Azure Key Vault	cloud	high	Azure secrets store
+Key Vault	cloud	high	short name
+Microsoft Entra	cloud	high	Microsoft identity family
+Entra ID	cloud	high	formerly Azure AD
+Entra External ID	cloud	high	formerly Azure AD B2C
+Azure AD	cloud	high	former name of Entra ID
+Azure AD B2C	cloud	high	consumer identity
+Azure Policy	cloud	high	governance service
+Azure CLI	cloud	high	Azure command line
+Azure PowerShell	cloud	high	Az PowerShell modules
+Azure Arc	cloud	high	hybrid management
+Azure Stack HCI	cloud	high	hyperconverged (now Azure Local)
+Azure Local	cloud	medium	renamed Azure Stack HCI
+Azure Virtual Desktop	cloud	high	VDI service
+AVD	cloud	high	Azure Virtual Desktop
+Azure OpenAI	cloud	high	Azure-hosted OpenAI models
+Azure AI Foundry	cloud	high	former name of Microsoft Foundry
+Microsoft Foundry	cloud	high	AI app platform (renamed Nov 2025)
+Azure AI Search	cloud	high	formerly Azure Cognitive Search
+Azure Cognitive Search	cloud	high	former name of Azure AI Search
+Cognitive Services	cloud	high	former Azure AI services name
+VNet	cloud	high	Azure virtual network; mixed case
+VNets	cloud	medium	plural
+NSG	cloud	medium	Azure network security group
+vCPU	cloud	high	virtual CPU; lowercase v
+vCPUs	cloud	high	plural
+vGPU	cloud	medium	virtual GPU; lowercase v
+Power Platform	cloud	high	Microsoft low-code suite
+Power Apps	cloud	high	Microsoft low-code apps
+Power Automate	cloud	high	Microsoft workflow automation
+Power Pages	cloud	high	Microsoft low-code sites
+Copilot Studio	cloud	high	Microsoft agent builder
+Dataverse	cloud	high	Power Platform data store
+Dynamics 365	cloud	high	Microsoft business apps
+Microsoft 365	cloud	high	productivity suite
+Office 365	cloud	high	former name of Microsoft 365
+O365	cloud	high	Office 365 abbreviation
+Microsoft Intune	cloud	high	endpoint management
+Intune	cloud	high	Microsoft Intune short name
+Windows Autopilot	cloud	high	device provisioning
+Active Directory	os	high	Microsoft directory service (spaced form)
+AD DS	os	high	Active Directory Domain Services
+AD FS	os	high	Active Directory Federation Services
+ADFS	os	high	unspaced form
+Microsoft Teams	cloud	high	spaced form
+Microsoft Learn	dev	high	Microsoft docs/training site
+Edge Functions	cloud	medium	edge compute (Vercel/Netlify/Supabase)
+Edge Runtime	cloud	medium	Vercel edge runtime
+Vercel AI SDK	dev	high	TS AI toolkit
+AI SDK	dev	high	Vercel AI SDK short name
+Forgejo	dev	high	Gitea fork
+Codeberg	dev	high	Forgejo-based code hosting
+Gogs	dev	high	Go Git service
+sourcehut	dev	medium	software forge sr.ht (sourcehut.org writes lowercase; press often SourceHut)
+Perforce	dev	high	version control vendor
+Helix Core	dev	high	Perforce version control
+Plastic SCM	dev	high	version control (now Unity Version Control)
+Unity Version Control	dev	high	formerly Plastic SCM
+Mercurial	dev	high	version control; also common word
+Subversion	dev	high	Apache Subversion (SVN)
+Apache Subversion	dev	high	version control
+Pijul	dev	medium	patch-based version control
+Jujutsu	dev	high	Git-compatible VCS (jj)
+jj	dev	medium	Jujutsu CLI (2 chars)
+Sapling	dev	medium	Meta source control; also common word
+Git LFS	dev	high	Git Large File Storage
+git-lfs	dev	medium	Git LFS command; lowercase
+Gitflow	dev	medium	branching model (Atlassian docs casing; also written GitFlow)
+git-flow	dev	high	Git Flow extension; lowercase
+GitHub Flow	dev	medium	branching model
+Gerrit	dev	high	code review system
+Phabricator	dev	high	legacy code review suite
+GitHub Enterprise	cloud	high	GitHub enterprise edition
+GitHub Gist	cloud	high	code snippet hosting
+GitHub Models	cloud	medium	GitHub AI model catalog
+GitHub Advanced Security	security	high	GitHub security product
+CodeQL	security	high	GitHub code analysis
+Sonatype	security	high	software supply chain vendor
+SonarQube Cloud	dev	high	formerly SonarCloud
+Codacy	dev	high	code quality platform
+Code Climate	dev	high	code quality platform
+DeepSource	dev	high	code quality platform
+Semgrep	security	high	static analysis
+Codecov	dev	high	coverage reporting
+Coveralls	dev	high	coverage reporting
+gitattributes	dev	medium	Git attributes file (without dot)
+gitconfig	dev	medium	Git config file (without dot)
+gitmodules	dev	medium	Git submodules file (without dot)
+MRs	dev	medium	merge requests
+Trello	cloud	high	kanban boards
+monday.com	cloud	high	work management (official lowercase)
+Confluence	cloud	high	Atlassian wiki (plain form)
+Jira Software	cloud	high	Atlassian issue tracker
+Jira Service Management	cloud	high	Atlassian service desk
+Redmine	dev	high	issue tracker
+Bugzilla	dev	high	issue tracker
+MantisBT	dev	high	issue tracker
+Trac	dev	medium	issue tracker/wiki
+Pivotal Tracker	cloud	high	agile tracker (retired)
+Basecamp	cloud	high	project management
+Wrike	cloud	high	project management
+Smartsheet	cloud	high	work management
+OpenProject	dev	high	project management
+Taiga	dev	medium	agile project management
+UserVoice	cloud	high	feedback platform
+Discord	cloud	high	chat platform; also common word
+Mattermost	cloud	high	team chat
+Rocket.Chat	cloud	high	team chat
+Zulip	cloud	high	team chat
+Webex	cloud	high	Cisco meetings
+Clerk	security	medium	auth platform; also common word
+Kinde	security	high	auth platform
+WorkOS	security	high	enterprise auth platform
+Stytch	security	high	auth platform
+Descope	security	high	auth platform
+Keycloak	security	high	identity server
+authentik	security	high	identity provider (official lowercase; goauthentik.io)
+Authelia	security	high	authentication server
+Zitadel	security	medium	identity platform (brand also styled ZITADEL)
+Ory	security	medium	identity infrastructure
+Ory Kratos	security	high	identity server
+Ory Hydra	security	high	OAuth2 server
+Logto	security	high	auth platform
+Casdoor	security	high	IAM platform
+Auth.js	security	high	NextAuth successor
+Better Auth	security	high	TS auth framework
+Passport.js	security	high	Node auth middleware
+Hanko	security	medium	passkey auth
+Frontegg	security	high	auth platform
+PropelAuth	security	high	auth platform
+Ping Identity	security	high	identity vendor
+PingFederate	security	high	federation server
+Duo Security	security	high	Cisco MFA
+Bitwarden	security	high	password manager
+Vaultwarden	security	high	Bitwarden-compatible server
+LastPass	security	high	password manager
+Dashlane	security	high	password manager
+Proton Pass	security	high	password manager
+Doppler	security	medium	secrets manager; also Doppler effect
+Infisical	security	high	secrets manager
+SOPS	security	high	Secrets OPerationS
+git-crypt	security	high	Git file encryption; lowercase
+Sealed Secrets	security	high	Kubernetes secret encryption
+External Secrets Operator	security	high	Kubernetes secrets sync
+Braintree	cloud	high	PayPal payment gateway
+Adyen	cloud	high	payment platform
+Lemon Squeezy	cloud	high	merchant of record
+Chargebee	cloud	high	subscription billing
+Recurly	cloud	high	subscription billing
+RevenueCat	cloud	high	in-app subscriptions
+Checkout.com	cloud	high	payment platform
+Mollie	cloud	medium	payment platform
+Razorpay	cloud	high	payment platform
+Afterpay	cloud	high	buy now pay later
+Stripe Connect	cloud	high	Stripe marketplace payments
+Stripe Checkout	cloud	high	Stripe hosted checkout
+Stripe Elements	cloud	medium	Stripe UI components
+Apple Pay	cloud	high	Apple wallet payments
+Gumroad	cloud	high	creator commerce
+Patreon	cloud	high	creator memberships
+Buy Me a Coffee	cloud	high	creator tips
+Postmark	cloud	medium	transactional email; also common word
+Resend	cloud	medium	email API; also common word
+Mandrill	cloud	medium	Mailchimp transactional email
+Mailjet	cloud	high	email API
+SparkPost	cloud	high	email API
+Sendinblue	cloud	high	former name of Brevo
+Customer.io	cloud	high	messaging automation
+Mailtrap	cloud	high	email testing
+Mailpit	dev	high	local email testing
+MailHog	dev	high	local email testing
+MJML	dev	high	responsive email markup
+Maizzle	dev	high	Tailwind email framework
+Nodemailer	dev	high	Node email library
+Twilio	cloud	high	communications API
+Vonage	cloud	high	communications API
+Nexmo	cloud	medium	former name of Vonage API
+Telnyx	cloud	high	communications API
+Ably	cloud	high	realtime messaging
+Liveblocks	cloud	high	realtime collaboration
+PartyKit	cloud	high	realtime platform
+Convex	cloud	medium	reactive backend; also common word
+InstantDB	cloud	high	realtime database
+Novu	cloud	high	notification infrastructure
+OneSignal	cloud	high	push notifications
+FCM	cloud	high	Firebase Cloud Messaging
+APNs	cloud	high	Apple Push Notification service; mixed case
+Fastly	cloud	high	CDN/edge
+Bunny.net	cloud	high	CDN
+BunnyCDN	cloud	high	former name of Bunny.net
+KeyCDN	cloud	high	CDN
+CDNs	cloud	high	plural of CDN
+Cloudinary	cloud	high	media platform
+imgix	cloud	high	image CDN; lowercase
+ImageKit	cloud	high	image CDN
+Uploadcare	cloud	high	file uploads
+UploadThing	cloud	high	file uploads for TS apps
+Filestack	cloud	high	file uploads
+Transloadit	cloud	high	file processing
+Mux	cloud	high	video API
+LaunchDarkly	cloud	high	feature flags
+Flagsmith	cloud	high	feature flags
+GrowthBook	cloud	high	feature flags / experiments
+Statsig	cloud	high	feature flags / experiments
+ConfigCat	cloud	high	feature flags
+OpenFeature	dev	high	CNCF feature flag standard
+Inngest	cloud	high	durable functions
+Trigger.dev	cloud	high	background jobs
+Pipedream	cloud	high	workflow automation
+Retool	cloud	high	internal tool builder
+Appsmith	cloud	high	internal tool builder
+Budibase	cloud	high	internal tool builder
+Softr	cloud	high	no-code apps
+Baserow	cloud	high	no-code database
+SeaTable	cloud	medium	no-code database
+Insomnia	dev	medium	API client; also common word
+Bruno	dev	medium	API client (usebruno.com); also a name
+Hoppscotch	dev	high	API client
+Apidog	dev	high	API platform
+Kreya	dev	medium	gRPC/REST client
+grpcurl	dev	high	gRPC CLI; lowercase
+BloomRPC	dev	medium	gRPC GUI (archived)
+Redoc	web	high	OpenAPI docs renderer
+Redocly	web	high	API docs platform
+Stoplight	web	high	API design platform
+WireMock	dev	high	HTTP mock server
+Mockoon	dev	high	API mocking
+json-server	dev	high	fake REST API; lowercase
+MSW	dev	high	Mock Service Worker
+Mock Service Worker	dev	high	API mocking library
+Apollo Client	dev	high	GraphQL client
+Apollo Server	dev	high	GraphQL server
+Apollo GraphOS	dev	high	GraphQL platform
+GraphOS	dev	high	Apollo platform
+urql	dev	high	GraphQL client; lowercase
+GraphQL Yoga	dev	high	GraphQL server
+Pothos	dev	high	GraphQL schema builder
+TypeGraphQL	dev	high	TS GraphQL framework
+Hasura	dev	high	GraphQL engine
+StepZen	dev	high	GraphQL platform (IBM)
+WunderGraph	dev	high	API platform
+GraphQL Code Generator	dev	high	GraphQL codegen
+gql.tada	dev	high	GraphQL typing; lowercase
+oRPC	dev	high	typed RPC library; lowercase o
+ts-rest	dev	high	typed REST contracts; lowercase
+Hot Chocolate	dev	high	.NET GraphQL server (ChilliCream)
+Jest	dev	high	JS test framework; also common word
+Chai	dev	medium	JS assertion library; also a drink
+Jasmine	dev	medium	JS test framework; also a name
+Playwright	dev	high	Microsoft browser automation; also common word
+Puppeteer	dev	high	Chrome automation; also common word
+Cypress	dev	high	E2E testing; also a tree
+Nightwatch.js	dev	high	E2E testing
+Protractor	dev	medium	legacy Angular E2E; also common word
+Testing Library	dev	high	DOM testing utilities
+React Testing Library	dev	high	React testing utilities
+Applitools	dev	high	visual AI testing
+Lost Pixel	dev	medium	visual regression testing
+Sinon.js	dev	high	JS spies/stubs/mocks
+SuperTest	dev	high	HTTP assertion library (README casing; npm package supertest)
+Nock	dev	medium	HTTP mocking
+Pact	dev	medium	contract testing; also common word
+k6	dev	high	Grafana load testing; lowercase
+Gatling	dev	high	load testing
+Locust	dev	medium	Python load testing; also an insect
+Artillery	dev	medium	load testing; also common word
+autocannon	dev	medium	HTTP benchmarking; lowercase
+axe-core	dev	high	accessibility engine; lowercase
+Pa11y	dev	high	accessibility testing
+Stryker	dev	high	mutation testing (Stryker Mutator)
+nyc	dev	medium	Istanbul CLI; lowercase
+Testcontainers	dev	high	throwaway test containers
+Toxiproxy	dev	high	network fault proxy
+Chaos Monkey	dev	high	Netflix chaos tool
+LitmusChaos	dev	high	chaos engineering
+Chaos Mesh	dev	high	Kubernetes chaos engineering
+Robot Framework	dev	high	test automation
+Behat	dev	high	PHP BDD framework
+Gherkin	dev	high	BDD syntax; also a pickle
+Capybara	dev	medium	Ruby acceptance testing; also an animal
+Minitest	dev	high	Ruby test framework
+isort	dev	high	Python import sorter; lowercase
+Flake8	dev	high	Python linter
+Pylint	dev	high	Python linter
+mypy	dev	high	Python type checker; lowercase
+Ruff	dev	high	Python linter/formatter (Astral); also common word
+uv	dev	high	Astral Python package manager (2 chars)
+ty	dev	medium	Astral Python type checker (2 chars)
+pre-commit	dev	high	Git hook framework; lowercase
+tox	dev	medium	Python test automation; lowercase
+Pipenv	dev	high	Python package manager
+conda	dev	medium	package/env manager (docs write lowercase conda mid-sentence)
+Miniconda	dev	high	minimal Conda installer
+Mamba	dev	medium	fast Conda; also a snake
+micromamba	dev	high	standalone Mamba; lowercase
+Pixi	dev	high	prefix.dev package manager (docs capitalized)
+pip	dev	high	Python installer; lowercase; also common word
+Poetry	dev	medium	Python packaging; also common word
+pandas	dev	high	Python data library (official lowercase); also plural animal
+Polars	dev	high	DataFrame library
+Matplotlib	dev	high	Python plotting
+seaborn	dev	medium	Python statistical plots (seaborn.pydata.org lowercase)
+Bokeh	dev	high	Python interactive viz; also photography term
+Dask	dev	high	Python parallel computing
+Numba	dev	high	Python JIT compiler
+Nuitka	dev	high	Python compiler
+cx_Freeze	dev	high	Python freezer
+PyOxidizer	dev	medium	Python packager
+PyArrow	dev	high	Apache Arrow for Python
+PyMuPDF	dev	high	Python PDF library
+pypdf	dev	high	Python PDF library; lowercase
+ReportLab	dev	high	Python PDF generation
+NLTK	dev	high	Natural Language Toolkit
+Gensim	dev	high	Python topic modeling
+Keras	dev	high	deep learning API
+PyTorch Lightning	dev	high	PyTorch framework
+Hugging Face	dev	high	ML platform (spaced form)
+scikit-image	dev	high	Python image processing; lowercase
+argparse	dev	high	Python CLI parser; lowercase
+Typer	dev	medium	Python CLI framework
+TestPyPI	dev	medium	PyPI test instance
+OWASP ZAP	security	high	web app scanner (now ZAP by Checkmarx)
+ZAP	security	medium	Zed Attack Proxy; also common word
+Burp Suite	security	high	web security testing
+Metasploit	security	high	penetration testing framework
+Nessus	security	high	vulnerability scanner
+OpenVAS	security	high	vulnerability scanner
+Nikto	security	high	web server scanner
+sqlmap	security	high	SQL injection tool; lowercase
+John the Ripper	security	high	password cracker
+hashcat	security	medium	password cracker (hashcat.net lowercase)
+Aircrack-ng	security	high	Wi-Fi security suite
+Ghidra	security	high	NSA reverse engineering suite
+IDA Pro	security	high	disassembler
+Rizin	security	high	radare2 fork (rizin.re)
+radare2	security	medium	reverse engineering framework; lowercase
+Binary Ninja	security	high	reverse engineering platform
+x64dbg	security	high	Windows debugger; lowercase
+OllyDbg	security	high	Windows debugger
+Frida	security	high	dynamic instrumentation
+MobSF	security	high	Mobile Security Framework
+jadx	security	medium	Dex to Java decompiler (repo lowercase; Flathub JADX)
+Apktool	security	high	APK reverse engineering
+Detect It Easy	security	high	file type identifier
+PE-bear	security	high	PE file analyzer
+CFF Explorer	security	high	PE editor
+Resource Hacker	security	high	Windows resource editor
+HxD	security	high	hex editor; mixed case
+010 Editor	security	high	hex editor (SweetScape)
+ImHex	security	high	hex editor
+YARA	security	high	malware pattern matching
+Suricata	security	high	IDS/IPS
+Zeek	security	high	network security monitor
+Snort	security	medium	IDS; also common word
+OSSEC	security	high	host IDS
+Wazuh	security	high	SIEM/XDR
+CrowdStrike	security	high	endpoint security vendor
+CrowdStrike Falcon	security	high	endpoint protection
+Carbon Black	security	high	endpoint security
+VeraCrypt	security	high	disk encryption
+GnuPG	security	high	GNU Privacy Guard
+Gpg4win	security	high	GnuPG for Windows
+Kleopatra	security	medium	GnuPG certificate manager
+Let's Encrypt	security	high	free certificate authority
+Certbot	security	high	ACME client
+acme.sh	security	high	ACME shell client; lowercase
+mkcert	security	high	local dev certificates; lowercase
+Smallstep	security	high	certificate tooling
+step-ca	security	medium	Smallstep CA; lowercase
+CyberArk	security	high	privileged access vendor
+BeyondTrust	security	high	privileged access vendor
+Delinea	security	medium	privileged access vendor
+Gitleaks	security	high	secret scanner
+TruffleHog	security	high	secret scanner
+detect-secrets	security	medium	Yelp secret scanner; lowercase
+Nuclei	security	high	ProjectDiscovery scanner; also plural of nucleus
+ProjectDiscovery	security	high	security tooling vendor
+subfinder	security	medium	subdomain discovery; lowercase
+Shodan	security	high	internet device search
+Censys	security	high	internet scan search
+ANY.RUN	security	medium	interactive malware sandbox
+DefectDojo	security	high	vulnerability management
+Dependency-Track	security	medium	OWASP SBOM analysis
+Tailscale	security	high	WireGuard mesh VPN
+ZeroTier	security	high	virtual networking
+Headscale	security	high	self-hosted Tailscale control server
+NetBird	security	high	WireGuard mesh VPN
+Twingate	security	high	zero trust network access
+Teleport	security	medium	infrastructure access; also common word
+Pomerium	security	medium	identity-aware proxy
+Zscaler	security	high	cloud security vendor
+Fortinet	security	high	security vendor
+FortiGate	security	high	Fortinet firewall
+Check Point	security	high	security vendor
+Sophos	security	high	security vendor
+Palo Alto Networks	security	high	security vendor (spaced form)
+Microsoft Sentinel	security	high	cloud SIEM
+Defender for Cloud	security	high	Microsoft CNAPP
+HackTheBox	security	medium	training platform (brand writes Hack The Box)
+Hack The Box	security	high	security training platform
+TryHackMe	security	high	security training platform
+CTF	security	high	capture the flag
+CTFs	security	medium	plural
+OSCP	security	high	Offensive Security certification
+CISSP	security	high	ISC2 certification
+CEH	security	medium	Certified Ethical Hacker
+CompTIA	security	high	certification body
+OSINT	security	high	open-source intelligence
+IOCs	security	medium	indicators of compromise
+TTPs	security	medium	tactics techniques procedures
+MITRE	security	high	MITRE Corporation
+MITRE ATT&CK	security	high	adversary tactics framework
+ATT&CK	security	high	MITRE framework (ampersand)
+CAPEC	security	medium	attack pattern catalog
+STRIDE	security	high	threat model; also common word
+NVD	security	high	National Vulnerability Database
+CISA	security	high	US cybersecurity agency
+KEV	security	medium	Known Exploited Vulnerabilities
+EPSS	security	medium	Exploit Prediction Scoring System
+GHSA	security	medium	GitHub Security Advisory ID
+OSV	security	medium	Open Source Vulnerabilities DB
+IAST	security	high	interactive AST
+RASP	security	high	runtime application self-protection
+SCA	security	high	software composition analysis
+SBOMs	security	high	plural
+SOC 2	security	high	audit standard
+SOC2	security	medium	unspaced form
+ISO 27001	security	high	security standard
+PCI DSS	security	high	payment card standard
+PCI-DSS	security	high	hyphenated form
+HIPAA	security	high	US health privacy law
+GDPR	security	high	EU privacy regulation
+CCPA	security	high	California privacy law
+FedRAMP	security	high	US cloud authorization; internal caps
+FIPS	security	high	US crypto standard
+FIPS 140-2	security	high	crypto module standard
+FIPS 140-3	security	medium	crypto module standard
+NIST	security	high	US standards body
+CIS Benchmarks	security	high	hardening guides
+STIG	security	high	DISA hardening guide
+STIGs	security	medium	plural
+SOAR	security	medium	security orchestration; also common word
+XDR	security	high	extended detection and response
+MDR	security	high	managed detection and response
+NDR	security	medium	network detection and response
+UEBA	security	medium	user/entity behavior analytics
+WAAP	security	medium	web app and API protection
+CASB	security	high	cloud access security broker
+SASE	security	high	secure access service edge
+ZTNA	security	high	zero trust network access
+Zero Trust	security	high	security model
+PAM	security	high	privileged access management; also a name
+IGA	security	medium	identity governance
+CSPM	security	high	cloud security posture management
+CNAPP	security	high	cloud-native app protection
+CWPP	security	medium	cloud workload protection
+DLP	security	high	data loss prevention
+HSM	security	high	hardware security module
+HSMs	security	medium	plural
+TPM	security	high	Trusted Platform Module
+TPM 2.0	security	high	TPM version
+Secure Boot	security	high	UEFI boot verification
+SGX	security	high	Intel Software Guard Extensions
+TEE	security	medium	trusted execution environment; also golf tee
+TrustZone	security	high	ARM security extension
+Ed25519	security	high	signature scheme
+X25519	security	high	key exchange
+Curve25519	security	high	elliptic curve
+ChaCha20	security	high	stream cipher
+ChaCha20-Poly1305	security	high	AEAD cipher
+Poly1305	security	high	MAC
+AES-GCM	security	high	AEAD mode
+AES-256	security	high	cipher key size
+SHA-1	security	high	hash (hyphenated form)
+SHA-2	security	high	hash family
+SHA-256	security	high	hash (hyphenated form)
+SHA-3	security	high	hash family
+SHA-512	security	high	hash (hyphenated form)
+BLAKE2	security	high	hash function
+BLAKE3	security	high	hash function
+bcrypt	security	high	password hash; lowercase
+scrypt	security	high	password hash; lowercase
+Argon2	security	high	password hash
+Argon2id	security	high	Argon2 variant
+PBKDF2	security	high	key derivation
+HKDF	security	high	key derivation
+Diffie-Hellman	security	high	key exchange
+ECDH	security	high	elliptic-curve Diffie-Hellman
+ECDHE	security	high	ephemeral ECDH
+ECC	security	high	elliptic-curve crypto / ECC memory
+X.509	security	high	certificate standard
+PKCS12	security	high	certificate bundle format
+PKCS#12	security	medium	official notation with #
+PFX	security	high	PKCS#12 file extension
+DER	security	medium	certificate encoding
+CRL	security	high	certificate revocation list
+CAA	security	medium	DNS CA authorization record
+DMARC	security	high	email authentication
+DKIM	security	high	email signing
+SPF	security	high	email sender policy; also sunscreen
+BIMI	security	medium	brand indicators for email
+MTA-STS	security	high	SMTP TLS policy
+DANE	security	medium	DNS-based TLS auth; also a nationality
+JWE	security	high	JSON Web Encryption
+JWS	security	high	JSON Web Signature
+JWK	security	high	JSON Web Key
+JWKS	security	high	JSON Web Key Set
+JOSE	security	medium	JSON Object Signing and Encryption; also a name
+PASETO	security	high	platform-agnostic security tokens
+JWTs	security	high	plural of JWT
+ReBAC	security	high	relationship-based access control
+PBAC	security	medium	policy-based access control
+ACLs	security	high	plural
+SpiceDB	security	high	Zanzibar-style authz DB
+OpenFGA	security	high	fine-grained authz
+Cerbos	security	high	authorization engine
+Permit.io	security	high	authorization platform
+Oso	security	medium	authorization library
+Casbin	security	high	authorization library
+XACML	security	medium	access control policy language
+SCIM	security	high	identity provisioning protocol
+LDAPS	security	high	LDAP over TLS
+TACACS	security	medium	network AAA protocol
+EAP	security	medium	Extensible Authentication Protocol
+802.1X	security	high	port-based network access control
+PEAP	security	medium	Protected EAP
+WPA2	security	high	Wi-Fi security
+WPA3	security	high	Wi-Fi security
+SSRF	security	high	server-side request forgery
+XXE	security	high	XML external entity
+IDOR	security	high	insecure direct object reference
+LFI	security	medium	local file inclusion
+RFI	security	medium	remote file inclusion
+SQLi	security	high	SQL injection; mixed case
+2FA	security	high	two-factor authentication
+U2F	security	high	Universal 2nd Factor
+FIDO	security	high	FIDO Alliance
+OAuth 2.0	security	high	OAuth version
+OpenID Connect	security	high	identity layer on OAuth 2.0
+DPoP	security	high	Demonstrating Proof of Possession; mixed case
+SAML 2.0	security	medium	SAML version
+WS-Federation	security	medium	federation protocol
+Shibboleth	security	medium	SAML IdP; also common word
+CAPTCHA	security	high	challenge-response test
+reCAPTCHA	security	high	Google CAPTCHA; lowercase re
+hCaptcha	security	high	CAPTCHA service; lowercase h
+Passkeys	security	medium	FIDO passkeys; also plural common noun
+Kerberos	security	high	authentication protocol
+NTLM	security	high	Windows authentication protocol
+NTLMv2	security	high	NTLM version 2
+Log4Shell	security	high	Log4j vulnerability (CVE-2021-44228)
+Heartbleed	security	high	OpenSSL vulnerability
+Spectre	security	medium	CPU vulnerability; also common word
+Meltdown	security	medium	CPU vulnerability; also common word
+Unity	dev	high	game engine; also common word
+Godot	dev	high	game engine
+Godot Engine	dev	high	full name
+UE4	dev	high	Unreal Engine 4
+Unreal Engine 5	dev	high	UE5 long name
+O3DE	dev	high	Open 3D Engine
+Open 3D Engine	dev	high	Linux Foundation engine
+Lumberyard	dev	high	Amazon engine (O3DE predecessor)
+Defold	dev	high	game engine
+Cocos2d-x	dev	high	game engine
+Cocos Creator	dev	high	game engine
+Bevy	dev	high	Rust game engine
+Fyrox	dev	high	Rust game engine
+FNA	dev	medium	XNA reimplementation
+LÖVE	dev	high	Lua 2D framework (non-ASCII Ö)
+Love2D	dev	high	common name for LÖVE
+SDL2	dev	high	Simple DirectMedia Layer 2
+SDL3	dev	high	Simple DirectMedia Layer 3
+Allegro	dev	medium	game library; also music term
+Ren'Py	dev	high	visual novel engine
+RPG Maker	dev	high	game creation tool
+Construct 3	dev	high	HTML5 game engine
+GDevelop	dev	high	no-code game engine
+HaxeFlixel	dev	high	Haxe 2D framework
+OpenFL	dev	high	Flash API reimplementation
+Solar2D	dev	high	formerly Corona SDK
+Source 2	dev	high	Valve engine
+Frostbite	dev	medium	EA engine; also medical term
+id Tech	dev	high	id Software engine; lowercase id
+RE Engine	dev	high	Capcom engine
+Havok	dev	high	physics middleware
+PhysX	dev	high	NVIDIA physics; internal caps
+Jolt Physics	dev	high	physics engine
+Box2D	dev	high	2D physics engine
+Bullet Physics	dev	high	physics engine
+Nanite	dev	high	UE5 virtualized geometry
+MetaHuman	dev	high	Epic digital humans
+Blueprints	dev	medium	UE visual scripting; also common word
+Houdini Engine	dev	high	SideFX engine plugin
+SpeedTree	dev	high	vegetation middleware
+Quixel	dev	high	Megascans company
+Megascans	dev	high	Quixel scan library
+Steamworks	dev	high	Valve SDK
+OpenVR	dev	high	Valve VR API
+OpenGL ES	dev	high	embedded OpenGL
+GLES	dev	medium	OpenGL ES abbreviation
+DirectX 12	dev	high	graphics API
+DX12	dev	high	DirectX 12 abbreviation
+DX11	dev	high	DirectX 11 abbreviation
+D3D11	dev	high	Direct3D 11
+D3D12	dev	high	Direct3D 12
+DXGI	dev	medium	DirectX Graphics Infrastructure
+DXR	dev	medium	DirectX Raytracing
+MoltenVK	dev	high	Vulkan on Metal
+Shader Graph	dev	high	Unity node shader editor
+URP	dev	high	Unity Universal Render Pipeline
+HDRP	dev	high	Unity High Definition Render Pipeline
+SRP	dev	medium	Unity Scriptable Render Pipeline
+DOTS	dev	medium	Unity Data-Oriented Tech Stack; also common word
+Addressables	dev	medium	Unity asset system
+Photon PUN	dev	high	Unity networking
+Nakama	dev	high	game server
+PlayFab	cloud	high	Microsoft game backend
+Epic Online Services	cloud	high	Epic game services
+Unity Hub	dev	high	Unity launcher
+Unity Asset Store	dev	high	asset marketplace
+ProBuilder	dev	high	Unity modeling tool
+Cinemachine	dev	high	Unity camera system
+TextMeshPro	dev	high	Unity text system
+DOTween	dev	high	Unity tweening library
+Odin Inspector	dev	high	Unity editor extension
+Zenject	dev	high	Unity DI
+VContainer	dev	high	Unity DI
+UniTask	dev	high	Unity async library
+UniRx	dev	high	Unity reactive extensions
+Aseprite	dev	high	pixel art editor
+LDtk	dev	high	2D level editor; mixed case
+DragonBones	dev	high	2D skeletal animation
+Live2D	dev	high	2D model animation
+MagicaVoxel	dev	high	voxel editor
+Roblox	dev	high	game platform
+Roblox Studio	dev	high	Roblox editor
+Ollama	dev	high	local LLM runner
+Open WebUI	dev	high	LLM web interface
+LibreChat	dev	high	chat UI
+AnythingLLM	dev	high	LLM app
+LocalAI	dev	high	local inference server
+LiteLLM	dev	high	LLM proxy/SDK
+Langfuse	dev	high	LLM observability
+Helicone	dev	high	LLM observability
+Flowise	dev	high	LLM flow builder
+Langflow	dev	high	LLM flow builder
+Dify	dev	high	LLM app platform
+n8n	dev	high	workflow automation; lowercase
+Mastra	dev	high	TS agent framework
+VoltAgent	dev	high	TS agent framework
+Pydantic AI	dev	high	Python agent framework
+smolagents	dev	high	Hugging Face agent library; lowercase
+Agno	dev	medium	agent framework
+Claude Agent SDK	dev	high	Anthropic agent SDK
+OpenAI Agents SDK	dev	high	OpenAI agent SDK
+MCP Inspector	dev	medium	MCP debugging tool
+ONNX Runtime	dev	high	inference engine
+LiteRT	dev	high	TensorFlow Lite successor
+TensorFlow Lite	dev	high	mobile ML runtime
+TFLite	dev	high	TensorFlow Lite abbreviation
+MediaPipe	dev	high	Google ML pipelines
+DeepSpeed	dev	high	Microsoft training library
+bitsandbytes	dev	high	quantization library; lowercase
+Unsloth	dev	high	fine-tuning library
+Weights & Biases	dev	high	ML experiment tracking
+W&B	dev	high	Weights & Biases abbreviation
+ClearML	dev	high	MLOps platform
+Kubeflow	dev	high	ML on Kubernetes
+BentoML	dev	high	model serving
+KServe	dev	high	Kubernetes model serving
+GPT4All	dev	high	local LLM app
+KoboldCpp	dev	high	local LLM runner
+llamafile	dev	high	single-file LLM executable; lowercase
+SillyTavern	dev	high	LLM chat frontend
+Automatic1111	dev	high	Stable Diffusion web UI
+A1111	dev	high	Automatic1111 abbreviation
+SwarmUI	dev	high	Stable Diffusion UI
+Fooocus	dev	high	image generation UI
+TUI	dev	high	text user interface
+TUIs	dev	medium	plural
+DAP	dev	medium	Debug Adapter Protocol
+ASTs	dev	medium	plural of AST
+REPLs	dev	medium	plural of REPL
+DTOs	dev	high	plural of DTO
+DAO	dev	medium	data access object; also crypto DAO
+POCO	dev	high	plain old CLR object
+POJO	dev	high	plain old Java object
+POCOs	dev	medium	plural
+POJOs	dev	medium	plural
+IoC	dev	medium	inversion of control / indicator of compromise; mixed case
+AOP	dev	high	aspect-oriented programming
+DDD	dev	high	domain-driven design
+FRP	dev	medium	functional reactive programming
+ACID	dev	high	database transaction properties; also common word
+BFF	dev	medium	backend for frontend; also slang
+EDA	dev	medium	event-driven architecture
+MVI	dev	medium	Model-View-Intent
+CRDT	dev	high	conflict-free replicated data type
+CRDTs	dev	medium	plural
+DAGs	dev	medium	plural of DAG
+ADR	dev	medium	architecture decision record
+ADRs	dev	medium	plural
+PoCs	dev	medium	plural of PoC
+MVPs	dev	medium	plural of MVP
+SPOF	dev	medium	single point of failure
+IOPS	dev	high	I/O operations per second
+QPS	dev	medium	queries per second
+RPS	dev	medium	requests per second
+TPS	dev	medium	transactions per second
+FFI	dev	high	foreign function interface
+ABIs	dev	medium	plural of ABI
+ELF	dev	high	Executable and Linkable Format; also common word
+COFF	dev	medium	Common Object File Format
+dylib	dev	high	macOS dynamic library; lowercase
+JAR	dev	high	Java archive; also common word
+JARs	dev	high	plural
+WHL	dev	medium	Python wheel extension
+nupkg	dev	high	NuGet package extension; lowercase
+MSIs	dev	medium	plural of MSI
+UUIDs	dev	high	plural
+GUIDs	dev	high	plural
+ULID	dev	high	sortable unique ID
+ULIDs	dev	medium	plural
+KSUID	dev	medium	K-sortable unique ID
+Nano ID	dev	high	ID generator (nanoid package)
+CaaS	cloud	medium	containers as a service
+DaaS	cloud	medium	desktop/data as a service
+XaaS	cloud	medium	anything as a service
+ZeroVer	dev	medium	0-based versioning joke spec
+MEAN	dev	medium	MongoDB-Express-Angular-Node stack; also common word
+LAMP	dev	medium	Linux-Apache-MySQL-PHP stack; also common word
+T3 Stack	dev	high	Next.js/tRPC/Prisma/Tailwind stack
+ES5	web	high	ECMAScript 5
+ES2015	web	high	ECMAScript 2015
+ES2017	web	medium	ECMAScript 2017
+ES2020	web	medium	ECMAScript 2020
+ES2022	web	medium	ECMAScript 2022
+ES2023	web	medium	ECMAScript 2023
+ES2024	web	medium	ECMAScript 2024
+ES2025	web	high	ECMAScript 2025
+ES2026	web	medium	ECMAScript 2026
+Java	dev	high	language (also an island/coffee)
+Rust	dev	high	language; also common word
+Ruby	dev	high	language; also a name/gem
+Swift	dev	high	Apple language; also common word
+Skia	dev	high	Google 2D graphics library
+React Native Skia	dev	medium	Skia bindings for React Native
+React Native Web	dev	high	RN components on the web
+React Native Paper	dev	high	Material RN components
+Expo Go	dev	high	Expo client app
+HarfBuzz	dev	high	text shaping engine; internal caps
+FreeType	dev	high	font rasterizer; internal caps
+Cairo	dev	medium	2D graphics library; also a city
+ANGLE	dev	medium	GLES-on-DirectX/Vulkan layer; also common word
+DirectWrite	dev	high	Windows text rendering API
+DirectML	dev	high	Windows ML acceleration API
+DirectStorage	dev	high	Windows fast I/O API
+DXVK	dev	high	Direct3D-on-Vulkan layer
+VKD3D	dev	high	Direct3D 12 on Vulkan
+Wine	os	medium	Windows compatibility layer; also common word
+WineHQ	os	high	Wine project site
+CrossOver	os	high	CodeWeavers Wine product; internal caps
+Lutris	os	high	Linux game manager
+GStreamer	dev	high	multimedia framework; internal caps
+ffprobe	dev	high	FFmpeg media inspector; lowercase
+libvips	dev	high	image processing library; lowercase
+Pillow	dev	medium	Python imaging library; also common word
+OpenImageIO	dev	high	image I/O library
+Potrace	dev	medium	bitmap tracing
+Ghostscript	dev	high	PostScript/PDF interpreter
+Poppler	dev	medium	PDF rendering library
+PDF.js	dev	high	Mozilla PDF renderer
+pdf-lib	dev	medium	JS PDF library; lowercase
+PDFKit	dev	high	PDF library (Apple framework / Node package)
+jsPDF	dev	high	JS PDF generator; lowercase js
+QuestPDF	dev	high	.NET PDF generator
+iText	dev	high	Java/.NET PDF library; lowercase i
+PdfPig	dev	medium	.NET PDF reader
+PDFium	dev	high	Chromium PDF engine
+MuPDF	dev	high	PDF toolkit
+wkhtmltopdf	dev	high	HTML to PDF CLI; lowercase
+WeasyPrint	dev	high	HTML/CSS to PDF
+Pandoc	dev	high	document converter
+Quarto	dev	high	scientific publishing system; also paper size
+Tesseract	dev	medium	OCR engine; also geometric term
+OCRmyPDF	dev	high	PDF OCR tool
+PaddleOCR	dev	high	OCR toolkit
+Squoosh	dev	medium	Google image compressor
+Team Foundation Server	dev	medium	former Azure DevOps Server
+ClearCase	dev	medium	IBM version control
+Gitmoji	dev	high	emoji commit convention
+git-cliff	dev	medium	changelog generator; lowercase
+Keep a Changelog	dev	medium	changelog convention
+Model Context Protocol	dev	high	MCP full name
+Agent2Agent	dev	medium	A2A protocol full name
+AG-UI	dev	medium	agent-user interaction protocol
+Firebase App Distribution	cloud	medium	beta distribution
+App Center	cloud	medium	Visual Studio App Center (retired 2025)
+HockeyApp	cloud	medium	legacy beta distribution
+Xcode Cloud	cloud	high	Apple CI/CD
+JetBrains Toolbox	dev	medium	JetBrains IDE manager
+Qodana	dev	high	JetBrains code quality
+ktlint	dev	high	Kotlin linter; lowercase
+detekt	dev	high	Kotlin static analysis; lowercase
+Spotless	dev	medium	code formatter plugin; also common word
+Checkstyle	dev	high	Java style checker
+Error Prone	dev	medium	Google Java checker
+ArchUnit	dev	high	Java architecture tests
+Micrometer	dev	medium	JVM metrics facade; also common word
+AWT	dev	medium	Java Abstract Window Toolkit
+SWT	dev	medium	Eclipse Standard Widget Toolkit
+Jib	dev	medium	Google Java container builder; also common word
+Ecto	dev	high	Elixir database library
+Oban	dev	medium	Elixir job processing
+IEx	dev	high	Interactive Elixir; mixed case
+ExUnit	dev	high	Elixir test framework
+GHC	dev	high	Glasgow Haskell Compiler
+GHCup	dev	high	Haskell toolchain installer
+Cabal	dev	medium	Haskell build tool; also common word
+Hatchling	dev	medium	Hatch build backend; also common word
+setuptools	dev	high	Python packaging; lowercase
+maturin	dev	high	Rust-Python packaging; lowercase
+PyO3	dev	high	Rust bindings for Python
+pybind11	dev	high	C++ bindings for Python; lowercase
+nanobind	dev	medium	C++ bindings for Python; lowercase
+SWIG	dev	high	interface generator
+ctypes	dev	high	Python FFI module; lowercase
+CFFI	dev	medium	C Foreign Function Interface for Python
+Rayon	dev	medium	Rust data parallelism; also a fabric
+reqwest	dev	high	Rust HTTP client; lowercase
+Actix Web	dev	high	Rust web framework (spaced form)
+Miri	dev	medium	Rust UB interpreter
+rustdoc	dev	high	Rust documentation tool; lowercase
+Lip Gloss	dev	medium	Charm terminal styling (Go); also cosmetic
+Fyne	dev	high	Go GUI toolkit
+MSVC	dev	high	Microsoft Visual C++ compiler
+Catch2	dev	high	C++ test framework
+GoogleTest	dev	high	C++ test framework
+gtest	dev	medium	GoogleTest short name; lowercase
+Valgrind	dev	high	memory debugger
+AddressSanitizer	dev	high	memory error detector
+ASan	dev	high	AddressSanitizer abbreviation; mixed case
+UBSan	dev	high	UndefinedBehaviorSanitizer; mixed case
+TSan	dev	medium	ThreadSanitizer; mixed case
+RenderDoc	dev	high	graphics debugger
+PIX	dev	medium	Microsoft DirectX debugger; also common word
+Nsight	dev	high	NVIDIA developer tools
+NVIDIA Nsight	dev	high	GPU profiler/debugger
+VTune	dev	high	Intel profiler
+Intel VTune	dev	high	Intel profiler
+Superluminal	dev	medium	CPU profiler
+dotnet-trace	dev	medium	.NET tracing tool; lowercase
+dotnet-counters	dev	medium	.NET metrics tool; lowercase
+Clinic.js	dev	high	Node.js performance tool
+OpenLiteSpeed	dev	high	open-source LiteSpeed
+lighttpd	dev	high	web server; lowercase
+NGINX Unit	dev	medium	NGINX app server
+OpenResty	dev	high	NGINX + Lua platform
+Pingora	dev	high	Cloudflare Rust proxy framework
+Squid	dev	medium	caching proxy; also an animal
+Ingress-NGINX	dev	high	Kubernetes ingress controller
+Pi-hole	os	high	network ad blocker (official hyphen/lowercase h)
+AdGuard Home	os	high	network ad blocker
+Unbound	os	medium	recursive DNS resolver; also common word
+BIND	os	medium	ISC DNS server; also common word
+PowerDNS	os	high	DNS server
+dnsmasq	os	high	lightweight DNS/DHCP; lowercase
+Technitium	os	medium	DNS server
+Quad9	web	high	public DNS resolver
+1.1.1.1	cloud	medium	Cloudflare public DNS / WARP app
+Home Assistant	os	high	home automation platform
+Jellyfin	os	high	media server
+Immich	os	high	self-hosted photo library
+Paperless-ngx	os	high	document management
+Nginx Proxy Manager	os	high	reverse proxy UI
+openmediavault	os	high	NAS OS (openmediavault.org lowercase)
+CasaOS	os	high	home server OS
+Umbrel	os	medium	home server OS
+YunoHost	os	high	self-hosting OS
+Cloudron	os	medium	self-hosting platform
+RustDesk	os	high	open-source remote desktop
+Parsec	os	medium	remote desktop; also astronomy unit
+Chrome Remote Desktop	os	medium	Google remote access
+mRemoteNG	os	high	multi-protocol remote manager; lowercase m
+Royal TS	os	high	remote connection manager
+Remmina	os	high	Linux remote desktop client
+Apache Guacamole	os	high	clientless remote desktop gateway
+xrdp	os	high	Linux RDP server; lowercase
+RealVNC	os	high	VNC vendor
+TightVNC	os	high	VNC implementation
+UltraVNC	os	high	VNC implementation
+restic	os	high	backup program (official lowercase)
+Duplicati	os	high	backup client
+Kopia	os	high	backup tool
+Macrium Reflect	os	high	disk imaging
+Acronis	os	high	backup vendor
+UrBackup	os	high	client/server backup; internal caps
+Timeshift	os	high	Linux system snapshots
+MikroTik	os	high	network equipment vendor
+RouterOS	os	high	MikroTik OS
+Ubiquiti	os	high	network equipment vendor
+UniFi	os	high	Ubiquiti product line; mixed case
+DD-WRT	os	high	router firmware
+VyOS	os	high	network OS
+Cisco IOS	os	high	Cisco network OS
+Junos	os	high	Juniper network OS
+FortiOS	os	high	Fortinet OS
+Meraki	os	high	Cisco cloud networking
+Omada	os	medium	TP-Link SDN platform
+Wi-Fi	web	high	official hyphenated spelling
+Wi-Fi 6E	web	medium	Wi-Fi generation
+Wi-Fi 7	web	medium	Wi-Fi generation
+Z-Wave	web	high	home automation protocol
+USB-C	web	high	connector standard
+USB4	web	high	USB version
+M.2	web	high	SSD form factor
+DDR4	web	high	memory standard
+DDR5	web	high	memory standard
+Sysprep	os	high	Windows system preparation tool
+unattend.xml	os	medium	Windows answer file
+OOBE	os	high	out-of-box experience
+UNC	os	medium	Universal Naming Convention path
+RemoteApp	os	high	Windows published apps
+Windows Admin Center	os	high	server management tool
+Server Core	os	medium	minimal Windows Server install
+Nano Server	os	medium	container Windows Server image
+Storage Spaces	os	medium	Windows storage virtualization
+Storage Spaces Direct	os	medium	Windows hyperconverged storage
+S2D	os	medium	Storage Spaces Direct abbreviation
+DFS	os	medium	Distributed File System
+DFSR	os	medium	DFS Replication
+WDS	os	medium	Windows Deployment Services
+SCOM	os	high	System Center Operations Manager
+SCVMM	os	high	System Center Virtual Machine Manager
+IdP	security	high	identity provider; mixed case
+IdPs	security	medium	plural
+Rosetta 2	os	high	Apple x86 translation layer
+Apple Silicon	os	high	Apple ARM chips
+Hammerspoon	os	high	macOS automation
+Karabiner-Elements	os	high	macOS keyboard remapper
+BetterTouchTool	os	high	macOS input customizer
+AeroSpace	os	high	macOS tiling window manager
+yabai	os	high	macOS tiling window manager; lowercase
+Moby	dev	medium	Docker upstream project; also novel name
+nerdctl	dev	high	containerd CLI; lowercase
+Finch	dev	medium	AWS container CLI; also a bird
+RKE2	dev	high	Rancher Kubernetes Engine 2
+Kubespray	dev	high	Ansible Kubernetes installer
+Cluster API	dev	medium	Kubernetes cluster lifecycle API
+Gateway API	dev	medium	Kubernetes networking API
+Kiali	dev	high	Istio service mesh console
+OpenCost	dev	high	Kubernetes cost monitoring
+Kubecost	dev	high	Kubernetes cost monitoring
+Backstage	dev	high	Spotify developer portal; also common word
+Humanitec	dev	medium	platform orchestrator
+WAFs	security	medium	plural of WAF
+ISPs	web	medium	plural of ISP
+FPGAs	dev	medium	plural of FPGA
+ASICs	dev	medium	plural of ASIC
+TPUs	dev	medium	plural of TPU

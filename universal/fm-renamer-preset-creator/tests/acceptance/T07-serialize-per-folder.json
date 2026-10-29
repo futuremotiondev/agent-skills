@@ -1,0 +1,60 @@
+{
+  "acceptance": {
+    "id": "T07",
+    "request": "Number files per folder, 2-digit, after the folder name (CONTENTS only)",
+    "maxRules": 4,
+    "expectedDesign": "Delete whole base name -> Insert folder -> Serialize (suffix, reset per folder, pad 2) -> ext Case"
+  },
+  "name": "Rename Serialize Folder Name 2Pad",
+  "variants": [
+    "CONTENTS"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "Delete",
+      "comment": "Delete the whole base name (pos 1 till end)",
+      "config": {
+        "UNTIL": 2
+      }
+    },
+    {
+      "id": "Insert",
+      "comment": "Folder name + space",
+      "config": {
+        "TEXT": ":File_FolderName: ",
+        "WHERE": 1
+      }
+    },
+    {
+      "id": "Serialize",
+      "comment": "Number per folder, pad 2",
+      "config": {
+        "RESETIFFOLDERCHANGES": 1,
+        "PADTOLENGTH": 1,
+        "PADTOLENGTHVALUE": 2
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "Two files in one folder",
+      "files": [
+        "Textures\\a.jpg",
+        "Textures\\b.jpg"
+      ],
+      "inputs": [
+        "Textures"
+      ],
+      "expect": [
+        "Textures\\",
+        "Textures\\Textures 01.jpg",
+        "Textures\\Textures 02.jpg"
+      ]
+    }
+  ]
+}

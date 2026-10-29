@@ -1,0 +1,48 @@
+{
+  "acceptance": {
+    "id": "T10d",
+    "request": "Split CamelCase, keep brands, and keep 3D/4K together",
+    "maxRules": 4,
+    "expectedDesign": "CleanUp split + rejoin Replace + digit-capital repair RegEx + ext Case"
+  },
+  "name": "CASE Separate CamelCase Digits",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "camelCaseRejoin": {
+    "enabled": true,
+    "repairDigitCapitals": true
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "CleanUp",
+      "comment": "Split CamelCase",
+      "config": {
+        "INSERTSPACEBEFORECAPITALS": 1
+      }
+    }
+  ],
+  "tests": [
+    {
+      "in": "MyGitHubModel3DExport.zip",
+      "out": "My GitHub Model3D Export.zip"
+    },
+    {
+      "in": "Render4K.png",
+      "out": "Render4K.png"
+    },
+    {
+      "in": "Track 1 A.mp3",
+      "out": "Track 1 A.mp3"
+    },
+    {
+      "in": "Win10ProSetup.exe",
+      "out": "Win10 Pro Setup.exe"
+    }
+  ]
+}

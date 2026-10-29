@@ -1,0 +1,113 @@
+{
+  "_comment": "Example Visual DNA extraction for the Fracture source image (chrome shattered geometric forms, mid-explosion, dark void with magenta/cyan accents, 2:3 portrait). This is the high-quality baseline a strong extraction should produce. Refer to this when uncertain about specificity or field-fill depth during your own extractions. The leading underscore on '_comment' marks this as a non-schema annotation that downstream code should ignore.",
+
+  "meta": {
+    "overall_intent": "Hypermodern abstract product/cover artwork conveying controlled chaos and luxury via mirror-polished chrome geometry caught mid-fragmentation against a dark studio void with electric-accent rim lighting.",
+    "estimated_genre": "3d_render",
+    "confidence": 0.92
+  },
+
+  "subject": {
+    "primary": "cluster of shattered chrome geometric forms mid-explosion",
+    "secondary": [
+      "individual angular chrome fragments suspended in arc",
+      "central dissolving silhouette implied by the fragment cloud"
+    ],
+    "pose_or_action": "fragments captured at the apex of outward-radiating explosion, each piece in motion-frozen suspension",
+    "facial_expression": null,
+    "wardrobe_or_surface": "mirror-polished chrome with sharp specular highlights and faint magenta/cyan environmental reflections on the fragment faces",
+    "sibling_axis": "chrome geometric forms"
+  },
+
+  "composition": {
+    "framing": "medium",
+    "angle": "eye_level",
+    "rule_of_thirds_focal": {
+      "x": 0.5,
+      "y": 0.55
+    },
+    "depth_layers": [
+      "foreground",
+      "midground",
+      "background"
+    ],
+    "negative_space_pct": 55,
+    "symmetry": "rule_of_thirds"
+  },
+
+  "camera": {
+    "lens_mm": 50,
+    "aperture_fstop": 4.0,
+    "shutter_implied": "1/2000 freeze motion",
+    "depth_of_field": "shallow",
+    "perspective": "normal",
+    "sensor_or_film": "full_frame_digital"
+  },
+
+  "lighting": {
+    "key_direction": "back",
+    "key_hardness": "hard",
+    "fill_ratio": 0.25,
+    "rim_present": true,
+    "practicals": [],
+    "color_temp_kelvin": 5000,
+    "time_of_day": "studio_no_time",
+    "mood": "controlled chaos, hypermodern, electric"
+  },
+
+  "materials": [
+    {
+      "surface": "polished_chrome",
+      "roughness": 0.05,
+      "metallic": 1.0,
+      "refractive": false,
+      "texture_notes": "mirror-finish with crisp specular highlights, faint colored environment reflections on the fragment faces"
+    }
+  ],
+
+  "palette": {
+    "dominant_hex": [
+      "#0A0A0A",
+      "#1A1A1A",
+      "#D8D8D8",
+      "#FF1F88",
+      "#00E0FF"
+    ],
+    "accent_hex": "#FF1F88",
+    "contrast": "extreme",
+    "grade": "split_toned"
+  },
+
+  "style": {
+    "medium": "3d_render",
+    "render_engine_hint": "octane",
+    "photographer_or_artist_reference": null,
+    "art_movement": "hypermodern luxury product / concept art crossover",
+    "motion_lines": false
+  },
+
+  "post_processing": {
+    "film_grain": 0.0,
+    "chromatic_aberration": 0.05,
+    "halation_bloom": 0.3,
+    "vignette": 0.15,
+    "sharpness": "ultra_sharp",
+    "color_grade_notes": "deep crushed blacks, subtle halation around the brightest magenta specular hits, clean uncompressed digital aesthetic"
+  },
+
+  "text_in_image": {
+    "present": false,
+    "strings": [],
+    "font_character": null
+  },
+
+  "aspect_ratio": "2:3",
+
+  "recreation_difficulty": {
+    "overall": 0.65,
+    "notes": [
+      "complex specular reflections requiring strong material rendering",
+      "fragment count and distribution affects visual density and is hard to reproduce exactly"
+    ]
+  }
+}

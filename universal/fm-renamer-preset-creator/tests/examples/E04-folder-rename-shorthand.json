@@ -1,0 +1,48 @@
+{
+  "acceptance": {
+    "id": "E04",
+    "request": "Prefix passed folders (FILE renames the folder itself; shorthand with a folder)",
+    "maxRules": 2
+  },
+  "name": "Prefix Draft",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [
+    {
+      "id": "Insert",
+      "comment": "Prefix 'Draft '",
+      "config": {
+        "TEXT": "Draft ",
+        "WHERE": 1
+      }
+    }
+  ],
+  "tests": [
+    {
+      "in": "My Folder\\",
+      "out": "Draft My Folder\\"
+    },
+    {
+      "in": "Parent\\Child Folder\\",
+      "out": "Parent\\Draft Child Folder\\"
+    },
+    {
+      "name": "Folder contents stay untouched",
+      "files": [
+        "Box\\a.txt"
+      ],
+      "inputs": [
+        "Box"
+      ],
+      "expect": [
+        "Draft Box\\",
+        "Draft Box\\a.txt"
+      ]
+    }
+  ]
+}

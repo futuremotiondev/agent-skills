@@ -1,0 +1,63 @@
+{
+  "acceptance": {
+    "id": "T14",
+    "request": "Remove the download counter and serialize duplicates",
+    "maxRules": 3,
+    "expectedDesign": "RegEx -> Case capitalize (its ext-lowercase satisfies 7.1) -> serializer nopad, last"
+  },
+  "name": "Remove Download Counter",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "nopad",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "RegEx",
+      "comment": "Strip browser duplicate counters",
+      "config": {
+        "EXPRESSION": " *(\\(\\d+\\)|-\\d+)$",
+        "REPLACE": ""
+      }
+    },
+    {
+      "id": "Case",
+      "comment": "Capitalize + extension lower",
+      "config": {
+        "WHAT": 3,
+        "PRESERVECASE": 1
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "Colliding batch is refused without the serializer",
+      "files": [
+        "Save (2).svg",
+        "Save-3.svg",
+        "save.svg"
+      ],
+      "expect": [
+        "Save (2).svg",
+        "Save-3.svg",
+        "save.svg"
+      ],
+      "expectExit": 1
+    },
+    {
+      "in": "Save (2).svg",
+      "out": "Save.svg"
+    },
+    {
+      "in": "Save-3.svg",
+      "out": "Save.svg"
+    },
+    {
+      "in": "save.svg",
+      "out": "Save.svg"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "acceptance": {
+    "id": "E02",
+    "request": "Spaced versions to v-dotted, but leave y m d dates alone (rule-selection V2)",
+    "maxRules": 3
+  },
+  "name": "Version Numbers Dotted Date Guard",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [
+    {
+      "id": "RegEx",
+      "comment": "4-part version",
+      "config": {
+        "EXPRESSION": "(^|\\s)(\\d{1,4}) (\\d{1,5}) (\\d{1,5}) (\\d{1,5})(?=\\s|$)",
+        "REPLACE": "$1v$2.$3.$4.$5"
+      }
+    },
+    {
+      "id": "RegEx",
+      "comment": "3-part version, not a y m d date",
+      "config": {
+        "EXPRESSION": "(^|\\s)(?!(?:19|20)\\d\\d (?:0?[1-9]|1[0-2]) (?:0?[1-9]|[12]\\d|3[01])(?=\\s|$))(\\d{1,4}) (\\d{1,5}) (\\d{1,5})(?=\\s|$)",
+        "REPLACE": "$1v$2.$3.$4"
+      }
+    }
+  ],
+  "tests": [
+    {
+      "in": "Blender 4 2 1 Setup.exe",
+      "out": "Blender v4.2.1 Setup.exe"
+    },
+    {
+      "in": "Tool 2 0 1 5.zip",
+      "out": "Tool v2.0.1.5.zip"
+    },
+    {
+      "in": "Invoice 2024 05 01.pdf",
+      "out": "Invoice 2024 05 01.pdf"
+    },
+    {
+      "in": "Report 1999 12 31.PDF",
+      "out": "Report 1999 12 31.pdf"
+    },
+    {
+      "in": "Build 2024 13 01.zip",
+      "out": "Build v2024.13.01.zip"
+    },
+    {
+      "in": "Wallpaper 1920 1080.jpg",
+      "out": "Wallpaper 1920 1080.jpg"
+    }
+  ]
+}

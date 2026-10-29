@@ -1,0 +1,22 @@
+#!/bin/sh
+# Reject commit messages whose trailers attribute co-authorship to AI.
+#
+# Git trailers live at the end of the message, one per line, in the form
+# `Token: Value` starting at column 0 (see git-interpret-trailers(1)).
+# This hook anchors its match to the start of a line to avoid rejecting
+# legitimate quoted references to the phrase elsewhere in the message body
+# (e.g., commit messages that describe or document this very policy).
+
+if grep -qiE '^[[:space:]]*Co-Authored-By:[[:space:]]*(Claude|Anthropic|an? AI|AI Assistant)' "$1"; then
+  echo "" >&2
+  echo "REJECTED: commit message contains an AI-attribution trailer" >&2
+  echo "          (a line starting with 'Co-Authored-By:' attributing" >&2
+  echo "          co-authorship to Claude, Anthropic, or an AI)." >&2
+  echo "" >&2
+  echo "This repo's policy: no AI-attribution trailers on commits." >&2
+  echo "Remove the trailer line and try again." >&2
+  echo "" >&2
+  exit 1
+fi
+
+exit 0

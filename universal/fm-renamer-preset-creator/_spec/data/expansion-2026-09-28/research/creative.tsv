@@ -1,0 +1,1780 @@
+term	pack	confidence	note
+Photoshop	design	high	Adobe raster editor
+Dreamweaver	design	high	Adobe web editor
+Firefly	design	high	Adobe gen-AI; also common word
+Adobe Express	design	high	Adobe design app
+Adobe Fresco	design	high	Adobe painting app
+Adobe Stock	media	high	Adobe stock marketplace
+Adobe Fonts	design	high	Adobe font service (formerly Typekit)
+Adobe Bridge	design	medium	Adobe asset browser
+Character Animator	design	medium	Adobe puppet animation app
+ExtendScript	design	high	Adobe JSX scripting (adobe.com)
+ScriptUI	design	high	ExtendScript UI toolkit
+UXP	design	high	Adobe Unified Extensibility Platform
+ZXP	design	high	Adobe extension package format
+CS2	design	medium	Adobe Creative Suite 2
+CS3	design	high	Adobe Creative Suite 3
+CS4	design	high	Adobe Creative Suite 4
+CS5	design	high	Adobe Creative Suite 5
+CS5.5	design	medium	Adobe Creative Suite 5.5
+CS6	design	high	Adobe Creative Suite 6
+PSB	design	high	Photoshop Large Document format
+ABR	design	high	Photoshop brush file
+ATN	design	high	Photoshop actions file
+CSH	design	medium	Photoshop custom shapes file
+GRD	design	medium	Photoshop gradients file
+INDD	design	high	InDesign document format
+IDML	design	high	InDesign Markup Language
+PS	design	medium	Photoshop abbreviation; also PostScript
+AE	3d	high	After Effects abbreviation
+AEP	3d	high	After Effects project file
+AEPX	3d	medium	After Effects XML project file
+FFX	3d	high	After Effects preset file
+MOGRT	3d	medium	Motion Graphics template file (.mogrt)
+Lightroom	media	high	Adobe photo app
+Premiere	media	high	Adobe Premiere; also common word
+Audition	audio	high	Adobe audio editor; also common word
+Frame.io	media	high	Adobe review platform (frame.io)
+Mixamo	3d	high	Adobe auto-rig/mocap library
+Affinity	design	high	Canva-owned design suite; also common word
+Canva	design	high	online design platform
+Framer	design	high	web design/prototyping tool; also common word framer
+Spline	3d	high	browser 3D design tool; also common word
+Rive	design	high	interactive animation tool (rive.app)
+Lottie	design	high	JSON animation format; also a given name
+dotLottie	design	high	Lottie container format (dotlottie.io)
+Bodymovin	design	high	AE-to-Lottie exporter
+SVGator	design	high	SVG animation tool (svgator.com)
+Cavalry	3d	high	procedural motion design app; also common word
+Jitter	design	medium	motion design tool; also common word
+ProtoPie	design	high	prototyping tool (protopie.io)
+UXPin	design	high	prototyping tool (uxpin.com)
+Balsamiq	design	high	wireframing tool
+Zeplin	design	high	design handoff tool
+Penpot	design	high	open-source design tool
+Lunacy	design	medium	Icons8 design app; also common word
+MasterGo	design	high	Figma-like design tool (mastergo.com)
+Pixso	design	medium	Figma-like design tool
+Uizard	design	medium	AI UI design tool
+Vectornator	design	high	vector app (now Linearity Curve)
+Linearity	design	medium	Linearity Curve vendor; also common word
+Vectorizer.AI	design	medium	raster-to-vector service (vectorizer.ai)
+Kittl	design	medium	online design tool
+Picsart	design	high	photo editor (rebranded from PicsArt 2021)
+Pixlr	design	high	online photo editor
+Fotor	design	medium	online photo editor
+Pixelmator	design	high	macOS image editor
+Photomator	media	medium	Pixelmator photo app
+ArtRage	design	high	painting app
+PaintTool SAI	design	high	Systemax painting app
+SAI	design	medium	PaintTool SAI / .sai file
+MediBang	design	high	MediBang Paint (medibang.com)
+FireAlpaca	design	high	painting app
+ibisPaint	design	high	ibis Paint app (ibispaint.com)
+MyPaint	design	high	open-source painting app
+Paint.NET	design	high	dotPDN image editor (getpaint.net)
+PDN	design	medium	Paint.NET file format
+KRA	design	medium	Krita document format
+Rebelle	design	medium	Escape Motions painting app
+Clip Studio Paint	design	medium	Celsys illustration app
+Shapr3D	3d	high	CAD modeling app
+Plasticity	3d	high	NURBS modeling app; also common word
+Nomad Sculpt	3d	high	mobile sculpting app
+Vectary	3d	medium	web 3D design tool
+Live2D	design	high	2D rigging software (live2d.com)
+VTube Studio	design	high	VTuber app (VTube casing)
+VRoid	3d	high	VRoid Studio (Pixiv)
+VRM	3d	high	avatar file format
+MikuMikuDance	3d	high	MMD animation app
+MMD	3d	high	MikuMikuDance abbreviation
+DragonBones	design	high	2D skeletal animation tool
+OpenToonz	design	high	open-source 2D animation app
+Pencil2D	design	high	2D animation app
+CACANi	design	high	inbetweening software (cacani.sg)
+FlipaClip	design	high	mobile animation app
+RoughAnimator	design	medium	animation app
+Moho	design	medium	2D animation app (Lost Marble)
+Synfig	design	medium	2D animation app
+Toon Boom	design	high	animation software vendor
+VectorScribe	design	high	Astute Graphics plugin (astutegraphics.com)
+DynamicSketch	design	high	Astute Graphics plugin
+InkScribe	design	high	Astute Graphics plugin
+ColliderScribe	design	high	Astute Graphics plugin
+WidthScribe	design	high	Astute Graphics plugin
+SubScribe	design	medium	Astute Graphics plugin; also common word
+MirrorMe	design	high	Astute Graphics plugin
+VectorFirstAid	design	high	Astute Graphics plugin
+Texturino	design	medium	Astute Graphics plugin
+Astute Graphics	design	high	Illustrator plugin developer
+AnimDessin	design	medium	Photoshop animation panel
+Coolorus	design	medium	Photoshop color wheel plugin
+html.to.design	design	high	Figma import plugin (divRIOTS)
+Builder.io	design	high	Figma-to-code platform
+Anima	design	medium	design-to-code plugin; also common word
+Locofy	design	medium	design-to-code tool
+Tokens Studio	design	high	Figma design tokens plugin
+Relume	design	medium	site-builder/Figma kit
+Untitled UI	design	high	Figma UI kit
+HeroUI	design	high	React UI library (formerly NextUI)
+NextUI	design	high	former name of HeroUI
+Mantine	design	medium	React component library
+Flowbite	design	medium	Tailwind component library
+PatternFly	design	high	Red Hat design system
+USWDS	design	high	U.S. Web Design System
+SLDS	design	medium	Salesforce Lightning Design System
+GOV.UK	design	medium	GOV.UK Design System
+HIG	design	high	Apple Human Interface Guidelines
+WCAG	design	high	Web Content Accessibility Guidelines
+ARIA	design	medium	WAI-ARIA; also music term/name
+M3	design	medium	Material Design 3 shorthand; also BMW M3
+Material You	design	medium	Material Design 3 branding
+IconJar	design	high	icon manager app
+IconPark	design	high	ByteDance icon set
+Iconoir	design	medium	icon set
+Hugeicons	design	medium	icon set
+Lucide	design	high	icon set
+Phosphor	design	medium	icon set; also common word
+Tabler	design	medium	Tabler Icons
+Boxicons	design	medium	icon set
+Ionicons	design	high	Ionic icon set
+Octicons	design	high	GitHub icon set
+css.gg	design	medium	CSS icon set (lowercase)
+Lordicon	design	medium	animated icon set
+Flaticon	design	high	icon marketplace
+Iconfinder	design	medium	icon marketplace
+Nucleo	design	medium	icon set/app
+Glyphicons	design	medium	icon set
+Iconsax	design	medium	icon set
+Twemoji	design	high	Twitter emoji set
+OpenMoji	design	high	open emoji set
+Fontello	design	medium	icon font generator
+RoboFont	design	high	font editor (robofont.com)
+FontCreator	design	high	High-Logic font editor
+BirdFont	design	high	font editor
+Fontself	design	high	Illustrator/Photoshop font maker
+TypeTool	design	medium	FontLab TypeTool
+FontExplorer	design	high	FontExplorer X Pro
+RightFont	design	high	font manager
+NexusFont	design	high	font manager
+FontAgent	design	high	font manager
+MainType	design	high	High-Logic font manager
+FontGoggles	design	high	font previewer
+TransType	design	high	FontLab font converter
+DrawBot	design	high	Python drawing/type tool
+FontStruct	design	high	modular font builder
+FontDrop	design	high	font inspector site
+WhatTheFont	design	high	MyFonts font identifier
+WhatFontIs	design	high	font identifier site
+DaFont	design	high	free font site (dafont.com)
+FontShop	design	high	font retailer
+Fontspring	design	medium	font retailer
+Fontshare	design	medium	ITF free font service
+Monotype	design	high	type foundry
+Linotype	design	high	type foundry
+ITC	design	medium	International Typeface Corporation
+URW	design	high	URW Type Foundry
+TypeTogether	design	high	type foundry
+TypeMates	design	high	type foundry
+205TF	design	high	Paris type foundry (205.tf)
+YouWorkForThem	design	high	font/asset retailer
+Typotheque	design	medium	type foundry
+Fontfabric	design	medium	type foundry
+GT	design	medium	Grilli Type font prefix (GT America); short; also Gran Turismo / grand tourer
+OCR-A	design	high	OCR typeface
+OCR-B	design	high	OCR typeface
+DIN	design	high	DIN typeface / DIN connector
+iA Writer	design	medium	iA Writer app/fonts (ia.net)
+PragmataPro	design	high	monospace font
+MonoLisa	design	high	monospace font
+Monaspace	design	medium	GitHub monospace family
+Iosevka	design	medium	monospace font
+TTC	design	high	TrueType Collection
+OTC	design	medium	OpenType Collection
+PFB	design	medium	PostScript Type 1 font file
+PFM	design	medium	PostScript font metrics file
+UFO	design	medium	Unified Font Object; also common acronym
+COLRv1	design	high	OpenType color font table
+COLR	design	medium	OpenType color table
+CPAL	design	medium	OpenType palette table
+GSUB	design	medium	OpenType substitution table
+GPOS	design	medium	OpenType positioning table
+Pantone	design	high	color system
+Coolors	design	high	palette generator
+Khroma	design	medium	AI palette tool
+Huemint	design	medium	AI palette tool
+Paletton	design	medium	palette tool
+ColorSlurp	design	high	macOS color picker
+ColorZilla	design	high	browser color picker
+ColorSync	design	high	Apple color management
+DisplayCAL	design	high	display calibration software
+X-Rite	design	high	color measurement company
+Calibrite	design	high	calibration hardware (ex X-Rite)
+Datacolor	design	high	calibration company
+SpyderX	design	high	Datacolor calibrator
+i1Display	design	high	X-Rite colorimeter
+i1Profiler	design	high	X-Rite profiling software
+ColorMunki	design	high	X-Rite calibrator
+ColorChecker	design	high	X-Rite/Calibrite color chart
+ICC	design	high	color profile standard
+ICM	design	medium	Windows color profile ext
+OKLCH	design	medium	CSS color space; Wikipedia writes Oklch
+HCL	design	medium	hue-chroma-luminance color model; also HCL Tech / hydrochloric acid
+AdobeRGB	design	medium	Adobe RGB (1998) as filename token
+eciRGB	design	high	ECI RGB v2 working space
+FOGRA	design	high	print standards body
+FOGRA39	design	high	FOGRA39 print condition
+FOGRA51	design	high	FOGRA51 print condition
+GRACoL	design	high	US print spec (idealliance)
+SWOP	design	high	US print spec
+PSO	design	medium	PSO Coated print profiles
+HaldCLUT	media	high	Hald CLUT LUT image
+CLUT	media	medium	color lookup table
+TGA	design	high	Targa image format
+TIF	design	high	TIFF extension
+TIFFs	design	medium	plural of TIFF
+HEIF	design	high	image format
+JXL	design	high	JPEG XL extension
+JP2	design	high	JPEG 2000 extension
+APNG	design	high	animated PNG
+ICNS	design	high	macOS icon format
+SVGZ	design	medium	gzipped SVG
+DDS	3d	high	DirectDraw Surface texture
+KTX	3d	medium	Khronos texture format
+KTX2	3d	high	Khronos texture format v2
+ASTC	3d	medium	texture compression
+GFX	design	high	graphics abbreviation; also Fujifilm GFX
+Patreon	design	high	creator platform
+Gumroad	design	high	creator store
+Are.na	design	high	visual research platform (are.na)
+Pinterest	design	high	visual discovery platform
+Savee	design	medium	inspiration platform
+Muzli	design	medium	design inspiration
+Abduzeedo	design	medium	design blog
+pixiv	design	medium	illustration community (official lowercase)
+tldraw	design	high	whiteboard app (lowercase)
+draw.io	design	high	diagram app (lowercase)
+Excalidraw	design	high	whiteboard app
+Miro	design	high	whiteboard platform
+Whimsical	design	medium	diagram app; also common word
+Milanote	design	high	moodboard app
+Cubebrush	design	medium	art asset marketplace
+Skillshare	design	high	learning platform
+Domestika	design	high	creative courses
+Envato	design	high	creative marketplace
+Vecteezy	design	high	stock vectors
+rawpixel	design	medium	stock site (brand lowercase; press writes Rawpixel)
+RetroSupply	design	high	brushes/textures shop
+TrueGrit	design	high	TrueGrit Texture Supply
+PixelSquid	design	high	3D object stock (pixelsquid.com)
+GraphicBurger	design	medium	free mockups site
+Placeit	design	medium	mockup generator
+Smartmockups	design	medium	mockup generator
+AIGA	design	high	design organization
+D&AD	design	medium	design awards
+OFFF	design	medium	design festival (all caps)
+EIZO	design	high	monitor maker (official caps)
+ColorEdge	design	high	EIZO monitor line
+BenQ	design	high	monitor maker
+ProArt	design	high	ASUS creator monitors
+UltraFine	design	high	LG monitor line; also common word ultrafine
+XDR	media	high	Apple Pro Display XDR / extreme dynamic range
+Wacom	design	high	pen tablet maker
+Cintiq	design	high	Wacom pen display
+Intuos	design	high	Wacom tablet
+MobileStudio	design	high	Wacom MobileStudio Pro
+XPPen	design	high	pen tablet maker (rebranded from XP-PEN 2022)
+Huion	design	high	pen tablet maker
+Kamvas	design	high	Huion pen display
+TourBox	design	high	editing controller (tourboxtech.com)
+Loupedeck	design	high	editing console
+HiDPI	design	high	high pixel density
+Lo-Res	design	medium	low resolution
+p5.js	design	high	creative coding library
+openFrameworks	design	high	creative coding toolkit
+vvvv	design	high	visual programming env (lowercase)
+Shadertoy	design	high	shader sharing site
+remove.bg	design	high	background removal service (lowercase)
+BiRefNet	design	high	background removal model
+RMBG	design	high	BRIA background removal model
+U2Net	design	medium	U2-Net segmentation model
+IS-Net	design	medium	DIS segmentation model
+InSPyReNet	design	high	salient object model
+MODNet	design	high	portrait matting model
+BRIA	design	medium	BRIA AI (official caps)
+rembg	design	high	background removal library (lowercase)
+SAM2	design	medium	Segment Anything 2
+FLUX.1	design	high	Black Forest Labs image model
+Leonardo.Ai	design	medium	image gen platform (Crunchbase styling)
+AUTOMATIC1111	design	high	Stable Diffusion web UI
+A1111	design	high	AUTOMATIC1111 abbreviation
+SwarmUI	design	high	Stable Diffusion UI
+LyCORIS	design	high	LoRA variant family
+NightCafe	design	medium	AI art platform
+Civitai	design	high	model sharing site
+Fooocus	design	medium	image gen UI
+MiniMax	media	high	Hailuo video model maker
+PixVerse	media	high	AI video generator
+RunwayML	media	medium	Runway (legacy name)
+Houdini	3d	high	SideFX 3D/VFX app
+SideFX	3d	high	Houdini developer
+Karma	3d	medium	Houdini renderer; also common word
+Mantra	3d	medium	Houdini legacy renderer; also common word
+Solaris	3d	medium	Houdini USD context; also Oracle Solaris OS
+KineFX	3d	high	Houdini rigging framework
+Vellum	3d	medium	Houdini solver; also common word
+APEX	3d	medium	Houdini rigging framework; also common word
+VEX	3d	high	Houdini expression language
+VOP	3d	high	Houdini VEX operator
+VOPs	3d	high	plural of VOP
+SOP	3d	high	Houdini surface operator
+SOPs	3d	high	plural of SOP
+LOP	3d	medium	Houdini lighting operator
+COP	3d	medium	Houdini compositing operator; also cop
+CHOP	3d	medium	Houdini channel operator; also chop
+ROP	3d	medium	Houdini render operator
+PDG	3d	high	Houdini Procedural Dependency Graph
+HDK	3d	high	Houdini Development Kit
+OTL	3d	medium	Houdini operator type library
+MOPs	3d	high	Motion Operators for Houdini (motionoperators.com)
+FLIP	3d	medium	FLIP fluids; also common word flip
+RBD	3d	high	rigid body dynamics
+Nuke	3d	high	Foundry compositor; also common word nuke
+NukeX	3d	high	Foundry Nuke variant
+Hiero	3d	medium	Foundry conform tool
+Foundry	3d	medium	VFX software company; also common word
+Mari	3d	medium	Foundry texture painter; also a given name
+Katana	3d	medium	Foundry look-dev tool; also common word
+Modo	3d	medium	Foundry 3D modeler
+Natron	3d	high	open-source compositor
+MEL	3d	medium	Maya Embedded Language; also given name Mel
+XGen	3d	high	Maya hair/fur system
+MASH	3d	medium	Maya motion graphics; also common word
+Bifrost	3d	medium	Maya procedural framework
+MotionBuilder	3d	high	Autodesk animation app
+Mudbox	3d	high	Autodesk sculpting app
+ShotGrid	3d	high	Autodesk production tracking
+ftrack	3d	high	production tracking (lowercase)
+SyncSketch	3d	high	review tool
+cineSync	media	high	remote review tool
+DJV	media	medium	image sequence viewer
+OpenCue	3d	high	render manager (ASWF)
+SheepIt	3d	high	SheepIt render farm
+RebusFarm	3d	high	render farm
+GarageFarm	3d	high	render farm
+Flamenco	3d	medium	Blender render manager
+MAXScript	3d	high	3ds Max scripting language
+RailClone	3d	high	iToo 3ds Max plugin
+iToo	3d	high	iToo Software (Forest Pack)
+tyFlow	3d	high	3ds Max particle plugin (tyflow.com)
+FumeFX	3d	high	fluid plugin
+thinkingParticles	3d	high	cebas particle plugin
+Krakatoa	3d	medium	particle renderer
+Ornatrix	3d	medium	hair plugin
+VRED	3d	high	Autodesk visualization app
+MtoA	3d	high	Arnold for Maya
+HtoA	3d	high	Arnold for Houdini
+C4DtoA	3d	high	Arnold for Cinema 4D
+MAXtoA	3d	medium	Arnold for 3ds Max
+Redshift	3d	high	GPU renderer; also astronomy term
+Arnold	3d	high	Autodesk renderer; also a name
+V-Ray	3d	high	Chaos renderer (chaos.com)
+VRay	3d	medium	common unofficial spelling of V-Ray
+Corona	3d	medium	Chaos renderer; also common word
+Enscape	3d	high	real-time renderer
+Lumion	3d	high	architectural renderer
+Twinmotion	3d	high	Epic archviz renderer
+RenderMan	3d	high	Pixar renderer
+Pixar	3d	high	animation studio
+OTOY	3d	high	OctaneRender developer (official caps)
+Octane	3d	high	OTOY renderer short name; also common word (fuel)
+LuxCoreRender	3d	high	open-source renderer
+LuxCore	3d	high	LuxCoreRender engine
+ProRender	3d	high	AMD Radeon ProRender
+FStorm	3d	high	GPU renderer
+Cycles	3d	medium	Blender renderer; also common word
+EEVEE	3d	high	Blender real-time renderer (code.blender.org)
+GeoNodes	3d	medium	Blender Geometry Nodes shorthand
+Rigify	3d	high	Blender rigging add-on
+Auto-Rig Pro	3d	high	Blender rigging add-on
+BlenderKit	3d	high	Blender asset library add-on
+Superhive	3d	high	Blender Market new name (2025)
+HardOps	3d	medium	Hard Ops add-on; official spacing Hard Ops
+MESHmachine	3d	high	MACHIN3 Blender add-on (machin3.io)
+MACHIN3tools	3d	high	MACHIN3 Blender add-on
+CURVEmachine	3d	high	MACHIN3 Blender add-on
+PUNCHit	3d	high	MACHIN3 Blender add-on
+HyperCursor	3d	high	MACHIN3 Blender add-on
+Geo-Scatter	3d	high	Blender scattering add-on
+RetopoFlow	3d	high	Blender retopology add-on
+UVPackmaster	3d	high	UV packing add-on
+TexTools	3d	high	Blender UV/texture add-on
+RizomUV	3d	high	UV unwrapping app
+Unfold3D	3d	medium	RizomUV former name
+ZRemesher	3d	high	ZBrush retopology
+Botaniq	3d	medium	Blender vegetation add-on
+KIT OPS	3d	medium	Blender kitbash add-on (official caps)
+Cascadeur	3d	high	physics animation app
+Marmoset	3d	high	Marmoset Toolbag developer; also animal name
+3DCoat	3d	high	Pilgway 3D app (3dcoat.com)
+3DCoatTextura	3d	high	Pilgway texturing app
+ArmorPaint	3d	high	3D texture painter
+InstaMAT	3d	high	Abstract texturing suite (instamaterial.com)
+xNormal	3d	high	normal map baker
+Knald	3d	medium	texture baker
+SpeedTree	3d	high	vegetation modeler
+Gaea	3d	medium	terrain generator
+Terragen	3d	medium	landscape renderer
+PlantFactory	3d	medium	e-on vegetation tool
+Substance3DDesigner	3d	high	concatenated app name
+Substance3DSampler	3d	high	concatenated app name
+Substance3DStager	3d	high	concatenated app name
+SBS	3d	medium	Substance Designer source file; also side-by-side abbreviation
+SPP	3d	medium	Substance Painter project file
+MoGraph	3d	high	Cinema 4D motion graphics module; generic motion-graphics term usually written mograph
+Cineware	3d	high	Cinema 4D AE integration
+Maxon	3d	high	Cinema 4D developer
+ZBrushCore	3d	high	Maxon ZBrush edition
+ZBrushCoreMini	3d	high	free ZBrush edition
+Sculptris	3d	high	Pixologic sculpting app
+Pixologic	3d	high	former ZBrush developer
+DynaMesh	3d	high	ZBrush remeshing
+ZSpheres	3d	high	ZBrush base mesh tool
+ZModeler	3d	high	ZBrush polygon brush
+FiberMesh	3d	high	ZBrush hair tool
+PolyGroups	3d	high	ZBrush polygroups
+PolyPaint	3d	high	ZBrush vertex painting
+SubTool	3d	medium	ZBrush subtool
+SubTools	3d	medium	ZBrush subtools
+GoZ	3d	high	ZBrush bridge
+NanoMesh	3d	high	ZBrush instancing
+ZTL	3d	medium	ZBrush tool file
+ZPR	3d	medium	ZBrush project file
+X-Particles	3d	high	INSYDIUM C4D plugin
+INSYDIUM	3d	medium	X-Particles developer (site uses caps; press writes Insydium)
+NeXus	3d	high	INSYDIUM GPU solver; also common word nexus
+TurbulenceFD	3d	high	Jawset fluid plugin
+Jawset	3d	medium	TurbulenceFD/Postshot developer
+RealFlow	3d	high	fluid simulation app
+Greyscalegorilla	3d	high	C4D training/plugins
+GSG	3d	medium	Greyscalegorilla abbreviation
+CLO3D	3d	medium	CLO garment software
+iClone	3d	high	Reallusion animation app
+Reallusion	3d	high	Character Creator developer
+ActorCore	3d	high	Reallusion mocap library
+MetaHuman	3d	high	Epic digital humans
+Unreal	3d	high	Unreal Engine short name; also common word
+UE	3d	high	Unreal Engine abbreviation
+UE4	3d	high	Unreal Engine 4
+UEFN	3d	high	Unreal Editor for Fortnite
+Nanite	3d	high	UE virtualized geometry
+Niagara	3d	medium	UE VFX system; also place name
+PCG	3d	high	procedural content generation
+Quixel	3d	high	Megascans developer
+Megascans	3d	high	scanned asset library
+Fab	3d	medium	Epic asset marketplace; also common word
+Datasmith	3d	medium	UE import toolkit
+Unity	3d	high	game engine; also common word
+Godot	3d	high	game engine
+HDRP	3d	high	Unity High Definition Render Pipeline
+URP	3d	high	Unity Universal Render Pipeline
+LWRP	3d	medium	Unity Lightweight Render Pipeline
+ProBuilder	3d	high	Unity modeling tool
+ProGrids	3d	medium	Unity grid snapping
+Cinemachine	3d	high	Unity camera system
+DOTween	3d	high	Unity tweening library
+TextMeshPro	3d	high	Unity text system
+PlayMaker	3d	high	Unity visual scripting; also common word playmaker
+MicroSplat	3d	medium	Unity terrain shader
+itch.io	3d	high	indie game/asset store (lowercase)
+Kenney	3d	medium	free game assets
+Synty	3d	medium	low-poly asset studio
+Sketchfab	3d	high	3D model platform
+TurboSquid	3d	high	3D model marketplace
+CGTrader	3d	high	3D model marketplace
+CGAxis	3d	medium	3D model/texture store
+ambientCG	3d	high	CC0 PBR materials (ambientcg.com)
+Poliigon	3d	high	texture/model library
+Poly Haven	3d	high	CC0 HDRIs/textures
+Textures.com	3d	medium	texture library
+Evermotion	3d	medium	archviz model library
+Renderosity	3d	medium	3D content marketplace
+RealityCapture	3d	high	photogrammetry app (now RealityScan 2)
+RealityScan	3d	high	Epic photogrammetry app
+Metashape	3d	high	Agisoft photogrammetry app
+Agisoft	3d	high	Metashape developer
+Meshroom	3d	high	open-source photogrammetry
+Polycam	3d	high	3D scanning app
+KIRI Engine	3d	high	3D scanning app (kiriengine.app)
+Scaniverse	3d	medium	3D scanning app
+Postshot	3d	medium	Jawset Gaussian splat trainer
+NeRF	3d	high	neural radiance field
+NeRFs	3d	high	plural of NeRF
+3DGS	3d	high	3D Gaussian Splatting
+SuperSplat	3d	high	PlayCanvas splat editor
+COLMAP	3d	high	structure-from-motion tool
+nerfstudio	3d	medium	NeRF framework (official lowercase)
+Hunyuan3D	3d	high	Tencent image-to-3D model
+TRELLIS	3d	medium	Microsoft image-to-3D model; also common word
+Hyper3D	3d	medium	Rodin 3D gen platform
+Meshy	3d	medium	AI 3D generator
+Alembic	3d	high	geometry cache format; also common word
+OpenVDB	3d	high	volume data library
+VDB	3d	high	OpenVDB volume file
+PLY	3d	medium	polygon file format
+3MF	3d	high	3D Manufacturing Format
+IGES	3d	medium	CAD exchange format
+DAE	3d	medium	COLLADA file extension
+COLLADA	3d	medium	3D interchange format
+X3D	3d	medium	3D web format
+VRML	3d	medium	legacy 3D web format
+USDA	3d	medium	ASCII USD file
+OpenUSD	3d	high	Universal Scene Description
+MaterialX	3d	high	material interchange standard
+OSL	3d	high	Open Shading Language
+UDIM	3d	high	UV tile workflow
+UDIMs	3d	high	plural of UDIM
+UV	3d	high	texture coordinates
+UVs	3d	high	plural of UV
+AOV	3d	high	arbitrary output variable
+AOVs	3d	high	plural of AOV
+SSS	3d	high	subsurface scattering
+GI	3d	medium	global illumination
+AO	3d	high	ambient occlusion
+BRDF	3d	high	reflectance function
+BSDF	3d	high	scattering function
+BSSRDF	3d	medium	subsurface scattering function
+IOR	3d	high	index of refraction
+SSAO	3d	high	screen-space ambient occlusion
+DLSS	3d	high	NVIDIA upscaling
+LOD	3d	high	level of detail
+LODs	3d	high	plural of LOD
+NPR	3d	high	non-photorealistic rendering; also National Public Radio
+IK	3d	high	inverse kinematics; also IK Multimedia
+FK	3d	high	forward kinematics
+FACS	3d	high	facial action coding system
+BVH	3d	high	mocap file / bounding volume hierarchy
+NURBS	3d	high	curve/surface type
+SubD	3d	high	subdivision surface
+SDF	3d	medium	signed distance field
+2.5D	3d	high	pseudo-3D
+VFX	3d	high	visual effects
+CG	3d	high	computer graphics
+CGMA	3d	medium	CG Master Academy
+ILM	3d	high	Industrial Light & Magic
+DNEG	3d	high	VFX studio (official caps)
+SIGGRAPH	3d	high	graphics conference
+Gnomon	3d	medium	VFX school; also common word (sundial)
+Polycount	3d	high	game art community; also generic 3D term
+CGSociety	3d	high	CG community
+R3F	3d	medium	React Three Fiber
+EXRs	3d	high	plural of EXR
+PrusaSlicer	3d	high	3D printing slicer
+OrcaSlicer	3d	high	3D printing slicer
+UltiMaker	3d	high	3D printer maker (2022 merger styling)
+Cura	3d	medium	UltiMaker slicer
+PreForm	3d	medium	Formlabs slicer; also common word preform
+Formlabs	3d	high	resin printer maker
+CHITUBOX	3d	medium	resin slicer (official caps)
+Printables	3d	medium	Prusa model site; also common word
+Thingiverse	3d	high	3D print model site
+MakerWorld	3d	high	Bambu model site
+Cults3D	3d	high	3D print marketplace
+MyMiniFactory	3d	high	3D print marketplace
+Trapcode	3d	high	Red Giant particle suite
+Red Giant	3d	high	Maxon plugin suite; also astronomy phrase
+Plexus	3d	medium	Rowbyte AE plugin; also anatomical word
+Rowbyte	3d	medium	Plexus developer
+Twixtor	3d	high	RE:Vision retiming plugin
+ReelSmart	3d	high	RE:Vision motion blur plugin
+RSMB	3d	high	ReelSmart Motion Blur
+BCC	3d	high	Boris Continuum Complete; also email Bcc
+CrumplePop	media	high	Boris FX audio/video plugins
+SynthEyes	3d	high	matchmove app
+PFTrack	3d	high	matchmove app
+3DEqualizer	3d	high	matchmove app
+Primatte	3d	medium	keying plugin
+Keylight	3d	medium	keying plugin
+IBK	3d	medium	Nuke image-based keyer
+AEJuice	3d	high	AE plugin/templates vendor
+Duik	3d	high	AE rigging tool (RxLaboratory)
+TypeMonkey	3d	high	aescripts text animator
+iExpressions	3d	high	aescripts expressions tool
+KBar	3d	high	aescripts toolbar
+MotionVFX	media	high	FCP/Resolve plugin maker
+mTitle	media	medium	MotionVFX plugin series
+mTransition	media	medium	MotionVFX plugin series
+mLUT	media	medium	MotionVFX LUT plugin
+RocketStock	media	high	video asset store
+ActionVFX	media	high	VFX stock footage
+ProductionCrate	media	high	VFX asset site
+FootageCrate	media	high	ProductionCrate footage
+CinePacks	media	medium	film asset packs
+MotionElements	media	high	stock marketplace
+Storyblocks	media	high	stock video subscription
+VideoBlocks	media	medium	Storyblocks former name
+AudioBlocks	audio	medium	Storyblocks former audio name
+Pond5	media	high	stock marketplace
+Artgrid	media	high	stock footage
+Artlist	media	high	music/footage licensing
+Musicbed	audio	high	music licensing
+Soundstripe	audio	medium	music licensing
+PremiumBeat	audio	high	music licensing
+Mixkit	media	medium	free stock
+Coverr	media	medium	free stock video
+Videvo	media	medium	stock video
+Depositphotos	media	high	stock photos
+Dreamstime	media	high	stock photos
+123RF	media	high	stock photos
+Alamy	media	high	stock photos
+Stocksy	media	high	stock photos
+FCP	media	high	Final Cut Pro abbreviation
+FCPX	media	high	Final Cut Pro X
+FCPXML	media	high	FCP interchange XML
+QuickTime	media	high	Apple media framework/player
+iPhoto	media	medium	legacy Apple photo app
+VEGAS	media	high	VEGAS Pro (official caps)
+VEGAS Pro	media	high	video editor (official caps)
+HitFilm	media	high	FXhome video editor
+FXhome	media	high	HitFilm developer
+Lightworks	media	high	video editor
+Kdenlive	media	high	KDE video editor
+Shotcut	media	high	video editor
+CapCut	media	high	ByteDance video editor
+LumaFusion	media	high	iPad video editor
+KineMaster	media	high	mobile video editor
+InShot	media	high	mobile video editor
+Filmora	media	high	Wondershare video editor
+Wondershare	media	high	software company
+PowerDirector	media	high	CyberLink video editor
+ColorDirector	media	medium	CyberLink color app
+AudioDirector	audio	medium	CyberLink audio app
+VideoStudio	media	medium	Corel video editor; also generic phrase video studio
+Descript	media	medium	text-based editor
+Camtasia	media	high	screen recorder/editor
+ScreenFlow	media	high	macOS screen recorder
+StreamYard	media	high	live streaming studio
+vMix	media	high	live production software
+ProPresenter	media	high	presentation/broadcast app
+Resolume	media	high	VJ software
+TouchDesigner	media	high	Derivative visual programming
+MadMapper	media	high	projection mapping app
+VDMX	media	high	VJ software
+Millumin	media	medium	show control app
+Notch	media	medium	real-time graphics; also common word
+NotchLC	media	high	Notch codec
+disguise	media	medium	media server company (official lowercase); common word
+Avid	media	high	Media Composer/Pro Tools maker; also common word avid
+VSE	media	medium	Blender Video Sequence Editor
+Hedge	media	medium	offload app maker; also common word
+OffShoot	media	high	Hedge offload app; also common word offshoot
+ShotPut	media	high	ShotPut Pro offload app
+Silverstack	media	high	Pomfort DIT app
+Pomfort	media	high	on-set software
+Livegrade	media	high	Pomfort live grading
+Dehancer	media	high	film emulation plugin
+FilmConvert	media	high	film emulation plugin
+Cinematch	media	medium	camera matching plugin
+PowerGrade	media	high	DaVinci Resolve grade preset
+YRGB	media	medium	DaVinci YRGB color science
+DCTL	media	high	DaVinci Color Transform Language
+DRX	media	medium	Resolve still/grade file
+DRP	media	medium	Resolve project file
+DRT	media	medium	display rendering transform / Resolve timeline
+RCM	media	medium	Resolve Color Management
+CST	media	medium	color space transform; also Central Standard Time
+IDT	media	high	ACES input transform
+ODT	media	high	ACES output transform; also OpenDocument Text extension
+RRT	media	high	ACES reference rendering transform
+LMT	media	high	ACES look modification transform
+CDL	media	high	ASC color decision list
+ASC	media	medium	American Society of Cinematographers; also ascending abbreviation
+AgX	media	high	Blender view transform
+TCAM	media	high	FilmLight tone mapping
+TCAMv2	media	high	FilmLight TCAM v2
+FilmLight	media	high	Baselight developer
+Baselight	media	high	FilmLight grading system
+OpenDRT	media	medium	open display rendering transform
+EDL	media	high	edit decision list
+EDLs	media	medium	plural of EDL
+OMF	media	high	Open Media Framework
+AAF	media	high	Advanced Authoring Format
+OTIO	media	high	OpenTimelineIO abbreviation
+OpenTimelineIO	media	high	ASWF timeline interchange
+NLE	media	high	non-linear editor
+NLEs	media	high	plural of NLE
+B-Roll	media	high	secondary footage
+A-Roll	media	medium	primary footage
+QC	media	high	quality control
+POV	media	medium	point of view
+EPK	media	medium	electronic press kit
+DCP	media	high	Digital Cinema Package
+IMF	media	medium	Interoperable Master Format
+TTML	media	high	timed text markup
+SRT	media	high	SubRip subtitles / Secure Reliable Transport
+CEA-608	media	high	closed caption standard
+CEA-708	media	medium	closed caption standard
+HFR	media	high	high frame rate
+VFR	media	high	variable frame rate
+CFR	media	medium	constant frame rate
+2K	media	high	resolution
+3K	media	medium	resolution
+5K	media	high	resolution
+6K	media	high	resolution
+12K	media	high	resolution (URSA 12K)
+17K	media	medium	resolution (URSA Cine 17K)
+5.7K	media	medium	resolution (360 cameras)
+4.6K	media	medium	resolution (URSA Mini 4.6K)
+FHD	media	high	Full HD
+QHD	media	high	Quad HD
+WQHD	media	medium	Wide Quad HD
+BT.709	media	high	ITU-R color standard
+BT.2020	media	high	ITU-R color standard
+BT.1886	media	high	ITU-R EOTF standard
+BT.2100	media	high	ITU-R HDR standard
+P3-D65	media	medium	P3 with D65 white
+PQ	media	high	perceptual quantizer HDR / PQ codes
+IMAX	media	high	large format
+VistaVision	media	high	large format
+S35	media	high	Super 35 abbreviation
+Super35	media	medium	Super 35 as token
+S16	media	medium	Super 16 abbreviation
+CinemaDNG	media	high	raw format
+CineForm	media	high	GoPro intermediate codec
+XAVC	media	high	Sony codec
+XDCAM	media	high	Sony format
+HDCAM	media	medium	Sony tape format
+AVCHD	media	high	camcorder format
+MiniDV	media	high	tape format
+DVCPRO	media	high	Panasonic format
+HDV	media	medium	tape format
+MXF	media	high	Material eXchange Format
+HAP	media	medium	Vidvox GPU codec
+X-OCN	media	high	Sony raw format
+N-RAW	media	high	Nikon raw video
+MPEG-2	media	high	codec
+MPEG-4	media	high	codec
+VVC	media	high	H.266 codec
+MTS	media	medium	AVCHD file ext
+HQ	media	high	high quality (ProRes 422 HQ); also headquarters
+HQX	media	high	DNxHR HQX
+XQ	media	medium	ProRes 4444 XQ
+DPX	media	high	film scan image format
+MP4s	media	high	plural of MP4
+ALEXA	media	high	ARRI camera line (official caps)
+AMIRA	media	high	ARRI camera (official caps)
+ARRIRAW	media	high	ARRI raw format
+LogC3	media	high	ARRI log curve (arri.com)
+LogC4	media	high	ARRI log curve (arri.com)
+AWG3	media	high	ARRI Wide Gamut 3; also American Wire Gauge
+AWG4	media	high	ARRI Wide Gamut 4
+SkyPanel	media	high	ARRI LED panel
+RED	media	high	RED Digital Cinema; also color word red
+REDCODE	media	high	RED raw codec
+KOMODO	media	high	RED camera (official caps)
+KOMODO-X	media	high	RED camera
+V-RAPTOR	media	high	RED camera (official caps)
+DSMC2	media	high	RED camera platform
+DSMC3	media	high	RED camera platform
+MONSTRO	media	medium	RED sensor (official caps)
+IPP2	media	high	RED image pipeline
+Log3G10	media	high	RED log curve
+REDWideGamutRGB	media	high	RED color space
+RWG	media	medium	REDWideGamutRGB abbreviation
+URSA	media	high	Blackmagic camera line (official caps)
+PYXIS	media	high	Blackmagic camera (official caps)
+BMPCC	media	high	Blackmagic Pocket Cinema Camera
+BMD	media	high	Blackmagic Design abbreviation
+ATEM	media	high	Blackmagic switcher line
+HyperDeck	media	high	Blackmagic recorder
+DeckLink	media	high	Blackmagic capture card
+UltraStudio	media	high	Blackmagic capture device
+Teranex	media	medium	Blackmagic converter
+Fairlight	audio	high	Resolve audio page / console maker
+S-Gamut3	media	high	Sony color space
+S-Gamut3.Cine	media	high	Sony color space
+S-Cinetone	media	high	Sony picture profile
+CineAlta	media	high	Sony cinema line
+VENICE	media	high	Sony cinema camera (official caps); also city; also city name
+BURANO	media	high	Sony cinema camera (official caps)
+FX3	media	high	Sony cinema camera
+FX6	media	high	Sony cinema camera
+FX9	media	high	Sony cinema camera
+FX30	media	high	Sony cinema camera
+FX2	media	medium	Sony cinema camera (2025)
+ZV-E10	media	high	Sony vlog camera
+ZV-E1	media	high	Sony vlog camera
+ZV-1	media	high	Sony vlog camera
+RX100	media	high	Sony compact line
+A7SIII	media	medium	Sony a7S III as token
+A7III	media	medium	Sony a7 III as token
+A7IV	media	medium	Sony a7 IV as token
+A7RIV	media	medium	Sony a7R IV as token
+A7RV	media	medium	Sony a7R V as token
+A7CII	media	medium	Sony a7C II as token
+A9III	media	medium	Sony a9 III as token
+NEX	media	medium	Sony NEX line
+C-Log2	media	high	Canon log curve
+C-Log3	media	high	Canon log curve
+PowerShot	media	high	Canon compact line
+5D	media	medium	Canon EOS 5D
+6D	media	medium	Canon EOS 6D
+7D	media	medium	Canon EOS 7D
+90D	media	medium	Canon EOS 90D
+1DX	media	medium	Canon EOS-1D X
+R5C	media	medium	Canon EOS R5 C
+V-Gamut	media	high	Panasonic color space
+LUMIX	media	high	Panasonic camera brand (official caps)
+VariCam	media	high	Panasonic cinema line
+GH5	media	high	Panasonic camera
+GH5S	media	high	Panasonic camera
+GH6	media	high	Panasonic camera
+GH7	media	high	Panasonic camera
+S1H	media	high	Panasonic camera
+S5II	media	medium	Panasonic camera
+S5IIX	media	medium	Panasonic camera
+EVA1	media	medium	Panasonic cinema camera
+F-Log	media	high	Fujifilm log curve
+F-Log2	media	high	Fujifilm log curve
+F-Gamut	media	medium	Fujifilm color space
+X-Trans	media	high	Fujifilm sensor
+X-T5	media	high	Fujifilm camera
+X-T4	media	high	Fujifilm camera
+X-T3	media	high	Fujifilm camera
+X-T30	media	medium	Fujifilm camera
+X-S20	media	high	Fujifilm camera
+X-H2	media	high	Fujifilm camera
+X-H2S	media	high	Fujifilm camera
+X100V	media	high	Fujifilm camera
+X100VI	media	high	Fujifilm camera
+X-Pro3	media	high	Fujifilm camera
+X-E4	media	medium	Fujifilm camera
+GFX100	media	high	Fujifilm medium format
+GFX100S	media	high	Fujifilm medium format
+GFX100II	media	high	Fujifilm medium format
+XF	media	medium	Fujifilm lens line
+N-Log	media	high	Nikon log curve
+NIKKOR	media	high	Nikon lens brand (official caps)
+Z6III	media	medium	Nikon Z6 III as token
+COOLPIX	media	medium	Nikon compact line (official caps)
+L-Log	media	high	Leica log curve
+OM-1	media	high	OM System camera
+OM-5	media	medium	OM System camera
+OM-D	media	high	Olympus camera line
+Z CAM	media	high	cinema camera maker (z-cam.com)
+Z-Log2	media	high	Z CAM log curve
+MAVO	media	medium	Kinefinity camera (official caps)
+Kinefinity	media	high	cinema camera maker
+D-Log	media	high	DJI log curve
+D-Log M	media	medium	DJI log curve
+D-Cinelike	media	high	DJI color profile
+D-Gamut	media	medium	DJI color space
+Insta360	media	high	360 camera maker
+HyperSmooth	media	high	GoPro stabilization
+HERO11	media	high	GoPro camera
+HERO12	media	high	GoPro camera
+HERO13	media	high	GoPro camera
+Protune	media	medium	GoPro manual settings
+Mavic	media	high	DJI drone line
+Avata	media	high	DJI FPV drone
+Osmo	media	high	DJI handheld line
+Ronin	media	high	DJI gimbal line; also common word
+Zenmuse	media	high	DJI camera line
+FPV	media	high	first-person view
+BetaFPV	media	high	FPV drone maker
+RunCam	media	high	FPV camera maker
+HDZero	media	high	digital FPV system
+ExpressLRS	media	medium	RC link protocol
+ZEISS	media	high	optics brand (official caps)
+Laowa	media	high	lens brand
+Sirui	media	medium	lens brand
+Viltrox	media	high	lens brand
+DZOFilm	media	high	cine lens brand
+TTArtisan	media	high	lens brand
+7Artisans	media	high	lens brand
+Samyang	media	high	lens brand
+Tokina	media	high	lens brand
+Tamron	media	high	lens brand
+Sigma	media	high	lens/camera brand; also Greek letter/common word
+Hasselblad	media	high	camera brand
+Leica	media	high	camera brand
+Pentax	media	high	camera brand
+Ricoh	media	high	camera brand
+APS-C	media	high	sensor format
+APS-H	media	medium	sensor format
+MFT	media	high	Micro Four Thirds
+M43	media	high	Micro Four Thirds
+LF	media	medium	large format (ALEXA Mini LF); also line feed
+PL	media	medium	PL lens mount; also Poland/Perl abbreviation
+LPL	media	high	ARRI LPL mount
+EF	media	high	Canon EF mount
+EF-S	media	high	Canon EF-S mount
+EF-M	media	medium	Canon EF-M mount
+RF	media	high	Canon RF mount
+RF-S	media	high	Canon RF-S mount
+FE	media	medium	Sony full-frame E lenses
+E-mount	media	high	Sony lens mount
+L-Mount	media	high	L-Mount Alliance
+M42	media	medium	screw lens mount
+GM	media	medium	Sony G Master; also General Motors
+f-stop	media	medium	aperture unit
+IBIS	media	high	in-body stabilization; also bird name ibis
+OIS	media	medium	optical stabilization
+EVF	media	high	electronic viewfinder
+AF	media	medium	autofocus; also abbreviation
+HSS	media	medium	high-speed sync
+CPL	media	high	circular polarizer
+Pro-Mist	media	high	Tiffen diffusion filter
+CineBloom	media	medium	Moment diffusion filter
+PolarPro	media	high	filter/accessory brand
+NiSi	media	high	filter brand
+Tiffen	media	high	filter brand
+SmallRig	media	high	camera rig brand
+Tilta	media	high	camera rig brand
+Atomos	media	high	monitor-recorder maker
+SmallHD	media	high	field monitor maker
+Teradek	media	high	wireless video maker
+Hollyland	media	medium	wireless video/audio maker
+AJA	media	high	video hardware maker
+Magewell	media	medium	capture card maker
+AVerMedia	media	high	capture card maker
+Elgato	media	high	streaming gear maker
+Aputure	media	high	lighting brand
+amaran	media	high	Aputure sub-brand (official lowercase)
+INFINIBAR	media	high	Aputure pixel bar (official caps)
+Nanlite	media	high	lighting brand
+PavoTube	media	high	Nanlite tube light
+Godox	media	high	lighting brand
+Profoto	media	high	lighting brand
+broncolor	media	medium	lighting brand (official lowercase)
+Elinchrom	media	medium	lighting brand
+Litepanels	media	high	lighting brand
+Astera	media	high	lighting brand
+Manfrotto	media	high	tripod brand
+Lowepro	media	medium	bag brand
+DMX	media	high	lighting control protocol
+sACN	media	high	streaming ACN protocol
+Art-Net	media	high	lighting protocol
+CRMX	media	medium	wireless DMX
+TLCI	media	high	television lighting consistency index
+CRI	media	high	color rendering index
+TM-30	media	high	color rendition standard
+CCT	media	high	correlated color temperature
+RGBWW	media	high	LED type
+RGBW	media	medium	LED type
+HSI	media	high	hue saturation intensity
+HMI	media	high	arc lamp type; also human-machine interface
+CTO	media	high	color temperature orange gel; also chief technology officer
+CTB	media	high	color temperature blue gel
+COB	media	medium	chip-on-board LED; also common word cob
+IIQ	media	high	Phase One raw
+RAF	media	high	Fujifilm raw
+ORF	media	high	Olympus raw
+RW2	media	high	Panasonic raw
+PEF	media	high	Pentax raw
+3FR	media	high	Hasselblad raw
+X3F	media	high	Sigma raw
+SRW	media	medium	Samsung raw
+HIF	media	medium	Canon HEIF extension
+IPTC	media	high	photo metadata standard
+Capture One	media	high	Phase One raw editor
+Luminar	media	high	Skylum photo editor
+Skylum	media	high	Luminar developer
+PTGui	media	high	panorama stitcher
+Photomatix	media	medium	HDR software
+PortraitPro	media	high	portrait retouch software
+Retouch4me	media	high	AI retouch plugins
+Imagenomic	media	medium	Portraiture developer
+Aftershoot	media	medium	AI culling app
+Evoto	media	medium	AI retouch app
+Real-ESRGAN	media	high	upscaling model
+ESRGAN	media	high	upscaling model
+GFPGAN	media	high	face restoration model
+CodeFormer	media	high	face restoration model
+SUPIR	media	medium	upscaling model
+Upscayl	media	medium	upscaling app
+Gigapixel	media	high	Topaz upscaler; also generic term
+500px	media	high	photo community
+SmugMug	media	high	photo hosting
+ShootProof	media	high	client gallery platform
+Pic-Time	media	medium	client gallery platform (pic-time.com)
+Pixieset	media	medium	client gallery platform
+Flickr	media	high	photo community
+Snapseed	media	high	Google photo app
+CineStill	media	high	film stock brand
+50D	media	medium	CineStill 50D film
+VISION3	media	medium	Kodak motion picture stock (Kodak writes VISION3)
+Tri-X	media	high	Kodak film
+T-MAX	media	medium	Kodak film (Kodak writes T-MAX)
+HP5	media	high	Ilford film
+FP4	media	high	Ilford film
+Portra	media	high	Kodak film
+Ektar	media	high	Kodak film
+Ektachrome	media	high	Kodak film
+Kodachrome	media	high	Kodak film
+Velvia	media	medium	Fujifilm film
+LomoChrome	media	high	Lomography film
+Lomography	media	high	film camera brand
+SX-70	media	high	Polaroid camera
+RZ67	media	high	Mamiya camera
+RB67	media	high	Mamiya camera
+AE-1	media	high	Canon film camera
+FM2	media	medium	Nikon film camera
+Bolex	media	medium	16mm camera brand
+SanDisk	media	high	storage brand
+CFexpress	media	high	memory card standard
+CFast	media	high	memory card standard
+SDXC	media	high	SD card class
+SDHC	media	high	SD card class
+UHS-II	media	high	SD bus speed
+UHS-I	media	high	SD bus speed
+microSD	media	high	card format
+microSDXC	media	medium	card format
+ProGrade	media	high	ProGrade Digital cards
+Angelbird	media	medium	storage brand
+LaCie	media	high	storage brand
+G-Technology	media	high	storage brand
+OWC	media	high	storage brand
+RAID	media	high	disk array; also common word raid
+QNAP	media	high	NAS maker
+Synology	media	high	NAS maker
+LTO	media	medium	tape archive format
+USB-C	media	high	connector
+USB-A	media	medium	connector
+USB4	media	high	USB standard
+NDI	media	high	network video protocol
+3G-SDI	media	high	SDI standard
+12G-SDI	media	high	SDI standard
+BNC	media	high	video connector
+VITC	media	medium	vertical interval timecode
+CineD	media	high	filmmaking news site
+PetaPixel	media	high	photography news site
+DPReview	media	high	camera review site
+B&H	media	high	B&H Photo retailer
+Adorama	media	medium	camera retailer
+Decapitator	audio	high	Soundtoys saturator
+SuperPlate	audio	high	Soundtoys plate reverb
+Crystallizer	audio	medium	Soundtoys effect; also common word
+Tremolator	audio	medium	Soundtoys effect
+Nectar	audio	medium	iZotope vocal suite; also common word
+VocalSynth	audio	high	iZotope vocal effect
+BreakTweaker	audio	high	iZotope drum sequencer
+PhoenixVerb	audio	high	Exponential Audio/iZotope reverb
+Pro-MB	audio	high	FabFilter multiband compressor
+RVox	audio	high	Waves Renaissance Vox
+RComp	audio	high	Waves Renaissance Compressor
+REQ	audio	medium	Waves Renaissance EQ; also abbreviation req
+RVerb	audio	high	Waves Renaissance Reverb
+RChannel	audio	high	Waves Renaissance Channel
+RAxx	audio	high	Waves Renaissance Axx
+eMotion	audio	high	Waves eMotion LV1 mixer
+LV1	audio	high	Waves live mixer
+LA-2A	audio	high	Teletronix leveling amp
+LA2A	audio	medium	LA-2A unhyphenated
+LA-3A	audio	high	UREI compressor
+LA-610	audio	medium	UA channel strip
+1176LN	audio	medium	UREI compressor revision
+EMT	audio	high	EMT plate reverb maker; also emergency medical technician
+RMX16	audio	high	AMS digital reverb
+AMS	audio	medium	AMS Neve
+ATR-102	audio	high	Ampex tape machine
+UAD-2	audio	high	UA DSP platform
+UAFX	audio	high	UA pedal line
+LUNA	audio	high	UA DAW (official caps); also name Luna
+ValhallaRoom	audio	high	Valhalla DSP plugin
+ValhallaVintageVerb	audio	high	Valhalla DSP plugin
+ValhallaSupermassive	audio	high	Valhalla DSP plugin
+ValhallaDelay	audio	high	Valhalla DSP plugin
+ValhallaShimmer	audio	high	Valhalla DSP plugin
+ValhallaPlate	audio	high	Valhalla DSP plugin
+ValhallaFreqEcho	audio	high	Valhalla DSP plugin
+ValhallaSpaceModulator	audio	high	Valhalla DSP plugin
+ValhallaUberMod	audio	high	Valhalla DSP plugin
+Pigments	audio	medium	Arturia synth; also common word
+MiniFreak	audio	high	Arturia synth
+MicroFreak	audio	high	Arturia synth
+PolyBrute	audio	high	Arturia synth
+MiniBrute	audio	high	Arturia synth
+MicroBrute	audio	high	Arturia synth
+MatrixBrute	audio	high	Arturia synth
+DrumBrute	audio	high	Arturia drum machine
+MiniLab	audio	high	Arturia controller
+KeyLab	audio	high	Arturia controller
+KeyStep	audio	high	Arturia controller
+BeatStep	audio	high	Arturia controller
+AstroLab	audio	high	Arturia stage keyboard
+MiniFuse	audio	high	Arturia interface
+AudioFuse	audio	high	Arturia interface
+CS-80	audio	high	Yamaha synth (Arturia CS-80 V)
+DX7	audio	high	Yamaha synth
+OB-Xa	audio	high	Oberheim synth
+OB-X	audio	high	Oberheim synth
+OB-X8	audio	high	Oberheim synth
+OB-6	audio	high	Sequential/Oberheim synth
+OB-8	audio	medium	Oberheim synth
+OB-Xd	audio	high	discoDSP synth plugin
+OB-Xf	audio	medium	Surge Synth Team synth plugin
+DSI	audio	medium	Dave Smith Instruments
+CMI	audio	medium	Fairlight CMI
+VOX	audio	medium	VOX amps (official caps); also Latin vox
+ZebraHZ	audio	high	u-he synth
+TyrellN6	audio	high	u-he synth
+MFM2	audio	high	u-he delay
+Diva	audio	medium	u-he synth; also common word
+Hive	audio	medium	u-he synth; also common word
+Repro	audio	medium	u-he synth; also common word repro
+DimensionExpander	audio	high	Xfer effect
+Output	audio	medium	plugin company; also common word
+NI	audio	medium	Native Instruments abbreviation; also Northern Ireland
+Reaktor	audio	high	NI modular environment
+Traktor	audio	high	NI DJ software
+FM8	audio	high	NI FM synth
+Absynth	audio	high	NI synth
+Kontrol	audio	medium	NI Komplete Kontrol
+NKS	audio	high	Native Kontrol Standard
+NKI	audio	high	Kontakt instrument file
+NKM	audio	medium	Kontakt multi file
+NKX	audio	medium	Kontakt monolith file
+NCW	audio	medium	Kontakt compressed wave
+LABS	audio	medium	Spitfire LABS (official caps); common word labs
+BBCSO	audio	high	BBC Symphony Orchestra library
+eDNA	audio	high	Spitfire eDNA
+SINE	audio	medium	Orchestral Tools SINE player; also sine wave
+EastWest	audio	high	sample library company; also phrase east west
+EWQL	audio	high	EastWest Quantum Leap
+ComposerCloud	audio	high	EastWest subscription
+Cinesamples	audio	high	sample library company
+CineStrings	audio	high	Cinesamples library
+CineBrass	audio	high	Cinesamples library
+CineWinds	audio	high	Cinesamples library
+CinePerc	audio	high	Cinesamples library
+8Dio	audio	high	sample library company (8dio.com)
+Heavyocity	audio	high	sample library company
+NOVO	audio	medium	Heavyocity strings (official caps)
+Sonokinetic	audio	high	sample library company
+ProjectSAM	audio	high	sample library company
+VSL	audio	high	Vienna Symphonic Library
+VEP	audio	high	Vienna Ensemble Pro
+SWAM	audio	high	Audio Modeling engine
+LASS	audio	medium	LA Scoring Strings
+Toontrack	audio	high	drum software company
+EZdrummer	audio	high	Toontrack drum software
+EZkeys	audio	high	Toontrack keys software
+EZbass	audio	high	Toontrack bass software
+EZmix	audio	high	Toontrack mixing software
+EZX	audio	high	EZdrummer expansion
+SDX	audio	high	Superior Drummer expansion
+XLN	audio	high	XLN Audio
+XO	audio	medium	XLN XO drum sampler
+RC-20	audio	high	XLN RC-20 Retro Color
+SSD5	audio	medium	Steven Slate Drums 5
+Trilian	audio	high	Spectrasonics bass
+Vital	audio	medium	wavetable synth; also common word
+Dexed	audio	high	DX7 emulation
+TAL-U-NO-LX	audio	high	TAL Juno plugin
+TAL-Sampler	audio	high	TAL sampler plugin
+TAL-BassLine-101	audio	high	TAL SH-101 plugin
+TAL-J-8	audio	medium	TAL Jupiter plugin
+AAS	audio	medium	Applied Acoustics Systems
+Chromaphone	audio	high	AAS synth
+Pianoteq	audio	high	Modartt piano
+Modartt	audio	medium	Pianoteq developer
+Hydrasynth	audio	high	ASM synth
+Decent Sampler	audio	medium	free sampler plugin
+bx_digital	audio	high	Plugin Alliance/Brainworx EQ
+bx_console	audio	high	Brainworx console series
+bx_masterdesk	audio	high	Brainworx mastering plugin
+bx_limiter	audio	medium	Brainworx limiter
+bx_subsynth	audio	medium	Brainworx sub synth
+bx_oberhausen	audio	medium	Brainworx synth
+FG-X	audio	high	Slate Digital mastering processor
+FG-2A	audio	medium	Slate Digital compressor
+VMR	audio	high	Slate Virtual Mix Rack
+VTM	audio	high	Slate Virtual Tape Machines
+VBC	audio	high	Slate Virtual Buss Compressors
+VSX	audio	high	Slate headphone system
+MetaTune	audio	high	Slate pitch correction
+ML-1	audio	medium	Slate modeling mic
+VLA-2A	audio	high	Black Rooster Audio compressor
+SonEQ	audio	high	Sonimus EQ
+EQuivocate	audio	high	Newfangled Audio EQ; also common word equivocate
+Gullfoss	audio	high	Soundtheory EQ
+Kirchhoff-EQ	audio	medium	Three-Body Technology EQ
+ADPTR	audio	high	ADPTR Audio
+BASSROOM	audio	medium	Mastering The Mix plugin (official caps)
+MIXROOM	audio	medium	Mastering The Mix plugin (official caps)
+dpMeter	audio	high	TBProAudio meter
+MiniMeters	audio	high	metering app
+Youlean	audio	high	Youlean Loudness Meter
+SPAN	audio	medium	Voxengo analyzer (official caps); common word
+Voxengo	audio	high	plugin developer
+spiff	audio	medium	oeksound plugin (official lowercase)
+sonible	audio	high	plugin developer (official lowercase)
+ShaperBox	audio	high	Cableguys plugin
+HalfTime	audio	high	Cableguys plugin; also common word halftime
+VolumeShaper	audio	high	Cableguys plugin
+FilterShaper	audio	high	Cableguys plugin
+TimeShaper	audio	medium	Cableguys plugin
+Cableguys	audio	high	plugin developer
+AudioThing	audio	high	plugin developer
+BYOME	audio	medium	Unfiltered Audio plugin (official caps)
+Sonnox	audio	high	plugin developer
+Klanghelm	audio	high	plugin developer
+Goodhertz	audio	high	plugin developer
+DeVerberate	audio	high	Acon Digital plugin
+dxRevive	audio	high	Accentize plugin
+Accentize	audio	medium	plugin developer
+Acustica	audio	medium	Acustica Audio
+Wavesfactory	audio	medium	plugin developer
+Klevgrand	audio	medium	plugin developer
+VocAlign	audio	high	Synchro Arts plugin
+RePitch	audio	high	Synchro Arts plugin; also generic verb repitch
+VOCALOID	audio	medium	Yamaha singing synth (official caps)
+UTAU	audio	medium	singing synth
+MangledVerb	audio	high	Eventide plugin
+MicroPitch	audio	high	Eventide plugin
+SplitEQ	audio	high	Eventide plugin
+CrushStation	audio	high	Eventide plugin
+PitchFactor	audio	high	Eventide pedal
+ModFactor	audio	high	Eventide pedal
+TimeFactor	audio	high	Eventide pedal
+BigSky	audio	high	Strymon pedal
+TimeLine	audio	high	Strymon pedal; also common word timeline
+BlueSky	audio	high	Strymon pedal; also Bluesky social network / blue sky
+Strymon	audio	high	pedal maker
+EarthQuaker	audio	high	EarthQuaker Devices
+Axe-Fx	audio	high	Fractal Audio modeler
+Kemper	audio	high	amp profiler maker
+HX	audio	medium	Line 6 HX series
+POD	audio	low	Line 6 POD; also common word pod
+BOSS	audio	medium	Roland pedal brand (official caps); common word
+RC-505	audio	high	BOSS loop station
+BIAS	audio	low	Positive Grid BIAS; also common word
+EVH	audio	medium	EVH guitars/amps
+ESP	audio	medium	ESP Guitars
+NAM	audio	medium	Neural Amp Modeler; short; also short for Vietnam / name
+wavestate	audio	high	Korg synth (official lowercase)
+opsix	audio	high	Korg synth (official lowercase)
+modwave	audio	high	Korg synth (official lowercase)
+minilogue	audio	high	Korg synth (official lowercase)
+monologue	audio	high	Korg synth (official lowercase); also common word
+prologue	audio	medium	Korg synth (official lowercase); also common word
+drumlogue	audio	high	Korg drum machine (official lowercase)
+volca	audio	high	Korg groovebox line (official lowercase)
+microKORG	audio	high	Korg synth
+nanoKONTROL	audio	high	Korg controller
+nanoKEY	audio	high	Korg controller
+nanoPAD	audio	high	Korg controller
+microKEY	audio	high	Korg controller
+KRONOS	audio	medium	Korg workstation (official caps)
+KAOSS	audio	high	Korg Kaoss Pad line
+electribe	audio	medium	Korg groovebox (official lowercase)
+monotron	audio	medium	Korg synth (official lowercase)
+Minimoog	audio	high	Moog synth
+DFAM	audio	high	Moog drum synth
+Animoog	audio	high	Moog app synth
+Matriarch	audio	medium	Moog synth; also common word
+Oberheim	audio	high	synth maker
+Elektron	audio	high	synth maker
+Digitakt	audio	high	Elektron sampler
+Digitone	audio	high	Elektron synth
+Octatrack	audio	high	Elektron sampler
+Syntakt	audio	high	Elektron drum machine
+Overbridge	audio	high	Elektron DAW integration
+Tonverk	audio	medium	Elektron sampler (2024)
+OP-1	audio	high	Teenage Engineering synth
+OP-Z	audio	high	Teenage Engineering synth
+OP-XY	audio	high	Teenage Engineering synth
+TX-6	audio	high	Teenage Engineering mixer
+TP-7	audio	high	Teenage Engineering recorder
+CM-15	audio	high	Teenage Engineering mic
+EP-133	audio	high	Teenage Engineering K.O. II sampler
+EP-1320	audio	high	Teenage Engineering medieval sampler
+EP-40	audio	high	Teenage Engineering riddim sampler
+PO-33	audio	high	Pocket Operator K.O!
+PO-12	audio	medium	Pocket Operator rhythm
+PO-32	audio	medium	Pocket Operator tonic
+OB-4	audio	high	Teenage Engineering speaker
+MiniNova	audio	high	Novation synth
+UltraNova	audio	high	Novation synth
+Launchkey	audio	high	Novation controller
+MK1	audio	medium	Mark 1 model suffix
+MKIII	audio	medium	Mark III model suffix (Novation writes MkIII)
+MKIV	audio	medium	Mark IV model suffix
+MPC	audio	high	Akai MPC; also Moving Picture Company
+MPC60	audio	high	Akai sampler
+MPC3000	audio	high	Akai sampler
+MPC2000XL	audio	high	Akai sampler
+MPK	audio	high	Akai controller line
+APC	audio	medium	Akai Ableton controller line; also APC UPS brand
+APC40	audio	high	Akai controller
+MPD	audio	medium	Akai pad controller line
+MPD218	audio	medium	Akai pad controller
+EWI	audio	high	electronic wind instrument
+M4L	audio	high	Max for Live
+AMXD	audio	high	Max for Live device file
+ALS	audio	medium	Ableton Live Set file; also medical abbreviation
+ADG	audio	medium	Ableton device group file
+ADV	audio	medium	Ableton device preset file; also abbreviation adv
+ALP	audio	medium	Ableton Live Pack file
+TR-8S	audio	high	Roland drum machine
+TR-8	audio	high	Roland drum machine
+TR-606	audio	high	Roland drum machine
+TR-707	audio	high	Roland drum machine
+TR-6S	audio	high	Roland drum machine
+TR-1000	audio	high	Roland Rhythm Creator (2025)
+SH-101	audio	high	Roland synth
+SH-4d	audio	high	Roland synth
+JUNO-106	audio	high	Roland synth (official caps)
+JUNO-X	audio	high	Roland synth
+JUNO-DS	audio	medium	Roland synth
+JUPITER-8	audio	high	Roland synth (official caps)
+JUPITER-X	audio	high	Roland synth
+JUPITER-Xm	audio	high	Roland synth
+JX-3P	audio	high	Roland synth
+JX-8P	audio	high	Roland synth
+JX-08	audio	medium	Roland Boutique synth
+JD-800	audio	high	Roland synth
+JD-Xi	audio	high	Roland synth
+JD-XA	audio	medium	Roland synth
+JD-08	audio	medium	Roland Boutique synth
+JU-06A	audio	high	Roland Boutique synth
+MC-707	audio	high	Roland groovebox
+MC-101	audio	medium	Roland groovebox
+SP-404	audio	high	Roland sampler
+SP-404MKII	audio	high	Roland sampler
+SP-1200	audio	high	E-mu sampler
+VT-4	audio	medium	Roland voice transformer
+V-Drums	audio	high	Roland electronic drums
+GAIA	audio	medium	Roland synth (official caps)
+FANTOM	audio	medium	Roland workstation (official caps)
+SYSTEM-8	audio	medium	Roland synth
+AIRA	audio	high	Roland product line (official caps)
+ZEN-Core	audio	high	Roland synthesis engine
+RE-201	audio	high	Roland Space Echo
+CR-78	audio	high	Roland drum machine
+VP-330	audio	medium	Roland vocoder
+TB-3	audio	medium	Roland bass synth
+TB-03	audio	medium	Roland Boutique bass synth
+TX81Z	audio	high	Yamaha FM synth
+reface	audio	high	Yamaha mini keyboards (official lowercase)
+NS-10	audio	high	Yamaha studio monitor
+NS-10M	audio	medium	Yamaha studio monitor
+HS5	audio	medium	Yamaha studio monitor
+HS7	audio	medium	Yamaha studio monitor
+HS8	audio	medium	Yamaha studio monitor
+SEQTRAK	audio	medium	Yamaha groovebox (official caps)
+PSR	audio	medium	Yamaha keyboard line / peak-to-short-term loudness
+TD-3	audio	high	Behringer bass synth
+RD-8	audio	high	Behringer drum machine
+RD-9	audio	medium	Behringer drum machine
+UB-Xa	audio	high	Behringer synth
+UMC404HD	audio	medium	Behringer interface
+Eurorack	audio	high	modular format
+4ms	audio	high	Eurorack maker (official lowercase ms)
+1010music	audio	high	sampler maker (official lowercase)
+Squarp	audio	medium	sequencer maker
+Polyend	audio	high	instrument maker
+Dirtywave	audio	medium	M8 tracker maker
+Intellijel	audio	high	Eurorack maker
+Doepfer	audio	high	Eurorack maker
+Buchla	audio	high	synth maker
+UltraLite	audio	high	MOTU interface
+RedNet	audio	high	Focusrite Dante line
+Focusrite	audio	high	interface maker
+Scarlett	audio	medium	Focusrite interface; also common word; also a given name
+Clarett	audio	medium	Focusrite interface
+MADIface	audio	high	RME interface
+ADI-2	audio	high	RME converter
+Fireface	audio	high	RME interface
+Babyface	audio	high	RME interface; also common word
+Apogee	audio	high	interface maker; also common word
+Audient	audio	high	interface maker
+iD14	audio	high	Audient interface
+iD44	audio	high	Audient interface
+iD4	audio	medium	Audient interface
+EVO	audio	medium	Audient EVO line
+UR22C	audio	medium	Steinberg interface
+Genelec	audio	high	monitor maker
+GLM	audio	high	Genelec Loudspeaker Manager
+A7X	audio	medium	ADAM Audio monitor
+KRK	audio	high	monitor maker
+ROKIT	audio	medium	KRK monitor line (official caps)
+LSR305	audio	medium	JBL monitor
+Neumann	audio	high	mic/monitor maker
+TLM	audio	high	Neumann mic line
+MKH	audio	high	Sennheiser mic line
+AKG	audio	high	mic/headphone maker
+Audio-Technica	audio	high	mic/headphone maker
+ATH-M50x	audio	high	Audio-Technica headphones
+AT2020	audio	high	Audio-Technica mic
+beyerdynamic	audio	high	headphone maker (official lowercase)
+DT770	audio	medium	beyerdynamic headphones
+MDR-7506	audio	high	Sony headphones
+HD600	audio	medium	Sennheiser headphones
+HD650	audio	medium	Sennheiser headphones
+LCD-X	audio	high	Audeze headphones
+Audeze	audio	high	headphone maker
+SM7B	audio	high	Shure mic
+SM58	audio	high	Shure mic
+SM57	audio	high	Shure mic
+Shure	audio	high	mic maker
+RØDE	audio	medium	mic maker (official Ø)
+RØDECaster	audio	medium	RØDE podcast console
+VideoMic	audio	high	RØDE camera mic
+NTG	audio	high	RØDE shotgun mic line
+MixPre	audio	high	Sound Devices recorder
+TC-Helicon	audio	high	vocal processor maker
+GoXLR	audio	high	streaming mixer
+iLoud	audio	high	IK Multimedia monitors
+iRig	audio	high	IK Multimedia interfaces
+ARC	audio	medium	IK ARC room correction
+SoundID	audio	high	Sonarworks SoundID Reference
+Sonarworks	audio	high	room/headphone correction
+REW	audio	high	Room EQ Wizard
+Dante	audio	medium	audio networking; also a name
+AES67	audio	high	audio-over-IP standard
+AVB	audio	medium	Audio Video Bridging
+MADI	audio	high	multichannel digital audio
+RAVENNA	audio	high	audio-over-IP (official caps)
+TRS	audio	high	tip-ring-sleeve
+TRRS	audio	high	tip-ring-ring-sleeve
+DB25	audio	high	D-sub 25 connector
+AES3	audio	high	digital audio interface
+CV	audio	medium	control voltage
+HUI	audio	high	Mackie control protocol
+FaderPort	audio	high	PreSonus controller
+EuCon	audio	high	Avid control protocol
+DiGiCo	audio	high	live console maker
+Tube-Tech	audio	high	outboard maker
+Pultec	audio	high	EQ maker
+Fairchild	audio	high	limiter maker
+Distressor	audio	high	Empirical Labs compressor
+EL8	audio	medium	Empirical Labs Distressor model
+Manley	audio	high	outboard maker
+SPL	audio	high	SPL (Sound Performance Lab) / sound pressure level
+elysia	audio	high	outboard/plugin maker (official lowercase)
+mpressor	audio	medium	elysia compressor (official lowercase)
+karacter	audio	medium	elysia saturator (official lowercase)
+museq	audio	medium	elysia EQ (official lowercase)
+nvelope	audio	medium	elysia transient shaper (official lowercase)
+RND	audio	medium	Rupert Neve Designs; also abbreviation for random
+Bettermaker	audio	medium	outboard maker
+HG-2	audio	high	Black Box Analog Design processor
+EQ4	audio	high	Maag EQ4
+MainStage	audio	high	Apple live performance app; also phrase main stage
+MAGIX	audio	high	software company (official caps)
+SpectraLayers	audio	high	spectral editor
+ACID	audio	medium	MAGIX ACID Pro; also common word
+SADiE	audio	high	mastering DAW
+Pyramix	audio	high	Merging Technologies DAW
+ocenaudio	audio	high	audio editor (official lowercase)
+Audacity	audio	high	audio editor; also common word
+Mixbus	audio	high	Harrison DAW; also generic mixing term mix bus
+Ardour	audio	high	open-source DAW; also common word
+Renoise	audio	high	tracker DAW
+Tracktion	audio	high	DAW developer
+Cakewalk	audio	high	DAW; also common word
+Dorico	audio	high	Steinberg notation
+Sibelius	audio	high	Avid notation
+StaffPad	audio	high	notation app
+TuxGuitar	audio	medium	tab editor
+Fender Studio Pro	audio	high	Studio One renamed 2025
+FL	audio	medium	FL Studio abbreviation; also Florida
+Image-Line	audio	high	FL Studio developer
+FruityLoops	audio	high	FL Studio former name
+FPC	audio	high	FL Studio drum plugin
+FLP	audio	high	FL Studio project file
+FST	audio	medium	FL Studio state file
+Sytrus	audio	high	FL Studio synth
+Harmor	audio	high	FL Studio synth
+ZGameEditor	audio	high	FL Studio visualizer
+ReaPlugs	audio	high	REAPER plugin suite
+ReaEQ	audio	high	REAPER EQ
+ReaComp	audio	high	REAPER compressor
+ReaVerb	audio	high	REAPER reverb
+ReaXcomp	audio	high	REAPER multiband compressor
+ReaFIR	audio	high	REAPER FFT filter
+ReaGate	audio	high	REAPER gate
+ReaDelay	audio	high	REAPER delay
+ReaTune	audio	high	REAPER pitch tool
+ReaSynth	audio	medium	REAPER synth
+ReaSamplOmatic5000	audio	high	REAPER sampler
+ReaPack	audio	high	REAPER package manager
+ReaLearn	audio	high	REAPER controller mapping
+SWS	audio	medium	REAPER SWS extension
+JSFX	audio	high	REAPER JS effects
+EEL2	audio	high	REAPER scripting language
+RPP	audio	high	REAPER project file
+Cockos	audio	high	REAPER developer
+PTX	audio	high	Pro Tools session file
+PTF	audio	medium	legacy Pro Tools session file
+HDX	audio	high	Pro Tools DSP system
+AudioSuite	audio	high	Pro Tools offline plugins
+ES2	audio	high	Logic synth
+EXS24	audio	high	Logic sampler
+EXS	audio	medium	Logic sampler format
+ChromaVerb	audio	high	Logic reverb
+MetaSounds	audio	high	Unreal audio system
+Audiokinetic	audio	high	Wwise developer
+dearVR	audio	high	spatial audio plugins (Dear Reality)
+Demucs	audio	high	stem separation model
+UVR	audio	high	Ultimate Vocal Remover
+LALAL.AI	audio	high	stem separation service
+MDX-Net	audio	medium	stem separation model
+BS-RoFormer	audio	medium	stem separation model
+MVSEP	audio	medium	stem separation service
+Moises	audio	medium	stem separation app
+Spleeter	audio	medium	Deezer stem separation
+MusicGen	audio	high	Meta music model
+AudioCraft	audio	high	Meta audio library
+Suno	audio	high	AI music generator
+Udio	audio	high	AI music generator
+AIVA	audio	medium	AI composer
+LSDj	audio	high	Little Sound Dj tracker
+FamiTracker	audio	high	NES tracker
+OpenMPT	audio	high	module tracker
+MilkyTracker	audio	high	module tracker
+ProTracker	audio	high	Amiga tracker
+FastTracker	audio	high	module tracker
+DefleMask	audio	high	chiptune tracker
+SID	audio	high	C64 sound chip; also given name Sid
+YM2612	audio	high	Sega FM chip
+SN76489	audio	medium	TI sound chip
+2A03	audio	high	NES sound chip
+S3M	audio	high	Scream Tracker module
+VGM	audio	high	video game music / chip log format
+NSF	audio	medium	NES sound format
+foobar2000	audio	high	audio player (lowercase)
+MusicBee	audio	high	audio player
+AIMP	audio	high	audio player
+MediaMonkey	audio	high	media manager
+Mp3tag	audio	high	tag editor (official casing)
+PotPlayer	media	high	video player
+MPC-HC	media	high	Media Player Classic Home Cinema
+MPC-BE	media	medium	Media Player Classic Black Edition
+SoX	audio	high	Sound eXchange CLI
+LAME	audio	high	MP3 encoder; also common word lame
+XLD	audio	medium	X Lossless Decoder
+BWF	audio	high	Broadcast Wave Format
+BWAV	audio	medium	Broadcast WAV
+RF64	audio	high	large WAV format
+W64	audio	high	Sony Wave64
+CAF	audio	medium	Core Audio Format
+ALAC	audio	high	Apple Lossless
+WavPack	audio	high	lossless codec
+DSD	audio	high	Direct Stream Digital
+DSF	audio	medium	DSD file format
+DFF	audio	medium	DSDIFF file
+SACD	audio	high	Super Audio CD
+MQA	audio	high	Master Quality Authenticated
+aptX	audio	high	Bluetooth codec (official casing)
+AC3	audio	medium	Dolby Digital ext
+AC-3	audio	high	Dolby Digital codec
+E-AC-3	audio	high	Dolby Digital Plus
+MPEG-H	audio	high	3D audio codec
+Auro-3D	audio	high	immersive audio format
+IAMF	audio	medium	immersive audio model/format
+ADM	audio	high	Audio Definition Model / Apple Digital Masters
+LFE	audio	high	low-frequency effects
+LCR	audio	high	left-center-right
+HRTF	audio	high	head-related transfer function
+FOA	audio	medium	first-order Ambisonics
+HOA	audio	medium	higher-order Ambisonics
+REX2	audio	high	ReCycle loop format
+RX2	audio	medium	ReCycle file ext
+SFZ	audio	high	sampler format
+SF2	audio	high	SoundFont 2
+FXP	audio	high	VST preset file
+FXB	audio	high	VST bank file
+H2P	audio	high	u-he preset file
+NMSV	audio	medium	Massive preset file
+DAWproject	audio	high	open DAW interchange format (Bitwig/PreSonus)
+SysEx	audio	high	MIDI system exclusive
+NRPN	audio	high	MIDI non-registered parameter
+PPQN	audio	high	pulses per quarter note
+SMF	audio	medium	Standard MIDI File
+MSEG	audio	high	multi-segment envelope generator
+AHDSR	audio	high	envelope type
+DAHDSR	audio	medium	envelope type
+DCO	audio	high	digitally controlled oscillator
+S&H	audio	medium	sample and hold
+HPF	audio	high	high-pass filter
+LPF	audio	high	low-pass filter
+BPF	audio	high	band-pass filter
+AUv3	audio	high	Audio Unit v3
+LV2	audio	high	Linux plugin format
+CLAP	audio	medium	CLever Audio Plug-in format; common word clap (drum samples)
+DXi	audio	medium	DirectX instrument
+ReWire	audio	high	Propellerhead protocol; also common word rewire
+IRs	audio	high	impulse responses
+ASIO4ALL	audio	high	universal ASIO driver
+FlexASIO	audio	medium	universal ASIO driver
+PipeWire	audio	high	Linux audio server
+PulseAudio	audio	high	Linux audio server
+ALSA	audio	high	Linux audio API
+VB-Audio	audio	high	virtual audio driver maker
+VB-CABLE	audio	medium	VB-Audio virtual cable (vb-audio.com styling)
+Voicemeeter	audio	high	virtual mixer
+BlackHole	audio	high	macOS loopback driver; also common word black hole
+iPlug2	audio	high	plugin framework
+HISE	audio	high	sampler/plugin framework
+VCV	audio	high	VCV Rack
+TidalCycles	audio	high	live coding environment
+Csound	audio	high	audio programming language
+TouchOSC	audio	high	OSC controller app
+SoundFlow	audio	high	DAW automation platform
+MTC	audio	medium	MIDI Time Code
+LKFS	audio	high	loudness unit
+LU	audio	high	loudness unit
+LRA	audio	high	loudness range
+PLR	audio	high	peak-to-loudness ratio
+dBu	audio	high	voltage level unit
+dBV	audio	high	voltage level unit
+dBA	audio	medium	A-weighted decibels
+EBU	audio	high	European Broadcasting Union
+ITU-R	audio	high	ITU radiocommunication sector
+BS.1770	audio	high	ITU loudness standard
+K-System	audio	high	Bob Katz metering system
+DDP	audio	high	Disc Description Protocol
+DDPi	audio	medium	DDP image identifier
+ISRC	audio	high	recording code
+UPC	audio	high	product barcode
+EAN	audio	medium	product barcode
+CD-Text	audio	medium	CD metadata
+MFiT	audio	high	Mastered for iTunes
+Hi-Res	audio	high	high-resolution audio
+HiRes	audio	medium	high-resolution audio
+Lo-Fi	audio	high	low fidelity
+LoFi	audio	medium	low fidelity
+DSP	audio	high	digital signal processing
+MHz	audio	medium	megahertz
+R&B	audio	high	genre
+UKG	audio	high	UK garage genre
+IDM	audio	high	intelligent dance music
+EP	audio	high	extended play; also abbreviation
+LPs	audio	high	plural of LP
+DJs	audio	high	plural of DJ
+OSTs	audio	medium	plural of OST
+VO	audio	high	voice-over
+ADR	audio	high	automated dialogue replacement
+M&E	audio	high	music and effects stem
+DME	audio	medium	dialogue music effects stems
+Hip-Hop	audio	high	genre
+Trip-Hop	audio	high	genre
+Hi-NRG	audio	high	genre
+J-Pop	audio	high	genre
+K-Pop	audio	high	genre
+Synth-Pop	audio	medium	genre
+One-Shot	audio	medium	single-hit sample; also common phrase one-shot
+One-Shots	audio	medium	single-hit samples; also common phrase
+MP3s	audio	high	plural of MP3
+WAVs	audio	medium	plural of WAV
+SFX	audio	high	sound effects
+Loopmasters	audio	high	sample marketplace
+Loopcloud	audio	high	sample platform
+Noiiz	audio	medium	sample subscription
+Tracklib	audio	medium	sample clearance platform
+Ghosthack	audio	medium	sample packs
+Freesound	audio	high	CC sound database
+Soundsnap	audio	medium	SFX library
+BOOM Library	audio	medium	SFX library (official caps BOOM)
+Sonniss	audio	high	SFX library/GDC bundle
+GDC	audio	medium	Game Developers Conference
+Soundly	audio	high	SFX library app; also adverb soundly
+BaseHead	audio	high	SFX librarian
+Soundminer	audio	high	SFX librarian
+UCS	audio	high	Universal Category System
+ZapSplat	audio	medium	free SFX site (about page styling)
+BeatStars	audio	high	beat marketplace
+SoundClick	audio	medium	music platform
+TuneCore	audio	high	music distributor
+eMastered	audio	high	online mastering
+CloudBounce	audio	medium	online mastering
+BandLab	audio	high	online DAW/community
+Soundtrap	audio	medium	online DAW
+SoundBetter	audio	high	music freelancer marketplace
+Audiomack	audio	medium	music streaming
+Deezer	audio	high	music streaming
+Qobuz	audio	high	music streaming
+Spotify	audio	high	music streaming
+Uppbeat	audio	medium	music licensing
+rekordbox	audio	high	AlphaTheta DJ software (official lowercase)
+Serato	audio	high	DJ software
+djay	audio	medium	Algoriddim DJ app (official lowercase)
+AlphaTheta	audio	high	Pioneer DJ parent
+CDJ	audio	high	Pioneer DJ player line
+CDJ-3000	audio	high	Pioneer DJ player
+DJM	audio	high	Pioneer DJ mixer line
+XDJ	audio	high	Pioneer DJ all-in-one line
+DDJ	audio	high	Pioneer DJ controller line
+NXS2	audio	high	Pioneer DJ Nexus 2
+SL-1200	audio	high	Technics turntable
+SL-1210	audio	medium	Technics turntable
+NAMM	audio	high	music trade show
+Gearspace	audio	high	audio forum (formerly Gearslutz)
+Gearslutz	audio	medium	former Gearspace name
+Sweetwater	audio	high	music retailer
+Thomann	audio	high	music retailer
+Elektronauts	audio	medium	Elektron forum
+VI-Control	audio	high	composer forum
+MusicRadar	audio	high	music tech news
+MusicTech	audio	medium	music tech magazine
+Synthtopia	audio	medium	synth news site
+SpeedGrade	media	high	Adobe legacy grading app
+FrameMaker	design	high	Adobe publishing app
+PageMaker	design	high	Adobe legacy layout app
+FreeHand	design	high	Macromedia vector app
+ImageReady	design	high	Adobe legacy web graphics app
+GoLive	design	medium	Adobe legacy web editor
+OnLocation	media	medium	Adobe legacy capture app
+PhotoDeluxe	design	medium	Adobe legacy photo app
+Softimage	3d	high	Autodesk legacy 3D app
+XSI	3d	high	Softimage XSI
+LightWave	3d	high	LightWave 3D
+trueSpace	3d	medium	Caligari trueSpace (official lowercase t)
+Cheetah3D	3d	high	macOS 3D app
+MilkShape	3d	medium	MilkShape 3D modeler
+SOLIDWORKS	3d	medium	Dassault CAD (official caps)
+Onshape	3d	medium	cloud CAD
+Omniverse	3d	high	NVIDIA 3D platform
+EDIUS	media	medium	Grass Valley video editor (official caps)
+AviSynth	media	high	video frameserver
+VapourSynth	media	high	video frameserver
+MeGUI	media	medium	video encoding GUI
+StaxRip	media	medium	video encoding GUI
+SVT-AV1	media	high	AV1 encoder
+NVENC	media	high	NVIDIA hardware encoder
+SilhouetteFX	3d	medium	Silhouette original developer
+GenArts	3d	medium	Sapphire original developer
+NewBlue	media	high	NewBlue titling/effects (NewBlueFX)
+proDAD	media	high	video plugin developer (official lowercase pro)
+digiKam	media	high	KDE photo manager
+PhotoLine	design	medium	image editor
+PaintShop	design	high	Corel PaintShop Pro
+PHOTO-PAINT	design	medium	Corel PHOTO-PAINT
+SOUND FORGE	audio	medium	MAGIX SOUND FORGE (official caps)
+ReCycle	audio	high	Reason Studios loop slicer
+ReBirth	audio	high	Propellerhead ReBirth RB-338
+RB-338	audio	high	ReBirth model code
+ReFill	audio	medium	Reason sound bank format; also common word refill
+NN-XT	audio	high	Reason sampler
+NN-19	audio	high	Reason sampler
+Propellerhead	audio	medium	Reason Studios former name
+SketchCassette	audio	medium	Aberrant DSP plugin
+CamelCrusher	audio	high	Camel Audio plugin
+PG-8X	audio	medium	free JX-8P emulation
+sforzando	audio	medium	Plogue SFZ player (official lowercase); also music term
+chipsounds	audio	medium	Plogue chip synth (official lowercase)
+TX16Wx	audio	high	software sampler
+CRIWARE	audio	medium	CRI Middleware audio/video SDK
+DS1-MK3	audio	high	Weiss/Softube de-esser
+CC1	audio	medium	MIDI CC1 modulation
+CC11	audio	medium	MIDI CC11 expression
+CC64	audio	medium	MIDI CC64 sustain
+SiteInspire	design	medium	web design gallery
+StockSnap	media	medium	free stock photos (StockSnap.io)
+Storyset	design	medium	Freepik illustrations
+unDraw	design	high	open-source illustrations (undraw.co)
+Humaaans	design	medium	illustration library
+DrawKit	design	high	illustration library
+ManyPixels	design	medium	illustration gallery/design service

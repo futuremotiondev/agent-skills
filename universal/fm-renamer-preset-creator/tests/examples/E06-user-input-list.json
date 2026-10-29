@@ -1,0 +1,53 @@
+{
+  "acceptance": {
+    "id": "E06",
+    "request": "Give these files the names from my list (multi-line User Input from a JSON array)",
+    "maxRules": 2
+  },
+  "name": "Names From List",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [
+    {
+      "id": "UserInput",
+      "comment": "Typed names, one per file in table order",
+      "config": {
+        "INPUT": [
+          "First Name",
+          "Second & Co (v2)"
+        ]
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "Line n names file n",
+      "files": [
+        "a.TXT",
+        "b.txt"
+      ],
+      "expect": [
+        "First Name.txt",
+        "Second & Co (v2).txt"
+      ]
+    },
+    {
+      "name": "A third file beyond the list keeps its name",
+      "files": [
+        "a.txt",
+        "b.txt",
+        "c.txt"
+      ],
+      "expect": [
+        "First Name.txt",
+        "Second & Co (v2).txt",
+        "c.txt"
+      ]
+    }
+  ]
+}

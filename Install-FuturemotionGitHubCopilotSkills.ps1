@@ -1,0 +1,168 @@
+#Requires -Version 7.1
+
+<#
+.SYNOPSIS
+    Installs the GitHub Copilot and universal skills in this repository into
+    the user-level directory that GitHub Copilot loads personal skills from.
+
+.DESCRIPTION
+    Scans the 'github-copilot' and 'universal' folders of the repository (by
+    default the folder this script lives in) for skill directories that
+    contain a SKILL.md file and mirrors each one into
+    <SkillsRoot>\<skill name>.
+
+    The default SkillsRoot is the 'skills' folder of the Copilot CLI
+    configuration directory: $env:COPILOT_HOME\skills when COPILOT_HOME is
+    set, otherwise ~\.copilot\skills. GitHub documents this as the personal
+    skills location for Copilot CLI, the Copilot coding agent, and Copilot
+    in VS Code.
+
+    Both source folders install into the same flat directory, so a skill
+    folder name that exists in both is a repository error. The script stops
+    before copying anything and names both copies.
+
+    Each skill is mirrored with robocopy /MIR, so files removed from the
+    repository copy are also removed from the installed copy. Only the
+    matching <SkillsRoot>\<skill name> folder is ever written to; other
+    skills in SkillsRoot are never touched or pruned. Every SKILL.md is
+    checked against the Agent Skills specification before it is copied.
+
+.PARAMETER LiteralPath
+    The repository root that contains the 'github-copilot' and 'universal'
+    folders. Defaults to the directory containing this script. Accepts a
+    literal path; wildcards are not expanded.
+
+.PARAMETER SkillsRoot
+    The user-level skills directory to install into. Defaults to
+    $env:COPILOT_HOME\skills, or ~\.copilot\skills when COPILOT_HOME is not
+    set. Created if it does not exist.
+
+.PARAMETER Exclude
+    One or more skill folder names to skip for this run, matched exactly
+    (case-insensitive) against the skill's directory name in either source
+    folder.
+
+.INPUTS
+    None. This script does not accept pipeline input.
+
+.OUTPUTS
+    System.Management.Automation.PSCustomObject
+    One result per skill folder found with Name, Origin, Target, Source,
+    Destination, FilesCopied, FilesRemoved, Status, Warnings, and
+    ErrorMessage.
+
+.EXAMPLE
+    .\Install-FuturemotionGitHubCopilotSkills.ps1
+
+    Installs every GitHub Copilot and universal skill into
+    ~\.copilot\skills.
+
+.EXAMPLE
+    .\Install-FuturemotionGitHubCopilotSkills.ps1 -WhatIf
+
+    Lists what would be installed without copying anything.
+
+.EXAMPLE
+    $env:COPILOT_HOME = 'D:\Config\copilot'
+    .\Install-FuturemotionGitHubCopilotSkills.ps1
+
+    Installs into D:\Config\copilot\skills, matching a relocated Copilot
+    CLI configuration directory.
+
+.EXAMPLE
+    .\Install-FuturemotionGitHubCopilotSkills.ps1 -Exclude fm-summarize-codebase
+
+    Installs everything except the named skill.
+
+.NOTES
+    Requires Windows (robocopy) and PowerShell 7.1 or later. The shared
+    install logic lives in installer\SkillInstallerCore.ps1, which this
+    script dot-sources. In Copilot CLI, run /skills reload after installing.
+
+    Copilot also reads personal skills from ~\.agents\skills, and Copilot in
+    VS Code additionally reads ~\.claude\skills. If the ChatGPT / Codex or
+    Claude installers have also been run, Copilot can see more than one copy
+    of a universal skill; keep all installs on the same repository revision
+    so the copies are identical.
+
+.LINK
+    https://github.com/futuremotiondev
+
+.LINK
+    https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
+
+.LINK
+    Install-FuturemotionClaudeSkills.ps1
+
+.LINK
+    Install-FuturemotionChatGPTCodexSkills.ps1
+
+.LINK
+    Install-FuturemotionGeminiAntigravitySkills.ps1
+
+.LINK
+    Install-FuturemotionGrokSkills.ps1
+
+.LINK
+    Install-FuturemotionMS365CopilotSkills.ps1
+#>
+
+using namespace System.IO
+
+[CmdletBinding(SupportsShouldProcess)]
+param(
+    [Parameter(
+        Position = 0,
+        HelpMessage = 'Repository root that contains the skill folders.'
+    )]
+    [Alias('PSPath')]
+    [ValidateNotNullOrEmpty()]
+    [String] $LiteralPath = $PSScriptRoot,
+
+    # An empty COPILOT_HOME is treated as unset; Path.Combine('', 'skills')
+    # would otherwise yield a relative 'skills' folder in the current
+    # directory.
+    [Parameter(HelpMessage = 'User-level skills directory to install into.')]
+    [ValidateNotNullOrEmpty()]
+    [String] $SkillsRoot = [Path]::Combine(
+        $(if ($env:COPILOT_HOME) { $env:COPILOT_HOME }
+          else { [Path]::Combine($HOME, '.copilot') }),
+        'skills'),
+
+    [Parameter(HelpMessage = 'Skill folder names to skip for this run.')]
+    [String[]] $Exclude = @()
+)
+
+# REGION - SETUP
+# ──────────────────────────────────────────────────────────────────────────────
+
+# The helper ships beside this script, so it is located from $PSScriptRoot
+# rather than -LiteralPath, which may point at a different checkout.
+. ([Path]::Combine($PSScriptRoot, 'installer', 'SkillInstallerCore.ps1'))
+
+# ENDREGION
+
+# REGION - DISCOVERY
+# ──────────────────────────────────────────────────────────────────────────────
+
+$skills = Get-FMSkillFolder -LiteralPath $LiteralPath `
+    -Folder 'github-copilot', 'universal' -Exclude $Exclude
+
+if (-not $skills) {
+    Write-Warning ("No skill folders (directories with SKILL.md) found " +
+        "in $LiteralPath")
+    return
+}
+
+Write-Verbose ("Found {0} skill folder(s) in {1}" -f
+    @($skills).Count, $LiteralPath)
+
+# ENDREGION
+
+# REGION - INSTALL
+# ──────────────────────────────────────────────────────────────────────────────
+
+$skills | Install-FMSkill -SkillsRoot $SkillsRoot -Target 'GitHub Copilot' `
+    -RepositoryRoot $LiteralPath
+
+# ENDREGION

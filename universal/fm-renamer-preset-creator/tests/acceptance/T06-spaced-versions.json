@@ -1,0 +1,49 @@
+{
+  "acceptance": {
+    "id": "T06",
+    "request": "Turn spaced version numbers into v-dotted",
+    "maxRules": 3,
+    "expectedDesign": "Guarded RegEx per group count + ext Case"
+  },
+  "name": "Version Numbers Dotted",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "RegEx",
+      "comment": "4-part version",
+      "config": {
+        "EXPRESSION": "(^|\\s)(\\d{1,4}) (\\d{1,5}) (\\d{1,5}) (\\d{1,5})(?=\\s|$)",
+        "REPLACE": "$1v$2.$3.$4.$5"
+      }
+    },
+    {
+      "id": "RegEx",
+      "comment": "3-part version",
+      "config": {
+        "EXPRESSION": "(^|\\s)(\\d{1,4}) (\\d{1,5}) (\\d{1,5})(?=\\s|$)",
+        "REPLACE": "$1v$2.$3.$4"
+      }
+    }
+  ],
+  "tests": [
+    {
+      "in": "Blender 4 2 1 Setup.exe",
+      "out": "Blender v4.2.1 Setup.exe"
+    },
+    {
+      "in": "Tool 2 0 1 5.zip",
+      "out": "Tool v2.0.1.5.zip"
+    },
+    {
+      "in": "Wallpaper 1920 1080.jpg",
+      "out": "Wallpaper 1920 1080.jpg"
+    }
+  ]
+}

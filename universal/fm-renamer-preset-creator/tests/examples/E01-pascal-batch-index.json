@@ -1,0 +1,64 @@
+{
+  "acceptance": {
+    "id": "E01",
+    "request": "Number files by batch position, padded to the batch size (Pascal example)",
+    "maxRules": 2
+  },
+  "name": "Prefix Batch Index",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [
+    {
+      "id": "PascalScript",
+      "comment": "Prefix batch index, padded to the batch size",
+      "sourceFile": "../../assets/pascal/examples/batch-index-autowidth.pas"
+    }
+  ],
+  "tests": [
+    {
+      "name": "10 files -> 2-digit index",
+      "files": [
+        "a.txt",
+        "b.txt",
+        "c.txt",
+        "d.txt",
+        "e.txt",
+        "f.txt",
+        "g.txt",
+        "h.txt",
+        "i.txt",
+        "j.txt"
+      ],
+      "expect": [
+        "01 a.txt",
+        "02 b.txt",
+        "03 c.txt",
+        "04 d.txt",
+        "05 e.txt",
+        "06 f.txt",
+        "07 g.txt",
+        "08 h.txt",
+        "09 i.txt",
+        "10 j.txt"
+      ]
+    },
+    {
+      "name": "3 files -> 1-digit index",
+      "files": [
+        "x.TXT",
+        "y.txt",
+        "z.txt"
+      ],
+      "expect": [
+        "1 x.txt",
+        "2 y.txt",
+        "3 z.txt"
+      ]
+    }
+  ]
+}

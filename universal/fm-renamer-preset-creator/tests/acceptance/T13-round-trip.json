@@ -1,0 +1,8 @@
+{
+  "acceptance": {
+    "id": "T13",
+    "request": "Explain and round-trip `CONTENTS 00 Clean Up Filename.rnp`",
+    "roundTrip": "CONTENTS 00 Clean Up Filename.rnp",
+    "expectedDesign": "ConvertFrom-Rnp + Build-RnpPreset: byte-identical rebuild; explanation lists all 26 rules"
+  }
+}

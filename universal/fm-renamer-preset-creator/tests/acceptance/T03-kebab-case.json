@@ -1,0 +1,28 @@
+{
+  "acceptance": {
+    "id": "T03",
+    "request": "Kebab-case everything",
+    "maxRules": 3,
+    "expectedDesign": "The kebab tail (casing.md 7.3)"
+  },
+  "name": "CASE Kebab",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "kebab"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [],
+  "tests": [
+    {
+      "in": "My Cool_File v2.PNG",
+      "out": "my-cool-file-v2.png"
+    },
+    {
+      "in": "already-kebab.svg",
+      "out": "already-kebab.svg"
+    }
+  ]
+}

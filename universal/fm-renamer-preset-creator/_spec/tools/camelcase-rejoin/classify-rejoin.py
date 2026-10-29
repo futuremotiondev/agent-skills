@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+r"""Maintain data/camelcase-rejoin.tsv (SPEC §7.5). Two steps, run from this folder:
+
+  1. python classify-rejoin.py make-probe [--sources base,added]
+       Writes camelcase-splitmap.probes.psd1: one empty <term>.txt per candidate term, and a CleanUp rule with only
+       INSERTSPACEBEFORECAPITALS=1 (+ SPACESFIX). Candidates = core-tier terms from the given sources (default base,added)
+       without spaces that contain a lower/digit->Upper or UPPER-UPPER-lower transition (1,264 terms in v2.1; 3,771 after the 2026-09-28 dictionary expansion).
+  2. pwsh ..\rnp-probe\Invoke-RnpProbe.ps1 -CaseFile .\camelcase-splitmap.probes.psd1 > splitmap-out.txt
+     python classify-rejoin.py classify splitmap-out.txt
+       Reads the harness output ("out:" line = names after ReNamer's split; a plain one-name-per-line file also works),
+       pairs each split with its term (CleanUp only inserts spaces, so removing them gives the term back), drops terms
+       ReNamer did not split, classifies, and writes ../../data/camelcase-rejoin.tsv (split, term, kind).
+
+kind = brand  -> safe to rejoin by default (one Replace rule, SPEC §7.5)
+kind = review -> may legitimately be written as separate words (Google Drive, Adobe Photoshop); opt-in by name
+A pair is 'brand' when ANY of these holds:
+  1. the term is on the hand-checked HAND list below (compound brands: GitHub, JavaScript, YouTube, ...)
+  2. a split token starts with a lowercase letter (i Phone, mac OS, use Effect)
+  3. two tokens, the first ALL-CAPS, the second a plural-like tail (AP Is, SD Ks)
+  4. a single-capital token exists and the term has at most 8 letters (Po C, Io T, Space X, Signal R)
+"""
+import argparse, csv, re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+DICT = ROOT / 'data' / 'casing-dictionary.tsv'
+OUT_TSV = ROOT / 'data' / 'camelcase-rejoin.tsv'
+PROBE = Path(__file__).resolve().parent / 'camelcase-splitmap.probes.psd1'
+CAMEL = re.compile(r'[a-z0-9][A-Z]|[A-Z][A-Z][a-z]')   # transitions where CleanUp may insert a space
+
+HAND = set("""
+    GitHub GitLab GitBook GitKraken JavaScript TypeScript CoffeeScript ActionScript AppleScript PostScript
+    WordPress WooCommerce PowerShell PowerPoint PowerToys YouTube LinkedIn PayPal PlayStation OneDrive OneNote
+    SharePoint DevOps DevSecOps GitOps MLOps AIOps DataOps FinOps ChatGPT OpenAI DeepSeek DeepMind HuggingFace
+    ComfyUI TikTok WhatsApp WeChat FaceTime AirPods AirDrop AirPlay AirTag MacBook SoundCloud FreeBSD NetBSD
+    OpenBSD OpenGL OpenCL OpenCV OpenSSL OpenSSH OpenType TrueType WebGL WebGPU WebRTC WebAssembly WebSocket
+    WebSockets WebKit WebView WebStorm PhpStorm PyCharm JetBrains ReSharper MySQL PostgreSQL SQLite MongoDB
+    MariaDB NoSQL GraphQL DynamoDB CouchDB InfluxDB NodeJS ReactJS VueJS AngularJS NextJS NuxtJS NestJS ExpressJS
+    TailwindCSS PostCSS ESLint PyTorch TensorFlow NumPy SciPy CorelDRAW InDesign ZBrush KeyShot SketchUp AutoCAD
+    BlackBerry TestFlight CocoaPods DirectX ControlNet LangChain LlamaIndex OAuth OAuth2 NuGet WinGet MSBuild VSCode
+    VSCodium AvaloniaUI SwiftUI UIKit AppKit ARKit CarPlay HomePod HomeKit HealthKit CloudKit FreeCodeCamp
+    LeetCode CodePen CodeSandbox StackBlitz JSFiddle DigitalOcean HashiCorp CloudFront CloudWatch CloudFormation
+    BigQuery SageMaker OpenSearch ClickHouse DuckDB RabbitMQ ZeroMQ VirtualBox VMware WireGuard OpenVPN YubiKey
+    JupyterLab IPython CPython MicroPython FastAPI SQLAlchemy RubyGems RuboCop PHPUnit JUnit NUnit ImageMagick
+    GraphicsMagick IrfanView XnView RawTherapee FontForge FontLab MkDocs AsciiDoc CommonMark DevTools PageSpeed
+    ClamAV VirusTotal SonarQube PubNub LiveKit WebTransport AlphaFold AlphaGo AnimateDiff AutoGen ElevenLabs
+    HeyGen LangGraph LangSmith NotebookLM OpenRouter OpenVINO TensorBoard TensorRT TorchScript ArtStation
+    DeviantArt FigJam GarageBand IconScout LottieFiles OctaneRender PureRef ThemeForest CodeCanyon GraphicRiver
+    VideoHive AudioJungle PhotoDune WaveLab HandBrake MKVToolNix OpenColorIO OpenEXR OpenXR WebXR TanStack DaVinci
+    LoRA QLoRA ROCm
+""".split())
+
+def load_dictionary():
+    with open(DICT, encoding='utf-8') as f:
+        return list(csv.DictReader(f, delimiter='\t'))
+
+def make_probe(sources):
+    terms = [r['term'] for r in load_dictionary()
+             if r['tier'] == 'core' and r['source'] in sources and ' ' not in r['term'] and CAMEL.search(r['term'])]
+    q = lambda s: "'" + s.replace("'", "''") + "'"
+    files = ', '.join(q(t + '.txt') for t in terms)
+    cleanup = ', '.join(q(k) for k in (
+        'BRACKETSROUND=0', 'BRACKETSSQUARE=0', 'BRACKETSCURVY=0', 'SPACESDOT=0', 'SPACESCOMMA=0', 'SPACESUNDERSCORE=0',
+        'SPACESPLUS=0', 'SPACESHYPHEN=0', 'SPACESWEB=0', 'SPACESSKIPVERSIONS=0', 'SPACESFIX=1', 'SKIPEXTENSION=1',
+        'PREPAREFORSHAREPOINT=0', 'INSERTSPACEBEFORECAPITALS=1', 'NORMALIZESPACES=0', 'STRIPUNICODEMARKS=0', 'STRIPUNICODEEMOJI=0'))
+    text = ('# Generated by classify-rejoin.py make-probe (sources: ' + ','.join(sources) + f'; {len(terms)} terms). Do not edit by hand.\n'
+            '# Run: ..\\rnp-probe\\Invoke-RnpProbe.ps1 -CaseFile .\\camelcase-splitmap.probes.psd1 > splitmap-out.txt\n'
+            '#      python classify-rejoin.py classify splitmap-out.txt\n'
+            '@{ Cases = @(\n'
+            f"  @{{ Name = 'CamelCase split map for core dictionary terms'; Files = @({files}); Inputs = @('.'); "
+            "Filters = @{ AddFilesFromFolders = 1; AddFoldersAsFiles = 0; IncludeSubfolders = 0; IncludeHidden = 1; IncludeSystem = 1; "
+            "SkipRootFoldersAsFiles = 0; MasksOnFileName = 0; Masks = ''; MasksExclude = '' }; "
+            f"Rules = @(@{{ ID = 'CleanUp'; Config = @({cleanup}) }}) }}\n"
+            ') }\n')
+    PROBE.write_text(text, encoding='utf-8')
+    print(f'{PROBE}: {len(terms)} terms')
+
+def read_names(path):
+    names = []
+    for line in Path(path).read_text(encoding='utf-8-sig').splitlines():
+        s = line.strip()
+        if s.startswith('out:'):
+            names += [n.strip() for n in s[4:].split(' || ') if n.strip()]
+        elif s and not s.startswith(('[', 'in :', 'exp:', 'Settings.ini', 'Presets', 'Result', 'WARNING')):
+            names.append(s)
+    return [n[:-4] if n.lower().endswith('.txt') else n for n in names]   # probe files are <term>.txt
+
+def is_brand(split, term):
+    toks = split.split()
+    letters = sum(c.isalpha() for c in term)
+    return (term in HAND
+            or any(t[:1].islower() for t in toks)
+            or (len(toks) == 2 and toks[0].isupper() and re.fullmatch(r'[A-Z]?[a-z]?s', toks[1]) is not None)
+            or (any(re.fullmatch(r'[A-Z]', t) for t in toks) and letters <= 8))
+
+def classify(run_output):
+    terms = {r['term'] for r in load_dictionary()}
+    rows = []
+    for split in read_names(run_output):
+        term = split.replace(' ', '')
+        if split != term and term in terms:
+            rows.append((split, term, 'brand' if is_brand(split, term) else 'review'))
+    rows.sort(key=lambda r: r[0].casefold())
+    OUT_TSV.write_text('split\tterm\tkind\n' + ''.join(f'{s}\t{t}\t{k}\n' for s, t, k in rows), encoding='utf-8', newline='\n')
+    print(f"{OUT_TSV}: {sum(r[2] == 'brand' for r in rows)} brand, {sum(r[2] == 'review' for r in rows)} review")
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest='cmd', required=True)
+    mp = sub.add_parser('make-probe'); mp.add_argument('--sources', default='base,added')
+    cl = sub.add_parser('classify'); cl.add_argument('run_output', nargs='?', default='splitmap-out.txt')
+    a = ap.parse_args()
+    make_probe(a.sources.split(',')) if a.cmd == 'make-probe' else classify(a.run_output)

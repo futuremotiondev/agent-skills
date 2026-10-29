@@ -1,0 +1,33 @@
+{
+  "acceptance": {
+    "id": "T01",
+    "request": "Prefix files with their folder name",
+    "maxRules": 2,
+    "expectedDesign": "Insert :File_FolderName: + ext Case"
+  },
+  "name": "Prefix Folder Name",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "Insert",
+      "comment": "Prefix with parent folder name",
+      "config": {
+        "TEXT": ":File_FolderName: ",
+        "WHERE": 1
+      }
+    }
+  ],
+  "tests": [
+    {
+      "in": "Icons\\home.SVG",
+      "out": "Icons\\Icons home.svg"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "acceptance": {
+    "id": "T10",
+    "request": "Split CamelCase but keep brands",
+    "maxRules": 3,
+    "expectedDesign": "CleanUp split + one Replace of kind=brand rejoin pairs + ext Case"
+  },
+  "name": "CASE Separate CamelCase",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "camelCaseRejoin": {
+    "enabled": true
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "CleanUp",
+      "comment": "Split CamelCase",
+      "config": {
+        "INSERTSPACEBEFORECAPITALS": 1
+      }
+    }
+  ],
+  "tests": [
+    {
+      "in": "MyGitHubProjectHTMLExport.zip",
+      "out": "My GitHub Project HTML Export.zip"
+    },
+    {
+      "in": "YouTubeAndJavaScriptAPIsGuide.PDF",
+      "out": "YouTube And JavaScript APIs Guide.pdf"
+    },
+    {
+      "in": "AirPodsProReview.mp4",
+      "out": "AirPods Pro Review.mp4"
+    },
+    {
+      "in": "PowerShellScriptsForMacBook.txt",
+      "out": "PowerShell Scripts For MacBook.txt"
+    },
+    {
+      "in": "Holiday Photos.JPG",
+      "out": "Holiday Photos.jpg"
+    }
+  ]
+}

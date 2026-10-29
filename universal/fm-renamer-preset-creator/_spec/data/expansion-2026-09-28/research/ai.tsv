@@ -1,0 +1,1743 @@
+term	pack	confidence	note
+Google DeepMind	ai	high	Google AI lab full name
+Hugging Face	ai	high	AI model hub; huggingface.co (spaced official form)
+Mistral	ai	high	Mistral AI lab and model family; mistral.ai
+Mistral AI	ai	high	French AI lab; mistral.ai
+Cohere	ai	high	enterprise LLM company; cohere.com
+AI21	ai	high	AI21 Labs (Jamba); ai21.com
+AI21 Labs	ai	high	Israeli LLM company; ai21.com
+EleutherAI	ai	high	open-source AI research collective; eleuther.ai
+LAION	ai	high	open dataset nonprofit (LAION-5B); laion.ai
+Ai2	ai	high	Allen Institute for AI rebrand; allenai.org
+BigScience	ai	high	BLOOM research workshop
+BigCode	ai	high	StarCoder open code-LLM project
+Stability AI	ai	high	Stable Diffusion company; stability.ai
+StabilityAI	ai	medium	handle form of Stability AI (HF org stabilityai)
+Black Forest Labs	ai	high	FLUX model lab; bfl.ai
+BFL	ai	high	Black Forest Labs abbreviation
+RunwayML	ai	high	Runway's former/handle name; runwayml.com
+Runway	ai	high	AI video company; also a common word
+Luma AI	ai	high	Dream Machine/Ray video models; lumalabs.ai
+Pika	ai	high	AI video app Pika Labs; pika.art; also common word
+Pika Labs	ai	high	AI video company; pika.art
+Kuaishou	ai	high	Chinese company behind Kling
+Kling	ai	high	video model by Kuaishou; klingai.com
+Hailuo	ai	high	MiniMax video model/app; hailuoai.video
+MiniMax	ai	high	Chinese AI lab; minimax.io (internal cap M)
+Moonshot AI	ai	high	Kimi developer; moonshot.ai
+Kimi	ai	high	Moonshot AI assistant/model family; kimi.com
+Zhipu	ai	high	Zhipu AI (GLM models)
+Zhipu AI	ai	high	Chinese lab behind GLM; now Z.ai internationally
+Z.ai	ai	medium	Zhipu international brand; z.ai (also seen as Z.AI)
+StepFun	ai	high	Chinese lab (Step models); stepfun.com
+Baichuan	ai	high	Chinese LLM company
+01.AI	ai	high	Kai-Fu Lee's lab (Yi models); 01.ai
+SenseNova	ai	high	SenseTime model family
+iFLYTEK	ai	high	Chinese speech AI company official casing; iflytek.com
+Shengshu	ai	medium	Chinese lab behind Vidu
+Sakana AI	ai	high	Tokyo AI lab; sakana.ai
+Preferred Networks	ai	high	Japanese AI company (PLaMo)
+LightOn	ai	high	French AI company; lighton.ai
+Aleph Alpha	ai	high	German AI company
+Upstage	ai	high	Korean AI company (Solar LLM); also common word
+Anysphere	ai	high	company behind Cursor
+Cognition	ai	medium	Cognition AI (Devin, Windsurf); also common word
+Poolside	ai	high	AI coding lab; poolside.ai
+Thinking Machines Lab	ai	high	Mira Murati's AI lab
+SpaceXAI	ai	medium	xAI name after SpaceX merger (2026); x.ai site_name
+Inflection AI	ai	high	Pi assistant company
+Character.AI	ai	high	AI chatbot company official casing; character.ai
+Together AI	ai	high	inference cloud; together.ai
+Fireworks AI	ai	high	inference platform; fireworks.ai
+Groq	ai	high	LPU inference company; groq.com
+Cerebras	ai	high	wafer-scale AI chip company
+Tenstorrent	ai	high	AI chip company
+Graphcore	ai	high	IPU chip company
+CoreWeave	ai	high	GPU cloud; coreweave.com
+Runpod	ai	medium	GPU cloud; runpod.io now writes Runpod (formerly RunPod)
+Vast.ai	ai	high	GPU marketplace; vast.ai
+Paperspace	ai	high	GPU cloud (DigitalOcean)
+Lambda Labs	ai	high	GPU cloud; lambda.ai
+Nebius	ai	high	AI cloud company
+Baseten	ai	high	inference platform
+DeepInfra	ai	high	inference API; deepinfra.com
+SiliconFlow	ai	high	Chinese inference cloud; siliconflow.cn
+fal.ai	ai	high	generative media inference platform; fal.ai (brand lowercase fal)
+Modal Labs	ai	medium	serverless GPU platform (modal.com)
+Anyscale	ai	high	Ray company; anyscale.com
+MosaicML	ai	high	LLM training company (Databricks)
+H2O.ai	ai	high	ML platform; h2o.ai
+Scale AI	ai	high	data labeling company; scale.com
+Labelbox	ai	high	data labeling platform
+Roboflow	ai	high	computer vision platform
+Ultralytics	ai	high	YOLO developer; ultralytics.com
+Lightricks	ai	high	LTX-Video developer
+Genmo	ai	high	Mochi video model developer
+Haiper	ai	high	AI video company
+Moonvalley	ai	high	AI video company (Marey)
+Decart	ai	high	real-time AI video/world model company
+Higgsfield	ai	high	AI video app; higgsfield.ai
+Synthesia	ai	high	AI avatar video company
+D-ID	ai	high	talking-avatar AI company; d-id.com
+Hedra	ai	high	AI character video company
+Tavus	ai	high	AI video avatar company
+Colossyan	ai	high	AI video avatar company
+Viggle	ai	high	AI motion video app
+Kaiber	ai	high	AI video app
+PixVerse	ai	high	AI video platform; pixverse.ai
+Vidu	ai	high	video model by Shengshu
+Suno	ai	high	AI music generator; suno.com
+Udio	ai	high	AI music generator; udio.com
+Mureka	ai	high	AI music generator (Skywork)
+AIVA	ai	high	AI music composer; aiva.ai (all caps)
+Mubert	ai	high	AI music platform
+Boomy	ai	high	AI music platform
+Beatoven.ai	ai	medium	AI music platform; beatoven.ai
+ProducerAI	ai	medium	Riffusion rebrand (2025); producer.ai
+Riffusion	ai	high	AI music generator (now ProducerAI)
+Descript	ai	high	AI audio/video editor
+WellSaid	ai	high	AI voice company WellSaid Labs
+PlayHT	ai	medium	AI voice company (formerly Play.ht)
+PlayAI	ai	medium	PlayHT rebrand (acquired by Meta 2025)
+Cartesia	ai	high	real-time TTS company (Sonic)
+Speechify	ai	high	TTS app
+Deepgram	ai	high	speech-to-text API
+AssemblyAI	ai	high	speech AI API; assemblyai.com
+Speechmatics	ai	high	speech recognition company
+Otter.ai	ai	high	AI meeting transcription; otter.ai
+Fireflies.ai	ai	high	AI meeting notes; fireflies.ai
+Kyutai	ai	high	French open AI lab (Moshi)
+Resemble AI	ai	high	voice cloning company
+LALAL.AI	ai	high	AI stem separation service; lalal.ai
+Moises	ai	high	AI stem separation app
+Ideogram	ai	high	text-to-image platform; ideogram.ai
+Leonardo.Ai	ai	high	AI image platform; leonardo.ai official casing
+Civitai	ai	high	model sharing site; civitai.com official casing
+Tensor.Art	ai	high	model sharing/generation site; tensor.art
+SeaArt	ai	high	AI art platform; seaart.ai
+OpenArt	ai	high	AI art platform; openart.ai
+NightCafe	ai	high	AI art generator
+Artbreeder	ai	high	AI image remixing site
+NovelAI	ai	high	AI storytelling/anime image service; novelai.net
+PixAI	ai	high	anime AI image platform; pixai.art
+LiblibAI	ai	high	Chinese model sharing site (Liblib); liblib.art
+Shakker	ai	medium	LiblibAI international site; shakker.ai
+Lovart	ai	medium	AI design agent
+Photoroom	ai	high	AI photo editor; photoroom.com (rebranded from PhotoRoom)
+remove.bg	ai	high	background removal service; official lowercase
+Clipdrop	ai	high	AI image tools (Jasper/Stability)
+Cleanup.pictures	ai	medium	AI inpainting web tool
+Vizcom	ai	high	AI sketch rendering tool
+Lensa	ai	high	AI avatar app
+Remini	ai	high	AI photo enhancer app
+FaceApp	ai	high	AI face editing app
+Picsart	ai	high	photo editing app with AI
+Kittl	ai	high	AI design platform
+Looka	ai	high	AI logo maker
+Uizard	ai	high	AI UI design tool
+Visily	ai	high	AI wireframing tool
+Relume	ai	high	AI sitemap/wireframe tool
+Builder.io	ai	high	visual dev platform with AI; builder.io
+Locofy	ai	high	AI design-to-code tool
+Jasper	ai	medium	AI writing company; also a given name
+Copy.ai	ai	high	AI copywriting; copy.ai
+Writesonic	ai	high	AI writing tool
+QuillBot	ai	high	AI paraphrasing tool; quillbot.com
+Wordtune	ai	high	AI writing assistant
+Beautiful.ai	ai	high	AI presentation tool
+Glean	ai	medium	enterprise AI search; also common word
+Hebbia	ai	high	AI document research company
+Harvey AI	ai	medium	legal AI company
+Khanmigo	ai	high	Khan Academy AI tutor
+GPTZero	ai	high	AI text detector; gptzero.me
+ZeroGPT	ai	high	AI text detector
+Originality.ai	ai	high	AI content detector; originality.ai
+You.com	ai	high	AI search engine; you.com
+Phind	ai	high	AI search for developers
+Kagi	ai	high	search engine with AI
+SciSpace	ai	high	AI research paper tool
+Elicit	ai	medium	AI research assistant; also common word
+Genspark	ai	high	AI agent search engine
+Manus	ai	high	general AI agent (Butterfly Effect)
+MultiOn	ai	high	AI web agent company
+Replika	ai	high	AI companion app
+JanitorAI	ai	medium	AI roleplay chat site (Janitor AI)
+Kindroid	ai	high	AI companion app
+Inworld	ai	high	AI characters platform (Inworld AI)
+Convai	ai	high	AI NPC platform
+HyperCLOVA	ai	high	Naver LLM (HyperCLOVA X)
+EXAONE	ai	high	LG AI Research LLM (all caps)
+PLaMo	ai	high	Preferred Networks LLM; official casing
+ELYZA	ai	high	Japanese LLM company
+Sarvam	ai	medium	Indian AI lab Sarvam AI
+Krutrim	ai	medium	Ola's Indian AI assistant
+GPT-2	ai	high	OpenAI LLM (2019)
+GPT-3	ai	high	OpenAI LLM (2020)
+GPT-3.5	ai	high	OpenAI LLM
+GPT-4.1	ai	high	OpenAI model (2025)
+GPT-4.5	ai	high	OpenAI model (2025)
+GPT-4V	ai	medium	GPT-4 with vision
+gpt-oss	ai	medium	OpenAI open-weight model; official lowercase (Wikipedia writes GPT-OSS); conflicts with GPT entry - longest match must win
+GPT-Image-1	ai	medium	OpenAI image model; API id gpt-image-1, docs display GPT-Image
+GPT-Image-2	ai	medium	OpenAI image model (2026); developers.openai.com
+GPTs	ai	high	custom ChatGPT assistants (plural of GPT)
+InstructGPT	ai	high	OpenAI RLHF model/paper
+SearchGPT	ai	high	OpenAI search prototype
+o1	ai	medium	OpenAI reasoning model; official lowercase o
+o1-mini	ai	high	OpenAI reasoning model; official lowercase
+o1-pro	ai	high	OpenAI reasoning model; official lowercase
+o3	ai	medium	OpenAI reasoning model; official lowercase o
+o3-mini	ai	high	OpenAI reasoning model; official lowercase
+o3-pro	ai	high	OpenAI reasoning model; official lowercase
+o4-mini	ai	high	OpenAI reasoning model; official lowercase
+Sora	ai	high	OpenAI video model/app
+Codex	ai	high	OpenAI coding agent/model; also common word
+Whisper	ai	high	OpenAI speech recognition model; also common word; must not override whisper.cpp or faster-whisper
+WhisperX	ai	high	Whisper with alignment/diarization; github m-bain/whisperX
+faster-whisper	ai	high	CTranslate2 Whisper reimplementation; official lowercase
+whisper.cpp	ai	high	ggml Whisper port; official lowercase
+Distil-Whisper	ai	high	distilled Whisper (Hugging Face)
+CLIP	ai	high	OpenAI image-text model; also common word clip
+Point-E	ai	high	OpenAI 3D point cloud model
+Shap-E	ai	high	OpenAI 3D model
+Jukebox	ai	medium	OpenAI music model; also common word
+tiktoken	ai	high	OpenAI tokenizer library; official lowercase
+ChatGPT Atlas	ai	high	OpenAI AI browser (2025)
+Claude	ai	high	Anthropic assistant/model family; also a given name
+Claude Code	ai	high	Anthropic agentic coding tool
+Opus	ai	medium	Claude model tier; also common word
+Sonnet	ai	medium	Claude model tier; also common word
+Haiku	ai	medium	Claude model tier; also common word/Haiku OS
+Mythos	ai	low	Claude Mythos model (2026); also common word
+Cowork	ai	medium	Claude Cowork agent (2026); also common word
+Gemma	ai	high	Google open model family
+PaliGemma	ai	high	Google vision-language Gemma
+CodeGemma	ai	high	Google code Gemma
+MedGemma	ai	high	Google medical Gemma
+ShieldGemma	ai	high	Google safety classifier Gemma
+EmbeddingGemma	ai	high	Google embedding model (2025)
+RecurrentGemma	ai	high	Google Griffin-based Gemma
+DataGemma	ai	high	Google data-grounded Gemma
+T5Gemma	ai	high	Google encoder-decoder Gemma
+VaultGemma	ai	high	Google differentially private Gemma
+TxGemma	ai	medium	Google therapeutics Gemma
+Imagen	ai	high	Google image model
+Veo	ai	high	Google video model
+Lyria	ai	high	Google music model
+Nano Banana	ai	high	Gemini image model nickname
+PaLM	ai	high	Google LLM; official casing
+PaLM-E	ai	high	Google embodied model
+Med-PaLM	ai	high	Google medical LLM
+LaMDA	ai	high	Google dialogue model; official casing
+Bard	ai	medium	Google chatbot (now Gemini); also common word
+AlphaZero	ai	high	DeepMind game-playing AI
+AlphaStar	ai	high	DeepMind StarCraft AI
+AlphaCode	ai	high	DeepMind coding model
+AlphaEvolve	ai	high	DeepMind algorithm-discovery agent (2025)
+AlphaGeometry	ai	high	DeepMind geometry solver
+AlphaProof	ai	high	DeepMind math prover
+AlphaTensor	ai	high	DeepMind matrix-multiplication discovery
+AlphaDev	ai	high	DeepMind algorithm discovery
+AlphaMissense	ai	high	DeepMind variant-effect model
+AlphaGenome	ai	high	DeepMind genomics model (2025)
+AlphaEarth	ai	medium	DeepMind geospatial foundation model
+MuZero	ai	high	DeepMind model-based RL
+GraphCast	ai	high	DeepMind weather model
+GenCast	ai	high	DeepMind ensemble weather model
+WeatherNext	ai	medium	Google weather model family
+SynthID	ai	high	Google AI watermarking
+Antigravity	ai	high	Google agentic IDE (2025); also common word
+Jules	ai	medium	Google coding agent; also a given name
+Pomelli	ai	medium	Google brand-content AI tool (2026)
+Gemini Omni	ai	medium	Google any-to-any video model (I/O 2026)
+LearnLM	ai	high	Google education LLM
+T5	ai	high	Google text-to-text transformer
+mT5	ai	high	multilingual T5; official lowercase m
+Flan-T5	ai	high	instruction-tuned T5
+FLAN	ai	high	Google instruction-tuning method/collection
+ALBERT	ai	high	Google lite BERT; also given name Albert
+ELECTRA	ai	high	Google pretraining model; official caps
+XLNet	ai	high	autoregressive pretraining model
+Transformer-XL	ai	high	long-context transformer
+SigLIP	ai	high	Google sigmoid-loss CLIP model
+SigLIP2	ai	medium	SigLIP 2 (HF ids siglip2)
+Gemini Nano	ai	high	on-device Gemini
+Llama	ai	high	Meta LLM family (originally LLaMA); llama.com; must not override existing llama.cpp
+CodeLlama	ai	medium	Meta code model (HF id CodeLlama; official Code Llama)
+Code Llama	ai	high	Meta code model
+Llama Guard	ai	high	Meta safety classifier
+OpenLLaMA	ai	high	open LLaMA reproduction; official casing
+SAM	ai	high	Segment Anything Model (Meta); also given name Sam
+SAM2	ai	medium	Segment Anything 2 (official SAM 2; repo sam2)
+DINO	ai	high	Meta self-supervised vision model
+DINOv2	ai	high	Meta vision foundation model
+DINOv3	ai	high	Meta vision foundation model (2025)
+ImageBind	ai	high	Meta multimodal embedding
+V-JEPA	ai	high	Meta video world model
+I-JEPA	ai	high	Meta image JEPA
+JEPA	ai	high	Joint Embedding Predictive Architecture
+MusicGen	ai	high	Meta music model (AudioCraft)
+AudioCraft	ai	high	Meta audio generation library
+AudioGen	ai	high	Meta sound effect model
+EnCodec	ai	high	Meta neural audio codec; official casing
+Audiobox	ai	medium	Meta audio generation model
+SeamlessM4T	ai	high	Meta speech translation model
+NLLB	ai	high	No Language Left Behind translation model
+wav2vec	ai	high	Meta speech representation model; official lowercase
+wav2vec2	ai	medium	wav2vec 2.0 (HF ids wav2vec2)
+HuBERT	ai	high	Meta speech representation model
+FAIR	ai	medium	Meta Fundamental AI Research; also common word fair
+Faiss	ai	medium	Meta similarity search library; README writes Faiss (also seen FAISS)
+fairseq	ai	high	Meta sequence modeling toolkit; official lowercase
+Detectron2	ai	high	Meta detection library
+ExecuTorch	ai	high	PyTorch on-device runtime
+torchvision	ai	high	PyTorch vision library; official lowercase
+torchaudio	ai	high	PyTorch audio library; official lowercase
+torchtune	ai	high	PyTorch fine-tuning library; official lowercase
+TorchServe	ai	high	PyTorch model server
+xFormers	ai	high	Meta attention library; official casing
+MapAnything	ai	high	Meta 3D reconstruction model
+Muse Spark	ai	medium	Meta proprietary model (2026)
+Movie Gen	ai	high	Meta video model
+Grokipedia	ai	high	xAI encyclopedia
+Grok Imagine	ai	high	xAI image/video generator
+Phi-3	ai	high	Microsoft small LLM
+Phi-4	ai	high	Microsoft small LLM
+Florence-2	ai	high	Microsoft vision foundation model
+VASA-1	ai	high	Microsoft talking-face model
+MAI-1	ai	medium	Microsoft in-house LLM
+AG2	ai	high	AutoGen community fork; ag2.ai
+DeepSpeed	ai	high	Microsoft training library
+ZeRO	ai	high	DeepSpeed Zero Redundancy Optimizer; official casing
+GraphRAG	ai	high	Microsoft graph-based RAG
+Magentic-One	ai	high	Microsoft multi-agent system
+LLMLingua	ai	high	Microsoft prompt compression
+BitNet	ai	high	Microsoft 1-bit LLM
+TypeChat	ai	high	Microsoft structured-output library
+OmniParser	ai	high	Microsoft screen parsing model
+TRELLIS	ai	high	Microsoft 3D generation model; official caps
+TRELLIS.2	ai	medium	Microsoft 3D model v2 (TRELLIS.2-4B)
+VibeVoice	ai	high	Microsoft TTS model (2025)
+MarkItDown	ai	high	Microsoft file-to-Markdown converter for LLMs
+Semantic Kernel	ai	high	Microsoft AI orchestration SDK
+ML.NET	ai	high	Microsoft .NET ML framework
+DirectML	ai	high	Microsoft DirectX ML API
+WHAM	ai	medium	Microsoft World and Human Action Model (Muse)
+rStar	ai	medium	Microsoft reasoning model series; official lowercase r
+Bedrock	ai	medium	AWS generative AI service; also common word
+CodeWhisperer	ai	high	AWS coding assistant (now Q Developer)
+AgentCore	ai	high	AWS agent runtime (2025)
+Kiro	ai	high	AWS agentic IDE (2025)
+Trainium	ai	high	AWS AI training chip
+Inferentia	ai	high	AWS AI inference chip
+MLX	ai	high	Apple ML framework
+OpenELM	ai	high	Apple open LLM
+FastVLM	ai	high	Apple vision-language model
+coremltools	ai	high	Apple Core ML conversion library; official lowercase
+Core ML	ai	high	Apple ML framework official spacing (CoreML already in list)
+ANE	ai	medium	Apple Neural Engine
+cuBLAS	ai	high	NVIDIA BLAS library; official casing
+cuML	ai	high	NVIDIA RAPIDS ML library
+cuDF	ai	high	NVIDIA RAPIDS dataframe library
+RAPIDS	ai	high	NVIDIA data science suite
+NCCL	ai	high	NVIDIA collective comms library
+CUTLASS	ai	high	NVIDIA CUDA templates library
+TensorRT-LLM	ai	high	NVIDIA LLM inference library
+NIM	ai	medium	NVIDIA Inference Microservices; collides with Nim language
+NeMo	ai	high	NVIDIA AI framework; official casing
+Nemotron	ai	high	NVIDIA LLM family
+Megatron-LM	ai	high	NVIDIA large-model training library
+Megatron	ai	medium	NVIDIA transformer training framework
+GR00T	ai	high	NVIDIA humanoid foundation model; zeros not O's
+Cosmos	ai	medium	NVIDIA world foundation models; also common word
+DeepStream	ai	high	NVIDIA video analytics SDK
+ChatRTX	ai	high	NVIDIA local chatbot app
+StyleGAN	ai	high	NVIDIA GAN architecture
+StyleGAN2	ai	high	NVIDIA GAN architecture
+StyleGAN3	ai	high	NVIDIA GAN architecture
+GauGAN	ai	high	NVIDIA semantic image synthesis
+GET3D	ai	medium	NVIDIA 3D generative model
+Instant-NGP	ai	medium	NVIDIA instant neural graphics primitives (repo instant-ngp)
+SANA	ai	medium	NVIDIA efficient diffusion model; README title SANA
+NVLink	ai	high	NVIDIA GPU interconnect
+NVL72	ai	medium	NVIDIA GB200 NVL72 rack
+DGX	ai	high	NVIDIA AI system
+HGX	ai	high	NVIDIA server platform
+H100	ai	high	NVIDIA Hopper GPU
+H200	ai	high	NVIDIA Hopper GPU
+A100	ai	high	NVIDIA Ampere GPU
+B200	ai	high	NVIDIA Blackwell GPU
+B300	ai	high	NVIDIA Blackwell Ultra GPU
+GB200	ai	high	NVIDIA Grace Blackwell superchip
+GB300	ai	high	NVIDIA Grace Blackwell Ultra
+Blackwell	ai	high	NVIDIA GPU architecture
+Jetson	ai	high	NVIDIA edge AI modules
+MIOpen	ai	high	AMD deep learning library
+MI300X	ai	high	AMD Instinct accelerator
+MI325X	ai	medium	AMD Instinct accelerator
+MI355X	ai	medium	AMD Instinct accelerator
+XDNA	ai	high	AMD NPU architecture
+ZLUDA	ai	high	CUDA compatibility layer for non-NVIDIA GPUs
+IPEX	ai	medium	Intel Extension for PyTorch
+IPEX-LLM	ai	high	Intel LLM acceleration library
+oneDNN	ai	high	Intel deep neural network library; official lowercase o
+Gaudi	ai	medium	Intel AI accelerator; also architect name
+LPU	ai	high	Groq Language Processing Unit
+IPU	ai	medium	Graphcore Intelligence Processing Unit
+TPUs	ai	high	plural of TPU
+HBM	ai	high	High Bandwidth Memory
+HBM3E	ai	medium	HBM generation; JEDEC writes HBM3E
+Hailo	ai	medium	edge AI chip company (Hailo-8)
+Qwen2	ai	high	Alibaba LLM generation
+Qwen2.5	ai	high	Alibaba LLM generation
+Qwen3	ai	high	Alibaba LLM generation (2025)
+Qwen3.5	ai	high	Alibaba LLM generation (Feb 2026)
+QwQ	ai	high	Alibaba reasoning model QwQ-32B; official casing
+QVQ	ai	high	Alibaba visual reasoning model
+Qwen-VL	ai	high	Qwen vision-language model
+Qwen2.5-VL	ai	high	Qwen vision-language model
+Qwen-Image	ai	high	Alibaba image generation model (2025)
+Qwen-Image-Edit	ai	high	Alibaba image editing model
+Qwen3-Coder	ai	high	Alibaba coding model
+Qwen3-Omni	ai	high	Alibaba omni-modal model
+Tongyi	ai	high	Alibaba AI brand
+Tongyi Qianwen	ai	high	original Chinese name of Qwen
+Wan2.1	ai	high	Alibaba video model; HF Wan-AI/Wan2.1 (plain Wan collides with existing WAN)
+Wan2.2	ai	high	Alibaba video model; HF Wan-AI/Wan2.2
+WanVideo	ai	medium	Wan video model name used in ComfyUI wrapper nodes
+Wan-Animate	ai	medium	Wan2.2 character animation model
+Z-Image	ai	high	Alibaba Tongyi-MAI image model (Z-Image-Turbo)
+ModelScope	ai	high	Alibaba model hub; modelscope.cn
+DashScope	ai	high	Alibaba model API; official casing
+Accio	ai	medium	Alibaba AI sourcing agent
+DeepSeek-V3	ai	high	DeepSeek LLM
+DeepSeek-V4	ai	high	DeepSeek LLM (2026); HF deepseek-ai/DeepSeek-V4-Pro
+DeepSeek-R1	ai	high	DeepSeek reasoning model
+DeepSeek-Coder	ai	high	DeepSeek code model
+DeepSeek-VL	ai	high	DeepSeek vision-language model
+DeepSeek-OCR	ai	high	DeepSeek OCR model (2025)
+DeepSeekMath	ai	high	DeepSeek math model; official one-word
+DeepSeek-Prover	ai	high	DeepSeek theorem prover
+Janus-Pro	ai	high	DeepSeek multimodal model
+Doubao	ai	high	ByteDance assistant/model family
+Seedance	ai	high	ByteDance video model
+Seedream	ai	high	ByteDance image model
+SeedEdit	ai	high	ByteDance image editing model
+SeedVR2	ai	high	ByteDance video/image restoration upscaler
+Seed-TTS	ai	high	ByteDance TTS model
+Seed3D	ai	high	ByteDance 3D generation model
+OmniHuman	ai	high	ByteDance human video model
+Dreamina	ai	high	ByteDance creative app (Jimeng international)
+Jimeng	ai	high	ByteDance creative app (China)
+CapCut	ai	high	ByteDance video editor with AI features
+Coze	ai	high	ByteDance agent-building platform
+TRAE	ai	medium	ByteDance AI IDE; trae.ai title uses TRAE, product names Trae
+MarsCode	ai	high	ByteDance coding assistant
+UI-TARS	ai	high	ByteDance GUI agent model
+BAGEL	ai	high	ByteDance Seed unified multimodal model; official caps
+LatentSync	ai	high	ByteDance lip-sync model
+InfiniteYou	ai	high	ByteDance identity-preserving image model
+DreamO	ai	medium	ByteDance image customization model
+UNO	ai	medium	ByteDance subject-driven model; also card game
+Depth Anything	ai	high	depth estimation model (TikTok/HKU, ByteDance Seed)
+Hyper-SD	ai	high	ByteDance few-step diffusion LoRAs
+SDXL-Lightning	ai	high	ByteDance distilled SDXL
+PuLID	ai	high	ByteDance ID customization; official casing
+MagicAnimate	ai	high	ByteDance human animation model
+Hunyuan	ai	high	Tencent model family
+HunyuanVideo	ai	high	Tencent video model
+Hunyuan3D	ai	high	Tencent 3D generation model
+HunyuanImage	ai	high	Tencent image model
+HunyuanWorld	ai	high	Tencent 3D world model
+HunyuanCustom	ai	medium	Tencent customized video model
+Hy3	ai	low	Tencent Hunyuan 3 model (2026)
+Yuanbao	ai	high	Tencent AI assistant
+CodeBuddy	ai	high	Tencent AI coding assistant
+TencentARC	ai	high	Tencent ARC Lab (GitHub org)
+InstantMesh	ai	high	TencentARC image-to-3D model
+PhotoMaker	ai	high	TencentARC ID customization model
+T2I-Adapter	ai	high	TencentARC conditioning adapter
+MimicMotion	ai	high	Tencent pose-guided video model
+MiniMax-M2	ai	high	MiniMax LLM (2025)
+Kimi-K2	ai	medium	Moonshot model (official Kimi K2; HF Kimi-K2-Instruct)
+Kimi-VL	ai	high	Moonshot vision-language model
+Kimi-Audio	ai	high	Moonshot audio model
+Mooncake	ai	medium	Moonshot serving platform
+Muon	ai	medium	optimizer popularized by Moonshot
+GLM	ai	high	Zhipu General Language Model family
+ChatGLM	ai	high	Zhipu chat model
+GLM-4.5	ai	high	Zhipu LLM (2025)
+GLM-5	ai	high	Zhipu LLM (2026)
+AutoGLM	ai	high	Zhipu phone/GUI agent
+CogVideoX	ai	high	Zhipu video model
+CogView	ai	high	Zhipu image model
+CogVLM	ai	high	Zhipu vision-language model
+CogAgent	ai	high	Zhipu GUI agent model
+CodeGeeX	ai	high	Zhipu code model/assistant
+Step-Video	ai	medium	StepFun video model
+Step-Audio	ai	medium	StepFun audio model
+Step1X-Edit	ai	high	StepFun image editing model
+Step1X-3D	ai	medium	StepFun 3D model
+ERNIE	ai	high	Baidu LLM family; official caps
+ERNIE Bot	ai	high	Baidu chatbot
+PaddlePaddle	ai	high	Baidu deep learning framework
+PaddleOCR	ai	high	Baidu OCR toolkit
+PP-OCR	ai	high	PaddleOCR model series
+Qianfan	ai	medium	Baidu model platform
+InternLM	ai	high	Shanghai AI Lab LLM
+InternVL	ai	high	Shanghai AI Lab vision-language model
+MiniCPM	ai	high	OpenBMB small LLM
+OpenBMB	ai	high	Chinese open model community
+MiMo	ai	high	Xiaomi LLM (MiMo-VL, MiMo-V2)
+LongCat	ai	high	Meituan model family (LongCat-Flash)
+inclusionAI	ai	medium	Ant Group model org (Ling/Ring); official lowercase i
+Skywork	ai	high	Kunlun Tech AI brand
+SkyReels	ai	high	Skywork video model
+Kolors	ai	high	Kuaishou image model
+LivePortrait	ai	high	Kuaishou portrait animation model
+Pangu	ai	medium	Huawei model family
+MindSpore	ai	high	Huawei deep learning framework
+Ascend	ai	medium	Huawei AI chip; also common word
+FastGPT	ai	high	Chinese RAG/agent platform
+MaxKB	ai	high	Chinese knowledge-base agent platform
+RAGFlow	ai	high	RAG engine (InfiniFlow)
+QAnything	ai	high	NetEase RAG engine
+Codestral	ai	high	Mistral code model
+Pixtral	ai	high	Mistral vision model
+Ministral	ai	high	Mistral edge model
+Mathstral	ai	high	Mistral math model
+Devstral	ai	high	Mistral coding-agent model (2025)
+Magistral	ai	high	Mistral reasoning model (2025)
+Voxtral	ai	high	Mistral speech model (2025)
+Le Chat	ai	high	Mistral assistant
+Mistral NeMo	ai	high	Mistral/NVIDIA 12B model
+Falcon	ai	medium	TII LLM family; also common word
+BLOOM	ai	high	BigScience LLM; official caps; also common word bloom
+GPT-J	ai	high	EleutherAI LLM
+GPT-Neo	ai	high	EleutherAI LLM
+GPT-NeoX	ai	high	EleutherAI LLM/library
+Pythia	ai	high	EleutherAI model suite
+OLMo	ai	medium	Ai2 open LLM (OLMo 1-2); Ai2 wrote Olmo from Olmo 3
+Molmo	ai	high	Ai2 multimodal model
+olmOCR	ai	high	Ai2 PDF OCR model; official casing
+StarCoder	ai	high	BigCode code LLM
+StarCoder2	ai	high	BigCode code LLM
+SantaCoder	ai	high	BigCode code model
+WizardLM	ai	high	Microsoft/WizardLM instruct LLM
+WizardCoder	ai	high	WizardLM code model
+Vicuna	ai	high	LMSYS chat model
+MPT	ai	medium	MosaicML Pretrained Transformer
+DBRX	ai	high	Databricks MoE LLM
+RedPajama	ai	high	Together open dataset/model
+OpenHermes	ai	high	Nous Research fine-tune
+Nous Research	ai	high	open model lab (Hermes)
+Hermes Agent	ai	medium	Nous Research agent (2026)
+Jamba	ai	high	AI21 hybrid SSM LLM
+Command R	ai	high	Cohere LLM
+Aya	ai	medium	Cohere multilingual model
+watsonx	ai	high	IBM AI platform; official lowercase
+Granite	ai	medium	IBM LLM family; also common word
+Docling	ai	high	IBM document parsing library
+Arctic	ai	medium	Snowflake LLM; also common word
+LFM2	ai	high	Liquid AI foundation model
+Liquid AI	ai	high	AI company (LFM models)
+Zamba	ai	medium	Zyphra hybrid model
+Zyphra	ai	high	AI lab
+Zonos	ai	high	Zyphra TTS model
+SmolLM	ai	high	Hugging Face small LLM
+SmolVLM	ai	high	Hugging Face small VLM
+SmolVLA	ai	high	Hugging Face small VLA
+smolagents	ai	high	Hugging Face agent library; official lowercase
+Idefics	ai	medium	Hugging Face VLM (Idefics2/3; IDEFICS v1)
+LLaVA	ai	high	open vision-language model; official casing
+LLaVA-NeXT	ai	high	LLaVA successor
+MiniGPT-4	ai	high	open vision-language model
+InstructBLIP	ai	high	Salesforce VLM
+BLIP	ai	high	Salesforce captioning model
+BLIP-2	ai	high	Salesforce vision-language model
+Moondream	ai	high	small VLM
+Apertus	ai	medium	Swiss open LLM (ETH/EPFL)
+EuroLLM	ai	high	European multilingual LLM
+OpenGPT-X	ai	medium	European LLM project
+RWKV	ai	high	RNN-transformer hybrid architecture
+Mamba	ai	high	selective state space model; also snake
+Mamba-2	ai	high	state space model
+RetNet	ai	high	Retentive Network architecture
+xLSTM	ai	high	extended LSTM architecture; official lowercase x
+Stable Diffusion	ai	high	Stability AI diffusion model family
+SD1.5	ai	high	Stable Diffusion 1.5 shorthand
+SD15	ai	medium	Stable Diffusion 1.5 shorthand in filenames
+SD2.1	ai	high	Stable Diffusion 2.1 shorthand
+SD3	ai	high	Stable Diffusion 3 shorthand
+SD3.5	ai	high	Stable Diffusion 3.5 shorthand
+SDXL-Turbo	ai	high	distilled SDXL (Stability)
+SD-Turbo	ai	high	distilled SD 2.1 (Stability)
+SSD-1B	ai	medium	Segmind distilled SDXL
+Segmind	ai	high	AI model company
+Stable Cascade	ai	high	Stability Würstchen-based model
+Stable Video Diffusion	ai	high	Stability video model
+SVD	ai	high	Stable Video Diffusion; also math SVD
+SVD-XT	ai	medium	Stable Video Diffusion XT
+Stable Audio	ai	high	Stability audio model
+StableLM	ai	high	Stability LLM family
+DreamStudio	ai	high	Stability web app
+SF3D	ai	high	Stable Fast 3D
+SPAR3D	ai	high	Stability point-aware 3D model
+FLUX	ai	high	Black Forest Labs model family; bfl.ai writes FLUX (plain Flux also used)
+FLUX.1	ai	high	BFL model generation; HF black-forest-labs/FLUX.1-dev
+FLUX.2	ai	high	BFL model generation (Nov 2025)
+Kontext	ai	high	FLUX.1 Kontext editing model
+Schnell	ai	medium	FLUX.1 [schnell] variant; German word
+PixArt	ai	high	PixArt-alpha/sigma diffusion transformers
+PixArt-Sigma	ai	medium	PixArt-Σ model
+Kandinsky	ai	high	Sber diffusion model; also painter name
+DeepFloyd	ai	high	DeepFloyd IF model/lab
+AuraFlow	ai	high	fal open flow model
+HiDream	ai	high	HiDream.ai image model (HiDream-I1)
+HiDream-I1	ai	high	HiDream image model
+OmniGen	ai	high	BAAI unified image model
+OmniGen2	ai	high	BAAI unified image model v2
+Lumina	ai	medium	Alpha-VLLM Lumina image models; also word
+Chroma	ai	medium	Lodestone FLUX-derived model; also common word
+Emu3	ai	high	BAAI multimodal model
+BAAI	ai	high	Beijing Academy of AI
+Show-o	ai	medium	unified multimodal model; lowercase o
+Niji	ai	medium	Midjourney anime model (niji・journey)
+Firefly	ai	high	Adobe generative AI family; also insect
+AUTOMATIC1111	ai	high	Stable Diffusion WebUI author/handle; github AUTOMATIC1111
+A1111	ai	high	AUTOMATIC1111 WebUI shorthand
+Forge	ai	medium	SD WebUI Forge; also common word
+reForge	ai	medium	SD WebUI reForge fork; official lowercase r
+Fooocus	ai	high	lllyasviel SD UI
+SD.Next	ai	high	vladmandic SD UI
+SwarmUI	ai	high	StableSwarmUI successor
+StableSwarmUI	ai	high	Stability SD UI
+DiffusionBee	ai	high	macOS SD app
+Draw Things	ai	high	Apple-platform SD app
+Stability Matrix	ai	high	SD package manager (LykosAI)
+Pinokio	ai	high	AI app browser/installer
+ComfyUI-Manager	ai	high	ComfyUI node manager (Comfy-Org)
+Comfy Org	ai	high	ComfyUI company
+comfy-cli	ai	medium	ComfyUI CLI; official lowercase
+KSampler	ai	high	ComfyUI sampler node class
+KSamplerAdvanced	ai	medium	ComfyUI node class
+CLIPTextEncode	ai	high	ComfyUI node class
+VAEDecode	ai	high	ComfyUI node class
+VAEEncode	ai	high	ComfyUI node class
+VAELoader	ai	medium	ComfyUI node class
+CLIPLoader	ai	medium	ComfyUI node class
+DualCLIPLoader	ai	medium	ComfyUI node class
+UNETLoader	ai	medium	ComfyUI node class
+LoraLoader	ai	medium	ComfyUI node class
+CheckpointLoaderSimple	ai	medium	ComfyUI node class
+EmptyLatentImage	ai	medium	ComfyUI node class
+ModelSamplingSD3	ai	medium	ComfyUI node class
+FluxGuidance	ai	medium	ComfyUI node class
+SamplerCustomAdvanced	ai	medium	ComfyUI node class
+KJNodes	ai	high	kijai ComfyUI node pack
+WanVideoWrapper	ai	high	kijai ComfyUI Wan nodes
+VideoHelperSuite	ai	high	ComfyUI video nodes (VHS)
+IPAdapter	ai	high	ComfyUI IP-Adapter node naming (cubiq)
+rgthree	ai	high	ComfyUI node pack author; official lowercase
+LayerStyle	ai	medium	ComfyUI_LayerStyle node pack
+CropAndStitch	ai	medium	ComfyUI inpaint crop-and-stitch nodes
+LTXVideo	ai	medium	ComfyUI-LTXVideo nodes
+TeaCache	ai	high	diffusion inference cache
+MagCache	ai	high	diffusion inference cache
+FBCache	ai	medium	First Block Cache
+SageAttention	ai	high	quantized attention kernel
+FlashAttention	ai	high	fast attention kernel; official casing
+FlashAttention-2	ai	high	fast attention kernel v2
+Nunchaku	ai	high	SVDQuant inference engine (MIT Han Lab)
+SVDQuant	ai	high	4-bit diffusion quantization
+LightX2V	ai	high	video inference framework/distill LoRAs; github ModelTC/LightX2V README
+CausVid	ai	high	causal video distillation
+ReActor	ai	high	face swap extension; official casing
+ADetailer	ai	high	After Detailer extension; official casing
+Deforum	ai	high	SD animation extension
+MultiDiffusion	ai	high	tiled diffusion method
+ControlNets	ai	high	plural of ControlNet
+ControlNet Union	ai	medium	multi-condition ControlNet
+IC-Light	ai	high	lllyasviel relighting model
+LayerDiffuse	ai	high	transparent-layer diffusion
+FramePack	ai	high	lllyasviel video model
+SparseCtrl	ai	medium	AnimateDiff sparse control
+InstantID	ai	high	InstantX identity model
+InstantX	ai	high	research team (InstantID)
+XLabs	ai	medium	XLabs-AI FLUX ControlNets/LoRAs
+Shakker-Labs	ai	medium	FLUX ControlNet publisher
+ACE-Step	ai	high	open music generation model
+LCM	ai	high	Latent Consistency Model
+LCM-LoRA	ai	high	Latent Consistency LoRA
+TCD	ai	high	Trajectory Consistency Distillation
+DMD2	ai	high	Distribution Matching Distillation v2
+DPM-Solver	ai	high	diffusion ODE solver
+UniPC	ai	high	diffusion sampler
+DDIM	ai	high	Denoising Diffusion Implicit Models
+DDPM	ai	high	Denoising Diffusion Probabilistic Models
+DEIS	ai	medium	diffusion sampler
+Karras	ai	medium	Karras noise schedule; surname
+CFG	ai	high	classifier-free guidance
+EMA	ai	medium	exponential moving average weights
+img2img	ai	high	image-to-image; A1111 tab official lowercase
+txt2img	ai	high	text-to-image; A1111 tab official lowercase
+img2vid	ai	medium	image-to-video shorthand
+vid2vid	ai	medium	video-to-video shorthand
+pix2pix	ai	high	image-to-image GAN; official lowercase
+pix2pixHD	ai	high	NVIDIA high-res pix2pix
+InstructPix2Pix	ai	high	instruction-based image editing
+Inpaint Anything	ai	medium	SAM-based inpainting tool
+LaMa	ai	high	Samsung large-mask inpainting; official casing
+BrushNet	ai	high	inpainting model
+PowerPaint	ai	high	inpainting model
+T5-XXL	ai	high	T5 XXL text encoder
+T5XXL	ai	medium	T5-XXL as written in model filenames
+UMT5	ai	medium	multilingual T5 encoder (Wan)
+ViT-bigG	ai	medium	OpenCLIP bigG vision transformer
+ViT-L	ai	high	ViT Large
+ViT-H	ai	high	ViT Huge
+OpenCLIP	ai	high	open CLIP implementation (open_clip)
+EVA-CLIP	ai	high	BAAI CLIP variant
+LyCORIS	ai	high	LoRA-family adapters; official casing
+LoCon	ai	high	LyCORIS LoRA for convolution
+LoHa	ai	high	LyCORIS Hadamard LoRA
+LoKr	ai	high	LyCORIS Kronecker LoRA
+LoRAs	ai	high	plural of LoRA
+DoRA	ai	high	Weight-Decomposed LoRA
+rsLoRA	ai	medium	rank-stabilized LoRA
+GaLore	ai	medium	gradient low-rank projection
+DreamBooth	ai	high	subject fine-tuning method
+Textual Inversion	ai	high	embedding training method
+Kohya	ai	medium	kohya-ss trainer author
+kohya_ss	ai	medium	bmaltais Kohya GUI repo; official lowercase
+sd-scripts	ai	medium	kohya training scripts repo
+OneTrainer	ai	high	diffusion training tool
+SimpleTuner	ai	high	diffusion training tool
+FluxGym	ai	medium	FLUX LoRA trainer (repo fluxgym)
+diffusion-pipe	ai	medium	tdrussell video/image LoRA trainer
+musubi-tuner	ai	medium	kohya video LoRA trainer
+EveryDream2	ai	medium	SD fine-tuning trainer
+DreamShaper	ai	high	popular SD checkpoint
+JuggernautXL	ai	medium	popular SDXL checkpoint (Juggernaut XL)
+RealVisXL	ai	high	popular SDXL checkpoint
+epiCRealism	ai	high	popular SD checkpoint; official casing
+CyberRealistic	ai	high	popular SD checkpoint
+ChilloutMix	ai	medium	popular SD1.5 checkpoint
+AbyssOrangeMix	ai	medium	anime SD checkpoint
+MeinaMix	ai	medium	anime SD checkpoint
+NoobAI	ai	high	NoobAI-XL anime checkpoint
+Illustrious	ai	medium	Illustrious-XL anime checkpoint; also word
+Animagine	ai	high	Animagine XL anime checkpoint
+Pony Diffusion	ai	high	popular SDXL anime checkpoint family
+ESRGAN	ai	high	enhanced super-resolution GAN
+Real-ESRGAN	ai	high	practical super-resolution model
+RealESRGAN	ai	medium	Real-ESRGAN as written in model filenames
+GFPGAN	ai	high	face restoration GAN
+CodeFormer	ai	high	face restoration model
+RestoreFormer	ai	high	face restoration model
+GPEN	ai	high	face restoration model
+SwinIR	ai	high	image restoration transformer
+SUPIR	ai	high	diffusion-based upscaler
+UltraSharp	ai	medium	4x-UltraSharp upscaler model
+Real-CUGAN	ai	high	anime upscaler
+waifu2x	ai	high	anime upscaler; official lowercase
+Anime4K	ai	high	real-time anime upscaler
+APISR	ai	medium	anime super-resolution model
+chaiNNer	ai	high	node-based upscaling app; official casing
+Upscayl	ai	high	open-source upscaler app
+Gigapixel	ai	high	Topaz upscaler
+Topaz Labs	ai	high	AI photo/video enhancement company
+Video2X	ai	high	video upscaling tool
+RIFE	ai	high	frame interpolation model
+DAIN	ai	high	frame interpolation model
+Flowframes	ai	high	frame interpolation app
+OpenModelDB	ai	high	upscaler model database
+BiRefNet	ai	high	bilateral reference segmentation (background removal)
+RMBG	ai	high	BRIA background removal model (RMBG-2.0)
+RMBG-2.0	ai	high	BRIA background removal model
+Bria	ai	medium	background-removal AI company (RMBG models); bria.ai writes Bria (formerly BRIA AI)
+rembg	ai	high	background removal library; official lowercase
+U2Net	ai	medium	U2-Net as in rembg/ONNX filenames
+U2-Net	ai	high	salient object detection net (U^2-Net paper)
+ISNet	ai	medium	IS-Net dichotomous segmentation (rembg isnet)
+InSPyReNet	ai	high	salient object detection; official casing
+MODNet	ai	high	portrait matting model
+BEN2	ai	high	Background Erase Network 2
+ViTMatte	ai	high	ViT image matting
+MatAnyone	ai	high	video matting model (2025)
+CarveKit	ai	medium	background removal toolkit
+withoutBG	ai	medium	background removal model/tool; official casing
+SAM-HQ	ai	high	high-quality Segment Anything
+HQ-SAM	ai	medium	alternate name for SAM-HQ
+MobileSAM	ai	high	lightweight SAM
+EfficientSAM	ai	high	efficient SAM
+FastSAM	ai	high	fast SAM (YOLO-based)
+EdgeSAM	ai	high	on-device SAM
+Grounded-SAM	ai	high	Grounding DINO + SAM pipeline
+GroundingDINO	ai	high	open-set object detector (repo name)
+OWL-ViT	ai	high	Google open-vocabulary detector
+OWLv2	ai	high	Google open-vocabulary detector v2
+YOLO-World	ai	high	open-vocabulary YOLO
+YOLO	ai	high	You Only Look Once detector
+YOLOv5	ai	high	Ultralytics YOLO version
+YOLOv8	ai	high	Ultralytics YOLO version
+YOLO11	ai	high	Ultralytics YOLO (no v); docs.ultralytics.com
+YOLO26	ai	medium	Ultralytics YOLO (2025-26)
+RT-DETR	ai	high	real-time detection transformer
+DETR	ai	high	detection transformer
+R-CNN	ai	high	region-based CNN
+RetinaNet	ai	high	one-stage detector
+EfficientDet	ai	high	Google detector
+MMDetection	ai	high	OpenMMLab detection toolbox
+OpenMMLab	ai	high	open-source CV project family
+MMPose	ai	high	OpenMMLab pose toolbox
+MiDaS	ai	high	depth estimation model; official casing
+ZoeDepth	ai	high	metric depth model
+Marigold	ai	medium	diffusion depth model; also flower
+DepthCrafter	ai	high	video depth model
+Metric3D	ai	high	metric depth model
+UniDepth	ai	high	metric depth model
+StableNormal	ai	high	normal estimation model
+GeoWizard	ai	high	depth/normal model
+OpenPose	ai	high	pose estimation library
+DWPose	ai	high	whole-body pose estimator
+MediaPipe	ai	high	Google on-device ML pipelines
+DensePose	ai	high	Meta dense human pose
+ViTPose	ai	high	ViT pose estimator
+RTMPose	ai	high	OpenMMLab real-time pose
+HRNet	ai	high	high-resolution pose network
+AlphaPose	ai	high	pose estimator
+InsightFace	ai	high	face analysis library
+inswapper	ai	medium	InsightFace swap model (inswapper_128); official lowercase
+ArcFace	ai	high	face recognition loss/model
+RetinaFace	ai	high	face detector
+FaceNet	ai	high	Google face recognition
+DeepFace	ai	high	face recognition library/model
+DeepFaceLab	ai	high	deepfake software
+DeepFaceLive	ai	high	real-time deepfake software
+FaceFusion	ai	high	face swap app
+Deep-Live-Cam	ai	high	real-time face swap app
+SimSwap	ai	high	face swap model
+VisoMaster	ai	medium	face swap app
+FaceID	ai	high	IP-Adapter FaceID
+Gen-4	ai	medium	Runway video model
+Act-One	ai	high	Runway performance capture
+Act-Two	ai	high	Runway performance capture
+Aleph	ai	medium	Runway video editing model; Hebrew letter
+Dream Machine	ai	high	Luma AI video app
+Ray2	ai	medium	Luma video model; lumalabs.ai
+Ray3	ai	medium	Luma video model (2025)
+LTX-Video	ai	high	Lightricks video model
+LTXV	ai	high	LTX-Video shorthand in filenames
+LTX-2	ai	high	Lightricks audio-video model (2025)
+LTX Studio	ai	high	Lightricks AI video app
+MAGI-1	ai	high	Sand AI autoregressive video model
+Open-Sora	ai	high	open video generation project
+VACE	ai	high	Alibaba all-in-one video editing model
+MultiTalk	ai	high	MeiGen audio-driven talking video
+InfiniteTalk	ai	high	MeiGen talking video model
+FantasyTalking	ai	high	talking portrait model
+EchoMimic	ai	high	Ant Group talking head model
+SadTalker	ai	high	talking head model
+Wav2Lip	ai	high	lip-sync model
+MuseTalk	ai	high	Tencent Music lip-sync model
+MuseV	ai	high	Tencent Music video model
+Hallo2	ai	medium	Fudan talking-head model
+HuMo	ai	medium	ByteDance human-centric video model; official casing
+ToonCrafter	ai	high	cartoon interpolation model
+DynamiCrafter	ai	high	image animation model; official casing
+VideoCrafter	ai	high	video generation toolbox
+Animate Anyone	ai	high	Alibaba character animation
+UniAnimate	ai	high	human animation model
+ControlNeXt	ai	high	controllable generation model
+MotionCtrl	ai	high	camera/object motion control
+CameraCtrl	ai	high	camera control for video diffusion
+ReCamMaster	ai	high	camera re-rendering video model
+Self-Forcing	ai	medium	autoregressive video distillation
+Seaweed	ai	medium	ByteDance video model; also word
+Marey	ai	medium	Moonvalley video model
+MusicLM	ai	high	Google music model
+MusicFX	ai	high	Google music tool
+AudioLM	ai	high	Google audio LM
+SoundStorm	ai	high	Google audio generation
+AudioLDM	ai	high	latent diffusion audio model
+MMAudio	ai	high	video-to-audio model
+YuE	ai	high	open lyrics-to-song model; official casing
+DiffRhythm	ai	high	diffusion song generation model
+Stable Audio Open	ai	high	Stability open audio model
+Eleven Music	ai	medium	ElevenLabs music model
+Kokoro	ai	high	Kokoro-82M TTS (hexgrad)
+Chatterbox	ai	high	Resemble AI open TTS
+IndexTTS	ai	high	Bilibili TTS model
+IndexTTS2	ai	high	Bilibili TTS model v2
+CosyVoice	ai	high	Alibaba TTS model
+Fish Speech	ai	high	Fish Audio TTS model
+Fish Audio	ai	high	TTS company/platform
+OpenAudio	ai	high	Fish Audio model series
+F5-TTS	ai	high	flow-matching TTS
+E2-TTS	ai	medium	flow-matching TTS
+XTTS	ai	high	Coqui multilingual TTS
+XTTS-v2	ai	high	Coqui TTS v2; official lowercase v
+Coqui	ai	high	open TTS company/library
+Piper	ai	medium	Rhasspy local TTS; also word
+StyleTTS2	ai	high	style-based TTS
+MeloTTS	ai	high	MyShell TTS
+MyShell	ai	high	AI voice/app company
+OpenVoice	ai	high	MyShell voice cloning model
+ChatTTS	ai	high	conversational TTS (2noise)
+GPT-SoVITS	ai	high	few-shot voice cloning TTS
+SoVITS	ai	high	singing voice conversion model
+so-vits-svc	ai	high	singing voice conversion repo; official lowercase
+RVC	ai	high	Retrieval-based Voice Conversion
+Applio	ai	high	RVC-based voice app
+Parler-TTS	ai	high	Hugging Face TTS
+Orpheus TTS	ai	medium	Canopy Labs TTS
+Dia	ai	low	Nari Labs dialogue TTS; common short word
+Sesame	ai	medium	Sesame AI voice (CSM); also common word
+Spark-TTS	ai	high	LLM-based TTS
+MaskGCT	ai	high	zero-shot TTS model
+Llasa	ai	medium	LLaMA-based TTS
+NeuTTS	ai	medium	Neuphonic on-device TTS
+Higgs Audio	ai	medium	Boson AI audio model
+Moshi	ai	high	Kyutai speech-text model
+VITS	ai	high	end-to-end TTS architecture
+Tacotron	ai	high	Google TTS architecture
+WaveNet	ai	high	DeepMind audio generation model
+HiFi-GAN	ai	high	neural vocoder
+BigVGAN	ai	high	NVIDIA neural vocoder
+Vocos	ai	medium	neural vocoder
+DDSP	ai	high	Differentiable DSP (Magenta)
+SpeechT5	ai	high	Microsoft speech model
+WavLM	ai	high	Microsoft speech model
+SpeechBrain	ai	high	speech toolkit
+ESPnet	ai	high	speech toolkit; official casing
+pyannote	ai	high	speaker diarization toolkit; official lowercase
+DeepSpeech	ai	high	Mozilla speech recognition
+Vosk	ai	high	offline speech recognition
+Kaldi	ai	high	speech recognition toolkit
+Silero	ai	high	Silero VAD/TTS models
+Parakeet	ai	medium	NVIDIA ASR model; also bird
+Canary	ai	low	NVIDIA ASR model; common word
+Demucs	ai	high	Meta music source separation
+Spleeter	ai	high	Deezer source separation
+UVR	ai	high	Ultimate Vocal Remover
+UVR5	ai	high	Ultimate Vocal Remover 5
+MDX-Net	ai	high	music source separation model
+MDX23C	ai	medium	source separation model
+RoFormer	ai	high	rotary transformer (BS-/Mel-RoFormer separation)
+BS-RoFormer	ai	high	band-split RoFormer separation model
+Mel-RoFormer	ai	high	mel-band RoFormer separation model
+NeRF	ai	high	Neural Radiance Field
+NeRFs	ai	high	plural of NeRF
+3DGS	ai	high	3D Gaussian Splatting
+Gaussian Splatting	ai	high	3D reconstruction technique
+Nerfstudio	ai	high	NeRF framework
+gsplat	ai	high	Gaussian splatting library; official lowercase
+SuperSplat	ai	high	PlayCanvas splat editor
+Postshot	ai	high	Jawset Gaussian splatting app
+Polycam	ai	high	3D capture app
+KIRI Engine	ai	medium	3D scanning app; official caps KIRI
+COLMAP	ai	high	structure-from-motion tool
+GLOMAP	ai	high	global SfM tool
+DUSt3R	ai	high	Naver 3D reconstruction; official casing
+MASt3R	ai	high	Naver 3D reconstruction; official casing
+VGGT	ai	high	Meta visual geometry transformer
+TripoSR	ai	high	Stability/Tripo image-to-3D
+TripoSG	ai	high	VAST image-to-3D
+Tripo	ai	high	Tripo AI 3D generator (VAST)
+Meshy	ai	high	AI 3D model generator
+Hyper3D	ai	high	Deemos Rodin 3D generator
+Rodin	ai	medium	Hyper3D Rodin 3D model; sculptor name
+Zero123	ai	high	novel view synthesis model
+Wonder3D	ai	high	image-to-3D model
+Unique3D	ai	high	image-to-3D model
+DreamFusion	ai	high	Google text-to-3D
+Magic3D	ai	high	NVIDIA text-to-3D
+Hi3DGen	ai	high	image-to-3D model
+PartCrafter	ai	medium	part-aware 3D generation
+Kaedim	ai	high	AI 3D asset company
+Objaverse	ai	high	Ai2 3D object dataset
+Objaverse-XL	ai	high	Ai2 3D object dataset
+ShapeNet	ai	high	3D shape dataset
+World Labs	ai	high	spatial AI company (Marble)
+LeRobot	ai	high	Hugging Face robotics library
+OpenVLA	ai	high	open vision-language-action model
+RT-2	ai	high	Google robotics transformer
+MuJoCo	ai	high	physics simulator; official casing
+PyBullet	ai	high	physics simulator
+Gymnasium	ai	high	RL environment library (Farama)
+OpenAI Gym	ai	high	RL environment library
+Stable-Baselines3	ai	high	RL library; official casing
+RLlib	ai	high	Ray RL library
+CleanRL	ai	high	RL implementations
+PettingZoo	ai	high	multi-agent RL library
+Isaac Sim	ai	high	NVIDIA robotics simulator
+Isaac Lab	ai	high	NVIDIA robot learning framework
+openpilot	ai	high	comma.ai driver assistance; official lowercase
+Keras	ai	high	deep learning API
+Flax	ai	medium	JAX neural network library; also plant/fiber
+Optax	ai	high	JAX optimization library
+TensorFlow.js	ai	high	JavaScript TensorFlow
+TFLite	ai	high	TensorFlow Lite
+LiteRT	ai	high	TFLite rebrand (Google)
+SavedModel	ai	high	TensorFlow model format
+Transformers.js	ai	high	Hugging Face JS library
+Diffusers	ai	high	Hugging Face diffusion library
+PEFT	ai	high	Parameter-Efficient Fine-Tuning (HF library)
+timm	ai	high	PyTorch Image Models; official lowercase
+huggingface_hub	ai	high	Hugging Face Python client
+AutoTrain	ai	high	Hugging Face AutoTrain
+TGI	ai	high	Text Generation Inference (HF)
+TEI	ai	medium	Text Embeddings Inference (HF)
+ZeroGPU	ai	high	Hugging Face Spaces GPU tier
+Gradio	ai	high	ML demo UI library
+Streamlit	ai	high	Python app framework
+Chainlit	ai	high	conversational AI UI framework
+SetFit	ai	high	few-shot text classification
+Sentence Transformers	ai	high	embedding library (SBERT)
+SBERT	ai	high	Sentence-BERT
+NLTK	ai	high	Natural Language Toolkit
+Gensim	ai	high	topic modeling library
+AllenNLP	ai	high	Ai2 NLP library
+CoreNLP	ai	high	Stanford NLP toolkit
+fastai	ai	high	deep learning library; official lowercase
+fast.ai	ai	high	fast.ai course/org; official casing
+PyTorch Lightning	ai	high	PyTorch training framework
+Lightning AI	ai	high	PyTorch Lightning company
+Theano	ai	high	early deep learning library
+Caffe	ai	high	deep learning framework
+Caffe2	ai	high	deep learning framework
+MXNet	ai	high	Apache deep learning framework
+CNTK	ai	high	Microsoft Cognitive Toolkit
+Deeplearning4j	ai	high	JVM deep learning library
+DL4J	ai	high	Deeplearning4j abbreviation
+Kornia	ai	high	differentiable CV library
+Albumentations	ai	high	image augmentation library
+scikit-image	ai	high	image processing library
+Pillow	ai	high	Python imaging library
+ONNX Runtime	ai	high	ONNX inference engine
+onnxruntime	ai	medium	ONNX Runtime package name; official lowercase
+GPTQ	ai	high	post-training quantization method
+AWQ	ai	high	Activation-aware Weight Quantization
+EXL2	ai	high	ExLlamaV2 quantization format
+EXL3	ai	high	ExLlamaV3 quantization format
+HQQ	ai	high	Half-Quadratic Quantization
+SmoothQuant	ai	high	LLM quantization method
+bitsandbytes	ai	high	quantization library; official lowercase
+ExLlama	ai	high	GPTQ inference library
+ExLlamaV2	ai	high	quantized LLM inference library
+ExLlamaV3	ai	high	quantized LLM inference library
+AutoGPTQ	ai	high	GPTQ library
+AutoAWQ	ai	high	AWQ library
+Unsloth	ai	high	fast LLM fine-tuning library
+Axolotl	ai	high	LLM fine-tuning tool; also salamander
+LLaMA-Factory	ai	medium	LLM fine-tuning framework; repo hiyouga/LLaMA-Factory (README also writes LlamaFactory)
+Megatron-DeepSpeed	ai	medium	training framework
+FSDP	ai	high	Fully Sharded Data Parallel
+SGLang	ai	high	LLM serving framework; official casing
+LMDeploy	ai	high	LLM deployment toolkit
+llama-cpp-python	ai	high	llama.cpp Python bindings; official lowercase
+llamafile	ai	high	Mozilla single-file LLM; official lowercase
+MLC LLM	ai	high	machine learning compilation LLM engine
+WebLLM	ai	high	in-browser LLM engine
+mlx-lm	ai	medium	MLX LLM package; official lowercase
+TabbyAPI	ai	high	ExLlama API server
+KoboldCpp	ai	high	llama.cpp-based UI; official casing
+KoboldAI	ai	high	AI writing frontend
+Ollama	ai	high	local LLM runner; ollama.com
+GPT4All	ai	high	Nomic local LLM app; official casing
+LocalAI	ai	high	local OpenAI-compatible server
+Msty	ai	high	local LLM app
+AnythingLLM	ai	high	Mintplex local RAG app; official casing
+Open WebUI	ai	high	self-hosted LLM UI; official casing
+LibreChat	ai	high	open-source chat UI
+LobeChat	ai	high	open-source chat UI (LobeHub)
+LobeHub	ai	high	LobeChat org
+NextChat	ai	high	open-source ChatGPT UI
+TypingMind	ai	high	LLM chat frontend
+Cherry Studio	ai	high	desktop LLM client
+SillyTavern	ai	high	LLM roleplay frontend; official casing
+Oobabooga	ai	medium	text-generation-webui author
+text-generation-webui	ai	high	oobabooga LLM UI repo; official lowercase
+HuggingChat	ai	high	Hugging Face chat app
+Jan.ai	ai	medium	local LLM app (Jan)
+LangServe	ai	high	LangChain deployment library
+LangChain.js	ai	high	LangChain JavaScript
+LangChain4j	ai	high	LangChain for Java
+LCEL	ai	high	LangChain Expression Language
+LlamaParse	ai	high	LlamaIndex document parser
+LlamaCloud	ai	high	LlamaIndex cloud platform
+Haystack	ai	high	deepset LLM framework; also common word
+deepset	ai	high	Haystack company; official lowercase
+PydanticAI	ai	medium	Pydantic agent framework (docs now Pydantic AI)
+MetaGPT	ai	high	multi-agent framework
+ChatDev	ai	high	multi-agent software dev framework
+AutoGPT	ai	high	autonomous agent project
+BabyAGI	ai	high	autonomous agent project
+AgentGPT	ai	high	browser agent project
+SuperAGI	ai	high	agent framework
+Agno	ai	high	agent framework (formerly Phidata)
+Phidata	ai	high	agent framework (now Agno)
+Letta	ai	high	stateful agent framework (formerly MemGPT)
+MemGPT	ai	high	memory-managed LLM agents
+Mem0	ai	high	agent memory layer; zero not O
+Zep	ai	medium	agent memory service
+browser-use	ai	medium	Browser Use agent library (brand Browser Use)
+Browser Use	ai	high	AI browser automation library
+Stagehand	ai	high	Browserbase AI browser framework
+Browserbase	ai	high	headless browser platform for agents
+Firecrawl	ai	high	web scraping API for LLMs
+Crawl4AI	ai	high	LLM web crawler; official casing
+ScrapeGraphAI	ai	high	LLM scraping library
+Tavily	ai	high	search API for agents
+SerpApi	ai	high	search results API; official casing
+E2B	ai	high	code sandbox for agents; e2b.dev
+Mastra	ai	high	TypeScript agent framework
+Genkit	ai	high	Google AI app framework
+ADK	ai	high	Google Agent Development Kit
+Agents SDK	ai	medium	OpenAI Agents SDK
+AgentKit	ai	high	OpenAI agent builder (2025)
+Claude Agent SDK	ai	high	Anthropic agent SDK
+Strands Agents	ai	high	AWS agent SDK
+Flowise	ai	high	visual LLM app builder
+Langflow	ai	high	visual LLM app builder
+Dify	ai	high	LLM app platform; dify.ai
+Botpress	ai	high	chatbot platform
+Voiceflow	ai	high	conversational AI platform
+Rasa	ai	high	conversational AI framework
+OpenClaw	ai	high	open-source personal AI agent (2026; formerly Clawdbot/Moltbot)
+Clawdbot	ai	medium	former name of OpenClaw
+Moltbot	ai	medium	former name of OpenClaw
+Moltbook	ai	medium	AI-agent social network (2026)
+OpenHands	ai	high	open coding agent (formerly OpenDevin)
+OpenDevin	ai	high	former name of OpenHands
+SWE-agent	ai	high	Princeton coding agent
+Open Interpreter	ai	high	local code-running agent
+LiteLLM	ai	high	LLM API proxy; official casing
+Portkey	ai	high	LLM gateway
+Helicone	ai	high	LLM observability
+Langfuse	ai	high	LLM observability
+wandb	ai	high	Weights & Biases CLI/package; official lowercase
+W&B	ai	high	Weights & Biases abbreviation
+Weights & Biases	ai	high	ML experiment tracking company
+ClearML	ai	high	MLOps platform
+Kubeflow	ai	high	ML on Kubernetes
+KServe	ai	high	Kubernetes model serving
+BentoML	ai	high	model serving framework
+Label Studio	ai	high	data labeling tool
+CVAT	ai	high	Computer Vision Annotation Tool
+MinerU	ai	high	PDF extraction tool; official casing
+Marker	ai	low	PDF-to-Markdown tool; common word
+EasyOCR	ai	high	OCR library
+TrOCR	ai	high	Microsoft transformer OCR
+LayoutLM	ai	high	Microsoft document AI model
+LayoutLMv3	ai	high	Microsoft document AI model
+GOT-OCR	ai	medium	general OCR theory model (GOT-OCR2.0)
+Unstructured	ai	medium	document ETL for LLMs; also common word
+Qdrant	ai	high	vector database
+Zilliz	ai	high	Milvus company
+Chroma DB	ai	medium	Chroma vector database (brand Chroma)
+ChromaDB	ai	medium	Chroma vector database (package chromadb)
+LanceDB	ai	high	vector database; official casing
+Vespa	ai	medium	search/vector engine
+Vectara	ai	high	RAG platform
+Marqo	ai	high	vector search engine
+turbopuffer	ai	high	serverless vector DB; official lowercase
+DiskANN	ai	high	Microsoft ANN index
+ScaNN	ai	high	Google ANN library; official casing
+hnswlib	ai	high	HNSW library; official lowercase
+HNSW	ai	high	Hierarchical Navigable Small World index
+USearch	ai	high	vector search engine
+sqlite-vec	ai	high	SQLite vector extension; official lowercase
+BM25	ai	high	ranking function
+ColBERT	ai	high	late-interaction retrieval model
+ColPali	ai	high	document retrieval VLM
+ColQwen	ai	medium	Qwen-based ColPali variant
+SPLADE	ai	high	sparse retrieval model
+BGE	ai	high	BAAI General Embedding
+E5	ai	medium	Microsoft embedding model family
+GTE	ai	medium	Alibaba General Text Embedding
+MiniLM	ai	high	Microsoft compact transformer (all-MiniLM)
+MPNet	ai	high	Microsoft pretraining model
+Nomic	ai	high	Nomic AI (embeddings, GPT4All)
+Jina AI	ai	high	embedding/search company
+mxbai	ai	medium	mixedbread embedding model prefix; official lowercase
+Mixedbread	ai	high	embedding company
+Voyage AI	ai	high	embedding company
+MTEB	ai	high	Massive Text Embedding Benchmark
+HyDE	ai	high	Hypothetical Document Embeddings
+Cursor	ai	medium	Anysphere AI code editor; also common word
+Windsurf	ai	high	AI IDE (Codeium, now Cognition); also sport
+Codeium	ai	high	AI coding company
+Devin	ai	high	Cognition AI software agent; also given name
+Cline	ai	high	open-source VS Code coding agent
+Roo Code	ai	high	VS Code coding agent (formerly Roo-Cline)
+Kilo Code	ai	high	VS Code coding agent
+Aider	ai	high	terminal AI pair programmer
+OpenCode	ai	high	open-source terminal coding agent; opencode.ai body text writes OpenCode
+Tabnine	ai	high	AI code completion
+Supermaven	ai	high	AI code completion
+Qodo	ai	high	AI code integrity tool (formerly CodiumAI)
+CodiumAI	ai	high	former name of Qodo
+CodeRabbit	ai	high	AI code review; official casing
+Greptile	ai	high	AI code review
+Cody	ai	medium	Sourcegraph coding assistant; also given name
+Sourcegraph	ai	high	code search company
+Junie	ai	medium	JetBrains coding agent
+Lovable	ai	high	AI app builder; also common word
+v0	ai	high	Vercel AI UI generator; official lowercase
+bolt.new	ai	medium	StackBlitz AI app builder; official lowercase
+Replit	ai	high	online IDE with AI agent
+Base44	ai	high	AI app builder (Wix)
+Firebase Studio	ai	high	Google AI app builder
+Qoder	ai	medium	Alibaba agentic IDE (2025)
+Lingma	ai	medium	Alibaba Tongyi Lingma coding assistant
+Zed	ai	high	code editor with AI; zed.dev
+SWE-bench	ai	high	coding agent benchmark
+Terminal-Bench	ai	high	terminal agent benchmark
+Poe	ai	medium	Quora AI chat aggregator; also surname
+Meta AI	ai	high	Meta assistant
+Gemini Live	ai	medium	Google voice assistant mode
+Copilot Studio	ai	high	Microsoft agent builder
+Grok Build	ai	medium	xAI coding agent (2026)
+AGI	ai	high	artificial general intelligence
+ASI	ai	high	artificial superintelligence
+GenAI	ai	high	generative AI
+AIGC	ai	high	AI-generated content
+SLM	ai	high	small language model
+SLMs	ai	high	plural of SLM
+VLM	ai	high	vision-language model
+VLMs	ai	high	plural of VLM
+MLLM	ai	high	multimodal large language model
+MLLMs	ai	high	plural of MLLM
+LMM	ai	high	large multimodal model
+VLA	ai	high	vision-language-action model
+VLAs	ai	high	plural of VLA
+LRM	ai	high	large reasoning model
+LRMs	ai	high	plural of LRM
+LAM	ai	medium	large action model; also word lam
+LLMOps	ai	high	LLM operations
+AutoML	ai	high	automated machine learning
+TinyML	ai	high	embedded machine learning
+NLU	ai	high	natural language understanding
+NLG	ai	high	natural language generation
+NLI	ai	high	natural language inference
+NER	ai	high	named entity recognition
+ASR	ai	high	automatic speech recognition
+TTS	ai	high	text-to-speech
+STT	ai	high	speech-to-text
+VQA	ai	high	visual question answering
+SOTA	ai	high	state of the art
+HITL	ai	high	human in the loop
+DL	ai	medium	deep learning; also download abbreviation
+DNN	ai	high	deep neural network
+DNNs	ai	high	plural of DNN
+ANN	ai	high	artificial neural network / approximate nearest neighbor
+ANNs	ai	high	plural of ANN
+CNNs	ai	high	plural of CNN
+RNNs	ai	high	plural of RNN
+LSTMs	ai	high	plural of LSTM
+GRU	ai	high	gated recurrent unit
+GRUs	ai	high	plural of GRU
+GNN	ai	high	graph neural network
+GNNs	ai	high	plural of GNN
+SNN	ai	medium	spiking neural network
+PINN	ai	medium	physics-informed neural network
+PINNs	ai	medium	plural of PINN
+MLP	ai	high	multilayer perceptron
+MLPs	ai	high	plural of MLP
+KAN	ai	high	Kolmogorov-Arnold Network
+KANs	ai	high	plural of KAN
+MoE	ai	high	mixture of experts; official casing
+MoEs	ai	high	plural of MoE
+SSM	ai	high	state space model
+SSMs	ai	high	plural of SSM
+ViT	ai	high	Vision Transformer
+DiTs	ai	high	plural of DiT
+MMDiT	ai	high	multimodal diffusion transformer (SD3/FLUX)
+U-Net	ai	high	U-shaped CNN architecture
+GANs	ai	high	plural of GAN
+cGAN	ai	high	conditional GAN
+DCGAN	ai	high	deep convolutional GAN
+WGAN	ai	high	Wasserstein GAN
+CycleGAN	ai	high	unpaired image translation GAN
+BigGAN	ai	high	large-scale GAN
+ProGAN	ai	high	progressive GAN
+SRGAN	ai	high	super-resolution GAN
+VQGAN	ai	high	vector-quantized GAN
+VQ-VAE	ai	high	vector-quantized VAE
+VAEs	ai	high	plural of VAE
+LDM	ai	high	latent diffusion model
+BERT	ai	high	Google bidirectional transformer; also given name Bert
+DistilBERT	ai	high	Hugging Face distilled BERT
+DeBERTa	ai	high	Microsoft BERT variant; official casing
+ModernBERT	ai	high	Answer.AI modern BERT (2024)
+mBERT	ai	high	multilingual BERT
+XLM-R	ai	high	cross-lingual RoBERTa
+XLM-RoBERTa	ai	high	cross-lingual RoBERTa
+BioBERT	ai	high	biomedical BERT
+SciBERT	ai	high	scientific BERT
+BART	ai	medium	Meta seq2seq model; also given name Bart
+Longformer	ai	high	long-document transformer
+BigBird	ai	high	Google sparse-attention transformer
+ELMo	ai	high	contextual embeddings; official casing
+GloVe	ai	high	Stanford word vectors; official casing
+word2vec	ai	high	Google word embeddings; official lowercase
+fastText	ai	high	Meta text classification/embeddings; official casing
+Doc2Vec	ai	high	document embeddings
+ResNet	ai	high	residual network
+ResNeXt	ai	high	ResNet variant; official casing
+ConvNeXt	ai	high	modernized ConvNet; official casing
+DenseNet	ai	high	densely connected CNN
+AlexNet	ai	high	2012 ImageNet CNN
+LeNet	ai	high	early CNN
+VGG	ai	high	Oxford Visual Geometry Group CNN
+VGGNet	ai	high	VGG network
+GoogLeNet	ai	high	Inception v1; official casing
+EfficientNet	ai	high	Google scalable CNN
+MobileNet	ai	high	Google mobile CNN
+SqueezeNet	ai	high	compact CNN
+ShuffleNet	ai	high	efficient CNN
+DeiT	ai	high	data-efficient image transformer; official casing
+BEiT	ai	high	BERT pretraining for images; official casing
+MAE	ai	medium	masked autoencoder / mean absolute error
+SAE	ai	medium	sparse autoencoder
+SAEs	ai	medium	plural of SAE
+RLHF	ai	high	reinforcement learning from human feedback
+RLAIF	ai	high	RL from AI feedback
+RLVR	ai	high	RL with verifiable rewards
+DPO	ai	high	Direct Preference Optimization
+PPO	ai	high	Proximal Policy Optimization
+GRPO	ai	high	Group Relative Policy Optimization
+ORPO	ai	high	odds-ratio preference optimization
+KTO	ai	high	Kahneman-Tversky Optimization
+SimPO	ai	high	simple preference optimization
+TRPO	ai	high	Trust Region Policy Optimization
+SFT	ai	high	supervised fine-tuning
+PRM	ai	medium	process reward model
+RL	ai	high	reinforcement learning
+DRL	ai	high	deep reinforcement learning
+MARL	ai	high	multi-agent RL
+DQN	ai	high	Deep Q-Network
+DDPG	ai	high	deep deterministic policy gradient
+A2C	ai	high	advantage actor-critic
+A3C	ai	high	asynchronous advantage actor-critic
+TD3	ai	high	twin delayed DDPG
+CoT	ai	high	chain of thought; official casing
+ToT	ai	high	tree of thoughts
+ReAct	ai	low	reason+act agent prompting; collides with React JS framework
+ICL	ai	high	in-context learning
+RoPE	ai	high	rotary position embedding; official casing
+ALiBi	ai	high	attention with linear biases; official casing
+YaRN	ai	high	RoPE context extension method; official casing
+GQA	ai	high	grouped-query attention
+MQA	ai	high	multi-query attention
+MHA	ai	high	multi-head attention
+MLA	ai	medium	multi-head latent attention (DeepSeek)
+SwiGLU	ai	high	activation function
+GeGLU	ai	high	activation function
+GELU	ai	high	activation function
+ReLU	ai	high	rectified linear unit; official casing
+LeakyReLU	ai	high	activation function
+SiLU	ai	high	sigmoid linear unit; official casing
+LayerNorm	ai	high	layer normalization
+RMSNorm	ai	high	root-mean-square normalization
+BatchNorm	ai	high	batch normalization
+GroupNorm	ai	high	group normalization
+AdamW	ai	high	optimizer
+SGD	ai	high	stochastic gradient descent
+RMSprop	ai	high	optimizer; official casing
+Adafactor	ai	high	optimizer
+KV	ai	medium	key-value (as in KV cache); short token
+TTFT	ai	high	time to first token
+FLOPs	ai	medium	floating-point operations count (vs FLOPS per second)
+TFLOPS	ai	high	tera floating-point ops per second
+PFLOPS	ai	high	peta floating-point ops per second
+TOPS	ai	medium	tera operations per second; also word tops
+MFU	ai	high	model FLOPs utilization
+VRAM	ai	high	video RAM
+OOM	ai	high	out-of-memory
+BPE	ai	high	byte-pair encoding
+SentencePiece	ai	high	Google tokenizer; official casing
+WordPiece	ai	high	BERT tokenizer; official casing
+TF-IDF	ai	high	term frequency-inverse document frequency
+k-NN	ai	high	k-nearest neighbors
+k-means	ai	high	clustering algorithm; lowercase k
+t-SNE	ai	high	dimensionality reduction; lowercase t
+UMAP	ai	high	dimensionality reduction
+PCA	ai	high	principal component analysis
+SVM	ai	high	support vector machine
+SVMs	ai	high	plural of SVM
+DBSCAN	ai	high	density-based clustering
+HDBSCAN	ai	high	hierarchical DBSCAN
+GMM	ai	high	Gaussian mixture model
+HMM	ai	medium	hidden Markov model; also interjection
+CRF	ai	high	conditional random field
+MCMC	ai	high	Markov chain Monte Carlo
+ELBO	ai	high	evidence lower bound
+SHAP	ai	high	SHapley Additive exPlanations
+OOD	ai	medium	out-of-distribution
+QAT	ai	high	quantization-aware training
+PTQ	ai	high	post-training quantization
+FP16	ai	high	16-bit float
+FP32	ai	high	32-bit float
+FP8	ai	high	8-bit float
+FP4	ai	high	4-bit float
+BF16	ai	high	bfloat16
+TF32	ai	high	TensorFloat-32
+INT8	ai	high	8-bit integer
+INT4	ai	high	4-bit integer
+NF4	ai	high	4-bit NormalFloat (QLoRA)
+MXFP4	ai	high	microscaling FP4 (gpt-oss)
+NVFP4	ai	high	NVIDIA FP4 format
+W4A16	ai	medium	4-bit weight/16-bit activation quant
+W8A8	ai	medium	8-bit weight/activation quant
+Q2_K	ai	high	GGUF quant type
+Q3_K_M	ai	high	GGUF quant type
+Q4_0	ai	high	GGUF quant type
+Q4_K_S	ai	high	GGUF quant type
+Q4_K_M	ai	high	GGUF quant type
+Q5_K_S	ai	high	GGUF quant type
+Q5_K_M	ai	high	GGUF quant type
+Q6_K	ai	high	GGUF quant type
+Q8_0	ai	high	GGUF quant type
+IQ2_XXS	ai	high	GGUF i-quant type
+IQ3_XXS	ai	high	GGUF i-quant type
+IQ4_XS	ai	high	GGUF i-quant type
+IQ4_NL	ai	high	GGUF i-quant type
+1B	ai	medium	parameter-count suffix (1 billion)
+3B	ai	medium	parameter-count suffix
+4B	ai	medium	parameter-count suffix
+7B	ai	medium	parameter-count suffix
+8B	ai	medium	parameter-count suffix
+13B	ai	medium	parameter-count suffix
+14B	ai	medium	parameter-count suffix
+27B	ai	medium	parameter-count suffix
+32B	ai	medium	parameter-count suffix
+34B	ai	medium	parameter-count suffix
+70B	ai	medium	parameter-count suffix
+72B	ai	medium	parameter-count suffix
+405B	ai	medium	parameter-count suffix (Llama 3.1 405B)
+671B	ai	medium	parameter-count suffix (DeepSeek-V3/R1)
+8x7B	ai	medium	MoE size suffix (Mixtral 8x7B)
+8x22B	ai	medium	MoE size suffix (Mixtral 8x22B)
+T2I	ai	high	text-to-image
+I2I	ai	high	image-to-image
+T2V	ai	high	text-to-video
+I2V	ai	high	image-to-video
+V2V	ai	high	video-to-video
+TI2V	ai	high	text+image-to-video (Wan2.2-TI2V)
+FLF2V	ai	high	first-last-frame-to-video (Wan)
+S2V	ai	high	speech-to-video (Wan-S2V)
+V2A	ai	medium	video-to-audio
+Text-to-Image	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Image-to-Image	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Text-to-Video	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Image-to-Video	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Video-to-Video	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Text-to-Speech	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Speech-to-Text	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Speech-to-Speech	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Text-to-Music	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Text-to-Audio	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Text-to-3D	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Image-to-3D	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Video-to-Audio	ai	medium	task phrase; lowercase connector; style choice (lowercase connectors)
+Chain-of-Thought	ai	medium	prompting technique; lowercase of; style choice (lowercase connectors)
+Tree-of-Thoughts	ai	medium	prompting technique; lowercase of; style choice (lowercase connectors)
+Mixture-of-Experts	ai	medium	architecture; lowercase of; style choice (lowercase connectors)
+LLM-as-a-Judge	ai	medium	evaluation method; lowercase as-a; style choice (lowercase connectors)
+Human-in-the-Loop	ai	medium	workflow phrase; lowercase in-the; style choice (lowercase connectors)
+Retrieval-Augmented Generation	ai	high	RAG expanded; lowercase-free but hyphenated
+ACP	ai	medium	Agent Communication/Client Protocol (ambiguous)
+AG-UI	ai	high	Agent-User Interaction protocol
+UCP	ai	medium	Universal Commerce Protocol (Google 2026)
+AP2	ai	medium	Agent Payments Protocol (Google)
+WebMCP	ai	high	proposed web standard for browser agents
+Agent2Agent	ai	high	A2A protocol full name
+Model Context Protocol	ai	high	MCP full name
+ImageNet	ai	high	image dataset
+COCO	ai	high	Common Objects in Context dataset
+MS COCO	ai	high	Microsoft COCO dataset
+MNIST	ai	high	handwritten digit dataset
+Fashion-MNIST	ai	high	clothing image dataset
+CIFAR-10	ai	high	image dataset
+CIFAR-100	ai	high	image dataset
+CelebA	ai	high	celebrity face dataset
+CelebA-HQ	ai	high	high-quality CelebA
+FFHQ	ai	high	Flickr-Faces-HQ dataset
+LSUN	ai	high	scene dataset
+LAION-5B	ai	high	image-text dataset
+LAION-Aesthetics	ai	high	aesthetic-filtered LAION subset
+DataComp	ai	high	image-text dataset benchmark
+Common Crawl	ai	high	web crawl corpus
+The Pile	ai	high	EleutherAI text corpus
+FineWeb	ai	high	Hugging Face web corpus
+FineWeb-Edu	ai	high	Hugging Face educational corpus
+Dolma	ai	high	Ai2 pretraining corpus
+SlimPajama	ai	high	deduplicated RedPajama
+RefinedWeb	ai	high	Falcon web corpus
+OpenWebText	ai	high	WebText replication
+BookCorpus	ai	high	book text corpus
+WikiText	ai	high	language modeling dataset
+TinyStories	ai	high	small story dataset
+SQuAD	ai	high	Stanford QA dataset; official casing
+GLUE	ai	high	NLU benchmark
+SuperGLUE	ai	high	NLU benchmark
+MMLU	ai	high	multitask language benchmark
+MMLU-Pro	ai	high	harder MMLU
+GSM8K	ai	high	grade-school math benchmark
+MATH-500	ai	medium	math benchmark subset
+HumanEval	ai	high	code generation benchmark
+MBPP	ai	high	Python programming benchmark
+EvalPlus	ai	high	code benchmark suite
+LiveCodeBench	ai	high	code benchmark
+GPQA	ai	high	graduate-level QA benchmark
+ARC-AGI	ai	high	abstraction reasoning benchmark
+ARC-AGI-2	ai	high	abstraction reasoning benchmark v2
+AIME	ai	high	math competition benchmark
+BIG-bench	ai	high	Google benchmark; official lowercase bench
+HellaSwag	ai	high	commonsense benchmark
+TruthfulQA	ai	high	truthfulness benchmark
+WinoGrande	ai	high	commonsense benchmark
+MT-Bench	ai	high	multi-turn chat benchmark
+AlpacaEval	ai	high	instruction-following benchmark
+LiveBench	ai	high	contamination-free benchmark
+LMArena	ai	high	LLM leaderboard (formerly Chatbot Arena); lmarena.ai
+Chatbot Arena	ai	high	LMSYS LLM leaderboard
+LMSYS	ai	high	LLM research org
+OSWorld	ai	high	computer-use agent benchmark
+WebArena	ai	high	web agent benchmark
+BrowseComp	ai	high	browsing agent benchmark
+FrontierMath	ai	high	Epoch AI math benchmark
+SimpleQA	ai	high	OpenAI factuality benchmark
+GDPval	ai	high	OpenAI economic-value benchmark; official casing
+MLE-bench	ai	high	OpenAI ML engineering benchmark
+PaperBench	ai	high	OpenAI research replication benchmark
+tau-bench	ai	medium	Sierra agent benchmark (τ-bench)
+GAIA	ai	medium	general AI assistant benchmark
+HELM	ai	medium	Stanford holistic evaluation
+MMMU	ai	high	multimodal reasoning benchmark
+MathVista	ai	high	visual math benchmark
+DocVQA	ai	high	document VQA benchmark
+ChartQA	ai	high	chart QA benchmark
+TextVQA	ai	high	text VQA benchmark
+OCRBench	ai	high	OCR benchmark
+Video-MME	ai	high	video understanding benchmark
+VBench	ai	high	video generation benchmark
+GenEval	ai	high	text-to-image benchmark
+T2I-CompBench	ai	high	compositional T2I benchmark
+DPG-Bench	ai	high	dense prompt graph benchmark
+LibriSpeech	ai	high	speech corpus
+Common Voice	ai	high	Mozilla speech dataset
+VoxCeleb	ai	high	speaker recognition dataset
+AudioSet	ai	high	Google audio dataset
+KITTI	ai	high	driving dataset
+nuScenes	ai	high	driving dataset; official lowercase nu
+Cityscapes	ai	high	urban segmentation dataset
+ADE20K	ai	high	scene parsing dataset
+LVIS	ai	high	large-vocabulary instance segmentation dataset
+ShareGPT	ai	high	ChatGPT conversation dataset
+UltraChat	ai	high	dialogue dataset
+UltraFeedback	ai	high	preference dataset
+OpenOrca	ai	high	instruction dataset
+HH-RLHF	ai	high	Anthropic helpful/harmless dataset
+OpenAssistant	ai	high	LAION assistant project/dataset
+OASST1	ai	high	OpenAssistant conversations dataset
+METR	ai	high	AI evaluation org; official caps
+Epoch AI	ai	high	AI trends research org
+FID	ai	high	Fréchet Inception Distance
+FVD	ai	high	Fréchet Video Distance
+LPIPS	ai	high	perceptual image similarity
+CLIPScore	ai	high	image-text alignment metric
+PSNR	ai	high	peak signal-to-noise ratio
+SSIM	ai	high	structural similarity index
+BLEU	ai	high	translation metric
+ROUGE	ai	high	summarization metric; also word rouge
+BERTScore	ai	high	embedding-based text metric
+WER	ai	high	word error rate
+AUC	ai	high	area under curve
+IoU	ai	high	intersection over union; official casing
+mAP	ai	low	mean average precision; collides with word map
+MSE	ai	high	mean squared error
+RMSE	ai	high	root mean squared error
+NeurIPS	ai	high	ML conference; official casing
+ICML	ai	high	ML conference
+ICLR	ai	high	ML conference
+CVPR	ai	high	computer vision conference
+ICCV	ai	high	computer vision conference
+ECCV	ai	high	computer vision conference
+EMNLP	ai	high	NLP conference
+NAACL	ai	high	NLP conference
+AAAI	ai	high	AI conference
+IJCAI	ai	high	AI conference
+KDD	ai	high	data mining conference
+COLM	ai	high	language modeling conference
+CoRL	ai	high	robot learning conference; official casing
+ICRA	ai	high	robotics conference
+IROS	ai	high	robotics conference
+ICASSP	ai	high	speech/signal conference
+AISTATS	ai	high	AI and statistics conference
+MICCAI	ai	high	medical imaging conference
+SIGGRAPH	ai	high	graphics conference (AI papers common)
+TMLR	ai	high	ML journal
+JMLR	ai	high	ML journal
+TPAMI	ai	high	IEEE pattern analysis journal
+OpenReview	ai	high	peer review platform
+DeepLearning.AI	ai	high	Andrew Ng education company; official casing
+CS231n	ai	high	Stanford vision course; lowercase n
+CS224n	ai	high	Stanford NLP course; lowercase n
+CS229	ai	high	Stanford ML course
+nanoGPT	ai	high	Karpathy minimal GPT; official casing
+minGPT	ai	high	Karpathy minimal GPT; official casing
+micrograd	ai	high	Karpathy autograd engine; official lowercase
+makemore	ai	high	Karpathy character LM; official lowercase
+llm.c	ai	high	Karpathy LLM training in C; official lowercase
+nanochat	ai	high	Karpathy ChatGPT clone (2025); official lowercase
+StatQuest	ai	high	ML education channel
+OpusClip	ai	high	AI video clipping app; opus.pro writes OpusClip
+VEED	ai	high	AI video editor; veed.io brand in caps
+Kapwing	ai	high	online video editor with AI
+Pictory	ai	high	AI video creation tool
+Submagic	ai	high	AI captions app
+Wonder Studio	ai	high	Wonder Dynamics AI VFX app
+Wonder Dynamics	ai	high	AI VFX company (Autodesk)
+Murf	ai	high	AI voiceover platform (Murf AI)
+LOVO	ai	medium	AI voice platform; brand LOVO
+Respeecher	ai	high	voice cloning company
+Voice.ai	ai	medium	voice changer app
+Hume AI	ai	high	empathic voice AI company
+Granola	ai	medium	AI meeting notes app; also food
+Plaud	ai	high	AI voice recorder/notes
+Facetune	ai	high	Lightricks photo editing app
+Pixelcut	ai	high	AI photo editor
+Pixian.ai	ai	medium	background removal service
+Removal.AI	ai	medium	background removal service
+Erase.bg	ai	medium	background removal service
+PhotoScissors	ai	high	background removal app
+Slazzer	ai	high	background removal service
+Lexica	ai	high	SD image search engine
+PromptHero	ai	high	AI prompt library
+PromptBase	ai	high	AI prompt marketplace
+Apple Intelligence	ai	high	Apple AI system
+Genmoji	ai	high	Apple AI-generated emoji
+Image Playground	ai	high	Apple image generation app
+Galaxy AI	ai	high	Samsung AI features
+Vertex AI	ai	high	Google Cloud ML platform
+Azure OpenAI	ai	high	Microsoft OpenAI service
+Colab	ai	high	Google Colaboratory
+Kaggle	ai	high	Google data science platform
+Jupyter	ai	medium	notebook platform used for ML
+Constitutional AI	ai	high	Anthropic alignment method
+Artificial Analysis	ai	medium	AI model benchmarking site
+Stargate	ai	medium	OpenAI AI infrastructure project; also film/TV
+YandexGPT	ai	high	Yandex LLM
+GigaChat	ai	high	Sber LLM assistant
+Reka	ai	high	Reka AI multimodal models
+Inkling	ai	medium	Thinking Machines Lab model (2026); also word
+Chinchilla	ai	medium	DeepMind LLM/scaling law; also animal
+Flamingo	ai	medium	DeepMind VLM; also bird
+Galactica	ai	medium	Meta science LLM
+BLOOMZ	ai	high	BigScience multitask BLOOM
+mT0	ai	medium	BigScience multitask mT5
+Zephyr	ai	medium	Hugging Face chat model; also wind
+OpenChat	ai	high	open chat model
+MythoMax	ai	high	popular roleplay LLM merge
+Miqu	ai	medium	leaked Mistral model
+Kosmos-2	ai	medium	Microsoft multimodal model
+JoyCaption	ai	high	image captioning VLM for training data
+WD14	ai	high	WD14 anime image tagger
+DeepDanbooru	ai	high	anime image tagger
+Danbooru	ai	medium	anime image board used for tagging datasets
+JourneyDB	ai	medium	Midjourney image dataset
+DiffusionDB	ai	high	Stable Diffusion prompt dataset
+Pick-a-Pic	ai	medium	preference dataset
+PickScore	ai	high	image preference model
+ImageReward	ai	high	text-to-image reward model
+HPSv2	ai	high	Human Preference Score v2
+EasyNegative	ai	high	popular negative embedding
+IC-LoRA	ai	medium	In-Context LoRA
+LightRAG	ai	high	lightweight graph RAG
+HippoRAG	ai	high	memory-inspired RAG
+RAPTOR	ai	medium	recursive abstractive RAG; also bird
+Self-RAG	ai	medium	self-reflective RAG
+NSynth	ai	high	Magenta neural synthesizer
+Magenta	ai	medium	Google music ML project; also color
+Triton	ai	medium	OpenAI GPU language / NVIDIA inference server
+TVM	ai	high	Apache ML compiler
+MLIR	ai	high	multi-level IR compiler framework
+XLA	ai	high	accelerated linear algebra compiler
+IREE	ai	high	MLIR-based ML runtime
+Mojo	ai	medium	Modular AI programming language
+MPS	ai	medium	Apple Metal Performance Shaders backend
+TorchSharp	ai	high	.NET bindings for PyTorch
+LLamaSharp	ai	high	.NET llama.cpp bindings; official casing
+OllamaSharp	ai	high	.NET Ollama client
+Whisper.net	ai	medium	.NET Whisper bindings
+ml5.js	ai	high	friendly ML JS library; official lowercase ml5
+Brain.js	ai	high	JS neural network library
+face-api.js	ai	medium	JS face recognition library
+Context7	ai	high	Upstash docs MCP server
+DeepWiki	ai	high	Cognition AI repo wiki
+Smithery	ai	high	MCP server registry
+ByteRover	ai	medium	agent memory tool; official casing
+SuperClaude	ai	medium	Claude Code framework
+BMAD	ai	medium	BMAD Method agile AI framework
+SWE-1	ai	medium	Windsurf coding model
+HF	ai	medium	Hugging Face abbreviation (model id suffix -hf)
+VL	ai	medium	vision-language suffix (Qwen2-VL etc.)
+A3B	ai	medium	MoE active-parameter suffix (Qwen3-30B-A3B)
+A22B	ai	medium	MoE active-parameter suffix (Qwen3-235B-A22B)
+E4B	ai	medium	Gemma 3n effective-parameter suffix
+Grace Hopper	ai	high	NVIDIA GH200 superchip
+Rubin	ai	medium	NVIDIA GPU architecture (2026); also surname
+Tensor Cores	ai	high	NVIDIA matrix units
+RunDiffusion	ai	high	cloud Stable Diffusion service
+ThinkDiffusion	ai	high	cloud Stable Diffusion service
+Easy Diffusion	ai	high	one-click SD installer
+Claude.ai	ai	medium	Claude web app domain-style name
+IntelliCode	ai	high	Microsoft AI code completion
+TabbyML	ai	high	self-hosted coding assistant (Tabby)
+Continue.dev	ai	medium	open-source coding assistant (brand Continue)
+CodeGPT	ai	high	AI coding assistant extension
+CodeT5	ai	high	Salesforce code model
+CodeBERT	ai	high	Microsoft code model
+Let's Enhance	ai	medium	AI image upscaler; letsenhance.io
+Bigjpg	ai	medium	AI image upscaler site
+Uberduck	ai	high	AI voice platform
+FakeYou	ai	high	AI voice/TTS site
+WebDataset	ai	high	large-scale dataset format/library
+TFRecord	ai	high	TensorFlow dataset format
+v-prediction	ai	medium	diffusion parameterization; lowercase v
+PAG	ai	medium	Perturbed-Attention Guidance
+FreeU	ai	high	diffusion quality trick; official casing
+RescaleCFG	ai	medium	ComfyUI CFG rescale node
+HiDiffusion	ai	high	high-res diffusion method
+InstantStyle	ai	high	style transfer adapter
+StyleAligned	ai	high	Google style-consistent generation
+SV3D	ai	medium	Stability multi-view video model
+SV4D	ai	medium	Stability 4D video model
+Zeroscope	ai	high	open text-to-video model
+VideoPoet	ai	high	Google video LLM
+Lumiere	ai	medium	Google video model; French word
+Make-A-Video	ai	high	Meta text-to-video model
+EasyAnimate	ai	high	Alibaba video generation framework
+AudioSR	ai	high	audio super-resolution model
+VoiceFixer	ai	high	speech restoration model
+DeepFilterNet	ai	high	speech noise suppression
+RNNoise	ai	high	noise suppression library
+Krisp	ai	high	AI noise cancellation app
+OpenCompass	ai	high	LLM evaluation platform
+promptfoo	ai	medium	LLM eval tool; official lowercase
+DeepEval	ai	high	LLM evaluation framework
+Ragas	ai	medium	RAG evaluation library
+TruLens	ai	high	LLM evaluation library
+PyRIT	ai	high	Microsoft AI red-teaming toolkit
+Argilla	ai	high	data labeling for LLMs
+Cleanlab	ai	high	data quality library
+distilabel	ai	medium	synthetic data framework; official lowercase
+OpenLLM	ai	high	BentoML LLM serving
+Xinference	ai	high	Xorbits inference framework
+LoRAX	ai	high	Predibase multi-LoRA server
+PowerInfer	ai	high	CPU/GPU hybrid LLM inference
+KTransformers	ai	medium	kvcache-ai heterogeneous inference (repo ktransformers)

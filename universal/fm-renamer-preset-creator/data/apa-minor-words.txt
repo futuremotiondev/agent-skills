@@ -1,0 +1,30 @@
+# APA 7 title case: minor words (three letters or fewer) that stay lowercase INSIDE a title.
+# Source: APA Style "Title case capitalization" (apastyle.apa.org), cross-checked with university APA 7 guides.
+# Always capitalized regardless of this list: the first word of the title, the first word of a subtitle
+# (after " - ", " – " or " — "; a colon cannot occur in a Windows filename), and (Jay's added rule, which comes from Chicago/AP, not APA) the last word.
+# Words of four letters or more ("with", "from", "into", "over") and all verbs ("is", "are", "be") are capitalized.
+# Short conjunctions
+and
+as
+but
+for
+if
+nor
+or
+so
+yet
+# Articles
+a
+an
+the
+# Short prepositions
+at
+by
+in
+of
+off
+on
+per
+to
+up
+via

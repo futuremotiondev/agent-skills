@@ -1,0 +1,1140 @@
+term	pack	confidence	note
+Arm	hardware	medium	chip IP company, styled "Arm" since 2017 (arm.com); "ARM" still common for the architecture; also common English word
+Radeon	hardware	high	AMD GPU brand
+Ryzen	hardware	high	AMD CPU brand
+Threadripper	hardware	high	AMD HEDT CPU line
+EPYC	hardware	high	AMD server CPU line; all-caps official (amd.com)
+Athlon	hardware	high	AMD CPU line
+Xeon	hardware	high	Intel server CPU line
+Celeron	hardware	high	Intel CPU line
+Pentium	hardware	high	Intel CPU line
+Qualcomm	hardware	high	chip maker
+Snapdragon	hardware	high	Qualcomm SoC brand
+MediaTek	hardware	high	chip maker; internal capital T
+Exynos	hardware	high	Samsung SoC brand
+Dimensity	hardware	high	MediaTek SoC brand
+Kirin	hardware	medium	Huawei HiSilicon SoC; also mythical creature name
+Adreno	hardware	high	Qualcomm GPU brand
+UNISOC	hardware	medium	Chinese SoC maker; all-caps official (unisoc.com)
+Apple silicon	hardware	high	Apple styles "silicon" lowercase (apple.com)
+Iris Xe	hardware	high	Intel integrated graphics; Xe = capital X lowercase e
+XeSS	hardware	high	Intel upscaler
+DLSS	hardware	high	NVIDIA upscaler
+FSR	hardware	high	AMD FidelityFX Super Resolution
+FidelityFX	hardware	high	AMD graphics toolkit
+AFMF	hardware	high	AMD Fluid Motion Frames
+HYPR-RX	hardware	high	AMD Radeon feature; verified amd.com release notes
+PSSR	hardware	high	PlayStation Spectral Super Resolution
+MetalFX	hardware	high	Apple upscaler
+G-SYNC	hardware	high	NVIDIA styles G-SYNC (nvidia.com)
+FreeSync	hardware	high	AMD adaptive sync
+GeForce NOW	gaming	high	NVIDIA cloud gaming; NOW all caps
+ShadowPlay	hardware	high	NVIDIA capture feature
+NVLink	hardware	high	NVIDIA interconnect
+PhysX	hardware	high	NVIDIA physics engine
+RDNA	hardware	high	AMD GPU architecture
+V-Cache	hardware	high	AMD 3D V-Cache
+Hyper-Threading	hardware	high	Intel SMT branding
+ReBAR	hardware	medium	Resizable BAR abbreviation
+GTX	hardware	high	NVIDIA GeForce GTX line
+XTX	hardware	high	Radeon RX 7900 XTX suffix
+XT	hardware	medium	Radeon model suffix (RX 9070 XT); short token
+Ti	hardware	medium	NVIDIA model suffix (RTX 5070 Ti); also solfege syllable / Texas Instruments TI
+GRE	hardware	medium	Radeon RX 7900 GRE suffix; same casing as GRE exam acronym
+X3D	hardware	high	AMD Ryzen 3D V-Cache suffix
+9800X3D	hardware	high	Ryzen 7 9800X3D; digit-first so naive capitalizing leaves x3d lowercase
+7800X3D	hardware	high	Ryzen 7 7800X3D
+9950X3D	hardware	high	Ryzen 9 9950X3D
+7950X3D	hardware	high	Ryzen 9 7950X3D
+5800X3D	hardware	high	Ryzen 7 5800X3D
+14900K	hardware	high	Intel Core i9-14900K; digit-first model number
+13900K	hardware	high	Intel Core i9-13900K
+14700K	hardware	high	Intel Core i7-14700K
+285K	hardware	high	Intel Core Ultra 9 285K
+i3	hardware	high	Intel Core tier; lowercase i (naive capitalize gives I3)
+i5	hardware	high	Intel Core tier; lowercase i
+i7	hardware	high	Intel Core tier; lowercase i
+i9	hardware	high	Intel Core tier; lowercase i
+NUC	hardware	high	Intel/ASUS NUC mini PC
+TDP	hardware	medium	thermal design power spec acronym
+DDR4	hardware	high	memory standard
+DDR5	hardware	high	memory standard
+LPDDR5X	hardware	high	mobile memory standard
+GDDR6X	hardware	high	GPU memory standard
+GDDR7	hardware	high	GPU memory standard
+HBM3E	hardware	high	high-bandwidth memory standard
+CAMM2	hardware	high	laptop memory module standard
+EXPO	hardware	medium	AMD memory overclock profile; also common word/abbrev
+KIOXIA	hardware	high	flash memory maker; all-caps official (kioxia.com)
+Micron	hardware	high	memory maker; also unit of length
+Crucial	hardware	high	Micron consumer brand; also common English word
+WD	hardware	high	Western Digital abbreviation
+WD_BLACK	hardware	high	WD gaming storage line; underscore is official (westerndigital.com)
+SanDisk	hardware	high	storage brand
+IronWolf	hardware	high	Seagate NAS drive line
+BarraCuda	hardware	high	Seagate drive line; official internal C (seagate.com)
+FireCuda	hardware	high	Seagate gaming drive line
+SK hynix	hardware	high	memory maker; lowercase hynix official
+Solidigm	hardware	high	SSD maker
+FURY	hardware	medium	Kingston FURY memory line; all-caps official; common word
+TEAMGROUP	hardware	high	memory maker; verified teamgroupinc.com
+T-FORCE	hardware	high	TEAMGROUP gaming line; verified teamgroupinc.com
+ADATA	hardware	high	memory/storage maker
+XPG	hardware	high	ADATA gaming brand
+Lexar	hardware	high	storage brand
+Sabrent	hardware	high	storage brand
+Synology	hardware	high	NAS maker
+DiskStation	hardware	high	Synology NAS line
+QNAP	hardware	high	NAS maker
+TerraMaster	hardware	high	NAS maker
+UGREEN	hardware	high	accessories/NAS maker; all-caps official (ugreen.com)
+microSD	hardware	high	card format; lowercase micro
+microSDXC	hardware	high	card format
+SDXC	hardware	high	card format
+CFexpress	hardware	high	card format; lowercase express
+OLED	hardware	high	display tech
+QD-OLED	hardware	high	display tech
+WOLED	hardware	high	LG white OLED
+AMOLED	hardware	high	display tech
+LTPO	hardware	high	display backplane tech
+QLED	hardware	high	Samsung TV display branding
+MicroLED	hardware	medium	display tech; Samsung writes "Micro LED"
+ULED	hardware	high	Hisense TV line
+QNED	hardware	high	LG TV line
+NanoCell	hardware	high	LG TV line
+OLED evo	hardware	high	LG TV line; lowercase evo (lg.com)
+ThinQ	hardware	high	LG smart-home brand
+UltraFine	hardware	high	LG monitor line
+UltraGear	hardware	high	LG gaming monitor line
+StanbyME	hardware	high	LG portable screen; verified lgnewsroom.com
+VIDAA	hardware	high	Hisense smart TV OS
+BRAVIA	hardware	high	Sony TV brand; all-caps official (sony.com)
+eARC	hardware	high	HDMI enhanced audio return channel; lowercase e
+VRR	hardware	high	variable refresh rate
+ALLM	hardware	high	auto low latency mode
+XDR	hardware	high	Apple Pro Display XDR / Liquid Retina XDR
+Wi-Fi	hardware	high	Wi-Fi Alliance hyphenated styling
+Wi-Fi 6E	hardware	high	Wi-Fi generation; 6E capital
+USB-C	hardware	high	connector
+USB4	hardware	high	USB-IF styling, no space
+Qi2	hardware	high	WPC wireless charging standard
+MagSafe	hardware	high	Apple magnetic charging
+eSIM	hardware	high	embedded SIM; lowercase e
+UWB	hardware	high	ultra-wideband
+ASUS	hardware	high	all-caps official (asus.com)
+ROG	hardware	high	ASUS Republic of Gamers
+TUF	hardware	high	ASUS TUF Gaming
+ProArt	hardware	high	ASUS creator line
+Zenbook	hardware	high	ASUS laptop; verified asus.com (not ZenBook since 2022)
+Vivobook	hardware	high	ASUS laptop; verified asus.com (not VivoBook)
+ExpertBook	hardware	high	ASUS business laptop
+ZenWiFi	hardware	high	ASUS mesh Wi-Fi
+AiMesh	hardware	high	ASUS mesh feature
+Chromebook	hardware	high	ChromeOS laptop category
+ThinkPad	hardware	high	Lenovo laptop
+ThinkBook	hardware	high	Lenovo laptop
+ThinkCentre	hardware	high	Lenovo desktop; British spelling Centre
+ThinkVision	hardware	high	Lenovo monitor
+ThinkStation	hardware	high	Lenovo workstation
+IdeaPad	hardware	high	Lenovo laptop
+IdeaCentre	hardware	high	Lenovo desktop
+LOQ	hardware	high	Lenovo gaming laptop
+XPS	hardware	high	Dell premium laptop
+Inspiron	hardware	high	Dell laptop
+Alienware	hardware	high	Dell gaming brand
+OMEN	hardware	high	HP gaming brand; all-caps (hp.com)
+Victus	hardware	high	HP gaming laptop
+OmniBook	hardware	high	HP laptop line (replaced Envy/Spectre naming 2025; hp.com)
+EliteBook	hardware	high	HP business laptop
+ProBook	hardware	high	HP business laptop
+ZBook	hardware	high	HP workstation laptop
+EliteDesk	hardware	high	HP business desktop
+MateBook	hardware	high	Huawei laptop
+LG gram	hardware	high	LG laptop; lowercase gram (lg.com); gram is also a unit
+Copilot+ PC	hardware	high	Microsoft PC category; plus sign may need escaping in whole-word regex
+Razer	hardware	high	peripheral/laptop brand
+DeathAdder	hardware	high	Razer mouse
+BlackWidow	hardware	high	Razer keyboard
+BlackShark	hardware	high	Razer headset
+HyperX	hardware	high	gaming peripheral brand
+NGENUITY	hardware	high	HyperX software; all caps
+iCUE	hardware	high	Corsair software
+G HUB	hardware	high	Logitech G software; HUB all caps (logitechg.com)
+LIGHTSYNC	hardware	high	Logitech RGB tech
+POWERPLAY	hardware	medium	Logitech wireless charging mat; all caps
+MX Master 3S	hardware	medium	Logitech mouse; 3S capital
+Cooler Master	hardware	high	PC case/cooling brand
+DeepCool	hardware	high	cooling brand; internal C
+ARCTIC	hardware	medium	cooling brand; all-caps official (arctic.de); common word
+EKWB	hardware	high	water-cooling brand
+Noctua	hardware	high	cooling brand
+Thermaltake	hardware	high	PC case/cooling brand
+Phanteks	hardware	high	PC case brand
+Seasonic	hardware	high	PSU brand
+Lian Li	hardware	high	PC case brand; needed because dictionary has LI (roman numeral)
+ASRock	hardware	high	motherboard/GPU brand
+ZOTAC	hardware	high	GPU/mini PC brand; all caps
+ZBOX	hardware	high	ZOTAC mini PC line
+PowerColor	hardware	high	GPU brand
+XFX	hardware	high	GPU brand
+PNY	hardware	high	GPU/storage brand
+INNO3D	hardware	high	GPU brand; all caps with digit
+GALAX	hardware	medium	GPU brand; all caps
+ZOWIE	hardware	high	BenQ esports brand; all caps
+BenQ	hardware	high	monitor/projector brand
+MOBIUZ	hardware	medium	BenQ gaming monitor line; all caps
+ViewSonic	hardware	high	monitor brand
+UltraSharp	hardware	high	Dell monitor line
+EIZO	hardware	high	monitor brand; all caps
+ColorEdge	hardware	high	EIZO monitor line
+Keychron	hardware	high	keyboard brand
+Wooting	hardware	high	keyboard brand
+NuPhy	hardware	high	keyboard brand
+HHKB	hardware	high	Happy Hacking Keyboard
+IQUNIX	hardware	medium	keyboard brand; all caps
+XPPen	hardware	high	pen tablet brand; rebranded from XP-PEN in 2022 (xp-pen.com)
+XP-PEN	hardware	medium	pre-2022 styling of XPPen; Wikipedia still uses XP-PEN
+HUION	hardware	medium	pen tablet brand; logo all caps, some text uses Huion
+Wacom	hardware	high	pen tablet brand
+Cintiq	hardware	high	Wacom pen display
+Intuos	hardware	high	Wacom pen tablet
+TourBox	hardware	high	editing controller
+SpaceMouse	hardware	high	3Dconnexion device
+3Dconnexion	hardware	high	3D mouse maker; lowercase c
+8BitDo	hardware	high	controller maker
+GuliKit	hardware	high	controller maker
+PowerA	hardware	high	controller maker; capital A
+HORI	hardware	high	controller maker; all caps
+SCUF	hardware	high	controller maker; all caps
+MOZA	hardware	medium	sim-racing maker; all caps
+Thrustmaster	hardware	high	sim peripherals
+Fanatec	hardware	high	sim-racing peripherals
+iBUYPOWER	hardware	high	prebuilt PC maker
+CyberPowerPC	hardware	high	prebuilt PC maker
+MAINGEAR	hardware	high	prebuilt PC maker; all caps
+MINISFORUM	hardware	medium	mini PC maker; site uses all caps
+Beelink	hardware	high	mini PC maker
+LattePanda	hardware	high	single-board computer
+ODROID	hardware	high	single-board computer
+BeagleBone	hardware	high	single-board computer
+RP2040	hardware	high	Raspberry Pi microcontroller
+Audio-Technica	hardware	high	audio brand
+beyerdynamic	hardware	high	audio brand; lowercase official (beyerdynamic.com)
+AKG	hardware	high	audio brand
+KEF	hardware	high	speaker brand
+FiiO	hardware	high	audio brand
+HIFIMAN	hardware	medium	headphone brand; site uses all caps
+Astell&Kern	hardware	high	audio player brand; no spaces around &
+iBasso	hardware	high	audio player brand
+iFi	hardware	high	iFi audio DAC brand
+HiBy	hardware	high	audio player brand
+SMSL	hardware	medium	DAC/amp brand
+Sonos	hardware	high	speaker brand
+Skullcandy	hardware	high	audio brand
+JLab	hardware	high	audio brand
+Jabra	hardware	high	audio brand
+EarPods	hardware	high	Apple wired earbuds
+HomePod mini	hardware	high	Apple speaker; lowercase mini (apple.com)
+QuietComfort	hardware	high	Bose headphone line
+SoundLink	hardware	high	Bose speaker line
+Powerbeats	hardware	high	Beats earbuds
+LinkBuds	hardware	high	Sony earbuds
+INZONE	hardware	high	Sony gaming gear; all caps
+WH-1000XM5	hardware	high	Sony headphones
+WH-1000XM6	hardware	high	Sony headphones (2025)
+WF-1000XM5	hardware	high	Sony earbuds
+aptX	hardware	high	Qualcomm Bluetooth codec; lowercase a
+Auracast	hardware	high	Bluetooth LE Audio broadcast
+LC3	hardware	high	Bluetooth LE Audio codec
+GoXLR	hardware	high	streaming audio mixer
+AVerMedia	hardware	high	capture card maker; internal M
+Elgato	hardware	high	streaming gear brand
+SM7B	hardware	high	Shure microphone
+MV7	hardware	high	Shure microphone
+Insta360	hardware	high	360/action camera maker
+FUJIFILM	hardware	high	camera maker; all-caps official (fujifilm.com)
+instax	hardware	high	Fujifilm instant camera; lowercase official
+X100VI	hardware	high	Fujifilm camera
+X100V	hardware	high	Fujifilm camera
+GFX	hardware	high	Fujifilm medium format line
+LUMIX	hardware	high	Panasonic camera brand; all caps
+OM SYSTEM	hardware	high	former Olympus camera brand; all caps official
+PENTAX	hardware	high	Ricoh camera brand; all caps
+Hasselblad	hardware	high	camera maker
+Leica	hardware	high	camera maker
+ZV-E10	hardware	high	Sony vlog camera
+Cyber-shot	hardware	high	Sony compact camera line
+Handycam	hardware	high	Sony camcorder line
+L-Mount	hardware	high	lens mount alliance styling
+E-mount	hardware	high	Sony lens mount; lowercase m
+CinemaDNG	hardware	high	raw video format
+XAVC	hardware	high	Sony video codec
+AVCHD	hardware	high	camcorder format
+HERO13	hardware	high	GoPro camera; HERO all caps (gopro.com)
+HERO12	hardware	high	GoPro camera
+MAX2	hardware	high	GoPro 360 camera (2025); verified investor.gopro.com
+Osmo	hardware	high	DJI handheld line
+Mavic	hardware	high	DJI drone line
+Avata	hardware	high	DJI FPV drone
+Zhiyun	hardware	high	gimbal maker
+reMarkable	hardware	high	e-paper tablet; lowercase r
+BOOX	hardware	high	Onyx e-reader brand; all caps
+PocketBook	hardware	high	e-reader brand
+Kindle	hardware	high	Amazon e-reader; also common word (to kindle)
+Paperwhite	hardware	high	Kindle model
+Kobo	hardware	high	Rakuten e-reader
+XREAL	hardware	high	AR glasses (formerly Nreal); all caps
+VIVE	hardware	high	HTC VR brand; all caps
+Quest 3S	hardware	high	Meta headset; 3S capital
+PS VR2	hardware	high	PlayStation VR2 short name
+PSVR2	hardware	medium	common unofficial concatenation of PS VR2
+Ray-Ban	brand	high	eyewear (Ray-Ban Meta glasses); dictionary only has RayBan
+Varjo	hardware	high	VR headset maker
+TP-Link	hardware	high	networking brand
+UniFi	hardware	high	Ubiquiti product line
+Ubiquiti	hardware	high	networking brand
+eero	hardware	high	Amazon mesh Wi-Fi; lowercase official (eero.com)
+NETGEAR	hardware	high	networking brand; all caps
+Nighthawk	hardware	high	NETGEAR router line; also common word (bird)
+Orbi	hardware	high	NETGEAR mesh line
+Linksys	hardware	high	networking brand
+MikroTik	hardware	high	networking brand
+RouterOS	hardware	high	MikroTik OS
+ZeroTier	hardware	high	virtual networking
+Tailscale	internet	high	VPN mesh service
+GL.iNet	hardware	high	travel router maker; dotted with lowercase i
+Firewalla	hardware	high	firewall appliance
+Starlink	internet	high	SpaceX satellite internet
+eufy	hardware	high	Anker smart-home brand; lowercase official
+Anker	hardware	high	charging/accessory brand
+Soundcore	hardware	high	Anker audio brand
+LIFX	hardware	high	smart lighting; all caps
+SwitchBot	hardware	high	smart-home brand
+Aqara	hardware	high	smart-home brand
+ecobee	hardware	high	smart thermostat; lowercase official
+iRobot	hardware	high	robot vacuum maker
+Roomba	hardware	high	iRobot vacuum
+Roborock	hardware	high	robot vacuum maker
+ECOVACS	hardware	high	robot vacuum maker; all caps
+DEEBOT	hardware	high	ECOVACS vacuum line; all caps
+Dreame	hardware	high	robot vacuum maker
+Z-Wave	hardware	high	smart-home protocol
+Govee	hardware	high	smart lighting brand
+Nanoleaf	hardware	high	smart lighting brand
+Wyze	hardware	high	smart-home camera brand
+Arlo	hardware	high	security camera brand; also given name
+SHIELD TV	hardware	medium	NVIDIA streamer; SHIELD all caps; bare SHIELD is a common word
+WHOOP	hardware	high	fitness wearable; all caps (whoop.com); also interjection
+COROS	hardware	high	sports watch brand; all caps
+Amazfit	hardware	high	wearable brand
+Suunto	hardware	high	sports watch brand
+Withings	hardware	high	health device brand
+EcoFlow	hardware	high	portable power station brand
+Jackery	hardware	high	portable power station brand
+BLUETTI	hardware	high	portable power station brand; all caps
+Bambu Lab	hardware	high	3D printer maker
+Creality	hardware	high	3D printer maker
+Prusa	hardware	high	3D printer maker
+ELEGOO	hardware	high	3D printer maker; all caps (elegoo.com)
+Anycubic	hardware	high	3D printer maker
+Snapmaker	hardware	high	3D printer maker
+xTool	hardware	high	laser engraver maker; lowercase x
+Glowforge	hardware	high	laser cutter maker
+Cricut	hardware	high	cutting machine maker
+Galaxy	mobile	high	Samsung phone/tablet brand; also common English word
+Galaxy Z Fold7	mobile	high	Samsung foldable; no space before 7 (samsung.com)
+Galaxy Z Flip7	mobile	high	Samsung foldable; no space before 7 (samsung.com)
+Bixby	mobile	high	Samsung assistant
+DeX	mobile	high	Samsung desktop mode; capital X
+S Pen	mobile	high	Samsung stylus
+XCover	mobile	high	Samsung rugged phone line
+Pixel	mobile	high	Google phone brand; also common English word
+Pixelbook	mobile	high	Google laptop
+iPad mini	mobile	high	Apple tablet; lowercase mini (apple.com)
+Mac mini	mobile	high	Apple desktop; lowercase mini; needed because dictionary has MAC
+Mac Pro	mobile	high	Apple desktop; needed because dictionary has MAC
+Mac Studio	mobile	high	Apple desktop; needed because dictionary has MAC
+MacBook Neo	mobile	high	Apple budget laptop (Mar 2026, apple.com); needed because dictionary has NEO
+AppleCare	mobile	high	Apple warranty service
+AppleCare+	mobile	high	Apple warranty service; plus sign
+iCloud+	mobile	high	Apple subscription; plus sign
+ProMotion	mobile	high	Apple high-refresh display
+ProRAW	mobile	high	Apple photo format; RAW all caps
+Genmoji	mobile	high	Apple generated emoji
+POCO	mobile	high	Xiaomi sub-brand; all caps official
+vivo	mobile	high	phone maker; lowercase official (vivo.com)
+iQOO	mobile	high	vivo sub-brand
+realme	mobile	high	phone maker; lowercase official (realme.com)
+HONOR	mobile	high	phone maker; all-caps official since 2021 (honor.com)
+EMUI	mobile	high	Huawei Android skin
+MIUI	mobile	high	Xiaomi Android skin (legacy)
+HyperOS	mobile	high	Xiaomi OS
+ColorOS	mobile	high	OPPO Android skin
+OxygenOS	mobile	high	OnePlus Android skin
+CMF	mobile	high	CMF by Nothing sub-brand
+Nothing Phone	mobile	medium	Nothing handset line; Nothing is a common word
+moto g	mobile	medium	Motorola styles lowercase "moto g" (motorola.com); Wikipedia uses Moto G
+razr	mobile	medium	Motorola foldable; lowercase on motorola.com, Wikipedia uses Razr
+ThinkPhone	mobile	high	Motorola business phone
+Xperia	mobile	high	Sony phone brand
+Fairphone	mobile	high	modular phone maker
+TECNO	mobile	high	Transsion phone brand; all caps
+Infinix	mobile	high	Transsion phone brand
+itel	mobile	high	Transsion phone brand; lowercase official
+HMD	mobile	high	HMD Global phone maker
+nubia	mobile	high	ZTE sub-brand; lowercase official logo/name
+REDMAGIC	mobile	medium	nubia gaming phone brand; official site all caps, Wikipedia Redmagic
+Meizu	mobile	high	phone maker
+ZTE	mobile	high	phone/telecom maker
+MatePad	mobile	high	Huawei tablet
+Tizen	mobile	high	Samsung OS
+EA	gaming	high	Electronic Arts
+EA app	gaming	high	EA PC launcher; lowercase app (ea.com)
+EA SPORTS	gaming	high	EA label; all-caps official
+EA SPORTS FC	gaming	high	football series (ex-FIFA); all-caps official
+id Software	gaming	high	DOOM/Quake studio; lowercase id
+miHoYo	gaming	high	Genshin Impact developer (Chinese entity)
+HoYoverse	gaming	high	miHoYo global brand
+HoYoPlay	gaming	high	HoYoverse launcher
+FromSoftware	gaming	high	Elden Ring studio
+CD PROJEKT RED	gaming	high	Witcher studio; parent company renamed CD PROJEKT RED S.A. Aug 2026
+CD PROJEKT	gaming	high	former parent company name; all caps
+ZeniMax	gaming	high	Bethesda parent
+Take-Two	gaming	high	publisher
+2K	gaming	high	publisher (2K Games); also resolution term, same casing
+THQ	gaming	high	THQ Nordic
+KRAFTON	gaming	high	PUBG publisher; all caps
+NCSOFT	gaming	high	Korean publisher; all caps
+Nexon	gaming	high	Korean publisher
+Netmarble	gaming	high	Korean publisher
+Com2uS	gaming	high	Korean publisher; odd casing
+NetherRealm	gaming	high	Mortal Kombat studio
+TiMi	gaming	high	Tencent TiMi Studio Group
+GungHo	gaming	high	Puzzle & Dragons publisher
+DeNA	gaming	high	Japanese mobile publisher
+FuRyu	gaming	high	Japanese publisher
+LEVEL-5	gaming	high	Japanese studio; all caps with hyphen
+PlatinumGames	gaming	high	Bayonetta studio; one word
+KOEI TECMO	gaming	medium	publisher; all caps in official English (koeitecmoamerica.com); Wikipedia Koei Tecmo
+ATLUS	gaming	medium	Persona publisher; atlus.com uses ATLUS
+SHIFT UP	gaming	medium	Stellar Blade / NIKKE studio; all caps
+PLAION	gaming	medium	publisher (ex-Koch Media); all caps
+NIS America	gaming	high	publisher
+XSEED	gaming	high	publisher; all caps
+WayForward	gaming	high	studio; internal F
+DON'T NOD	gaming	medium	French studio; all caps with apostrophe; also written Dontnod
+11 bit studios	gaming	high	Frostpunk studio; lowercase official
+thatgamecompany	gaming	high	Journey studio; lowercase one word
+ConcernedApe	gaming	high	Stardew Valley developer
+Re-Logic	gaming	high	Terraria developer
+Innersloth	gaming	high	Among Us developer
+inXile	gaming	high	Wasteland studio; lowercase i
+BioWare	gaming	high	Mass Effect studio
+DICE	gaming	high	Battlefield studio; also word dice
+MachineGames	gaming	high	Wolfenstein studio
+ArenaNet	gaming	high	Guild Wars studio
+SIE	gaming	high	Sony Interactive Entertainment
+Bethesda	gaming	high	publisher
+Blizzard	gaming	high	publisher; also weather word
+Activision	gaming	high	publisher
+Ubisoft	gaming	high	publisher
+Capcom	gaming	high	publisher (logo all caps; text Capcom)
+Konami	gaming	high	publisher
+Square Enix	gaming	high	publisher
+Bandai Namco	gaming	high	publisher
+Nintendo	gaming	high	platform holder
+Mojang	gaming	high	Minecraft studio
+Supercell	gaming	high	mobile studio
+Niantic	gaming	high	Pokémon GO studio
+Cygames	gaming	high	Japanese studio
+Hypergryph	gaming	high	Arknights developer
+Yostar	gaming	high	publisher
+Pokémon	gaming	high	accented é; only matches accented spellings
+Pokémon GO	gaming	high	GO all caps
+Pokemon GO	gaming	medium	unaccented variant of Pokémon GO
+VALORANT	gaming	high	Riot game; all-caps official (playvalorant.com)
+TFT	gaming	high	Teamfight Tactics
+LoL	gaming	medium	League of Legends abbreviation; also slang lol
+Dota	gaming	high	Valve styling Dota 2 (not DOTA)
+Counter-Strike	gaming	high	Valve shooter
+CS2	gaming	high	Counter-Strike 2
+StarCraft	gaming	high	Blizzard RTS; internal C
+WoW	gaming	medium	World of Warcraft; also interjection wow
+CoD	gaming	medium	Call of Duty abbreviation; also fish
+GTA	gaming	high	Grand Theft Auto
+RDR2	gaming	high	Red Dead Redemption 2
+DOOM	gaming	high	id Software official all caps
+ELDEN RING	gaming	high	FromSoftware; official all caps (bandainamcoent.com); Wikipedia Elden Ring
+DARK SOULS	gaming	high	FromSoftware; official all caps
+ARMORED CORE	gaming	high	FromSoftware; official all caps
+NIKKE	gaming	high	Goddess of Victory: NIKKE
+FINAL FANTASY	gaming	high	Square Enix official all caps
+FFXIV	gaming	high	Final Fantasy XIV
+FFVII	gaming	high	Final Fantasy VII
+FFXVI	gaming	high	Final Fantasy XVI
+DRAGON QUEST	gaming	high	Square Enix official all caps
+NieR	gaming	high	Square Enix series; capital R
+PAC-MAN	gaming	high	Bandai Namco official all caps
+TEKKEN	gaming	high	Bandai Namco official all caps
+SOULCALIBUR	gaming	high	Bandai Namco official all caps
+DEATH STRANDING	gaming	high	Kojima Productions official all caps
+HELLDIVERS	gaming	high	Arrowhead; Steam title all caps
+HITMAN	gaming	high	IO Interactive official all caps
+OCTOPATH TRAVELER	gaming	high	Square Enix official all caps
+DELTARUNE	gaming	high	Toby Fox; official all caps
+ASTRO BOT	gaming	medium	Team ASOBI; styled ASTRO BOT on playstation.com
+BATTLETECH	gaming	medium	Harebrained Schemes 2018 game; all caps
+XCOM	gaming	high	Firaxis series
+BioShock	gaming	high	2K series; internal S
+eFootball	gaming	high	Konami football; lowercase e
+Baldur's Gate	gaming	high	apostrophe (naive capitalizers may output Baldur'S)
+BG3	gaming	high	Baldur's Gate 3
+Assassin's Creed	gaming	high	Ubisoft series; apostrophe
+Garry's Mod	gaming	high	Facepunch game; apostrophe
+GMod	gaming	high	Garry's Mod abbreviation
+Five Nights at Freddy's	gaming	high	lowercase at; apostrophe
+FNAF	gaming	high	Five Nights at Freddy's abbreviation
+L4D2	gaming	high	Left 4 Dead 2
+TF2	gaming	high	Team Fortress 2
+TLOU	gaming	high	The Last of Us
+Slay the Spire	gaming	high	lowercase the
+Escape from Tarkov	gaming	high	lowercase from
+Need for Speed	gaming	high	lowercase for
+Like a Dragon	gaming	high	Yakuza series; lowercase a
+Dungeons & Dragons	gaming	high	tabletop RPG
+D&D	gaming	high	Dungeons & Dragons
+MTG	gaming	high	Magic: The Gathering
+inFAMOUS	gaming	high	Sucker Punch series; odd casing
+LittleBigPlanet	gaming	high	Media Molecule series
+PaRappa	gaming	high	PaRappa the Rapper
+WarioWare	gaming	high	Nintendo series
+EarthBound	gaming	high	Nintendo series
+OutRun	gaming	high	SEGA series
+NiGHTS	gaming	high	SEGA NiGHTS into Dreams
+RollerCoaster Tycoon	gaming	high	internal C
+EverQuest	gaming	high	MMO
+RuneScape	gaming	high	Jagex MMO
+OSRS	gaming	high	Old School RuneScape
+MapleStory	gaming	high	Nexon MMO
+FarmVille	gaming	high	Zynga game
+AdVenture Capitalist	gaming	high	Hyper Hippo idle game; capital V
+SteamWorld	gaming	high	Thunderful series
+GoldenEye	gaming	high	Rare shooter
+TimeSplitters	gaming	high	shooter series
+LocoRoco	gaming	high	PSP game
+WipEout	gaming	high	racing series official styling
+MediEvil	gaming	high	PlayStation series official styling
+MotorStorm	gaming	high	racing series
+PixelJunk	gaming	high	Q-Games series
+MechWarrior	gaming	high	mech series
+EVE Online	gaming	high	CCP MMO
+NetHack	gaming	high	roguelike
+DayZ	gaming	high	survival game
+MultiVersus	gaming	high	WB fighting game; capital V
+ARC Raiders	gaming	high	Embark shooter; ARC all caps
+THE FINALS	gaming	high	Embark shooter; official all caps
+XDefiant	gaming	high	Ubisoft shooter (shut down 2025)
+SMITE	gaming	high	Hi-Rez MOBA; all caps
+VRChat	gaming	high	social VR platform
+SUPERHOT	gaming	high	FPS; official all caps
+iRacing	gaming	high	sim racing; lowercase i
+rFactor	gaming	high	sim racing; lowercase r
+BeamNG	gaming	high	driving sim developer
+BeamNG.drive	gaming	high	driving sim; dotted
+DiRT	gaming	medium	Codemasters rally series styling DiRT
+maimai	gaming	high	SEGA rhythm arcade; lowercase
+OMORI	gaming	high	RPG; official all caps
+DDLC	gaming	high	Doki Doki Literature Club
+GRIS	gaming	medium	Nomada Studio game; all caps
+MLBB	gaming	high	Mobile Legends: Bang Bang
+FGO	gaming	high	Fate/Grand Order
+Minecraft	gaming	high	Mojang game
+Fortnite	gaming	high	Epic game
+Roblox	gaming	high	platform
+Overwatch	gaming	high	Blizzard shooter; also common word
+Warframe	gaming	high	Digital Extremes game
+Terraria	gaming	high	Re-Logic game
+Palworld	gaming	high	Pocketpair game
+Balatro	gaming	high	LocalThunk game
+Joy-Con	gaming	high	Nintendo controller
+amiibo	gaming	high	Nintendo figures; lowercase official
+eShop	gaming	high	Nintendo eShop; lowercase e
+StreetPass	gaming	high	Nintendo 3DS feature
+GameChat	gaming	high	Nintendo Switch 2 feature; verified nintendo.com
+NSO	gaming	high	Nintendo Switch Online
+DualSense	gaming	high	PS5 controller
+DUALSHOCK	gaming	high	PS4 controller; Sony official all caps
+SIXAXIS	gaming	high	PS3 controller; all caps
+PSN	gaming	high	PlayStation Network
+PS Plus	gaming	high	PlayStation Plus
+PS Vita	gaming	high	Sony handheld (dictionary has only PSVita)
+N64	gaming	high	Nintendo 64
+GBA	gaming	high	Game Boy Advance
+GBC	gaming	high	Game Boy Color
+NDS	gaming	high	Nintendo DS
+Wii	gaming	high	Nintendo console
+TurboGrafx-16	gaming	high	NEC console
+NEOGEO	gaming	medium	SNK styling (e.g. NEOGEO mini)
+Dreamcast	gaming	high	SEGA console
+Atari	gaming	high	console maker
+SteamOS	gaming	high	Valve OS
+AYANEO	gaming	high	handheld PC maker; all caps
+GPD	gaming	high	handheld PC maker
+ANBERNIC	gaming	medium	retro handheld maker; site uses all caps
+OneXPlayer	gaming	medium	handheld PC maker; store styles ONEXPLAYER
+Playdate	gaming	high	Panic handheld
+GOG.com	gaming	high	game store
+itch.io	gaming	high	indie game store; lowercase dotted
+Battle.net	gaming	high	Blizzard launcher
+ModDB	gaming	high	mod site
+HowLongToBeat	gaming	high	game-length site
+IGDB	gaming	high	game database
+MobyGames	gaming	high	game database
+OpenCritic	gaming	high	review aggregator
+Metacritic	gaming	high	review aggregator
+IGN	gaming	high	games media
+GameSpot	gaming	high	games media
+GamesRadar+	gaming	high	games media; plus sign
+TheGamer	gaming	high	games media
+Eurogamer	gaming	high	games media
+PCSX2	gaming	high	PS2 emulator
+DuckStation	gaming	high	PS1 emulator
+xemu	gaming	high	Xbox emulator; lowercase
+MAME	gaming	high	arcade emulator
+ScummVM	gaming	high	adventure game engine
+LaunchBox	gaming	high	game launcher
+Playnite	gaming	high	game launcher
+Ryujinx	gaming	high	Switch emulator
+Cemu	gaming	high	Wii U emulator
+TwitchCon	gaming	high	convention
+DreamHack	gaming	high	esports festival
+gamescom	gaming	high	trade fair; lowercase official
+ESL	gaming	high	esports organizer (ESL FACEIT Group)
+FaZe	gaming	high	FaZe Clan esports org
+OpTic	gaming	high	OpTic Gaming esports org
+NAVI	gaming	medium	Natus Vincere; rebranded to all-caps NAVI in 2023 (was Na'Vi)
+Fnatic	gaming	high	esports org
+TSM	gaming	high	esports org
+T1	gaming	high	esports org
+Bluesky	internet	high	social network
+Threads	internet	medium	Meta social app; common English word
+Discord	internet	high	chat platform; also common word
+Patreon	internet	high	creator platform
+Substack	internet	high	newsletter platform
+Letterboxd	internet	high	film diary site
+Cash App	internet	high	Block payment app
+iHeart	internet	high	iHeartMedia brand
+SiriusXM	internet	high	satellite radio
+Disney+	internet	high	streaming; plus sign
+Apple TV+	internet	medium	renamed "Apple TV" Oct 2025 (Variety); for legacy file names
+Paramount+	internet	high	streaming; plus sign
+ESPN+	internet	high	streaming; plus sign
+Peacock	internet	medium	NBCU streaming; common word
+Hulu	internet	high	streaming
+Netflix	internet	high	streaming
+Tubi	internet	high	streaming
+Crunchyroll	internet	high	anime streaming
+Fubo	internet	high	sports streaming; renamed from fuboTV 2023 (ir.fubo.tv)
+DAZN	internet	high	sports streaming; all caps
+MUBI	internet	high	film streaming; all caps
+BritBox	internet	high	UK streaming; internal B
+iPlayer	internet	high	BBC iPlayer
+ITVX	internet	high	ITV streaming
+JioHotstar	internet	high	Indian streaming (2025 merger)
+JioCinema	internet	medium	Indian streaming; merged into JioHotstar 2025
+iQIYI	internet	high	Chinese streaming
+niconico	internet	high	Japanese video site; lowercase official
+ABEMA	internet	high	Japanese streaming; all caps
+U-NEXT	internet	high	Japanese streaming; all caps
+HIDIVE	internet	high	anime streaming; all caps
+iview	internet	medium	ABC iview (Australia); lowercase
+9Now	internet	high	Nine Network streaming
+7plus	internet	high	Seven Network streaming; lowercase plus
+ZEE5	internet	high	Indian streaming
+beIN	internet	high	beIN SPORTS; lowercase b, IN caps
+Canal+	internet	high	French broadcaster; plus sign
+RTL+	internet	high	German streaming; plus sign
+RaiPlay	internet	high	Italian streaming
+TIMvision	internet	high	Italian streaming
+SkyShowtime	internet	high	European streaming
+Sun NXT	internet	medium	Indian streaming; NXT all caps
+OSN+	internet	high	Middle East streaming; plus sign
+Plex	internet	high	media server; also common word/prefix
+Jellyfin	internet	high	media server
+Emby	internet	high	media server
+Kodi	internet	high	media center
+Spotify	internet	high	music streaming
+TIDAL	internet	high	music streaming; all caps official
+Deezer	internet	high	music streaming
+Qobuz	internet	high	music streaming
+Audible	internet	high	audiobooks; also common word
+Shazam	internet	high	music recognition; also exclamation / comics hero
+Last.fm	internet	high	scrobbling service; dotted lowercase fm
+JioSaavn	internet	high	Indian music streaming
+JOOX	internet	high	Tencent music streaming; all caps
+KKBOX	internet	high	Taiwanese music streaming; all caps
+Boomplay	internet	high	African music streaming
+Reddit	internet	high	forum site
+Tumblr	internet	high	blog platform
+Pinterest	internet	high	image board
+Snapchat	internet	high	social app
+Weibo	internet	high	Chinese social network
+Douyin	internet	high	Chinese TikTok
+Xiaohongshu	internet	high	Chinese social app
+RedNote	internet	high	Xiaohongshu English name
+LINE	internet	medium	messaging app; all caps official; common word
+KakaoTalk	internet	high	Korean messenger
+BeReal	internet	high	photo app
+Lemon8	internet	high	ByteDance app
+CapCut	internet	high	video editor
+Picsart	internet	high	photo editor
+GIPHY	internet	high	GIF platform; all caps official
+Imgur	internet	high	image host
+Flickr	internet	high	photo site
+500px	internet	medium	photo site; lowercase px
+Dailymotion	internet	high	video site
+Mastodon	internet	high	fediverse network; also common word (animal)
+Character.AI	internet	high	chatbot app; dotted AI caps
+Buy Me a Coffee	internet	high	creator tips; lowercase a
+beehiiv	internet	high	newsletter platform; lowercase official
+Gumroad	internet	high	creator store
+Linktree	internet	high	link-in-bio
+TeePublic	internet	high	print-on-demand
+Society6	internet	high	print-on-demand
+Redbubble	internet	high	print-on-demand
+Printful	internet	high	print-on-demand
+Printify	internet	high	print-on-demand
+Zelle	internet	high	payments
+Afterpay	internet	high	buy-now-pay-later
+SoFi	internet	high	fintech; capital F
+Robinhood	internet	high	brokerage app; also folk-hero name
+Payoneer	internet	high	payments
+NETELLER	internet	high	e-wallet; all caps
+Skrill	internet	high	e-wallet
+Paytm	internet	high	Indian payments
+TurboTax	internet	high	tax software
+YNAB	internet	high	You Need A Budget
+NerdWallet	internet	high	personal finance site
+Splitwise	internet	high	expense splitting
+Monzo	internet	high	UK bank app
+Nubank	internet	high	Brazilian bank app
+Webull	internet	high	brokerage app
+Raycast	internet	high	macOS launcher
+Bitwarden	internet	high	password manager
+Surfshark	internet	high	VPN
+Mullvad	internet	high	VPN
+CyberGhost	internet	high	VPN
+IPVanish	internet	high	VPN
+LastPass	internet	high	password manager
+NordPass	internet	high	password manager
+RoboForm	internet	high	password manager
+Dashlane	internet	high	password manager
+Todoist	internet	high	task app
+TickTick	internet	high	task app
+OmniFocus	internet	high	task app
+Any.do	internet	high	task app; dotted
+Trello	internet	high	kanban app
+monday.com	internet	high	work management; lowercase official
+iA Writer	internet	high	writing app; iA lowercase i
+Logseq	internet	high	notes app
+RemNote	internet	high	notes app
+AFFiNE	internet	high	notes app; odd casing official
+Readwise	internet	high	reading app
+Instapaper	internet	high	read-later app
+Raindrop.io	internet	high	bookmark manager
+Feedly	internet	high	RSS reader
+Inoreader	internet	high	RSS reader
+NetNewsWire	internet	high	RSS reader
+Vivaldi	internet	high	browser
+Opera GX	internet	high	gaming browser
+BetterTouchTool	internet	high	macOS utility
+CleanShot	internet	high	macOS screenshot app (CleanShot X)
+CleanMyMac	internet	high	macOS cleaner
+TextExpander	internet	high	snippet app
+Setapp	internet	high	app subscription
+Snagit	internet	high	screenshot tool
+Calendly	internet	high	scheduling
+HEY	internet	medium	Basecamp email service; all caps; common interjection
+Fastmail	internet	high	email provider
+Tuta	internet	high	email (formerly Tutanota)
+MEGA	internet	medium	cloud storage; all caps; common prefix/word
+Sync.com	internet	high	cloud storage
+Backblaze	internet	high	cloud backup
+Tresorit	internet	high	cloud storage
+Canva	internet	high	design app
+Miro	internet	high	whiteboard app; also Joan Miró / given name
+Lucidchart	internet	high	diagram app
+Excalidraw	internet	high	whiteboard app
+tldraw	internet	high	whiteboard app; lowercase official
+QuillBot	internet	high	writing tool
+DeepL	internet	high	translator; capital L
+Babbel	internet	high	language app
+Memrise	internet	high	language app
+Anki	internet	high	flashcards
+Quizlet	internet	high	flashcards
+Coursera	internet	high	e-learning
+Udemy	internet	high	e-learning
+Skillshare	internet	high	e-learning
+Codecademy	internet	high	e-learning
+Chess.com	internet	high	chess site
+Lichess	internet	high	chess site
+Wordle	internet	high	NYT puzzle
+MyFitnessPal	internet	high	fitness app
+Peloton	internet	high	fitness brand; also common word (cycling pack)
+Zwift	internet	high	cycling app
+Headspace	internet	high	meditation app; also common word
+Komoot	internet	high	route planner
+Tinder	internet	high	dating app; also common word
+Bumble	internet	high	dating app; also common word
+Uber	internet	high	ride-hailing; also German über / slang
+Lyft	internet	high	ride-hailing; homophone of lift
+Grubhub	internet	high	food delivery
+Instacart	internet	high	grocery delivery
+Deliveroo	internet	high	food delivery
+Vrbo	internet	high	vacation rentals; not all caps
+Booking.com	internet	high	travel site
+Tripadvisor	internet	high	travel site; lowercase a since 2020 rebrand
+KAYAK	internet	high	travel search; all caps official
+Skyscanner	internet	high	travel search
+Waze	internet	high	navigation
+Citymapper	internet	high	transit app
+Zillow	internet	high	real estate
+Redfin	internet	high	real estate
+Yelp	internet	high	reviews; also common word
+OpenTable	internet	high	restaurant booking
+craigslist	internet	high	classifieds; lowercase official
+OfferUp	internet	high	marketplace
+Poshmark	internet	high	resale marketplace
+Depop	internet	high	resale marketplace
+Vinted	internet	high	resale marketplace
+Mercari	internet	high	marketplace
+GOAT	internet	medium	sneaker marketplace; all caps; common word
+Temu	internet	high	marketplace
+SHEIN	internet	high	fashion retailer; all caps official
+JD.com	internet	high	Chinese retailer
+Rakuten	internet	high	Japanese retailer
+Flipkart	internet	high	Indian retailer
+Lazada	internet	high	SE Asian marketplace
+OLX	internet	high	classifieds; all caps
+Qoo10	internet	high	marketplace
+ZOZOTOWN	internet	high	Japanese fashion retailer; all caps
+Wayfair	internet	high	furniture retailer
+Chewy	internet	high	pet retailer; also common word
+Goodreads	internet	high	book site
+Wattpad	internet	high	story site
+AO3	internet	high	Archive of Our Own
+WEBTOON	internet	high	comics platform; all caps official
+MangaDex	internet	high	manga site
+JustWatch	internet	high	streaming guide
+Trakt	internet	high	watch tracker
+StoryGraph	internet	high	book tracker (The StoryGraph)
+Backloggd	internet	high	game tracker
+RateYourMusic	internet	high	music database
+AllMusic	internet	high	music database
+setlist.fm	internet	high	setlist database; lowercase dotted
+Bandsintown	internet	high	concert app
+Songkick	internet	high	concert app
+Ticketmaster	internet	high	ticketing
+StubHub	internet	high	ticketing
+SeatGeek	internet	high	ticketing
+Eventbrite	internet	high	ticketing
+wikiHow	internet	high	how-to site; lowercase w
+TechCrunch	internet	high	tech media
+ZDNET	internet	high	tech media; all caps since 2022
+WIRED	internet	high	tech media; all caps official
+9to5Mac	internet	high	tech media
+9to5Google	internet	high	tech media
+MacRumors	internet	high	tech media
+AppleInsider	internet	high	tech media
+XDA	internet	high	XDA Developers
+Tom's Hardware	internet	high	tech media; apostrophe
+AnandTech	internet	high	tech media (closed 2024)
+RTINGS	internet	medium	review site (RTINGS.com)
+Notebookcheck	internet	high	review site
+GSMArena	internet	high	phone database
+DXOMARK	internet	high	camera/phone benchmark; verified corp.dxomark.com (formerly DxOMark)
+UserBenchmark	internet	high	benchmark site
+PassMark	internet	high	benchmark software
+Geekbench	internet	high	benchmark; lowercase b
+3DMark	internet	high	benchmark; digit first
+Cinebench	internet	high	benchmark
+PCMark	internet	high	benchmark
+GPU-Z	internet	high	GPU utility
+RivaTuner	internet	high	overlay utility
+OCCT	internet	high	stress test
+FurMark	internet	high	GPU stress test
+StreamElements	internet	high	streaming tools
+XSplit	internet	high	streaming software
+Nightbot	internet	high	chat bot
+Voicemod	internet	high	voice changer
+Musical.ly	internet	high	TikTok predecessor; dotted
+CrazyGames	internet	high	web games portal
+Newgrounds	internet	high	web games portal
+Miniclip	internet	high	web games portal
+AMC+	internet	high	streaming; plus sign
+BET+	internet	high	streaming; plus sign
+Discovery+	internet	high	streaming; plus sign
+MGM+	internet	high	streaming (ex-Epix); plus sign
+CuriosityStream	internet	high	documentary streaming
+hoopla	internet	medium	library streaming; lowercase official; also common word
+OverDrive	internet	high	library ebook platform; internal D
+IGTV	internet	high	Instagram TV (discontinued)
+MrBeast	internet	high	creator brand
+PewDiePie	internet	high	creator
+MKBHD	internet	high	Marques Brownlee channel
+LTT	internet	high	Linus Tech Tips
+LEGO	brand	high	toy company; all-caps official (lego.com)
+H&M	brand	high	fashion retailer
+BYD	brand	high	Chinese automaker
+NIO	brand	high	Chinese EV maker; all caps official
+McLaren	brand	high	automaker; internal L
+adidas	brand	high	sportswear; lowercase official
+NPR	brand	high	US public radio
+NBC	brand	high	US network
+NBCUniversal	brand	high	media company
+FOX	brand	medium	Fox Corporation styles FOX; common word
+MS NOW	brand	high	MSNBC renamed Nov 2025 (Deadline)
+BET	brand	medium	TV network; common word
+A&E	brand	high	TV network
+WBD	brand	high	Warner Bros. Discovery
+STARZ	brand	high	premium network; all caps
+A24	brand	high	film studio
+MAPPA	brand	high	anime studio; all caps
+ufotable	brand	high	anime studio; lowercase official
+KyoAni	brand	high	Kyoto Animation
+CloverWorks	brand	high	anime studio
+Production I.G	brand	high	anime studio; I.G with no trailing dot
+VIZ Media	brand	high	manga publisher
+ILM	brand	high	Industrial Light & Magic
+IMAX	brand	high	cinema format
+ScreenX	brand	high	cinema format
+4DX	brand	high	cinema format
+RealD	brand	high	3D cinema tech
+NYT	brand	high	New York Times
+WSJ	brand	high	Wall Street Journal
+HuffPost	brand	high	news site
+VICE	brand	medium	media company; all caps; common word
+POLITICO	brand	high	news outlet; all caps official
+ITV	brand	high	UK broadcaster
+CBC	brand	high	Canadian broadcaster
+TMZ	brand	high	celebrity news
+NME	brand	high	music media
+IndieWire	brand	high	film media
+GQ	brand	high	magazine
+ELLE	brand	medium	magazine; all caps; also a given name
+TIME	brand	low	magazine styles TIME; very common word
+MarketWatch	brand	high	finance news
+C-SPAN	brand	high	US public affairs network
+HipHopDX	brand	high	music media
+WWD	brand	high	Women's Wear Daily
+i-D	brand	high	fashion magazine
+InStyle	brand	high	magazine
+Refinery29	brand	high	media site
+designboom	brand	high	design media; lowercase official
+Harper's BAZAAR	brand	high	magazine; BAZAAR all caps
+BAFTA	brand	high	film/games awards
+MINI	brand	medium	BMW car brand; all caps official; will also hit the word mini (iPad mini, Mac mini) unless phrase entries win
+Rolls-Royce	brand	high	automaker
+Mercedes-Benz	brand	high	automaker
+Mercedes-AMG	brand	high	performance division
+AMG	brand	high	Mercedes-AMG
+Mercedes-Maybach	brand	high	luxury sub-brand
+VW	brand	high	Volkswagen
+SEAT	brand	medium	Spanish automaker; all caps official; common word
+CUPRA	brand	high	Spanish automaker; all caps official
+JLR	brand	high	Jaguar Land Rover
+INFINITI	brand	high	Nissan luxury brand; all caps official
+IONIQ	brand	high	Hyundai EV line; all caps official
+Cybertruck	brand	high	Tesla truck
+Cybercab	brand	high	Tesla robotaxi
+F-150	brand	high	Ford truck
+Mach-E	brand	high	Ford Mustang Mach-E
+HUMMER	brand	medium	GMC HUMMER EV; all caps official
+XPENG	brand	medium	Chinese EV maker; official styling XPENG, Wikipedia XPeng
+Li Auto	brand	high	Chinese EV maker; needed because dictionary has LI (roman numeral)
+ZEEKR	brand	medium	Geely EV brand; official styling ZEEKR, Wikipedia Zeekr
+Lynk & Co	brand	high	Geely brand
+GWM	brand	high	Great Wall Motor
+MG	brand	high	automaker
+SU7	brand	high	Xiaomi EV
+YU7	brand	high	Xiaomi EV SUV
+AITO	brand	high	Huawei/Seres EV brand; all caps
+Harley-Davidson	brand	high	motorcycle maker
+KTM	brand	high	motorcycle maker
+Can-Am	brand	high	BRP vehicles
+NIU	brand	high	e-scooter maker; all caps
+VanMoof	brand	high	e-bike maker
+F1	brand	high	Formula 1
+NASCAR	brand	high	motorsport
+INDYCAR	brand	medium	official all caps (indycar.com); Wikipedia uses IndyCar
+MotoGP	brand	high	motorsport
+FIA	brand	high	motorsport governing body
+Audi	brand	high	automaker
+Volkswagen	brand	high	automaker
+Maserati	brand	high	automaker
+Stellantis	brand	high	auto group
+Peugeot	brand	high	automaker
+Renault	brand	high	automaker
+Polestar	brand	high	EV maker; also common word (pole star)
+Rivian	brand	high	EV maker
+Lexus	brand	high	automaker
+Subaru	brand	high	automaker
+Mazda	brand	high	automaker
+Kia	brand	high	automaker
+Chevrolet	brand	high	automaker
+Cadillac	brand	high	automaker
+Koenigsegg	brand	high	hypercar maker
+Bugatti	brand	high	hypercar maker
+Ducati	brand	high	motorcycle maker
+ASICS	brand	high	sportswear; all caps official
+lululemon	brand	high	athleisure; lowercase official
+UGG	brand	high	footwear; all caps
+HOKA	brand	high	running shoes; all caps official
+FILA	brand	high	sportswear; all caps
+G-Star RAW	brand	high	denim brand
+UNIQLO	brand	high	fashion retailer; all caps official
+Pull&Bear	brand	high	fashion retailer; no spaces
+COS	brand	low	H&M fashion brand; collides with cos (cosine)
+J.Crew	brand	high	fashion retailer
+BAPE	brand	high	streetwear
+Off-White	brand	high	fashion label
+YSL	brand	high	Yves Saint Laurent
+FENDI	brand	medium	fashion house; site uses all caps
+CELINE	brand	high	fashion house; all caps, no accent since 2012
+LOEWE	brand	high	fashion house; all caps
+DKNY	brand	high	fashion brand
+MCM	brand	high	fashion brand; same casing as roman numeral
+OMEGA	brand	medium	watchmaker; all caps official; Greek letter word
+TAG Heuer	brand	high	watchmaker; TAG all caps
+TUDOR	brand	medium	watchmaker; all caps official; historical term
+G-SHOCK	brand	high	Casio watch line; all caps
+IWC	brand	high	watchmaker
+EssilorLuxottica	brand	high	eyewear group
+Dr. Martens	brand	high	footwear; internal dot
+Arc'teryx	brand	high	outdoor apparel; apostrophe
+Levi's	brand	high	denim; apostrophe
+Abercrombie & Fitch	brand	high	fashion retailer
+Alexander McQueen	brand	high	fashion house; internal Q
+NYX	brand	high	cosmetics
+CeraVe	brand	high	skincare; internal V
+La Roche-Posay	brand	high	skincare
+Rolex	brand	high	watchmaker
+Cartier	brand	high	jeweler
+Gucci	brand	high	fashion house
+Prada	brand	high	fashion house
+Dior	brand	high	fashion house
+Balenciaga	brand	high	fashion house
+Burberry	brand	high	fashion house
+Versace	brand	high	fashion house
+Givenchy	brand	high	fashion house
+Moncler	brand	high	fashion house
+Sephora	brand	high	cosmetics retailer
+Glossier	brand	high	cosmetics
+KFC	brand	high	fast food
+Wendy's	brand	high	fast food; apostrophe
+Coca-Cola	brand	high	beverage
+PepsiCo	brand	high	beverage company
+KitKat	brand	high	confectionery; internal K
+M&M's	brand	high	confectionery
+OREO	brand	high	cookie; all caps official
+Kellogg's	brand	high	cereal; apostrophe
+P&G	brand	high	Procter & Gamble
+GE	brand	high	General Electric
+Starbucks	brand	high	coffee chain
+Chipotle	brand	high	restaurant chain; also common word (pepper)
+Nespresso	brand	high	coffee machines
+Keurig	brand	high	coffee machines
+SodaStream	brand	high	home carbonation
+De'Longhi	brand	high	appliance maker; internal apostrophe
+SharkNinja	brand	high	appliance maker
+Dyson	brand	high	appliance maker; also surname
+BLACK+DECKER	brand	high	tool maker; plus sign, all caps
+DEWALT	brand	high	tool maker; all caps official
+RYOBI	brand	high	tool maker; all caps
+CRAFTSMAN	brand	medium	tool brand; all caps official; common word
+STIHL	brand	high	tool maker; all caps
+YETI	brand	high	drinkware/coolers; all caps
+OXO	brand	high	kitchenware; all caps
+BIC	brand	high	pens/lighters; all caps
+Post-it	brand	high	3M notes; lowercase it
+NERF	brand	high	Hasbro toy line; all caps
+Play-Doh	brand	high	Hasbro modeling compound
+Hasbro	brand	high	toy maker
+Mattel	brand	high	toy maker
+Funko	brand	high	collectibles maker
+Crayola	brand	high	art supplies
+mophie	brand	high	charging accessories; lowercase official
+OtterBox	brand	high	phone cases
+PopSockets	brand	high	phone grips
+dbrand	brand	high	device skins; lowercase official
+CASETiFY	brand	high	phone cases; odd casing official
+RIMOWA	brand	high	luggage; all caps
+TUMI	brand	high	luggage; all caps
+JanSport	brand	high	backpacks; internal S
+REI	brand	high	outdoor retailer
+Trader Joe's	brand	high	grocery chain; apostrophe
+H-E-B	brand	high	Texas grocery chain
+7-Eleven	brand	high	convenience store
+B&H	brand	high	B&H Photo
+boohoo	brand	high	fashion retailer; lowercase official
+PrettyLittleThing	brand	high	fashion retailer
+ThredUp	brand	medium	resale site; company uses ThredUp (ir.thredup.com), older logo thredUP
+The RealReal	brand	high	luxury resale
+FARFETCH	brand	medium	luxury marketplace; all caps official
+JCPenney	brand	high	department store
+Macy's	brand	high	department store; apostrophe
+Kohl's	brand	high	department store; apostrophe
+Walmart	brand	high	retailer
+Costco	brand	high	retailer
+Lidl	brand	high	retailer
+Tesco	brand	high	retailer
+TCL	brand	high	TV/electronics maker
+VIZIO	brand	high	TV maker; all caps official
+HPE	brand	high	Hewlett Packard Enterprise
+TSMC	brand	high	chip foundry
+ASML	brand	high	lithography maker
+SoftBank	brand	high	Japanese conglomerate
+ESA	brand	high	European Space Agency
+JAXA	brand	high	Japanese space agency
+JetBlue	brand	high	airline
+KLM	brand	high	airline
+WestJet	brand	high	airline
+LATAM	brand	high	airline group
+IndiGo	brand	high	Indian airline; internal G
+airBaltic	brand	high	airline; lowercase a
+Jet2	brand	high	airline
+TUI	brand	high	travel group
+DiDi	brand	high	Chinese ride-hailing
+SIXT	brand	high	car rental; all caps
+DHL	brand	high	logistics
+T-Mobile	brand	high	carrier
+O2	brand	high	carrier
+KDDI	brand	high	Japanese carrier
+TELUS	brand	high	Canadian carrier; all caps
+Xfinity	brand	high	Comcast consumer brand
+NAVER	brand	high	Korean internet company; all caps official
+HYBE	brand	high	Korean entertainment company; all caps
+Coupang	brand	high	Korean retailer
+MUJI	brand	high	Japanese retailer; all caps
+Kyocera	brand	high	electronics maker
+B&O	brand	high	Bang & Olufsen
+Bang & Olufsen	brand	high	audio brand
+Bowers & Wilkins	brand	high	audio brand
+Oral-B	brand	high	toothbrush brand
+NIVEA	brand	high	skincare; all caps official
+HARIBO	brand	high	confectionery; all caps official
+teenage engineering	brand	medium	Swedish electronics maker; lowercase official
+MLS	brand	high	Major League Soccer
+UEFA	brand	high	European football body
+UFC	brand	high	MMA promotion
+PGA	brand	high	golf tour
+NCAA	brand	high	US college athletics
+ATP	brand	high	men's tennis tour; also biology acronym ATP (same casing)
+WTA	brand	high	women's tennis tour
+IOC	brand	high	International Olympic Committee
+EPL	brand	high	English Premier League abbreviation
+TiVo	brand	high	DVR brand; internal V
+Zune	brand	high	Microsoft media player (discontinued)
+DUPLO	brand	medium	LEGO preschool line; LEGO styles DUPLO in caps
+BIONICLE	brand	medium	LEGO line; official all caps
+Tamagotchi	brand	high	Bandai virtual pet

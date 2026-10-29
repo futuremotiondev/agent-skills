@@ -1,0 +1,43 @@
+{
+  "acceptance": {
+    "id": "T12",
+    "request": "Normalise .jpeg/.jpe to .jpg",
+    "maxRules": 2,
+    "expectedDesign": "RegEx on the extension + ext Case; no masks needed"
+  },
+  "name": "Normalize JPEG Extension",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "RegEx",
+      "comment": ".jpeg/.jpe to .jpg",
+      "config": {
+        "EXPRESSION": "\\.jpe(?:g)?$",
+        "REPLACE": ".jpg",
+        "SKIPEXTENSION": 0
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "Mixed extensions",
+      "files": [
+        "photo.JPEG",
+        "scan.jpe",
+        "doc.pdf"
+      ],
+      "expect": [
+        "doc.pdf",
+        "photo.jpg",
+        "scan.jpg"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "acceptance": {
+    "id": "T02",
+    "request": "Strip Envato timestamps",
+    "maxRules": 2,
+    "expectedDesign": "One anchored RegEx + ext Case"
+  },
+  "name": "Remove Envato Timestamp",
+  "variants": [
+    "FILE",
+    "CONTENTS"
+  ],
+  "casing": {
+    "mode": "none"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [
+    {
+      "id": "RegEx",
+      "comment": "Strip trailing Envato UTC timestamp",
+      "config": {
+        "EXPRESSION": "[-\\s]\\d{4}(?:[-\\s]\\d{2}){5}[-\\s]utc$",
+        "REPLACE": ""
+      }
+    }
+  ],
+  "tests": [
+    {
+      "in": "Retro Pack-2024-05-01-10-20-30-utc.zip",
+      "out": "Retro Pack.zip"
+    },
+    {
+      "in": "Film LUT 2024 05 01 10 20 30 UTC.CUBE",
+      "out": "Film LUT.cube"
+    },
+    {
+      "name": "Nested archive via CONTENTS",
+      "variant": "CONTENTS",
+      "files": [
+        "Pack\\a-2024-05-01-10-20-30-utc.zip",
+        "Pack\\Sub\\b 2024 05 01 10 20 30 UTC.RAR"
+      ],
+      "inputs": [
+        "Pack"
+      ],
+      "expect": [
+        "Pack\\",
+        "Pack\\a.zip",
+        "Pack\\Sub\\",
+        "Pack\\Sub\\b.rar"
+      ]
+    }
+  ]
+}

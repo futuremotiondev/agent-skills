@@ -1,0 +1,2765 @@
+term	pack	confidence	note
+DDR	hardware	high	Double Data Rate memory
+DDR2	hardware	high	Double Data Rate 2 memory
+DDR3	hardware	high	Double Data Rate 3 memory
+DDR4	hardware	high	Double Data Rate 4 memory
+DDR5	hardware	high	Double Data Rate 5 memory
+LPDDR4	hardware	high	Low-Power DDR4
+LPDDR4X	hardware	high	Low-Power DDR4X
+LPDDR5	hardware	high	Low-Power DDR5
+LPDDR5X	hardware	high	Low-Power DDR5X
+LPDDR6	hardware	high	Low-Power DDR6 (JEDEC JESD209-6 2025)
+GDDR5	hardware	high	Graphics DDR5
+GDDR5X	hardware	high	Graphics DDR5X
+GDDR6	hardware	high	Graphics DDR6
+GDDR6X	hardware	high	Graphics DDR6X
+GDDR7	hardware	high	Graphics DDR7
+HBM	hardware	high	High Bandwidth Memory
+HBM2	hardware	high	High Bandwidth Memory 2
+HBM2E	hardware	high	High Bandwidth Memory 2E
+HBM3	hardware	high	High Bandwidth Memory 3
+HBM3E	hardware	high	High Bandwidth Memory 3E
+HBM4	hardware	high	High Bandwidth Memory 4
+SDRAM	hardware	high	Synchronous DRAM
+ECC	hardware	high	Error-Correcting Code memory
+RDIMM	hardware	high	Registered DIMM
+UDIMM	hardware	high	Unbuffered DIMM
+LRDIMM	hardware	high	Load-Reduced DIMM
+MRDIMM	hardware	high	Multiplexed Rank DIMM
+CUDIMM	hardware	medium	Clocked Unbuffered DIMM
+CSODIMM	hardware	medium	Clocked SO-DIMM
+SO-DIMM	hardware	high	Small Outline DIMM
+SODIMM	hardware	medium	Small Outline DIMM (unhyphenated)
+CAMM	hardware	high	Compression Attached Memory Module
+CAMM2	hardware	high	JEDEC CAMM2 memory module
+LPCAMM2	hardware	high	Low-Power CAMM2 module
+SOCAMM	hardware	medium	Small Outline CAMM (NVIDIA LPDDR module)
+SOCAMM2	hardware	medium	JEDEC SOCAMM2 LPDDR module
+EXPO	hardware	medium	AMD Extended Profiles for Overclocking; COLLISION expo; conflicts Expo React Native framework
+DOCP	hardware	medium	ASUS Direct Over Clock Profile
+SPD	hardware	medium	Serial Presence Detect
+NVDIMM	hardware	medium	Non-Volatile DIMM
+EEPROM	hardware	high	Electrically Erasable Programmable ROM
+EPROM	hardware	medium	Erasable Programmable ROM
+CXL	hardware	high	Compute Express Link
+NUMA	hardware	high	Non-Uniform Memory Access
+ACPI	hardware	high	Advanced Configuration and Power Interface
+IRQ	hardware	high	Interrupt Request
+MMIO	hardware	medium	Memory-Mapped I/O
+IPMI	hardware	high	Intelligent Platform Management Interface
+BMC	hardware	medium	Baseboard Management Controller
+iDRAC	hardware	high	Dell integrated Remote Access Controller
+iLO	hardware	medium	HPE Integrated Lights-Out; conflicts ILO International Labour Organization
+1U	hardware	medium	one rack unit; 2-letter
+2U	hardware	medium	two rack units; 2-letter
+4U	hardware	medium	four rack units; 2-letter
+Gen3	hardware	medium	PCIe Gen3
+Gen4	hardware	medium	PCIe Gen4
+Gen5	hardware	medium	PCIe Gen5
+M.2	hardware	high	M.2 SSD form factor
+U.2	hardware	high	U.2 SSD form factor
+U.3	hardware	medium	U.3 SSD interface
+E1.S	hardware	medium	EDSFF E1.S form factor
+E3.S	hardware	medium	EDSFF E3.S form factor
+EDSFF	hardware	medium	Enterprise and Data Center SSD Form Factor
+mSATA	hardware	high	mini-SATA
+eMMC	hardware	high	embedded MultiMediaCard
+UFS	hardware	high	Universal Flash Storage
+AHCI	hardware	high	Advanced Host Controller Interface
+HBA	hardware	high	Host Bus Adapter
+NVMe-oF	hardware	high	NVMe over Fabrics
+SDHC	hardware	high	SD High Capacity
+SDXC	hardware	high	SD eXtended Capacity
+SDUC	hardware	high	SD Ultra Capacity
+microSD	hardware	high	micro Secure Digital
+microSDHC	hardware	high	microSD High Capacity
+microSDXC	hardware	high	microSD eXtended Capacity
+SD Express	hardware	medium	SD Express card
+CFexpress	hardware	high	CompactFlash Express card
+CFast	hardware	high	CompactFlash Fast card
+XQD	hardware	high	XQD memory card
+UHS-I	hardware	high	Ultra High Speed I bus
+UHS-II	hardware	high	Ultra High Speed II bus
+UHS-III	hardware	medium	Ultra High Speed III bus
+V30	hardware	medium	SD Video Speed Class 30
+V60	hardware	medium	SD Video Speed Class 60
+V90	hardware	medium	SD Video Speed Class 90
+NAND	hardware	high	NAND flash memory
+NOR	hardware	high	NOR flash; COLLISION nor
+QLC	hardware	high	Quad-Level Cell flash
+SLC	hardware	high	Single-Level Cell flash
+MLC	hardware	high	Multi-Level Cell flash; also The Mechanical Licensing Collective
+V-NAND	hardware	medium	Samsung Vertical NAND
+HMB	hardware	medium	Host Memory Buffer
+TBW	hardware	high	Terabytes Written
+DWPD	hardware	high	Drive Writes Per Day
+IOPS	hardware	high	Input/Output Operations Per Second
+MTBF	hardware	high	Mean Time Between Failures
+RAID	hardware	high	Redundant Array of Independent Disks; COLLISION raid
+JBOD	hardware	high	Just a Bunch Of Disks
+SSHD	hardware	medium	Solid-State Hybrid Drive; conflicts sshd daemon
+HAMR	hardware	high	Heat-Assisted Magnetic Recording
+SMR	hardware	high	Shingled Magnetic Recording
+PMR	hardware	medium	Perpendicular Magnetic Recording
+LTO	hardware	high	Linear Tape-Open
+LTO-9	hardware	medium	LTO generation 9 tape
+APU	hardware	high	Accelerated Processing Unit
+DPU	hardware	high	Data Processing Unit
+IPU	hardware	medium	Infrastructure/Image Processing Unit
+iGPU	hardware	high	integrated GPU
+dGPU	hardware	high	discrete GPU
+eGPU	hardware	high	external GPU
+vCPU	hardware	high	virtual CPU
+vGPU	hardware	high	virtual GPU
+VRAM	hardware	high	Video RAM
+DSP	hardware	high	Digital Signal Processor; also Demand-Side Platform (ads)
+TDP	hardware	high	Thermal Design Power
+TGP	hardware	high	Total Graphics Power
+SMT	hardware	high	Simultaneous Multithreading; also Surface-Mount Technology
+Hyper-Threading	hardware	high	Intel Hyper-Threading
+AVX	hardware	high	Advanced Vector Extensions
+AVX2	hardware	high	Advanced Vector Extensions 2
+AVX-512	hardware	high	Advanced Vector Extensions 512
+AArch64	hardware	high	ARM 64-bit architecture (official ARM styling)
+x86-64	hardware	high	64-bit x86 architecture
+x86_64	hardware	medium	64-bit x86 (package/filename form)
+RISC-V	hardware	high	RISC-V instruction set
+Arm	hardware	high	Arm architecture/company (official styling since 2017; formerly ARM); adjustable-rate mortgage; COLLISION arm
+X3D	hardware	medium	AMD 3D V-Cache CPUs; also X3D Extensible 3D format
+3D V-Cache	hardware	medium	AMD stacked L3 cache
+CCD	hardware	high	Core Complex Die; Charge-Coupled Device; CloneCD image
+IHS	hardware	medium	Integrated Heat Spreader
+VRM	hardware	high	Voltage Regulator Module
+PCH	hardware	medium	Platform Controller Hub
+TPM	hardware	high	Trusted Platform Module; also Technical Program Manager / Total Productive Maintenance
+fTPM	hardware	high	firmware TPM
+PSU	hardware	high	Power Supply Unit
+ATX	hardware	high	Advanced Technology eXtended form factor
+mATX	hardware	high	Micro-ATX (short form)
+Micro-ATX	hardware	high	Micro-ATX motherboard
+Mini-ITX	hardware	high	Mini-ITX motherboard
+ITX	hardware	high	ITX form factor
+E-ATX	hardware	high	Extended ATX
+EEB	hardware	medium	Enterprise Electronics Bay
+SFF	hardware	high	Small Form Factor
+NUC	hardware	high	Intel Next Unit of Computing
+CLC	hardware	medium	Closed-Loop Cooler
+TIM	hardware	medium	Thermal Interface Material; COLLISION Tim
+ARGB	hardware	high	Addressable RGB
+LGA	hardware	high	Land Grid Array
+PGA	hardware	medium	Pin Grid Array; also PGA golf tour
+BGA	hardware	high	Ball Grid Array
+AM4	hardware	high	AMD socket AM4
+AM5	hardware	high	AMD socket AM5
+LGA1700	hardware	high	Intel socket LGA1700
+LGA1851	hardware	high	Intel socket LGA1851
+HEDT	hardware	high	High-End Desktop
+12VHPWR	hardware	high	12V High Power GPU connector
+12V-2x6	hardware	high	PCI-SIG 12V-2x6 power connector
+OCuLink	hardware	high	Optical-Copper Link connector (PCI-SIG styling)
+UCIe	hardware	high	Universal Chiplet Interconnect Express
+NVLink	hardware	high	NVIDIA NVLink interconnect
+NVSwitch	hardware	medium	NVIDIA NVSwitch
+InfiniBand	hardware	high	InfiniBand interconnect
+RDMA	hardware	high	Remote Direct Memory Access
+RoCE	hardware	high	RDMA over Converged Ethernet
+SmartNIC	hardware	medium	programmable NIC
+CPLD	hardware	medium	Complex Programmable Logic Device
+MEMS	hardware	high	Micro-Electro-Mechanical Systems
+IMU	hardware	high	Inertial Measurement Unit
+HMD	hardware	high	Head-Mounted Display
+6DoF	hardware	high	six degrees of freedom
+3DoF	hardware	high	three degrees of freedom
+LiDAR	hardware	medium	Light Detection and Ranging (Apple styling; also lidar)
+ToF	hardware	high	Time-of-Flight sensor
+OLED	hardware	high	Organic LED
+AMOLED	hardware	high	Active-Matrix OLED
+Super AMOLED	hardware	medium	Samsung Super AMOLED
+QD-OLED	hardware	high	Quantum Dot OLED
+WOLED	hardware	high	White OLED
+P-OLED	hardware	medium	Plastic OLED (LG styling)
+QLED	hardware	high	Quantum dot LED (Samsung)
+Neo QLED	hardware	medium	Samsung Neo QLED
+Mini-LED	hardware	medium	Mini-LED backlight (also mini-LED)
+MicroLED	hardware	medium	MicroLED display (also microLED)
+LTPO	hardware	high	Low-Temperature Polycrystalline Oxide
+LTPS	hardware	medium	Low-Temperature Polysilicon
+IGZO	hardware	high	Indium Gallium Zinc Oxide
+E Ink	hardware	medium	E Ink electronic paper
+TN	hardware	medium	Twisted Nematic panel; Tennessee; 2-letter
+WCG	hardware	high	Wide Color Gamut
+HDR10+	hardware	high	HDR10 Plus
+DisplayHDR	hardware	high	VESA DisplayHDR certification
+Adaptive-Sync	hardware	medium	VESA Adaptive-Sync
+G-SYNC	hardware	high	NVIDIA G-SYNC (official styling)
+FreeSync	hardware	high	AMD FreeSync
+VRR	hardware	high	Variable Refresh Rate
+ALLM	hardware	high	Auto Low Latency Mode
+QMS	hardware	medium	Quick Media Switching (HDMI)
+FRL	hardware	medium	Fixed Rate Link (HDMI 2.1)
+TMDS	hardware	medium	Transition-Minimized Differential Signaling
+UHBR	hardware	medium	DisplayPort Ultra High Bit Rate
+UHBR20	hardware	medium	DisplayPort UHBR20 link rate
+DSC	hardware	high	Display Stream Compression; also DSc Doctor of Science
+eDP	hardware	high	embedded DisplayPort
+mDP	hardware	medium	Mini DisplayPort
+LVDS	hardware	medium	Low-Voltage Differential Signaling
+MIPI	hardware	high	Mobile Industry Processor Interface
+MEMC	hardware	high	Motion Estimation Motion Compensation
+BFI	hardware	medium	Black Frame Insertion
+ULMB	hardware	high	NVIDIA Ultra Low Motion Blur
+MPRT	hardware	medium	Moving Picture Response Time
+FHD	hardware	high	Full HD 1920x1080
+FHD+	hardware	medium	Full HD Plus
+QHD	hardware	high	Quad HD 2560x1440
+QHD+	hardware	medium	Quad HD Plus
+WQHD	hardware	high	Wide Quad HD
+UWQHD	hardware	high	Ultra-Wide Quad HD
+HD+	hardware	medium	HD Plus resolution
+WUXGA	hardware	high	Widescreen Ultra XGA
+WQXGA	hardware	medium	Wide Quad XGA
+WXGA	hardware	high	Wide XGA
+XGA	hardware	high	Extended Graphics Array
+SXGA	hardware	medium	Super XGA
+UXGA	hardware	medium	Ultra XGA
+QVGA	hardware	medium	Quarter VGA
+WVGA	hardware	medium	Wide VGA
+USB-A	hardware	high	USB Type-A connector
+USB-B	hardware	high	USB Type-B connector
+USB-C	hardware	high	USB Type-C connector
+Type-C	hardware	high	USB Type-C
+Type-A	hardware	medium	USB Type-A
+USB4	hardware	high	USB4 standard
+Micro-USB	hardware	high	Micro-USB connector
+Mini-USB	hardware	high	Mini-USB connector
+OTG	hardware	high	USB On-The-Go
+TB3	hardware	medium	Thunderbolt 3
+TB4	hardware	medium	Thunderbolt 4
+TB5	hardware	medium	Thunderbolt 5
+eARC	hardware	high	enhanced Audio Return Channel
+ARC	hardware	high	Audio Return Channel; COLLISION arc
+CEC	hardware	high	Consumer Electronics Control
+Micro-HDMI	hardware	medium	Micro-HDMI connector
+Mini-HDMI	hardware	medium	Mini-HDMI connector
+TOSLINK	hardware	high	Toshiba optical audio link (trademark styling)
+TRS	hardware	high	Tip-Ring-Sleeve connector
+TRRS	hardware	high	Tip-Ring-Ring-Sleeve connector
+BNC	hardware	high	Bayonet Neill-Concelman connector
+Mini-DIN	hardware	medium	Mini-DIN connector
+DB9	hardware	medium	D-sub 9-pin connector
+DB25	hardware	medium	D-sub 25-pin connector
+RJ11	hardware	medium	Registered Jack 11
+HDBaseT	hardware	high	HDBaseT AV-over-cable
+3G-SDI	hardware	high	3 Gbit/s Serial Digital Interface
+6G-SDI	hardware	medium	6 Gbit/s SDI
+12G-SDI	hardware	high	12 Gbit/s SDI
+HD-SDI	hardware	high	High-Definition SDI
+AES3	hardware	high	AES3 digital audio interface
+AES67	hardware	high	AES67 audio-over-IP
+MADI	hardware	high	Multichannel Audio Digital Interface; COLLISION madi
+AVB	hardware	high	Audio Video Bridging
+TSN	hardware	medium	Time-Sensitive Networking
+PoE	hardware	high	Power over Ethernet; conflicts Poe AI platform; COLLISION poe
+PoE+	hardware	high	Power over Ethernet Plus (802.3at)
+PoE++	hardware	medium	Power over Ethernet (802.3bt)
+SiC	hardware	high	Silicon Carbide; COLLISION sic
+PPS	hardware	medium	Programmable Power Supply (USB PD); also post-postscript
+EPR	hardware	medium	USB PD Extended Power Range
+QC3	hardware	medium	Qualcomm Quick Charge 3.0
+Qi	hardware	medium	Qi wireless charging; COLLISION qi; 2-letter
+Qi2	hardware	high	Qi2 wireless charging
+MagSafe	hardware	high	Apple MagSafe
+Li-ion	hardware	high	Lithium-ion battery
+LiPo	hardware	high	Lithium Polymer battery
+LiFePO4	hardware	high	Lithium Iron Phosphate battery
+NiMH	hardware	high	Nickel-Metal Hydride battery
+NiCd	hardware	high	Nickel-Cadmium battery
+LFP	hardware	high	Lithium Iron Phosphate chemistry
+NMC	hardware	high	Nickel Manganese Cobalt chemistry
+BMS	hardware	high	Battery Management System
+SoH	hardware	medium	battery State of Health
+DAC	hardware	high	Digital-to-Analog Converter; also Direct Attach Copper cable
+PLL	hardware	high	Phase-Locked Loop
+LDO	hardware	high	Low-Dropout regulator
+SMPS	hardware	high	Switched-Mode Power Supply
+PMIC	hardware	high	Power Management IC
+MOSFET	hardware	high	Metal-Oxide-Semiconductor FET
+IGBT	hardware	high	Insulated-Gate Bipolar Transistor
+BJT	hardware	high	Bipolar Junction Transistor
+JFET	hardware	high	Junction FET
+FET	hardware	high	Field-Effect Transistor
+NTC	hardware	high	Negative Temperature Coefficient thermistor
+QFN	hardware	high	Quad Flat No-lead package
+QFP	hardware	high	Quad Flat Package
+TQFP	hardware	high	Thin Quad Flat Package
+SOIC	hardware	high	Small Outline IC
+WLCSP	hardware	medium	Wafer-Level Chip-Scale Package
+SMD	hardware	high	Surface-Mount Device
+THT	hardware	high	Through-Hole Technology
+PCBA	hardware	high	Printed Circuit Board Assembly
+FPC	hardware	high	Flexible Printed Circuit
+FFC	hardware	high	Flat Flexible Cable
+ZIF	hardware	high	Zero Insertion Force
+ENIG	hardware	high	Electroless Nickel Immersion Gold
+HASL	hardware	medium	Hot Air Solder Leveling
+EDA	hardware	high	Electronic Design Automation; COLLISION eda
+LTspice	hardware	high	Analog Devices LTspice simulator
+RPi	hardware	high	Raspberry Pi abbreviation
+RP2040	hardware	high	Raspberry Pi RP2040 MCU
+RP2350	hardware	high	Raspberry Pi RP2350 MCU
+ATmega	hardware	high	Microchip ATmega MCU family
+ATmega328P	hardware	high	ATmega328P MCU
+ATtiny	hardware	high	Microchip ATtiny MCU family
+nRF52	hardware	high	Nordic nRF52 SoC family
+AVR	hardware	high	AVR microcontroller family
+SBC	hardware	high	Single-Board Computer; also Bluetooth SBC codec
+I2S	hardware	high	Inter-IC Sound bus
+SPI	hardware	high	Serial Peripheral Interface
+SMBus	hardware	high	System Management Bus
+PMBus	hardware	medium	Power Management Bus
+USART	hardware	medium	Universal Sync/Async Receiver-Transmitter
+SWD	hardware	medium	Serial Wire Debug
+RS-232	hardware	high	RS-232 serial standard
+RS-485	hardware	high	RS-485 serial standard
+RS-422	hardware	medium	RS-422 serial standard
+CAN	hardware	high	Controller Area Network bus; Canada code; COLLISION can
+LIN	hardware	high	Local Interconnect Network bus; COLLISION Lin
+1-Wire	hardware	medium	Maxim 1-Wire bus
+HID	hardware	high	Human Interface Device; COLLISION hid
+TKL	hardware	high	Tenkeyless keyboard
+NKRO	hardware	high	N-Key Rollover
+PBT	hardware	high	Polybutylene Terephthalate keycaps
+QMK	hardware	high	Quantum Mechanical Keyboard firmware
+ZMK	hardware	medium	ZMK keyboard firmware
+VIA	hardware	high	VIA keyboard configurator; VIA Technologies; COLLISION via
+HHKB	hardware	medium	Happy Hacking Keyboard
+IEM	hardware	high	In-Ear Monitor
+TWS	hardware	high	True Wireless Stereo
+ANC	hardware	high	Active Noise Cancellation
+ENC	hardware	medium	Environmental Noise Cancellation
+DAP	hardware	medium	Digital Audio Player; also Incoterm DAP
+aptX	hardware	high	Qualcomm aptX codec
+aptX HD	hardware	high	Qualcomm aptX HD codec
+aptX Adaptive	hardware	high	Qualcomm aptX Adaptive codec
+aptX Lossless	hardware	medium	Qualcomm aptX Lossless
+LC3	hardware	high	Low Complexity Communication Codec
+LE Audio	hardware	high	Bluetooth LE Audio
+ANT+	hardware	medium	ANT+ wireless sensor protocol
+UV	general	medium	Ultraviolet; UV mapping; 2-letter; conflicts uv Python tool
+UWB	network	high	Ultra-Wideband
+IrDA	network	high	Infrared Data Association
+eSIM	network	high	embedded SIM
+iSIM	network	medium	integrated SIM
+SIM	network	high	Subscriber Identity Module; COLLISION sim
+eUICC	network	high	embedded Universal Integrated Circuit Card
+IMEI	network	high	International Mobile Equipment Identity
+IMSI	network	high	International Mobile Subscriber Identity
+ICCID	network	medium	Integrated Circuit Card Identifier
+GPS	network	high	Global Positioning System
+A-GPS	network	medium	Assisted GPS
+GNSS	network	high	Global Navigation Satellite System
+GLONASS	network	high	Russian satellite navigation
+BeiDou	network	high	Chinese satellite navigation
+QZSS	network	medium	Quasi-Zenith Satellite System
+RTK	network	high	Real-Time Kinematic positioning
+NMEA	network	high	NMEA GPS data format
+V2X	network	high	Vehicle-to-Everything
+C-V2X	network	medium	Cellular V2X
+V2V	network	medium	Vehicle-to-Vehicle
+Wi-Fi	network	high	Wi-Fi (Wi-Fi Alliance styling)
+Wi-Fi 6	network	high	IEEE 802.11ax
+Wi-Fi 6E	network	high	802.11ax in 6 GHz
+Wi-Fi 7	network	high	IEEE 802.11be
+Wi-Fi 8	network	medium	IEEE 802.11bn (in development)
+Wi-Fi Direct	network	medium	Wi-Fi peer-to-peer
+802.11n	network	medium	IEEE 802.11n (Wi-Fi 4)
+802.11ac	network	medium	IEEE 802.11ac (Wi-Fi 5)
+802.11ax	network	medium	IEEE 802.11ax (Wi-Fi 6)
+802.11be	network	medium	IEEE 802.11be (Wi-Fi 7)
+802.3af	network	medium	PoE standard
+802.3at	network	medium	PoE+ standard
+802.3bt	network	medium	PoE++ standard
+802.1X	network	high	port-based network access control
+802.1Q	network	high	VLAN tagging standard
+WPA2	network	high	Wi-Fi Protected Access 2
+WPA3	network	high	Wi-Fi Protected Access 3
+MIMO	network	high	Multiple-Input Multiple-Output; conflicts Xiaomi MiMo model
+MU-MIMO	network	high	Multi-User MIMO
+OFDM	network	high	Orthogonal Frequency-Division Multiplexing
+OFDMA	network	high	OFDM Access
+WDS	network	medium	Wireless Distribution System
+WLAN	network	high	Wireless LAN
+WWAN	network	medium	Wireless WAN
+WPAN	network	medium	Wireless Personal Area Network
+SAN	network	high	Storage Area Network; COLLISION San
+DAS	network	high	Direct-Attached Storage; COLLISION das
+SD-WAN	network	high	Software-Defined WAN
+SASE	network	high	Secure Access Service Edge
+ZTNA	network	high	Zero Trust Network Access
+NFV	network	high	Network Functions Virtualization
+VXLAN	network	high	Virtual Extensible LAN
+EVPN	network	medium	Ethernet VPN
+SRv6	network	medium	Segment Routing over IPv6
+VRF	network	medium	Virtual Routing and Forwarding
+ECMP	network	medium	Equal-Cost Multi-Path
+MLAG	network	medium	Multi-Chassis Link Aggregation
+LAG	network	high	Link Aggregation Group; COLLISION lag
+IGMP	network	high	Internet Group Management Protocol
+VRRP	network	high	Virtual Router Redundancy Protocol
+HSRP	network	high	Hot Standby Router Protocol
+LLDP	network	high	Link Layer Discovery Protocol
+PTP	network	high	Precision Time Protocol; also Picture Transfer Protocol
+SIP	network	medium	Session Initiation Protocol; COLLISION sip
+RTCP	network	high	RTP Control Protocol
+RIST	network	medium	Reliable Internet Stream Transport
+RTMPS	network	medium	RTMP over TLS
+MPEG-DASH	network	high	Dynamic Adaptive Streaming over HTTP
+LL-HLS	network	medium	Low-Latency HLS
+CMAF	network	high	Common Media Application Format
+NDI	network	high	Network Device Interface (video over IP)
+DTLS	network	high	Datagram TLS
+FCoE	network	high	Fibre Channel over Ethernet
+TACACS+	network	high	Terminal Access Controller Access-Control System Plus
+WHOIS	network	high	WHOIS domain lookup
+CAPTCHA	network	high	Completely Automated Public Turing test
+reCAPTCHA	network	high	Google reCAPTCHA
+hCaptcha	network	high	hCaptcha service
+WWW	network	high	World Wide Web
+ccTLD	network	high	country-code Top-Level Domain
+gTLD	network	high	generic Top-Level Domain
+URN	network	medium	Uniform Resource Name; COLLISION urn
+IDN	network	medium	Internationalized Domain Name; also ISO code Indonesia
+CNAME	network	high	Canonical Name DNS record
+SPF	network	high	Sender Policy Framework; also sun protection factor
+DKIM	network	high	DomainKeys Identified Mail
+DMARC	network	high	Domain-based Message Authentication Reporting and Conformance
+BIMI	network	medium	Brand Indicators for Message Identification
+AAAA	network	medium	IPv6 DNS address record
+SRV	network	medium	DNS service record
+CAA	network	medium	Certification Authority Authorization record
+PTR	network	medium	DNS pointer record
+UTF-8	network	high	Unicode Transformation Format 8-bit
+UTF-16	network	high	Unicode Transformation Format 16-bit
+Shift_JIS	network	medium	Japanese character encoding
+Big5	network	medium	Traditional Chinese encoding
+SQLi	network	high	SQL injection
+SSRF	network	high	Server-Side Request Forgery
+IDOR	network	high	Insecure Direct Object Reference
+XXE	network	high	XML External Entity
+LFI	network	medium	Local File Inclusion
+OSINT	network	high	Open-Source Intelligence
+SOC 2	business	high	SOC 2 compliance report
+SOC2	business	medium	SOC 2 compliance report (unspaced)
+XDR	network	high	Extended Detection and Response
+MDR	network	high	Managed Detection and Response
+NDR	network	medium	Network Detection and Response
+NGFW	network	high	Next-Generation Firewall
+DLP	network	high	Data Loss Prevention
+CASB	network	high	Cloud Access Security Broker
+CSPM	network	medium	Cloud Security Posture Management
+HSM	network	high	Hardware Security Module
+2FA	network	high	Two-Factor Authentication
+U2F	network	high	Universal 2nd Factor
+FIDO	network	high	Fast IDentity Online; COLLISION fido
+APT	network	high	Advanced Persistent Threat; COLLISION apt
+TTP	network	medium	Tactics Techniques and Procedures
+CTF	network	high	Capture The Flag
+VAPT	network	medium	Vulnerability Assessment and Penetration Testing
+IAST	network	medium	Interactive Application Security Testing
+RASP	network	medium	Runtime Application Self-Protection; COLLISION rasp
+SCA	network	medium	Software Composition Analysis
+IKEv2	network	high	Internet Key Exchange v2
+L2TP	network	high	Layer 2 Tunneling Protocol
+SSTP	network	medium	Secure Socket Tunneling Protocol
+SFP+	network	high	Enhanced Small Form-factor Pluggable
+QSFP	network	high	Quad SFP
+QSFP28	network	medium	Quad SFP 28G
+QSFP-DD	network	medium	QSFP Double Density
+OSFP	network	medium	Octal SFP
+MPO	network	medium	Multi-fiber Push On connector
+OM3	network	medium	OM3 multimode fiber
+OM4	network	medium	OM4 multimode fiber
+OS2	network	medium	OS2 single-mode fiber
+Cat5e	network	high	Category 5e cable
+Cat6	network	high	Category 6 cable
+Cat6a	network	medium	Category 6A cable (also Cat6A)
+Cat7	network	medium	Category 7 cable
+Cat8	network	medium	Category 8 cable
+GbE	network	high	Gigabit Ethernet
+2.5GbE	network	high	2.5 Gigabit Ethernet
+5GbE	network	medium	5 Gigabit Ethernet
+10GbE	network	high	10 Gigabit Ethernet
+25GbE	network	medium	25 Gigabit Ethernet
+40GbE	network	medium	40 Gigabit Ethernet
+100GbE	network	medium	100 Gigabit Ethernet
+400GbE	network	medium	400 Gigabit Ethernet
+1000BASE-T	network	high	Gigabit Ethernet over twisted pair
+10GBASE-T	network	high	10 Gigabit Ethernet over twisted pair
+2.5GBASE-T	network	medium	2.5 Gigabit Ethernet over twisted pair
+100BASE-TX	network	medium	Fast Ethernet
+Modbus	network	high	Modbus industrial protocol
+PROFINET	network	high	PROFINET industrial Ethernet
+PROFIBUS	network	high	PROFIBUS fieldbus
+EtherCAT	network	high	EtherCAT fieldbus
+BACnet	network	high	Building Automation and Control networks
+KNX	network	high	KNX building automation
+DALI	network	high	Digital Addressable Lighting Interface; COLLISION Dali
+DMX	network	high	DMX lighting control
+DMX512	network	high	DMX512 lighting protocol
+sACN	network	high	Streaming ACN lighting protocol
+Art-Net	network	high	Art-Net lighting protocol
+SCADA	network	high	Supervisory Control and Data Acquisition
+HMI	network	high	Human-Machine Interface
+PID	general	medium	Proportional-Integral-Derivative controller; also Process ID
+VFD	general	medium	Variable Frequency Drive; vacuum fluorescent display; virtual floppy
+RTU	network	medium	Remote Terminal Unit
+OPC UA	network	high	OPC Unified Architecture
+CoAP	network	high	Constrained Application Protocol
+LwM2M	network	medium	Lightweight M2M
+Z-Wave	network	high	Z-Wave home automation
+NB-IoT	network	high	Narrowband IoT
+LTE	network	high	Long-Term Evolution
+LTE-M	network	medium	LTE for Machines
+LTE-A	network	medium	LTE-Advanced
+LPWAN	network	high	Low-Power Wide-Area Network
+mmWave	network	high	millimeter wave
+Sub-6	network	medium	sub-6 GHz 5G bands
+C-band	network	medium	C-band spectrum
+2G	network	high	second-generation cellular; 2-letter
+6G	network	medium	sixth-generation cellular; 2-letter
+UMTS	network	high	Universal Mobile Telecommunications System
+WCDMA	network	high	Wideband CDMA
+HSPA+	network	medium	Evolved High Speed Packet Access
+WiMAX	network	high	Worldwide Interoperability for Microwave Access
+VoIP	network	high	Voice over IP
+VoLTE	network	high	Voice over LTE
+VoWiFi	network	medium	Voice over Wi-Fi
+VoNR	network	medium	Voice over New Radio
+PBX	network	high	Private Branch Exchange
+PSTN	network	high	Public Switched Telephone Network
+RCS	network	high	Rich Communication Services
+USSD	network	medium	Unstructured Supplementary Service Data
+MVNO	network	high	Mobile Virtual Network Operator
+MNO	network	medium	Mobile Network Operator
+OTA	network	high	Over-The-Air (updates/broadcast TV)
+FOTA	network	medium	Firmware Over-The-Air
+O-RAN	network	high	Open Radio Access Network
+RAN	network	high	Radio Access Network; COLLISION ran
+vRAN	network	medium	virtualized RAN
+gNB	network	medium	5G base station (gNodeB)
+eNB	network	medium	LTE base station (eNodeB)
+IMS	network	medium	IP Multimedia Subsystem
+SS7	network	medium	Signaling System No. 7
+DECT	network	high	Digital Enhanced Cordless Telecommunications
+VHF	network	high	Very High Frequency
+UHF	network	high	Ultra High Frequency
+SHF	network	medium	Super High Frequency
+HF	network	high	High Frequency radio; 2-letter
+RF	network	medium	Radio Frequency; 2-letter
+ISM	network	medium	Industrial Scientific Medical band
+SSB	network	medium	Single-Sideband
+SWR	network	medium	Standing Wave Ratio
+VSWR	network	medium	Voltage Standing Wave Ratio
+EIRP	network	medium	Effective Isotropic Radiated Power
+GMRS	network	medium	General Mobile Radio Service
+DMR	network	medium	Digital Mobile Radio
+PMR446	network	medium	EU license-free radio
+FTTH	network	high	Fiber to the Home
+FTTP	network	medium	Fiber to the Premises
+FTTC	network	medium	Fiber to the Cabinet
+FTTx	network	high	Fiber to the x
+xDSL	network	high	generic DSL family
+VDSL	network	high	Very-high-bit-rate DSL
+VDSL2	network	medium	VDSL2
+GPON	network	high	Gigabit Passive Optical Network
+XGS-PON	network	medium	10G Symmetric PON
+EPON	network	medium	Ethernet PON
+ONT	network	medium	Optical Network Terminal
+DOCSIS	network	high	Data Over Cable Service Interface Specification
+CMTS	network	medium	Cable Modem Termination System
+HFC	network	medium	Hybrid Fiber-Coaxial
+CATV	network	medium	Cable television
+DVB-T	network	high	Digital Video Broadcasting Terrestrial
+DVB-T2	network	high	DVB Terrestrial 2
+DVB-S2	network	high	DVB Satellite 2
+DVB-C	network	medium	DVB Cable
+ATSC 3.0	network	medium	ATSC 3.0 (NextGen TV)
+HbbTV	network	high	Hybrid broadcast broadband TV
+CI+	network	medium	Common Interface Plus
+EPG	network	high	Electronic Program Guide
+STB	network	high	Set-Top Box
+DVR	network	high	Digital Video Recorder
+PVR	network	high	Personal Video Recorder
+DAB	network	high	Digital Audio Broadcasting; COLLISION dab
+DAB+	network	high	DAB Plus
+HD Radio	network	medium	HD Radio digital broadcast
+VOD	network	high	Video On Demand
+SVOD	network	high	Subscription VOD
+AVOD	network	high	Advertising VOD
+TVOD	network	high	Transactional VOD
+PVOD	network	medium	Premium VOD
+FAST	network	medium	Free Ad-supported Streaming TV; COLLISION fast
+PPV	network	high	Pay-Per-View
+CTV	network	high	Connected TV
+MVPD	network	medium	Multichannel Video Programming Distributor
+vMVPD	network	medium	virtual MVPD
+ABR	network	high	Adaptive Bitrate; also Photoshop brush file
+WCAG	network	high	Web Content Accessibility Guidelines
+WAI-ARIA	network	high	Accessible Rich Internet Applications
+ARIA	network	high	WAI-ARIA; COLLISION Aria
+VPAT	network	medium	Voluntary Product Accessibility Template
+AMP	network	high	Accelerated Mobile Pages; amplifier; COLLISION amp
+SPA	network	high	Single-Page Application; Italian SpA company suffix; COLLISION spa
+ACME	network	high	Automatic Certificate Management Environment; COLLISION acme
+TIF	formats	high	Tagged Image File (short extension)
+JFIF	formats	high	JPEG File Interchange Format
+JXL	formats	high	JPEG XL file
+JPEG XL	formats	high	JPEG XL image format
+JPEG 2000	formats	high	JPEG 2000 image format
+JPEG XS	formats	medium	JPEG XS mezzanine codec
+JP2	formats	high	JPEG 2000 file
+J2K	formats	medium	JPEG 2000 codestream
+APNG	formats	high	Animated PNG
+MNG	formats	medium	Multiple-image Network Graphics
+HEIF	formats	high	High Efficiency Image Format
+QOI	formats	medium	Quite OK Image format
+PBM	formats	medium	Portable Bitmap
+PGM	formats	medium	Portable Graymap
+PNM	formats	medium	Portable Anymap
+PFM	formats	medium	Portable Float Map; also Type 1 font metrics
+PCX	formats	high	PC Paintbrush image
+TGA	formats	high	Truevision TGA (Targa); also The Game Awards
+DDS	formats	high	DirectDraw Surface texture; Doctor of Dental Surgery; DDS middleware
+KTX	formats	medium	Khronos Texture
+KTX2	formats	medium	Khronos Texture 2
+DXT1	formats	medium	S3TC DXT1 texture compression
+DXT5	formats	medium	S3TC DXT5 texture compression
+BC7	formats	medium	Block Compression 7 texture
+S3TC	formats	medium	S3 Texture Compression
+ASTC	formats	medium	Adaptive Scalable Texture Compression
+ETC2	formats	medium	Ericsson Texture Compression 2
+ICNS	formats	high	Apple Icon Image
+CUR	formats	medium	Windows cursor file; COLLISION cur
+ANI	formats	medium	Windows animated cursor; COLLISION ani
+XBM	formats	medium	X BitMap
+XPM	formats	medium	X PixMap
+EMF	formats	high	Enhanced Metafile
+WMF	formats	high	Windows Metafile
+SVGZ	formats	high	Compressed SVG
+GIFV	formats	medium	GIF-like video
+PSB	formats	high	Photoshop Large Document
+PDD	formats	medium	PhotoDeluxe/Photoshop image
+ASE	formats	high	Adobe Swatch Exchange
+ACO	formats	high	Adobe Color swatch file
+ACT	formats	high	Adobe Color Table; ACT exam; COLLISION act
+ICC	formats	high	ICC color profile; also Intl Criminal Court / ICC cricket
+ICM	formats	high	Image Color Management profile
+ATN	formats	medium	Photoshop Actions file
+INDD	formats	high	InDesign Document
+IDML	formats	high	InDesign Markup Language
+INDT	formats	medium	InDesign Template
+AFDESIGN	formats	medium	Affinity Designer file
+AFPHOTO	formats	medium	Affinity Photo file
+AFPUB	formats	medium	Affinity Publisher file
+KRA	formats	medium	Krita document
+ORA	formats	medium	OpenRaster image; COLLISION ora
+FIG	formats	medium	Figma file; COLLISION fig
+CLIP	formats	medium	Clip Studio Paint file; COLLISION clip
+ORF	formats	high	Olympus Raw Format; also ORF Austrian broadcaster
+RW2	formats	high	Panasonic Raw
+RAF	formats	high	Fujifilm Raw; also Royal Air Force; COLLISION raf
+PEF	formats	high	Pentax Electronic File
+SRW	formats	high	Samsung Raw
+X3F	formats	medium	Sigma Foveon Raw
+ERF	formats	medium	Epson Raw
+KDC	formats	medium	Kodak Digital Camera Raw
+MRW	formats	medium	Minolta Raw
+NRW	formats	high	Nikon Raw (Coolpix)
+SR2	formats	medium	Sony Raw 2
+SRF	formats	medium	Sony Raw File
+3FR	formats	medium	Hasselblad 3F Raw
+IIQ	formats	medium	Phase One Raw
+CRW	formats	medium	Canon Raw (legacy)
+DCR	formats	medium	Kodak Raw
+RWL	formats	medium	Leica Raw
+MEF	formats	medium	Mamiya Raw
+GPR	formats	medium	GoPro Raw
+ARRIRAW	formats	high	ARRI Raw (official styling)
+ARI	formats	medium	ARRIRAW file extension; COLLISION ari
+CinemaDNG	formats	high	Cinema Digital Negative
+X-OCN	formats	medium	Sony eXtended Original Camera Negative
+ProRes RAW	formats	medium	Apple ProRes RAW
+ProRes 422	formats	medium	Apple ProRes 422
+ProRes 4444	formats	medium	Apple ProRes 4444
+M4V	formats	high	MPEG-4 video (Apple)
+MPG	formats	high	MPEG video file; also miles per gallon
+MPEG-1	formats	medium	MPEG-1 standard
+MPEG-2	formats	high	MPEG-2 standard
+MPEG-4	formats	high	MPEG-4 standard
+MPEG-H	formats	medium	MPEG-H 3D audio
+MPEG-TS	formats	high	MPEG Transport Stream
+MTS	formats	high	AVCHD transport stream file
+VOB	formats	high	DVD Video Object
+IFO	formats	medium	DVD info file
+3GP	formats	high	3GPP multimedia file
+3G2	formats	medium	3GPP2 multimedia file
+OGV	formats	medium	Ogg video
+ASF	formats	medium	Advanced Systems Format; Apache Software Foundation
+RMVB	formats	medium	RealMedia Variable Bitrate
+MKA	formats	medium	Matroska audio
+DivX	formats	high	DivX codec
+Xvid	formats	medium	Xvid codec
+MJPEG	formats	high	Motion JPEG
+H.266	formats	high	H.266 / VVC codec
+VVC	formats	high	Versatile Video Coding
+LCEVC	formats	medium	Low Complexity Enhancement Video Coding
+VP8	formats	high	VP8 codec
+AV2	formats	medium	AOMedia Video 2 (AV1 successor)
+CineForm	formats	high	GoPro CineForm codec
+XAVC	formats	high	Sony XAVC
+XAVC S	formats	medium	Sony XAVC S
+XAVC HS	formats	medium	Sony XAVC HS
+AVCHD	formats	high	Advanced Video Coding High Definition
+AVC-Intra	formats	high	Panasonic AVC-Intra
+XDCAM	formats	high	Sony XDCAM
+HDV	formats	high	High Definition Video tape format
+DVCPRO	formats	high	Panasonic DVCPRO
+DVCAM	formats	high	Sony DVCAM
+HDCAM	formats	high	Sony HDCAM (also cam-rip tag)
+MiniDV	formats	high	MiniDV tape
+Hi8	formats	high	Hi8 video tape
+S-VHS	formats	high	Super VHS
+VHS-C	formats	high	compact VHS
+SVCD	formats	high	Super Video CD
+MXF	formats	high	Material Exchange Format
+DPX	formats	high	Digital Picture Exchange
+CIN	formats	medium	Kodak Cineon image
+DCP	formats	high	Digital Cinema Package
+DCDM	formats	medium	Digital Cinema Distribution Master
+PKL	formats	medium	DCP Packing List; also Python pickle; conflicts Pkl config language
+CPL	formats	medium	Composition Playlist; circular polarizer; cost per lead
+SRT	formats	high	SubRip subtitle; also Secure Reliable Transport streaming
+SUB	formats	medium	MicroDVD/VobSub subtitle; COLLISION sub
+IDX	formats	high	VobSub index file
+ASS	formats	medium	Advanced SubStation Alpha subtitle; COLLISION ass
+VTT	formats	high	WebVTT subtitle file
+TTML	formats	high	Timed Text Markup Language
+DFXP	formats	high	Distribution Format Exchange Profile
+SBV	formats	medium	YouTube SubViewer subtitle
+SMI	formats	medium	SAMI subtitle file
+SAMI	formats	medium	Synchronized Accessible Media Interchange; COLLISION sami
+LRC	formats	high	Synchronized lyrics file
+PGS	formats	medium	Presentation Graphic Stream subtitle
+SUP	formats	medium	Blu-ray PGS subtitle file; COLLISION sup
+VobSub	formats	high	DVD bitmap subtitle format
+M4B	formats	high	MPEG-4 audiobook
+M4R	formats	medium	iPhone ringtone
+M4P	formats	medium	protected AAC
+ALAC	formats	high	Apple Lossless Audio Codec
+APE	formats	medium	Monkey's Audio file; COLLISION ape
+Opus	formats	medium	Opus audio codec; COLLISION opus
+AMR	formats	high	Adaptive Multi-Rate audio
+AMR-WB	formats	medium	AMR Wideband
+DSD	formats	high	Direct Stream Digital
+DSF	formats	high	DSD Stream File
+DFF	formats	medium	DSDIFF file
+DXD	formats	high	Digital eXtreme Definition
+MQA	formats	high	Master Quality Authenticated
+SACD	formats	high	Super Audio CD
+HDCD	formats	high	High Definition Compatible Digital
+DVD-A	formats	medium	DVD-Audio
+AC3	formats	medium	Dolby Digital file (AC-3)
+AC-3	formats	high	Dolby Digital AC-3
+E-AC-3	formats	high	Dolby Digital Plus
+EAC3	formats	medium	Dolby Digital Plus (filename form)
+AC-4	formats	medium	Dolby AC-4
+DDP	formats	medium	Dolby Digital Plus (release tag)
+DD+	formats	medium	Dolby Digital Plus
+DTS-HD MA	formats	medium	DTS-HD Master Audio
+ADPCM	formats	high	Adaptive Differential PCM
+A-law	formats	medium	G.711 A-law companding
+G.711	formats	medium	ITU-T G.711 audio codec
+G.722	formats	medium	ITU-T G.722 audio codec
+G.729	formats	medium	ITU-T G.729 audio codec
+MID	formats	medium	MIDI file; COLLISION mid
+KAR	formats	medium	Karaoke MIDI file
+MOD	formats	medium	tracker module; also game mod; COLLISION mod
+S3M	formats	medium	Scream Tracker 3 module
+XM	formats	medium	FastTracker 2 module; 2-letter
+SF2	formats	high	SoundFont 2
+SFZ	formats	high	SFZ sampler format
+NKI	formats	high	Kontakt Instrument
+NKM	formats	medium	Kontakt Multi
+NKS	formats	high	Native Kontrol Standard
+NKX	formats	medium	Kontakt resource container
+NCW	formats	medium	Native Instruments compressed wave
+REX	formats	medium	ReCycle loop file; COLLISION Rex
+RX2	formats	medium	ReCycle REX2 file
+AUP	formats	medium	Audacity project
+AUP3	formats	medium	Audacity 3 project
+ALS	formats	medium	Ableton Live Set; also ALS disease; COLLISION als
+ADG	formats	medium	Ableton Device Group
+FLP	formats	medium	FL Studio project
+PTX	formats	medium	Pro Tools session
+RPP	formats	medium	REAPER project
+BWF	formats	high	Broadcast Wave Format
+RF64	formats	high	RF64 large WAV
+CAF	formats	high	Core Audio Format
+W64	formats	medium	Sony Wave64
+DAE	formats	high	COLLADA Digital Asset Exchange
+COLLADA	formats	high	COLLAborative Design Activity
+PLY	formats	medium	Polygon File Format; COLLISION ply
+3MF	formats	high	3D Manufacturing Format
+STEP	formats	high	STEP CAD exchange format; COLLISION step
+IGES	formats	high	Initial Graphics Exchange Specification
+IGS	formats	medium	IGES file
+X_T	formats	medium	Parasolid text file
+SLDPRT	formats	high	SolidWorks part
+SLDASM	formats	high	SolidWorks assembly
+SLDDRW	formats	high	SolidWorks drawing
+IPT	formats	medium	Inventor part
+IDW	formats	medium	Inventor drawing
+DWF	formats	high	Design Web Format
+DGN	formats	high	MicroStation design file
+SKP	formats	high	SketchUp model
+3DM	formats	high	Rhino 3D model
+F3D	formats	medium	Fusion 360 design
+CATPart	formats	high	CATIA part file
+CATProduct	formats	high	CATIA product file
+CATDrawing	formats	medium	CATIA drawing file
+PRT	formats	medium	NX/Creo part file; also ISO code Portugal
+RVT	formats	high	Revit project
+RFA	formats	medium	Revit family
+NWD	formats	medium	Navisworks document
+BLEND	formats	medium	Blender file; COLLISION blend
+ZTL	formats	medium	ZBrush tool
+ZPR	formats	medium	ZBrush project
+SPP	formats	medium	Substance Painter project
+SBS	formats	medium	Substance Designer source; also side-by-side 3D
+VDB	formats	high	OpenVDB volume
+OpenVDB	formats	high	OpenVDB volume format
+Ptex	formats	medium	per-face texture format
+VRML	formats	high	Virtual Reality Modeling Language
+WRL	formats	medium	VRML world file
+LWO	formats	medium	LightWave object
+HIPNC	formats	medium	Houdini non-commercial file
+BGEO	formats	medium	Houdini binary geometry
+E57	formats	medium	ASTM E57 point cloud
+LAS	formats	high	LiDAR point cloud; COLLISION las
+LAZ	formats	medium	compressed LAS point cloud
+PCD	formats	medium	Point Cloud Data
+G-code	formats	high	CNC/3D-printer G-code
+GCODE	formats	medium	G-code file (extension form)
+AMF	formats	medium	Additive Manufacturing File; also AMD AMF encoder
+ODT	formats	high	OpenDocument Text; also ACES Output Device Transform
+ODS	formats	high	OpenDocument Spreadsheet
+ODP	formats	high	OpenDocument Presentation
+ODG	formats	high	OpenDocument Graphics
+WPD	formats	medium	WordPerfect Document
+XPS	formats	high	XML Paper Specification; also Dell XPS
+OXPS	formats	medium	Open XPS
+DOCM	formats	high	Word macro-enabled document
+DOTX	formats	high	Word template
+XLSB	formats	high	Excel binary workbook
+XLTX	formats	high	Excel template
+PPTM	formats	high	PowerPoint macro-enabled
+POTX	formats	high	PowerPoint template
+PPSX	formats	high	PowerPoint show
+VSDX	formats	high	Visio drawing
+VSD	formats	medium	Visio drawing (legacy)
+MPP	formats	medium	Microsoft Project file; also Master of Public Policy
+PUB	formats	medium	Publisher file; COLLISION pub
+MSG	formats	high	Outlook message file; also monosodium glutamate
+EML	formats	high	email message file
+MBOX	formats	high	mailbox file
+ICS	formats	high	iCalendar file
+RST	formats	medium	reStructuredText file
+LaTeX	formats	high	LaTeX typesetting; COLLISION latex
+BibTeX	formats	high	BibTeX bibliography
+XeTeX	formats	high	XeTeX engine
+LuaTeX	formats	high	LuaTeX engine
+pdfTeX	formats	high	pdfTeX engine
+ConTeXt	formats	high	ConTeXt typesetting; COLLISION context
+LyX	formats	high	LyX document processor
+TSV	formats	high	Tab-Separated Values
+FB2	formats	high	FictionBook 2 e-book
+AZW	formats	high	Kindle e-book
+KFX	formats	medium	Kindle KFX e-book
+LIT	formats	medium	Microsoft Reader e-book; COLLISION lit; conflicts Lit web components library
+CBT	formats	medium	Comic Book TAR; also cognitive behavioral therapy
+PDB	formats	medium	Palm Database; Protein Data Bank; program database
+7z	formats	medium	7-Zip archive format; 2-letter
+TGZ	formats	medium	gzipped tarball
+BZ2	formats	medium	bzip2 file
+LZMA	formats	high	Lempel-Ziv-Markov chain Algorithm
+LZMA2	formats	medium	LZMA2 compression
+ZST	formats	medium	Zstandard file
+LZH	formats	medium	LHA archive
+LHA	formats	medium	LHA archive
+ARJ	formats	medium	ARJ archive
+SITX	formats	medium	StuffIt X archive
+CPIO	formats	medium	cpio archive
+DEB	formats	medium	Debian package; COLLISION Deb
+MSIX	formats	high	Windows MSIX package
+XAPK	formats	medium	Android XAPK package
+AAB	formats	medium	Android App Bundle
+VHDX	formats	high	Hyper-V virtual disk
+QCOW2	formats	high	QEMU Copy-On-Write v2
+IMG	formats	high	disk image file
+CUE	formats	medium	CUE sheet; COLLISION cue
+ISZ	formats	medium	compressed ISO
+PAR2	formats	high	Parity Archive 2
+SFV	formats	medium	Simple File Verification
+NZB	formats	medium	Usenet NZB file
+PKG	formats	high	installer package
+E01	formats	medium	EnCase evidence image
+IPSW	formats	high	iOS firmware file
+LNK	formats	high	Windows shortcut
+INI	formats	high	initialization file
+CFG	formats	high	configuration file
+INF	formats	medium	setup information file
+SYS	formats	medium	system driver file
+MSU	formats	medium	Windows update package
+CRX	formats	medium	Chrome extension package
+AppImage	formats	high	Linux AppImage package
+TTC	formats	high	TrueType Collection
+PFB	formats	medium	PostScript Type 1 font binary
+AFM	formats	medium	Adobe Font Metrics; atomic force microscopy; American Federation of Musicians
+BDF	formats	medium	Glyph Bitmap Distribution Format
+FNT	formats	medium	bitmap font file
+DFONT	formats	medium	Mac data-fork font
+VFB	formats	medium	FontLab Studio 5 file
+SFNT	formats	medium	spline font container
+CFF	formats	medium	Compact Font Format
+CFF2	formats	medium	Compact Font Format 2
+COLRv1	formats	medium	OpenType color font table v1
+OT-SVG	formats	medium	OpenType SVG color fonts
+GPX	formats	high	GPS Exchange Format
+KMZ	formats	high	zipped KML
+GeoJSON	formats	high	GeoJSON
+TopoJSON	formats	high	TopoJSON
+SHP	formats	high	Esri shapefile
+GeoTIFF	formats	high	georeferenced TIFF
+GPKG	formats	medium	GeoPackage file
+NetCDF	formats	high	Network Common Data Form
+HDF5	formats	high	Hierarchical Data Format 5
+HDF	formats	medium	Hierarchical Data Format
+FITS	formats	high	Flexible Image Transport System; COLLISION fits
+DICOM	formats	high	Digital Imaging and Communications in Medicine
+NIfTI	formats	high	Neuroimaging Informatics Technology Initiative
+MDB	formats	high	Access database (legacy)
+ACCDB	formats	high	Access database
+SAV	formats	medium	SPSS data file; also game save
+DTA	formats	medium	Stata data file
+RData	formats	high	R data file
+XPT	formats	medium	SAS transport file
+NPY	formats	medium	NumPy array file
+NPZ	formats	medium	NumPy zipped arrays
+H5	formats	medium	HDF5 file; 2-letter
+PTH	formats	medium	PyTorch weights file
+CKPT	formats	medium	model checkpoint file
+TFLite	formats	medium	TensorFlow Lite model
+EDF	formats	medium	European Data Format
+CHD	formats	medium	MAME Compressed Hunks of Data
+RVZ	formats	medium	Dolphin compressed disc image
+WBFS	formats	medium	Wii Backup File System
+NSP	formats	medium	Nintendo Switch package
+NSZ	formats	medium	compressed NSP
+PBP	formats	medium	PSP EBOOT package
+SFX	media	high	Sound Effects; also SFX PSU form factor
+VFX	media	high	Visual Effects
+GFX	media	high	Graphics
+CG	media	medium	Computer Graphics; 2-letter
+ADR	media	high	Automated Dialogue Replacement; also alternative dispute resolution
+POV	media	high	Point of View
+ASMR	media	high	Autonomous Sensory Meridian Response
+VO	media	medium	Voice-Over; 2-letter
+M&E	media	high	Music and Effects stems
+DME	media	medium	Dialogue Music Effects stems
+LtRt	media	medium	Left total Right total stereo
+LoRo	media	medium	Left only Right only stereo
+LCR	media	medium	Left Center Right
+LCRS	media	medium	Left Center Right Surround
+ORTF	media	medium	ORTF stereo mic technique
+SDC	media	medium	Small-Diaphragm Condenser
+LDC	media	medium	Large-Diaphragm Condenser
+HPF	media	high	High-Pass Filter
+LPF	media	high	Low-Pass Filter
+BPF	media	medium	Band-Pass Filter
+SPL	media	high	Sound Pressure Level
+SNR	media	high	Signal-to-Noise Ratio
+THD+N	media	high	Total Harmonic Distortion plus Noise
+IMD	media	medium	Intermodulation Distortion
+LKFS	media	high	Loudness K-weighted Full Scale
+LRA	media	medium	Loudness Range
+PLR	media	medium	Peak-to-Loudness Ratio
+R128	media	medium	EBU R128 loudness standard
+DCO	media	medium	Digitally Controlled Oscillator
+HRTF	media	high	Head-Related Transfer Function
+TTS	media	high	Text-to-Speech
+STT	media	medium	Speech-to-Text
+ASR	media	high	Automatic Speech Recognition
+WDM	media	high	Windows Driver Model audio; also wavelength multiplexing
+MME	media	medium	Windows Multimedia Extensions audio
+ALSA	media	high	Advanced Linux Sound Architecture
+JACK	media	high	JACK Audio Connection Kit; COLLISION Jack
+LV2	media	high	LV2 plugin standard
+LADSPA	media	high	Linux Audio Developer's Simple Plugin API
+DSSI	media	medium	Disposable Soft Synth Interface
+AUv3	media	high	Audio Unit v3
+CLAP	media	high	CLever Audio Plug-in; COLLISION clap
+ARA	media	high	Audio Random Access; COLLISION ara
+ARA2	media	high	Audio Random Access 2
+MIDI-CI	media	medium	MIDI Capability Inquiry
+NRPN	media	high	Non-Registered Parameter Number
+SysEx	media	high	MIDI System Exclusive
+PPQN	media	medium	Pulses Per Quarter Note
+PPQ	media	medium	Pulses Per Quarter
+VJ	media	medium	Video Jockey; 2-letter
+A&R	media	high	Artists and Repertoire
+Lo-Fi	media	high	Low Fidelity (pairs with existing Hi-Fi)
+LoFi	media	medium	Low Fidelity (unhyphenated)
+Hi-Res	media	medium	High-Resolution audio/images
+Lo-Res	media	medium	Low resolution
+R&B	media	high	Rhythm and Blues
+RnB	media	medium	Rhythm and Blues (filename form)
+UKG	media	medium	UK Garage
+IDM	media	medium	Intelligent Dance Music
+EBM	media	medium	Electronic Body Music
+K-Pop	media	medium	Korean pop (AP style K-pop)
+J-Pop	media	medium	Japanese pop (AP style J-pop)
+J-Rock	media	medium	Japanese rock
+C-Pop	media	medium	Chinese pop
+K-Drama	media	medium	Korean drama (also K-drama)
+EP	media	medium	Extended Play; 2-letter
+MV	media	medium	Music Video; 2-letter
+PV	media	medium	Promotional Video; photovoltaic; 2-letter
+AMV	media	medium	Anime Music Video
+MMD	media	medium	MikuMikuDance
+UTAU	media	medium	UTAU singing synthesizer
+VTuber	media	high	Virtual YouTuber
+ED	media	medium	anime Ending theme; COLLISION Ed; 2-letter
+ONA	media	medium	Original Net Animation; COLLISION ona
+IMAX	media	high	IMAX large format
+4DX	media	high	4DX motion cinema
+ScreenX	media	medium	ScreenX panoramic cinema
+HFR	media	high	High Frame Rate
+VFR	media	high	Variable Frame Rate
+CFR	media	high	Constant Frame Rate; also Code of Federal Regulations
+CRF	media	high	Constant Rate Factor
+CQP	media	medium	Constant Quantization Parameter
+GOP	media	high	Group of Pictures; also Grand Old Party
+NVENC	media	high	NVIDIA hardware encoder
+NVDEC	media	medium	NVIDIA hardware decoder
+QSV	media	medium	Intel Quick Sync Video
+VA-API	media	medium	Video Acceleration API
+NLE	media	high	Non-Linear Editor
+EDL	media	high	Edit Decision List
+AAF	media	high	Advanced Authoring Format
+OMF	media	high	Open Media Framework
+FCPXML	media	high	Final Cut Pro XML
+FCPX	media	high	Final Cut Pro X
+PPro	media	low	Adobe Premiere Pro abbreviation
+AEP	media	medium	After Effects project
+PRPROJ	media	medium	Premiere Pro project
+DRP	media	medium	DaVinci Resolve project; also disaster recovery plan
+MOGRT	media	high	Motion Graphics Template
+CDL	media	high	Color Decision List
+IDT	media	medium	ACES Input Device Transform
+RRT	media	medium	ACES Reference Rendering Transform
+LogC	media	medium	ARRI LogC
+N-Log	media	medium	Nikon N-Log
+F-Log	media	medium	Fujifilm F-Log
+F-Log2	media	medium	Fujifilm F-Log2
+D-Log	media	medium	DJI D-Log
+BT.709	media	medium	ITU-R BT.709
+BT.2020	media	medium	ITU-R BT.2020
+BT.2100	media	medium	ITU-R BT.2100
+BT.601	media	medium	ITU-R BT.601
+Rec.601	media	medium	ITU-R Rec. 601
+Rec.2100	media	medium	ITU-R Rec. 2100
+PQ	media	high	Perceptual Quantizer HDR curve; 2-letter
+Oklab	media	high	Oklab perceptual color space (Ottosson styling)
+OKLCH	media	medium	OKLCH color space (also Oklch)
+D50	media	medium	CIE illuminant D50
+D65	media	medium	CIE illuminant D65
+GRACoL	media	high	Idealliance print specification
+SWOP	media	high	Specifications for Web Offset Publications
+FOGRA39	media	high	FOGRA39 print characterization
+FOGRA51	media	high	FOGRA51 print characterization
+CRI	media	high	Color Rendering Index
+CCT	media	high	Correlated Color Temperature
+TLCI	media	medium	Television Lighting Consistency Index
+VITC	media	high	Vertical Interval Timecode
+NDF	media	medium	Non-Drop Frame timecode
+DSLR	media	high	Digital Single-Lens Reflex
+SLR	media	high	Single-Lens Reflex
+MILC	media	medium	Mirrorless Interchangeable-Lens Camera
+EVF	media	high	Electronic Viewfinder
+IBIS	media	high	In-Body Image Stabilization
+OIS	media	high	Optical Image Stabilization
+EIS	media	high	Electronic Image Stabilization
+AF	media	medium	Autofocus; 2-letter
+MF	media	high	Manual Focus; 2-letter
+AE	media	high	Auto Exposure; After Effects; 2-letter
+AEB	media	medium	Auto Exposure Bracketing
+AF-S	media	high	Nikon AF-S lens; single-servo AF
+AF-C	media	medium	continuous autofocus
+AF-P	media	medium	Nikon AF-P lens
+USM	media	high	Canon Ultrasonic Motor
+STM	media	high	Canon Stepping Motor
+APO	media	medium	Apochromatic lens
+GND	media	medium	Graduated Neutral Density filter; electrical ground
+APS-C	media	high	Advanced Photo System type-C sensor
+APS-H	media	high	Advanced Photo System type-H sensor
+MFT	media	high	Micro Four Thirds
+DOF	media	high	Depth of Field
+AWB	media	medium	Auto White Balance; also air waybill
+HSS	media	medium	High-Speed Sync flash
+IPTC	media	high	IPTC photo metadata standard
+B-roll	media	high	supplementary footage; title-case variant B-Roll
+A-roll	media	medium	primary footage; title-case variant A-Roll
+EPK	media	high	Electronic Press Kit
+OTS	media	medium	Over-The-Shoulder shot
+DoP	media	medium	Director of Photography
+UPM	media	medium	Unit Production Manager
+INT	media	medium	Interior (screenplay slug line)
+EXT	media	medium	Exterior (screenplay slug line)
+PG-13	media	high	MPA rating PG-13
+TV-MA	media	high	TV rating Mature Audience
+TV-14	media	high	TV rating 14
+TV-PG	media	high	TV rating Parental Guidance
+TV-Y7	media	medium	TV rating Y7
+TV-G	media	medium	TV rating General
+Blu-ray	media	high	Blu-ray Disc (official styling)
+BluRay	media	medium	Blu-ray (filename form)
+BD	media	high	Blu-ray Disc; 2-letter
+BDMV	media	high	Blu-ray movie folder structure
+BDRip	media	high	Blu-ray rip release tag
+BRRip	media	high	Blu-ray re-encode release tag
+DVDRip	media	high	DVD rip release tag
+WEB-DL	media	high	web download release tag
+WEBRip	media	high	web capture release tag
+HDRip	media	high	HD rip release tag
+DVDScr	media	medium	DVD screener release tag
+Remux	media	medium	lossless remux release tag
+AMZN	media	medium	Amazon source tag in release names
+DSNP	media	medium	Disney+ source tag
+ATVP	media	medium	Apple TV+ source tag
+HMAX	media	medium	HBO Max source tag
+PCOK	media	medium	Peacock source tag
+PMTP	media	medium	Paramount+ source tag
+NF	media	high	Netflix source tag; 2-letter
+BD-R	media	high	recordable Blu-ray
+BD-RE	media	high	rewritable Blu-ray
+BD-ROM	media	high	Blu-ray read-only
+BDXL	media	high	high-capacity Blu-ray
+CD-R	media	high	recordable CD
+CD-RW	media	high	rewritable CD
+CD-ROM	media	high	CD read-only memory
+DVD-R	media	high	recordable DVD
+DVD+R	media	high	recordable DVD plus
+DVD-RW	media	high	rewritable DVD
+DVD+RW	media	high	rewritable DVD plus
+DVD-RAM	media	high	DVD random-access
+DVD-ROM	media	high	DVD read-only
+MiniDisc	media	high	Sony MiniDisc
+ISRC	media	high	International Standard Recording Code
+ISWC	media	medium	International Standard Musical Work Code
+SDH	media	high	Subtitles for the Deaf and Hard of hearing
+CEA-608	media	high	Line 21 closed captions
+CEA-708	media	high	digital TV closed captions
+MoCap	media	low	Motion Capture (also mocap)
+SubD	media	medium	Subdivision surface
+NURBS	media	high	Non-Uniform Rational B-Spline
+UDIM	media	high	U-Dimension texture tiles
+BRDF	media	medium	Bidirectional Reflectance Distribution Function
+BSDF	media	medium	Bidirectional Scattering Distribution Function
+SSS	media	medium	Subsurface Scattering
+SDF	media	high	Signed Distance Field
+AO	media	high	Ambient Occlusion; 2-letter
+GI	media	high	Global Illumination; 2-letter
+IK	media	high	Inverse Kinematics; 2-letter
+FK	media	high	Forward Kinematics; 2-letter
+FPO	media	high	For Placement Only (design)
+DTP	media	high	Desktop Publishing
+LQ	media	high	Low Quality; 2-letter
+PiP	media	medium	Picture-in-Picture; also PIP performance plan; COLLISION pip; conflicts pip Python package manager
+DLC	gaming	high	Downloadable Content
+NPC	gaming	high	Non-Player Character
+GOTY	gaming	high	Game of the Year
+JRPG	gaming	high	Japanese RPG
+ARPG	gaming	high	Action RPG
+CRPG	gaming	high	Computer RPG
+SRPG	gaming	medium	Strategy/Simulation RPG
+TRPG	gaming	medium	Tactical/Tabletop RPG
+TTRPG	gaming	high	Tabletop RPG
+MOBA	gaming	high	Multiplayer Online Battle Arena
+RTS	gaming	high	Real-Time Strategy
+4X	gaming	high	explore expand exploit exterminate genre; 2-letter
+TPS	gaming	high	Third-Person Shooter; also TPS reports
+FPP	gaming	medium	First-Person Perspective
+TPP	gaming	medium	Third-Person Perspective
+PvP	gaming	high	Player versus Player
+PvE	gaming	high	Player versus Environment
+PvPvE	gaming	high	Player vs Player vs Environment
+AoE	gaming	high	Area of Effect; Age of Empires
+DPS	gaming	high	Damage Per Second
+AFK	gaming	high	Away From Keyboard
+GG	gaming	medium	Good Game; 2-letter
+GLHF	gaming	high	Good Luck Have Fun
+MMR	gaming	high	Matchmaking Rating
+Elo	gaming	medium	Elo rating system (named after Arpad Elo; ELO is the band)
+KDA	gaming	high	Kills Deaths Assists
+TTK	gaming	high	Time To Kill
+ADS	gaming	medium	Aim Down Sights; COLLISION ads
+QTE	gaming	high	Quick Time Event
+NG+	gaming	high	New Game Plus
+MTX	gaming	medium	Microtransactions
+F2P	gaming	high	Free-to-Play
+P2W	gaming	high	Pay-to-Win
+B2P	gaming	medium	Buy-to-Play
+P2E	gaming	medium	Play-to-Earn
+GaaS	gaming	high	Games as a Service
+LiveOps	gaming	medium	Live Operations
+TCG	gaming	high	Trading Card Game
+CCG	gaming	high	Collectible Card Game
+LCG	gaming	medium	Living Card Game
+LARP	gaming	high	Live Action Role-Play
+D&D	gaming	high	Dungeons and Dragons
+5e	gaming	medium	D&D Fifth Edition; 2-letter
+PF2e	gaming	medium	Pathfinder Second Edition
+GM	gaming	medium	Game Master; General Manager; 2-letter
+HUD	gaming	high	Heads-Up Display; also US Dept of Housing and Urban Development
+FOV	gaming	high	Field of View
+LOD	gaming	high	Level of Detail; mouse lift-off distance
+WASD	gaming	high	WASD movement keys
+V-Sync	gaming	medium	Vertical Sync
+VSync	gaming	medium	Vertical Sync (unhyphenated)
+DLSS	gaming	high	NVIDIA Deep Learning Super Sampling
+DLAA	gaming	high	NVIDIA Deep Learning Anti-Aliasing
+FSR	gaming	high	AMD FidelityFX Super Resolution
+XeSS	gaming	high	Intel Xe Super Sampling
+PSSR	gaming	medium	PlayStation Spectral Super Resolution
+MetalFX	gaming	medium	Apple MetalFX upscaling
+TAA	gaming	high	Temporal Anti-Aliasing
+FXAA	gaming	high	Fast Approximate Anti-Aliasing
+MSAA	gaming	high	Multisample Anti-Aliasing
+SMAA	gaming	high	Subpixel Morphological Anti-Aliasing
+SSAA	gaming	high	Supersample Anti-Aliasing
+SSAO	gaming	high	Screen-Space Ambient Occlusion
+HBAO	gaming	medium	Horizon-Based Ambient Occlusion
+SSGI	gaming	medium	Screen-Space Global Illumination
+RTGI	gaming	medium	Ray-Traced Global Illumination
+DXR	gaming	high	DirectX Raytracing
+AAA	gaming	high	triple-A games; also AAA batteries / auto club
+PSN	gaming	high	PlayStation Network
+N64	gaming	high	Nintendo 64
+GBA	gaming	high	Game Boy Advance
+GBC	gaming	high	Game Boy Color
+NDS	gaming	high	Nintendo DS
+Wii	gaming	high	Nintendo Wii
+Wii U	gaming	high	Nintendo Wii U
+GCN	gaming	medium	Nintendo GameCube abbreviation
+SFC	gaming	medium	Super Famicom
+X360	gaming	medium	Xbox 360
+XB1	gaming	medium	Xbox One
+XSX	gaming	medium	Xbox Series X
+MAME	gaming	high	Multiple Arcade Machine Emulator; COLLISION mame
+GTA	gaming	high	Grand Theft Auto; graduate teaching assistant
+GTAV	gaming	medium	Grand Theft Auto V
+CS2	gaming	high	Counter-Strike 2
+CSGO	gaming	medium	Counter-Strike Global Offensive
+TF2	gaming	high	Team Fortress 2
+L4D2	gaming	high	Left 4 Dead 2
+HL2	gaming	high	Half-Life 2
+RDR2	gaming	high	Red Dead Redemption 2
+BG3	gaming	medium	Baldur's Gate 3
+FFVII	gaming	high	Final Fantasy VII
+FFXIV	gaming	high	Final Fantasy XIV
+FFXVI	gaming	high	Final Fantasy XVI
+FF7	gaming	medium	Final Fantasy 7
+MGSV	gaming	medium	Metal Gear Solid V
+BotW	gaming	medium	Zelda Breath of the Wild
+TotK	gaming	medium	Zelda Tears of the Kingdom
+OoT	gaming	medium	Zelda Ocarina of Time
+TLOU	gaming	medium	The Last of Us
+COD	gaming	medium	Call of Duty; cash on delivery; COLLISION cod; brands list uses CoD
+WoW	gaming	high	World of Warcraft; COLLISION wow
+Dota	gaming	medium	Dota (Valve styling)
+LOL	general	medium	laughing out loud (League of Legends styled LoL); brands list uses LoL
+WIP	general	high	Work In Progress
+NSFW	general	high	Not Safe For Work
+SFW	general	high	Safe For Work
+NSFL	general	medium	Not Safe For Life
+TLDR	general	medium	too long didn't read (TL;DR form not filename-safe per brief)
+AMA	general	high	Ask Me Anything; American Medical Association; COLLISION ama
+ELI5	general	high	Explain Like I'm 5
+LMAO	general	high	internet slang
+ROFL	general	high	internet slang
+OMG	general	high	Oh My God; Object Management Group
+WTF	general	high	internet slang
+BRB	general	high	Be Right Back
+BTW	general	high	By The Way
+FYI	general	high	For Your Information
+IMO	general	high	In My Opinion; International Maritime Organization
+IMHO	general	high	In My Humble Opinion
+IIRC	general	high	If I Recall Correctly
+AFAIK	general	high	As Far As I Know
+IRL	general	high	In Real Life; also ISO code Ireland
+FOMO	general	high	Fear Of Missing Out
+YOLO	general	high	You Only Live Once; YOLO object detection
+GOAT	general	high	Greatest Of All Time; COLLISION goat
+SMH	general	high	Shaking My Head
+TBT	general	high	Throwback Thursday
+FTW	general	high	For The Win
+IDK	general	high	I Don't Know
+NGL	general	medium	Not Gonna Lie
+ICYMI	general	high	In Case You Missed It
+IYKYK	general	medium	If You Know You Know
+OOTD	general	high	Outfit Of The Day
+GRWM	general	high	Get Ready With Me
+MOTD	general	high	Message Of The Day
+QOTD	general	medium	Quote/Question Of The Day
+PSA	general	high	Public Service Announcement; professional services automation
+OC	general	high	Original Character; Orange County; 2-letter
+OG	general	medium	Original; 2-letter
+BFF	general	high	Best Friends Forever
+TFW	general	medium	That Feeling When
+VIP	general	high	Very Important Person; VIP remix
+RSVP	general	high	repondez s'il vous plait
+AKA	general	medium	Also Known As (AP style a.k.a.)
+PS	general	high	postscript; Photoshop; PlayStation; 2-letter
+SOS	general	high	distress signal; COLLISION sos
+AWOL	general	high	Absent Without Leave; COLLISION awol
+UFO	general	high	Unidentified Flying Object; also Unified Font Object
+UAP	general	medium	Unidentified Anomalous Phenomena
+BYOB	general	high	Bring Your Own Bottle
+BYOD	general	high	Bring Your Own Device
+DOA	general	medium	Dead On Arrival
+NOS	general	medium	New Old Stock; nitrous; COLLISION nos
+NIB	general	medium	New In Box; COLLISION nib
+NWT	general	medium	New With Tags
+NWOT	general	medium	New Without Tags
+OOS	general	medium	Out Of Stock
+PPE	general	high	Personal Protective Equipment
+CCTV	general	high	Closed-Circuit Television; China Central Television
+HVAC	general	high	Heating Ventilation and Air Conditioning
+MEP	general	high	Mechanical Electrical Plumbing
+BIM	general	high	Building Information Modeling
+CNC	general	high	Computer Numerical Control
+FEA	general	high	Finite Element Analysis
+FEM	general	medium	Finite Element Method
+CFD	general	high	Computational Fluid Dynamics; also Contract for Difference
+GD&T	general	high	Geometric Dimensioning and Tolerancing
+DC	general	medium	Direct Current; Washington DC; DC Comics; 2-letter
+AA	general	high	AA battery; anti-aliasing; Alcoholics Anonymous; 2-letter; COLLISION aa
+IT	general	high	Information Technology; COLLISION it; 2-letter
+A&E	general	medium	Accident and Emergency; A&E network
+B&B	general	high	Bed and Breakfast
+PB&J	general	medium	peanut butter and jelly
+QR	general	high	Quick Response (QR code); 2-letter
+HQ	general	high	Headquarters; High Quality; 2-letter
+LGBTQ	general	medium	lesbian gay bisexual transgender queer
+LGBTQ+	general	medium	LGBTQ plus
+DL	general	high	Download; Deep Learning; DL envelope; also dL deciliter; 2-letter
+MR	general	high	Mixed Reality; 2-letter; COLLISION mr
+A0	general	medium	ISO paper size A0; 2-letter
+A1	general	medium	ISO paper size A1; 2-letter
+A2	general	medium	ISO paper size A2; 2-letter
+A3	general	high	ISO paper size A3; 2-letter
+A4	general	high	ISO paper size A4; 2-letter
+A5	general	high	ISO paper size A5; 2-letter
+A6	general	medium	ISO paper size A6; 2-letter
+B4	general	medium	ISO paper size B4; 2-letter
+B5	general	medium	ISO paper size B5; 2-letter
+SRA3	general	medium	oversize print sheet SRA3
+SUV	general	high	Sport Utility Vehicle
+CUV	general	medium	Crossover Utility Vehicle
+ATV	general	high	All-Terrain Vehicle
+UTV	general	medium	Utility Task Vehicle
+AWD	general	high	All-Wheel Drive
+4WD	general	high	Four-Wheel Drive
+4x4	general	medium	four-by-four
+FWD	general	medium	Front-Wheel Drive; also email Fwd
+RWD	general	high	Rear-Wheel Drive; also responsive web design
+ABS	general	medium	Anti-lock Braking System; ABS plastic; COLLISION abs
+ESC	general	medium	Electronic Stability Control; Escape key; drone ESC
+ADAS	general	high	Advanced Driver-Assistance Systems
+OBD	general	high	On-Board Diagnostics
+OBD-II	general	high	On-Board Diagnostics II
+OBD2	general	high	On-Board Diagnostics 2
+ECU	general	high	Engine Control Unit; also extreme close-up
+CVT	general	high	Continuously Variable Transmission
+DSG	general	high	Direct-Shift Gearbox
+VIN	general	medium	Vehicle Identification Number; COLLISION Vin
+PHEV	general	high	Plug-in Hybrid Electric Vehicle
+BEV	general	high	Battery Electric Vehicle; COLLISION bev
+HEV	general	high	Hybrid Electric Vehicle
+MHEV	general	medium	Mild Hybrid Electric Vehicle
+FCEV	general	medium	Fuel Cell Electric Vehicle
+ICE	general	high	Internal Combustion Engine; US ICE agency; COLLISION ice
+CCS	general	high	Combined Charging System
+CCS1	general	medium	Combined Charging System Type 1
+CCS2	general	medium	Combined Charging System Type 2
+NACS	general	high	North American Charging Standard
+CHAdeMO	general	high	CHAdeMO DC fast charging (official styling)
+J1772	general	high	SAE J1772 charging connector
+J3400	general	medium	SAE J3400 (NACS) connector
+DCFC	general	medium	DC Fast Charging
+V2G	general	medium	Vehicle-to-Grid
+V2L	general	medium	Vehicle-to-Load
+WLTP	general	high	Worldwide Harmonised Light Vehicles Test Procedure
+NEDC	general	medium	New European Driving Cycle
+JDM	general	high	Japanese Domestic Market
+USDM	general	medium	US Domestic Market
+V12	general	high	V12 engine
+V10	general	medium	V10 engine
+DOHC	general	medium	Double Overhead Camshaft
+SOHC	general	medium	Single Overhead Camshaft
+TDI	general	medium	Turbocharged Direct Injection
+TSI	general	medium	Turbo Stratified Injection
+HIIT	general	high	High-Intensity Interval Training
+1RM	general	high	One-Rep Max
+RPE	general	medium	Rate of Perceived Exertion
+AMRAP	general	high	As Many Reps As Possible
+EMOM	general	high	Every Minute On the Minute
+WOD	general	high	Workout Of the Day
+DOMS	general	medium	Delayed Onset Muscle Soreness
+HRV	general	high	Heart Rate Variability
+SpO2	general	high	peripheral oxygen saturation
+VO2max	general	medium	maximal oxygen uptake
+VO2 max	general	medium	maximal oxygen uptake
+BMR	general	medium	Basal Metabolic Rate
+TDEE	general	medium	Total Daily Energy Expenditure
+BMI	general	high	Body Mass Index; also Broadcast Music Inc
+pH	general	high	potential of hydrogen; 2-letter
+pKa	general	medium	acid dissociation constant
+CO2	general	high	carbon dioxide
+CO2e	general	high	carbon dioxide equivalent
+H2O	general	high	water
+NOx	general	high	nitrogen oxides
+PM2.5	general	high	fine particulate matter
+PM10	general	medium	coarse particulate matter
+VOC	general	high	Volatile Organic Compound
+GHG	general	high	Greenhouse Gas
+PFAS	general	high	per- and polyfluoroalkyl substances
+BPA	general	high	Bisphenol A
+GMO	general	high	Genetically Modified Organism
+LCA	general	medium	Life Cycle Assessment
+EPD	general	medium	Environmental Product Declaration
+BESS	general	medium	Battery Energy Storage System; COLLISION bess
+HVDC	general	high	High-Voltage Direct Current
+HPLC	general	high	High-Performance Liquid Chromatography
+NMR	general	medium	Nuclear Magnetic Resonance
+GC-MS	general	medium	Gas Chromatography-Mass Spectrometry
+LC-MS	general	medium	Liquid Chromatography-Mass Spectrometry
+TEM	general	medium	Transmission Electron Microscopy
+XRD	general	medium	X-Ray Diffraction
+XRF	general	medium	X-Ray Fluorescence
+FTIR	general	medium	Fourier-Transform Infrared spectroscopy
+UV-Vis	general	medium	Ultraviolet-Visible spectroscopy
+NaCl	general	medium	sodium chloride
+MRI	general	high	Magnetic Resonance Imaging
+CT	general	medium	Computed Tomography; 2-letter
+PET	general	high	Positron Emission Tomography; PET plastic; COLLISION pet
+EKG	general	high	Electrocardiogram
+ECG	general	high	Electrocardiogram
+EEG	general	high	Electroencephalogram
+EMG	general	high	Electromyography
+X-ray	general	high	X-ray imaging
+CMP	general	medium	Comprehensive Metabolic Panel
+TSH	general	medium	Thyroid-Stimulating Hormone
+HbA1c	general	high	glycated hemoglobin
+A1C	general	high	glycated hemoglobin test
+LDL	general	high	Low-Density Lipoprotein
+HDL	general	high	High-Density Lipoprotein
+ICU	general	high	Intensive Care Unit
+NICU	general	high	Neonatal Intensive Care Unit
+PICU	general	medium	Pediatric Intensive Care Unit
+ER	general	medium	Emergency Room; 2-letter; COLLISION er
+OR	general	high	Operating Room; COLLISION or; 2-letter
+OB-GYN	general	high	Obstetrics and Gynecology
+ENT	general	high	Ear Nose and Throat
+EMT	general	high	Emergency Medical Technician
+EMS	general	high	Emergency Medical Services; COLLISION ems
+CPR	general	high	Cardiopulmonary Resuscitation; also Cubase project file
+AED	general	high	Automated External Defibrillator; also UAE dirham code
+DNR	general	high	Do Not Resuscitate
+EHR	general	high	Electronic Health Record
+EMR	general	high	Electronic Medical Record
+PHI	general	medium	Protected Health Information; COLLISION phi
+ICD-10	general	high	International Classification of Diseases 10
+ICD-11	general	medium	International Classification of Diseases 11
+CPT	general	medium	Current Procedural Terminology
+Dx	general	medium	diagnosis; 2-letter
+Tx	general	medium	treatment; 2-letter
+COVID-19	general	high	coronavirus disease 2019
+COVID	general	high	coronavirus disease
+SARS-CoV-2	general	high	virus causing COVID-19
+SARS	general	high	Severe Acute Respiratory Syndrome
+MERS	general	medium	Middle East Respiratory Syndrome
+mRNA	general	high	messenger RNA
+DNA	general	high	deoxyribonucleic acid
+RNA	general	high	ribonucleic acid
+PCR	general	high	Polymerase Chain Reaction
+qPCR	general	high	quantitative PCR
+RT-PCR	general	high	Reverse Transcription PCR
+CRISPR	general	high	gene-editing technology
+HIV	general	high	Human Immunodeficiency Virus
+HPV	general	high	Human Papillomavirus
+MRSA	general	high	Methicillin-resistant Staphylococcus aureus
+UTI	general	high	Urinary Tract Infection
+COPD	general	high	Chronic Obstructive Pulmonary Disease
+ADHD	general	high	Attention-Deficit Hyperactivity Disorder
+PTSD	general	high	Post-Traumatic Stress Disorder
+GERD	general	medium	Gastroesophageal Reflux Disease
+IBS	general	medium	Irritable Bowel Syndrome
+TBI	general	medium	Traumatic Brain Injury
+CKD	general	medium	Chronic Kidney Disease
+STI	general	medium	Sexually Transmitted Infection
+AIDS	general	high	Acquired Immunodeficiency Syndrome; COLLISION aids
+RN	education	high	Registered Nurse; 2-letter
+LPN	education	high	Licensed Practical Nurse
+CNA	education	high	Certified Nursing Assistant
+NP	education	high	Nurse Practitioner; 2-letter
+APRN	education	high	Advanced Practice Registered Nurse
+CRNA	education	high	Certified Registered Nurse Anesthetist
+DMD	education	high	Doctor of Dental Medicine
+DVM	education	high	Doctor of Veterinary Medicine
+PharmD	education	high	Doctor of Pharmacy
+DPT	education	high	Doctor of Physical Therapy
+PsyD	education	high	Doctor of Psychology
+DNP	education	high	Doctor of Nursing Practice
+BSN	education	high	Bachelor of Science in Nursing
+ADN	education	high	Associate Degree in Nursing
+SLP	education	high	Speech-Language Pathologist
+LCSW	education	high	Licensed Clinical Social Worker
+LMFT	education	high	Licensed Marriage and Family Therapist
+LPC	education	high	Licensed Professional Counselor
+BCBA	education	high	Board Certified Behavior Analyst
+DO	education	high	Doctor of Osteopathic Medicine; COLLISION do; 2-letter
+USMLE	education	high	US Medical Licensing Examination
+NCLEX	education	high	nursing licensure exam
+MCAT	education	high	Medical College Admission Test
+PhD	education	high	Doctor of Philosophy
+MBA	education	high	Master of Business Administration
+EMBA	education	high	Executive MBA
+MSc	education	high	Master of Science
+BSc	education	high	Bachelor of Science; conflicts BSC British Society of Cinematographers
+BA	education	high	Bachelor of Arts; British Airways; 2-letter; COLLISION ba
+MA	education	high	Master of Arts; Massachusetts; 2-letter; COLLISION ma
+BFA	education	high	Bachelor of Fine Arts
+MEd	education	high	Master of Education; COLLISION med
+EdD	education	high	Doctor of Education
+EdS	education	medium	Education Specialist
+MPhil	education	high	Master of Philosophy
+DPhil	education	high	Doctor of Philosophy (Oxford)
+BEng	education	high	Bachelor of Engineering
+MEng	education	high	Master of Engineering
+BEd	education	high	Bachelor of Education; COLLISION bed
+LLB	education	high	Bachelor of Laws
+DrPH	education	medium	Doctor of Public Health
+MSW	education	high	Master of Social Work
+BSW	education	high	Bachelor of Social Work
+MLIS	education	high	Master of Library and Information Science
+MArch	education	high	Master of Architecture; COLLISION march
+BArch	education	high	Bachelor of Architecture
+MRes	education	medium	Master of Research
+MDiv	education	medium	Master of Divinity
+ThM	education	medium	Master of Theology
+DMin	education	medium	Doctor of Ministry
+DMA	education	high	Doctor of Musical Arts; Direct Memory Access; EU Digital Markets Act
+MMus	education	medium	Master of Music
+BMus	education	medium	Bachelor of Music
+ScD	education	medium	Doctor of Science
+DLitt	education	medium	Doctor of Letters
+MLitt	education	medium	Master of Letters
+AAS	education	high	Associate of Applied Science
+BBA	education	high	Bachelor of Business Administration
+BCom	education	medium	Bachelor of Commerce
+MCom	education	medium	Master of Commerce
+BTech	education	medium	Bachelor of Technology
+MTech	education	medium	Master of Technology
+BCA	education	high	Bachelor of Computer Applications
+MCA	education	high	Master of Computer Applications
+MIS	education	high	Management Information Systems; COLLISION mis
+GPA	education	high	Grade Point Average; conflicts GPa gigapascal
+GRE	education	high	Graduate Record Examination; also Generic Routing Encapsulation
+GMAT	education	high	Graduate Management Admission Test
+LSAT	education	high	Law School Admission Test
+PSAT	education	high	Preliminary SAT
+SAT	education	high	Scholastic Aptitude Test; COLLISION sat
+PCAT	education	high	Pharmacy College Admission Test
+TOEFL	education	high	Test of English as a Foreign Language
+IELTS	education	high	International English Language Testing System
+TOEIC	education	high	Test of English for International Communication
+PTE	education	high	Pearson Test of English
+CEFR	education	high	Common European Framework of Reference for Languages
+JLPT	education	high	Japanese-Language Proficiency Test
+HSK	education	high	Chinese proficiency test
+TOPIK	education	high	Test of Proficiency in Korean
+DELF	education	high	French language diploma
+DALF	education	high	advanced French language diploma
+DELE	education	high	Spanish language diploma
+TestDaF	education	medium	German language test
+ESL	education	high	English as a Second Language
+EFL	education	high	English as a Foreign Language; also English Football League
+ELL	education	high	English Language Learner; COLLISION ell
+ESOL	education	high	English for Speakers of Other Languages
+TESOL	education	high	Teaching English to Speakers of Other Languages
+TEFL	education	high	Teaching English as a Foreign Language
+CELTA	education	high	Cambridge English teaching certificate
+ELA	education	high	English Language Arts; COLLISION ela
+STEM	education	high	Science Technology Engineering Math; COLLISION stem
+K-12	education	high	kindergarten through 12th grade
+Pre-K	education	medium	pre-kindergarten (AP style pre-K)
+PTA	education	high	Parent-Teacher Association
+IEP	education	high	Individualized Education Program
+GED	education	high	General Educational Development test; COLLISION ged
+HiSET	education	medium	High School Equivalency Test
+GCSE	education	high	General Certificate of Secondary Education
+IGCSE	education	high	International GCSE
+A-level	education	medium	UK Advanced Level qualification (gov.uk uses A level)
+AS-level	education	medium	UK Advanced Subsidiary Level
+BTEC	education	high	Business and Technology Education Council qualification
+NVQ	education	high	National Vocational Qualification
+HND	education	high	Higher National Diploma
+HNC	education	high	Higher National Certificate
+PGCE	education	high	Postgraduate Certificate in Education
+PGDip	education	medium	Postgraduate Diploma
+PGCert	education	medium	Postgraduate Certificate
+QTS	education	high	Qualified Teacher Status
+FAFSA	education	high	Free Application for Federal Student Aid
+MOOC	education	high	Massive Open Online Course
+SIS	education	high	Student Information System; COLLISION sis
+IRB	education	high	Institutional Review Board
+TA	education	high	Teaching Assistant; 2-letter; COLLISION ta
+IB	education	high	International Baccalaureate; 2-letter
+AP	education	high	Advanced Placement; accounts payable; access point; Associated Press; 2-letter
+ABD	education	high	All But Dissertation
+LOR	education	high	Letter of Recommendation
+CSE	education	high	Computer Science and Engineering
+ECE	education	high	Electrical and Computer Engineering
+ChemE	education	medium	Chemical Engineering
+CompSci	education	medium	Computer Science
+UCLA	education	high	University of California Los Angeles
+NYU	education	high	New York University
+USC	education	high	University of Southern California
+UCSD	education	high	UC San Diego
+UCSB	education	high	UC Santa Barbara
+UC Berkeley	education	high	University of California Berkeley
+CMU	education	high	Carnegie Mellon University
+UIUC	education	high	University of Illinois Urbana-Champaign
+UPenn	education	medium	University of Pennsylvania
+UMich	education	medium	University of Michigan
+UT Austin	education	medium	University of Texas at Austin
+UNC	education	high	University of North Carolina
+UVA	education	high	University of Virginia
+Caltech	education	high	California Institute of Technology
+UCL	education	high	University College London
+LSE	education	high	London School of Economics; London Stock Exchange
+KCL	education	high	King's College London
+EPFL	education	high	Swiss Federal Institute of Technology Lausanne
+ETH Zurich	education	medium	Swiss Federal Institute of Technology Zurich
+KAIST	education	high	Korea Advanced Institute of Science and Technology
+NUS	education	high	National University of Singapore
+NTU	education	high	Nanyang Technological University
+HKU	education	high	University of Hong Kong
+UBC	education	high	University of British Columbia
+UofT	education	medium	University of Toronto
+UNSW	education	high	University of New South Wales
+RMIT	education	high	RMIT University
+ANU	education	high	Australian National University
+IIT	education	high	Indian Institute of Technology
+RISD	education	high	Rhode Island School of Design
+SCAD	education	high	Savannah College of Art and Design
+CalArts	education	high	California Institute of the Arts
+UAL	education	high	University of the Arts London
+AFI	education	high	American Film Institute
+CISSP	education	high	Certified Information Systems Security Professional
+CISA	education	high	Certified Information Systems Auditor
+CISM	education	high	Certified Information Security Manager
+CEH	education	high	Certified Ethical Hacker
+OSCP	education	high	Offensive Security Certified Professional
+CCNA	education	high	Cisco Certified Network Associate
+CCNP	education	high	Cisco Certified Network Professional
+CCIE	education	high	Cisco Certified Internetwork Expert
+RHCSA	education	high	Red Hat Certified System Administrator
+RHCE	education	high	Red Hat Certified Engineer
+CKA	education	high	Certified Kubernetes Administrator
+CKAD	education	high	Certified Kubernetes Application Developer
+DBA	business	high	Doing Business As; Database Administrator; Doctor of Business Administration; conflicts dBA A-weighted decibels
+CPA	business	high	Certified Public Accountant; also cost per acquisition
+CFA	business	high	Chartered Financial Analyst
+CFP	business	high	Certified Financial Planner; also call for papers
+CMA	business	high	Certified Management Accountant; comparative market analysis
+ACCA	business	high	Association of Chartered Certified Accountants
+PMP	business	high	Project Management Professional
+CAPM	business	high	Certified Associate in Project Management
+PMI	business	high	Project Management Institute; private mortgage insurance; Purchasing Managers' Index
+PMBOK	business	high	Project Management Body of Knowledge
+CSM	business	high	Certified ScrumMaster; Customer Success Manager; BIOS compatibility support module
+PSM	business	high	Professional Scrum Master
+SAFe	business	high	Scaled Agile Framework; COLLISION safe
+ITIL	business	high	IT Infrastructure Library
+COBIT	business	high	Control Objectives for Information Technologies
+TOGAF	business	high	The Open Group Architecture Framework
+SHRM-CP	business	high	SHRM Certified Professional
+PHR	business	high	Professional in Human Resources
+SPHR	business	high	Senior Professional in Human Resources
+NDA	business	high	Non-Disclosure Agreement
+MNDA	business	high	Mutual NDA
+SOW	business	high	Statement of Work; COLLISION sow
+RFQ	business	high	Request for Quotation
+RFI	business	high	Request for Information; also remote file inclusion
+ROI	business	high	Return on Investment
+KPI	business	high	Key Performance Indicator
+OKR	business	high	Objectives and Key Results
+P&L	business	high	Profit and Loss
+PnL	business	medium	Profit and Loss (filename form)
+MOU	business	high	Memorandum of Understanding
+LOI	business	high	Letter of Intent
+LOA	business	high	Letter of Authorization; leave of absence
+SOP	business	high	Standard Operating Procedure; statement of purpose; COLLISION sop
+QBR	business	high	Quarterly Business Review
+EBITDA	business	high	Earnings Before Interest Taxes Depreciation and Amortization
+EBIT	business	high	Earnings Before Interest and Taxes
+CAGR	business	high	Compound Annual Growth Rate
+ARR	business	high	Annual Recurring Revenue
+MRR	business	high	Monthly Recurring Revenue
+ARPU	business	high	Average Revenue Per User
+ARPPU	business	high	Average Revenue Per Paying User
+LTV	business	high	Lifetime Value; loan-to-value
+CLV	business	high	Customer Lifetime Value
+CAC	business	high	Customer Acquisition Cost
+COGS	business	high	Cost of Goods Sold
+GAAP	business	high	Generally Accepted Accounting Principles
+IFRS	business	high	International Financial Reporting Standards
+YoY	business	high	Year over Year
+QoQ	business	high	Quarter over Quarter
+MoM	business	high	Month over Month; COLLISION mom
+YTD	business	high	Year to Date
+MTD	business	high	Month to Date
+QTD	business	high	Quarter to Date
+TTM	business	high	Trailing Twelve Months
+LTM	business	high	Last Twelve Months
+EOD	business	high	End of Day
+EOW	business	high	End of Week
+EOM	business	high	End of Month
+EOY	business	high	End of Year
+COB	business	high	Close of Business; COLLISION cob
+ETA	business	high	Estimated Time of Arrival; COLLISION eta
+ETD	business	high	Estimated Time of Departure
+TBD	business	high	To Be Determined
+TBA	business	high	To Be Announced
+TBC	business	high	To Be Confirmed
+PTO	business	high	Paid Time Off; Parent-Teacher Organization
+OOO	business	high	Out Of Office
+WFH	business	high	Work From Home
+FTE	business	high	Full-Time Equivalent
+RIF	business	high	Reduction in Force
+HRIS	business	high	Human Resources Information System
+HRBP	business	high	HR Business Partner
+ATS	business	high	Applicant Tracking System
+L&D	business	high	Learning and Development
+D&I	business	high	Diversity and Inclusion
+DEI	business	high	Diversity Equity and Inclusion
+DE&I	business	high	Diversity Equity and Inclusion
+ERG	business	high	Employee Resource Group; COLLISION erg
+EAP	business	high	Employee Assistance Program
+PEO	business	high	Professional Employer Organization
+M&A	business	high	Mergers and Acquisitions
+IPO	business	high	Initial Public Offering
+LBO	business	high	Leveraged Buyout
+SPAC	business	high	Special Purpose Acquisition Company
+ESG	business	high	Environmental Social and Governance
+PE	business	high	Private Equity; physical education; 2-letter; COLLISION pe
+GP	business	high	General Partner; General Practitioner; Grand Prix; 2-letter
+AUM	business	high	Assets Under Management
+NAV	business	high	Net Asset Value
+SPV	business	high	Special Purpose Vehicle
+CapEx	business	medium	Capital Expenditure (also capex)
+OpEx	business	medium	Operating Expenditure (also opex)
+SG&A	business	high	Selling General and Administrative expenses
+G&A	business	high	General and Administrative
+DSO	business	high	Days Sales Outstanding
+DPO	business	high	Days Payable Outstanding; Data Protection Officer
+NPV	business	high	Net Present Value
+IRR	business	high	Internal Rate of Return
+DCF	business	high	Discounted Cash Flow
+FCF	business	high	Free Cash Flow
+WACC	business	high	Weighted Average Cost of Capital
+ROE	business	high	Return on Equity
+ROA	business	high	Return on Assets
+ROIC	business	high	Return on Invested Capital
+ROAS	business	high	Return on Ad Spend
+MOIC	business	high	Multiple on Invested Capital
+TVPI	business	high	Total Value to Paid-In
+APR	business	high	Annual Percentage Rate
+APY	business	high	Annual Percentage Yield
+ETF	business	high	Exchange-Traded Fund
+REIT	business	high	Real Estate Investment Trust
+IRA	business	high	Individual Retirement Account; COLLISION ira
+Roth IRA	business	high	Roth Individual Retirement Account
+401k	business	medium	US 401(k) retirement plan (filename-safe form)
+403b	business	medium	US 403(b) retirement plan (filename-safe form)
+RRSP	business	high	Registered Retirement Savings Plan (Canada)
+TFSA	business	high	Tax-Free Savings Account (Canada)
+ISA	business	high	Individual Savings Account (UK); instruction set architecture; COLLISION Isa
+SIPP	business	high	Self-Invested Personal Pension (UK)
+ACH	business	high	Automated Clearing House
+IBAN	business	high	International Bank Account Number
+BIC	business	high	Bank Identifier Code
+SWIFT	business	high	SWIFT interbank network; COLLISION swift; conflicts Swift programming language
+SEPA	business	high	Single Euro Payments Area
+EFT	business	high	Electronic Funds Transfer
+BNPL	business	high	Buy Now Pay Later
+KYC	business	high	Know Your Customer
+AML	business	high	Anti-Money Laundering
+CVV	business	high	Card Verification Value
+PIN	business	high	Personal Identification Number; COLLISION pin
+POS	business	high	Point of Sale
+IOU	business	high	I Owe You; conflicts IoU intersection over union
+MSRP	business	high	Manufacturer's Suggested Retail Price
+RRP	business	high	Recommended Retail Price
+F&B	business	high	Food and Beverage
+OTC	business	high	Over-The-Counter; also OpenType Collection font
+MSP	business	high	Managed Service Provider; also Windows patch file
+CDP	business	high	Customer Data Platform; Cisco Discovery Protocol; Carbon Disclosure Project
+S&P	business	high	Standard and Poor's
+S&P 500	business	high	S&P 500 index
+DJIA	business	high	Dow Jones Industrial Average
+FTSE	business	high	Financial Times Stock Exchange index
+DAX	business	high	German stock index; COLLISION dax
+TSX	business	high	Toronto Stock Exchange
+ASX	business	high	Australian Securities Exchange
+HKEX	business	high	Hong Kong Exchanges and Clearing
+NSE	business	high	National Stock Exchange of India
+CPI	business	high	Consumer Price Index; also mouse counts per inch
+GDP	business	high	Gross Domestic Product
+GNP	business	high	Gross National Product
+SERP	business	high	Search Engine Results Page
+PPC	business	high	Pay-Per-Click
+CPC	business	high	Cost Per Click
+CPM	business	high	Cost Per Mille; also Critical Path Method
+CTR	business	high	Click-Through Rate
+CTA	business	high	Call To Action; Consumer Technology Association
+CVR	business	high	Conversion Rate
+UGC	business	high	User-Generated Content
+KOL	business	high	Key Opinion Leader
+D2C	business	high	Direct-to-Consumer
+DTC	business	high	Direct-to-Consumer
+CPG	business	high	Consumer Packaged Goods
+FMCG	business	high	Fast-Moving Consumer Goods
+GTM	business	high	Go-To-Market; Google Tag Manager
+ABM	business	high	Account-Based Marketing
+MQL	business	high	Marketing Qualified Lead
+SAL	business	medium	Sales Accepted Lead; COLLISION Sal
+NPS	business	high	Net Promoter Score; National Park Service
+CSAT	business	high	Customer Satisfaction Score
+CX	business	high	Customer Experience; 2-letter
+USP	business	high	Unique Selling Proposition
+UVP	business	high	Unique Value Proposition
+SWOT	business	high	Strengths Weaknesses Opportunities Threats
+PEST	business	high	PEST analysis; COLLISION pest; conflicts Pest PHP testing framework
+PESTLE	business	high	PESTLE analysis
+OOH	business	high	Out-Of-Home advertising; COLLISION ooh
+DOOH	business	high	Digital Out-Of-Home
+TVC	business	high	Television Commercial
+PR	business	high	Public Relations; personal record; 2-letter
+IMC	business	high	Integrated Marketing Communications
+DMP	business	high	Data Management Platform
+SSP	business	high	Supply-Side Platform
+RTB	business	high	Real-Time Bidding
+CPV	business	high	Cost Per View
+DAU	business	high	Daily Active Users
+WAU	business	high	Weekly Active Users
+NRR	business	high	Net Revenue Retention
+GRR	business	high	Gross Revenue Retention
+ACV	business	high	Annual Contract Value
+TCV	business	high	Total Contract Value
+SOM	business	high	Serviceable Obtainable Market
+SAM	business	medium	Serviceable Addressable Market; COLLISION Sam
+PMF	business	high	Product-Market Fit
+AOV	business	high	Average Order Value
+SOV	business	high	Share of Voice
+SMM	business	high	Social Media Marketing
+ASO	business	high	App Store Optimization
+B2G	business	high	Business-to-Government
+C2C	business	high	Consumer-to-Consumer
+O2O	business	high	Online-to-Offline
+DAO	business	high	Decentralized Autonomous Organization; Data Access Object
+DAM	business	high	Digital Asset Management; COLLISION dam
+PMO	business	high	Project Management Office
+WBS	business	high	Work Breakdown Structure
+RACI	business	high	Responsible Accountable Consulted Informed
+BRD	business	high	Business Requirements Document
+PRD	business	high	Product Requirements Document
+MRD	business	high	Market Requirements Document
+FRD	business	high	Functional Requirements Document
+SRS	business	high	Software Requirements Specification
+ERD	business	high	Entity-Relationship Diagram
+SDD	business	high	Software Design Document
+SIT	business	medium	System Integration Testing; COLLISION sit
+CAPA	business	high	Corrective and Preventive Action
+FMEA	business	high	Failure Mode and Effects Analysis
+DMAIC	business	high	Define Measure Analyze Improve Control
+SIPOC	business	high	Suppliers Inputs Process Outputs Customers
+PDCA	business	high	Plan-Do-Check-Act
+OEE	business	high	Overall Equipment Effectiveness
+TQM	business	high	Total Quality Management
+CMMS	business	high	Computerized Maintenance Management System
+MRO	business	high	Maintenance Repair and Operations
+MRP	business	high	Material Requirements Planning
+MES	business	high	Manufacturing Execution System
+SCM	business	high	Supply Chain Management
+WMS	business	high	Warehouse Management System
+TMS	business	high	Transportation Management System
+3PL	business	high	Third-Party Logistics
+4PL	business	high	Fourth-Party Logistics
+VMI	business	high	Vendor-Managed Inventory
+MOQ	business	high	Minimum Order Quantity; conflicts Moq .NET mocking library
+SKU	business	high	Stock Keeping Unit
+EOQ	business	high	Economic Order Quantity
+FEFO	business	high	First Expired First Out
+OTIF	business	high	On Time In Full
+BOM	business	high	Bill of Materials; also byte order mark
+ECN	business	high	Engineering Change Notice
+MoSCoW	business	high	Must Should Could Won't prioritization
+OLA	business	high	Operational Level Agreement; COLLISION ola
+ITSM	business	high	IT Service Management
+CMDB	business	high	Configuration Management Database
+GRC	business	high	Governance Risk and Compliance; also ISO code Greece
+BCP	business	high	Business Continuity Plan
+BIA	business	high	Business Impact Analysis
+RPO	business	high	Recovery Point Objective
+MTTR	business	high	Mean Time To Repair/Recover
+MTTD	business	high	Mean Time To Detect
+RPA	business	high	Robotic Process Automation
+BPO	business	high	Business Process Outsourcing
+IDP	business	high	Intelligent Document Processing; Identity Provider; Identity Provider usually styled IdP
+EDI	business	high	Electronic Data Interchange; COLLISION edi
+MDM	business	high	Master Data Management; Mobile Device Management
+HCM	business	high	Human Capital Management
+CPQ	business	high	Configure Price Quote
+CLM	business	high	Contract Lifecycle Management
+ITAM	business	high	IT Asset Management
+RMM	business	high	Remote Monitoring and Management
+UCaaS	business	high	Unified Communications as a Service
+CPaaS	business	high	Communications Platform as a Service
+CCaaS	business	high	Contact Center as a Service
+DaaS	business	high	Desktop/Data as a Service
+DRaaS	business	high	Disaster Recovery as a Service
+XaaS	business	medium	Anything as a Service
+RevOps	business	medium	Revenue Operations
+SecOps	business	medium	Security Operations
+BizOps	business	medium	Business Operations
+SalesOps	business	medium	Sales Operations
+LLMOps	business	medium	LLM Operations
+DevRel	business	high	Developer Relations
+SysAdmin	business	low	System Administrator (also sysadmin)
+FinTech	business	medium	Financial Technology (also Fintech)
+EdTech	business	medium	Education Technology (also edtech)
+AdTech	business	medium	Advertising Technology
+MarTech	business	medium	Marketing Technology
+PropTech	business	medium	Property Technology
+InsurTech	business	medium	Insurance Technology
+RegTech	business	medium	Regulatory Technology
+LegalTech	business	low	Legal Technology
+HealthTech	business	low	Health Technology
+CleanTech	business	low	Clean Technology
+GovTech	business	low	Government Technology
+CTO	business	high	Chief Technology Officer
+COO	business	high	Chief Operating Officer; certificate of origin; COLLISION coo
+CMO	business	high	Chief Marketing Officer
+CIO	business	high	Chief Information Officer
+CISO	business	high	Chief Information Security Officer
+CPO	business	high	Chief Product Officer
+CDO	business	high	Chief Data/Digital Officer
+CCO	business	high	Chief Commercial/Compliance Officer
+CHRO	business	high	Chief Human Resources Officer
+CSO	business	high	Chief Security/Strategy Officer
+CAO	business	high	Chief Administrative Officer
+CXO	business	high	C-suite executive
+VP	business	high	Vice President; 2-letter
+SVP	business	high	Senior Vice President
+EVP	business	high	Executive Vice President
+AVP	business	high	Assistant Vice President
+SWE	business	high	Software Engineer; also ISO code Sweden
+SRE	business	high	Site Reliability Engineer
+QE	business	high	Quality Engineer; 2-letter
+SDET	business	high	Software Development Engineer in Test
+IC	business	high	Individual Contributor; Integrated Circuit; 2-letter
+EA	business	high	Executive Assistant; Electronic Arts; 2-letter
+PA	business	high	Personal Assistant; Pennsylvania; COLLISION pa; 2-letter
+QC	business	high	Quality Control; Queen's Counsel; Quebec; 2-letter
+EULA	business	high	End-User License Agreement; COLLISION eula
+ToS	business	medium	Terms of Service
+T&C	business	high	Terms and Conditions
+POA	business	high	Power of Attorney
+DPA	business	high	Data Processing Agreement
+DPIA	business	high	Data Protection Impact Assessment
+GDPR	business	high	General Data Protection Regulation
+CCPA	business	high	California Consumer Privacy Act
+CPRA	business	high	California Privacy Rights Act
+HIPAA	business	high	Health Insurance Portability and Accountability Act
+FERPA	business	high	Family Educational Rights and Privacy Act
+COPPA	business	high	Children's Online Privacy Protection Act
+PIPEDA	business	high	Canadian privacy law
+LGPD	business	high	Brazilian General Data Protection Law
+PIPL	business	high	China Personal Information Protection Law
+PDPA	business	high	Personal Data Protection Act
+DMCA	business	high	Digital Millennium Copyright Act
+DSA	business	high	EU Digital Services Act
+FCPA	business	high	Foreign Corrupt Practices Act
+UCC	business	high	Uniform Commercial Code
+SOX	business	high	Sarbanes-Oxley Act; also SOx sulfur oxides; COLLISION sox; conflicts SoX audio tool
+PCI DSS	business	high	Payment Card Industry Data Security Standard
+FedRAMP	business	high	Federal Risk and Authorization Management Program
+CMMC	business	high	Cybersecurity Maturity Model Certification
+ITAR	business	high	International Traffic in Arms Regulations
+FIPS	business	high	Federal Information Processing Standards
+HITRUST	business	high	HITRUST CSF framework
+IPR	business	high	Intellectual Property Rights
+FRAND	business	high	Fair Reasonable and Non-Discriminatory licensing
+CC0	business	high	Creative Commons Zero public domain dedication
+CC BY	business	high	Creative Commons Attribution
+CC BY-SA	business	high	Creative Commons Attribution-ShareAlike
+CC BY-NC	business	high	Creative Commons Attribution-NonCommercial
+CC BY-ND	business	medium	Creative Commons Attribution-NoDerivatives
+CC BY-NC-SA	business	medium	Creative Commons Attribution-NonCommercial-ShareAlike
+CC BY-NC-ND	business	medium	Creative Commons Attribution-NonCommercial-NoDerivatives
+EPL	business	high	Eclipse Public License; English Premier League
+CDDL	business	high	Common Development and Distribution License
+EUPL	business	high	European Union Public Licence
+Esq	business	high	Esquire (attorney title)
+KC	business	high	King's Counsel; Kansas City; 2-letter
+LLP	business	high	Limited Liability Partnership
+PLLC	business	high	Professional Limited Liability Company
+LLLP	business	high	Limited Liability Limited Partnership
+Inc	business	medium	Incorporated
+Ltd	business	high	Limited
+Corp	business	medium	Corporation
+GmbH	business	high	Gesellschaft mit beschraenkter Haftung
+gGmbH	business	medium	gemeinnuetzige GmbH (non-profit GmbH)
+AG	business	high	Aktiengesellschaft; Attorney General; 2-letter; COLLISION ag
+KGaA	business	high	Kommanditgesellschaft auf Aktien
+OHG	business	high	Offene Handelsgesellschaft
+UG	business	high	Unternehmergesellschaft; 2-letter
+SARL	business	high	Societe a responsabilite limitee
+SASU	business	high	Societe par actions simplifiee unipersonnelle
+EURL	business	high	French single-member LLC
+Srl	business	medium	Societa a responsabilita limitata (Italy; Romania writes SRL)
+BV	business	high	Besloten Vennootschap (Netherlands); 2-letter
+NV	business	high	Naamloze Vennootschap; Nevada; 2-letter
+BVBA	business	high	Belgian private limited company (legacy)
+ApS	business	high	Danish Anpartsselskab
+ASA	business	high	Norwegian public limited company; COLLISION asa
+Oy	business	high	Finnish Osakeyhtio; 2-letter; COLLISION oy
+Oyj	business	medium	Finnish public limited company
+Pty	business	high	Proprietary (Australia/South Africa)
+Pty Ltd	business	high	Proprietary Limited
+Pte Ltd	business	high	Private Limited (Singapore)
+Pvt Ltd	business	high	Private Limited (India)
+Sdn Bhd	business	high	Sendirian Berhad (Malaysia)
+Bhd	business	medium	Berhad (Malaysia)
+Tbk	business	medium	Terbuka (Indonesian public company)
+Ltda	business	medium	Limitada (Brazil/Portugal)
+SA de CV	business	medium	Mexican corporation suffix
+CIC	business	high	Community Interest Company (UK)
+ULC	business	high	Unlimited Liability Corporation (Canada)
+KK	business	high	Kabushiki Kaisha (Japan); 2-letter
+W-2	business	high	US wage and tax statement
+W-4	business	high	US employee withholding form
+W-9	business	high	US taxpayer identification request form
+W-8BEN	business	high	US foreign status certificate
+1099	business	high	US information return form
+1099-NEC	business	high	US nonemployee compensation form
+1099-MISC	business	high	US miscellaneous income form
+1099-K	business	high	US payment card transactions form
+1099-INT	business	high	US interest income form
+1099-DIV	business	high	US dividends form
+1040	business	high	US individual income tax return
+1098-T	business	high	US tuition statement
+I-9	business	high	US employment eligibility form
+P60	business	high	UK end of year pay certificate
+P45	business	high	UK leaving employment form
+P11D	business	high	UK benefits in kind form
+T4	business	high	Canadian employment income slip; 2-letter
+EIN	business	high	Employer Identification Number; COLLISION ein
+SSN	business	high	Social Security Number
+TIN	business	high	Taxpayer Identification Number; COLLISION tin
+ITIN	business	high	Individual Taxpayer Identification Number
+VAT	business	high	Value-Added Tax; COLLISION vat
+GST	business	high	Goods and Services Tax
+HST	business	high	Harmonized Sales Tax; Hawaii Standard Time
+FY	business	high	Fiscal Year; 2-letter
+FY24	business	high	Fiscal Year 2024
+FY25	business	high	Fiscal Year 2025
+FY26	business	high	Fiscal Year 2026
+FY27	business	high	Fiscal Year 2027
+H1	business	high	first half-year; 2-letter
+H2	business	high	second half-year; 2-letter
+CY	business	high	Calendar Year; 2-letter
+HOA	business	high	Homeowners Association
+FSBO	business	high	For Sale By Owner
+HELOC	business	high	Home Equity Line of Credit
+ADU	business	high	Accessory Dwelling Unit
+PITI	business	high	Principal Interest Taxes Insurance
+REO	business	high	Real Estate Owned
+DTI	business	high	Debt-to-Income ratio
+HMO	business	high	Health Maintenance Organization
+PPO	business	high	Preferred Provider Organization
+EOB	business	high	Explanation of Benefits
+HSA	business	high	Health Savings Account
+FSA	business	high	Flexible Spending Account
+HRA	business	high	Health Reimbursement Arrangement
+CSRD	business	high	Corporate Sustainability Reporting Directive
+LCOE	business	high	Levelized Cost of Energy
+UPC	business	high	Universal Product Code
+EAN	business	high	European Article Number
+EAN-13	business	high	EAN 13-digit barcode
+GTIN	business	high	Global Trade Item Number
+ISBN	business	high	International Standard Book Number
+ISSN	business	high	International Standard Serial Number
+DOI	business	high	Digital Object Identifier
+ASIN	business	high	Amazon Standard Identification Number
+DIN	org	high	Deutsches Institut fuer Normung; DIN connector; COLLISION din
+JIS	org	high	Japanese Industrial Standards; JIS keyboard layout
+USDA	org	high	US Department of Agriculture; also USD ASCII 3D file
+IMF	org	high	International Monetary Fund; also Interoperable Master Format
+CompTIA	org	high	Computing Technology Industry Association
+ISACA	org	high	IT governance professional association
+SHRM	org	high	Society for Human Resource Management
+UCAS	org	high	UK university admissions service
+Ofqual	org	high	UK exams regulator
+PEGI	org	high	Pan European Game Information
+CERO	org	high	Computer Entertainment Rating Organization (Japan)
+USK	org	high	German game rating body
+IGDA	org	high	International Game Developers Association
+GDC	org	high	Game Developers Conference
+E3	org	high	Electronic Entertainment Expo; 2-letter
+SIGGRAPH	org	high	ACM SIGGRAPH conference
+NAMM	org	high	NAMM music products trade show
+NCAP	org	high	New Car Assessment Programme
+NHTSA	org	high	National Highway Traffic Safety Administration
+IIHS	org	high	Insurance Institute for Highway Safety
+FHA	org	high	Federal Housing Administration
+MLS	org	high	Multiple Listing Service; Major League Soccer
+LEED	org	high	Leadership in Energy and Environmental Design
+BREEAM	org	high	UK building sustainability assessment
+SBTi	org	medium	Science Based Targets initiative
+TCFD	org	high	Task Force on Climate-related Financial Disclosures
+COP28	org	high	UN Climate Change Conference 2023
+COP29	org	high	UN Climate Change Conference 2024
+COP30	org	high	UN Climate Change Conference 2025
+Nasdaq	org	high	Nasdaq stock exchange (official styling)
+NYSE	org	high	New York Stock Exchange
+SEC	org	high	US Securities and Exchange Commission; COLLISION sec
+FINRA	org	high	Financial Industry Regulatory Authority
+FDIC	org	high	Federal Deposit Insurance Corporation
+SIPC	org	high	Securities Investor Protection Corporation
+FASB	org	high	Financial Accounting Standards Board
+IASB	org	high	International Accounting Standards Board
+AICPA	org	high	American Institute of CPAs
+PCAOB	org	high	Public Company Accounting Oversight Board
+CFTC	org	high	Commodity Futures Trading Commission
+FCA	org	high	UK Financial Conduct Authority
+BaFin	org	high	German Federal Financial Supervisory Authority
+FINMA	org	high	Swiss Financial Market Supervisory Authority
+SEBI	org	high	Securities and Exchange Board of India
+RBI	org	high	Reserve Bank of India
+BoE	org	medium	Bank of England
+BOJ	org	high	Bank of Japan
+FOMC	org	high	Federal Open Market Committee
+IRS	org	high	US Internal Revenue Service; conflicts IRs impulse responses plural
+HMRC	org	high	HM Revenue and Customs
+CRA	org	high	Canada Revenue Agency
+ATO	org	high	Australian Taxation Office
+SCOTUS	org	high	Supreme Court of the United States
+POTUS	org	high	President of the United States
+FLOTUS	org	high	First Lady of the United States
+FBI	org	high	Federal Bureau of Investigation
+CIA	org	high	Central Intelligence Agency; also 3DS CIA file
+NSA	org	high	National Security Agency
+DHS	org	high	Department of Homeland Security
+DOJ	org	high	Department of Justice
+DoD	org	high	Department of Defense (official DoD styling)
+DOE	org	high	Department of Energy; COLLISION doe
+DOT	org	high	Department of Transportation; Word template; COLLISION dot
+EPA	org	high	Environmental Protection Agency
+FDA	org	high	Food and Drug Administration
+CDC	org	high	Centers for Disease Control and Prevention
+NIH	org	high	National Institutes of Health
+NIST	org	high	National Institute of Standards and Technology
+NOAA	org	high	National Oceanic and Atmospheric Administration
+NWS	org	high	National Weather Service
+FEMA	org	high	Federal Emergency Management Agency
+FAA	org	high	Federal Aviation Administration
+NTSB	org	high	National Transportation Safety Board
+FTC	org	high	Federal Trade Commission
+USPTO	org	high	US Patent and Trademark Office
+DMV	org	high	Department of Motor Vehicles; DC-Maryland-Virginia region
+ATF	org	high	Bureau of Alcohol Tobacco Firearms and Explosives
+DEA	org	high	Drug Enforcement Administration
+CBP	org	high	Customs and Border Protection
+USCIS	org	high	US Citizenship and Immigration Services
+NLRB	org	high	National Labor Relations Board
+OSHA	org	high	Occupational Safety and Health Administration
+EEOC	org	high	Equal Employment Opportunity Commission
+USGS	org	high	US Geological Survey
+BLM	org	high	Bureau of Land Management
+NRC	org	high	Nuclear Regulatory Commission
+FERC	org	high	Federal Energy Regulatory Commission
+CFPB	org	high	Consumer Financial Protection Bureau
+OMB	org	high	Office of Management and Budget
+GAO	org	high	Government Accountability Office
+CBO	org	high	Congressional Budget Office
+GSA	org	high	General Services Administration
+SBA	org	high	Small Business Administration
+NEA	org	high	National Endowment for the Arts
+NEH	org	high	National Endowment for the Humanities
+NSF	org	high	National Science Foundation
+DARPA	org	high	Defense Advanced Research Projects Agency
+USMC	org	high	United States Marine Corps
+USAF	org	high	United States Air Force
+USN	org	high	United States Navy
+USCG	org	high	United States Coast Guard
+JPL	org	high	NASA Jet Propulsion Laboratory
+ESA	org	high	European Space Agency; Entertainment Software Association
+JAXA	org	high	Japan Aerospace Exploration Agency
+ISRO	org	high	Indian Space Research Organisation
+CNSA	org	high	China National Space Administration
+CERN	org	high	European Organization for Nuclear Research
+ESO	org	high	European Southern Observatory
+ISS	org	high	International Space Station
+NATO	org	high	North Atlantic Treaty Organization
+UN	org	high	United Nations; 2-letter; COLLISION un
+UNESCO	org	high	UN Educational Scientific and Cultural Organization
+UNICEF	org	high	UN Children's Fund
+UNHCR	org	high	UN Refugee Agency
+UNDP	org	high	UN Development Programme
+UNEP	org	high	UN Environment Programme
+WHO	org	high	World Health Organization; COLLISION who
+WTO	org	high	World Trade Organization
+OECD	org	high	Organisation for Economic Co-operation and Development
+OPEC	org	high	Organization of the Petroleum Exporting Countries
+ASEAN	org	high	Association of Southeast Asian Nations
+APEC	org	high	Asia-Pacific Economic Cooperation
+G7	org	high	Group of Seven; 2-letter
+G20	org	high	Group of Twenty
+BRICS	org	high	Brazil Russia India China South Africa bloc
+EEA	org	high	European Economic Area
+EFTA	org	high	European Free Trade Association
+ECB	org	high	European Central Bank; England and Wales Cricket Board
+EC	org	high	European Commission; 2-letter
+ECHR	org	high	European Court/Convention of Human Rights
+ICJ	org	high	International Court of Justice
+IAEA	org	high	International Atomic Energy Agency
+FAO	org	high	Food and Agriculture Organization
+WFP	org	high	World Food Programme
+WIPO	org	high	World Intellectual Property Organization
+UNFCCC	org	high	UN Framework Convention on Climate Change
+IPCC	org	high	Intergovernmental Panel on Climate Change
+IUCN	org	high	International Union for Conservation of Nature
+MSF	org	high	Medecins Sans Frontieres
+ICRC	org	high	International Committee of the Red Cross
+NPO	org	high	Non-Profit Organization
+EUIPO	org	high	EU Intellectual Property Office
+EPO	org	high	European Patent Office; Exclusive Provider Organization
+EMA	org	high	European Medicines Agency; COLLISION ema
+Europol	org	medium	EU law enforcement agency
+Eurostat	org	medium	EU statistical office
+NHS	org	high	UK National Health Service
+DVLA	org	high	UK Driver and Vehicle Licensing Agency
+DWP	org	high	UK Department for Work and Pensions
+FCDO	org	high	UK Foreign Commonwealth and Development Office
+ONS	org	high	UK Office for National Statistics
+GCHQ	org	high	UK Government Communications Headquarters
+MI5	org	high	UK Security Service
+MI6	org	high	UK Secret Intelligence Service
+NCA	org	high	UK National Crime Agency; also NCA battery chemistry
+CPS	org	high	UK Crown Prosecution Service
+DfE	org	high	UK Department for Education
+DfT	org	high	UK Department for Transport
+DCMS	org	high	UK Department for Culture Media and Sport
+Defra	org	high	UK Department for Environment Food and Rural Affairs (official styling)
+Ofsted	org	high	UK Office for Standards in Education
+Ofcom	org	high	UK Office of Communications
+Ofgem	org	high	UK Office of Gas and Electricity Markets
+Ofwat	org	high	UK Water Services Regulation Authority
+CQC	org	high	UK Care Quality Commission
+RCMP	org	high	Royal Canadian Mounted Police
+CSIS	org	high	Canadian Security Intelligence Service
+CBSA	org	high	Canada Border Services Agency
+ACCC	org	high	Australian Competition and Consumer Commission
+CSIRO	org	high	Australian national science agency
+KGB	org	high	Soviet security agency
+IEC	org	high	International Electrotechnical Commission
+ASTM	org	high	ASTM International standards
+ASME	org	high	American Society of Mechanical Engineers
+BSI	org	high	British Standards Institution; backside-illuminated sensor
+CEN	org	high	European Committee for Standardization
+CENELEC	org	high	European Committee for Electrotechnical Standardization
+ETSI	org	high	European Telecommunications Standards Institute
+3GPP	org	high	3rd Generation Partnership Project
+JEDEC	org	high	JEDEC Solid State Technology Association
+VESA	org	high	Video Electronics Standards Association
+USB-IF	org	high	USB Implementers Forum
+PCI-SIG	org	high	PCI Special Interest Group
+SNIA	org	high	Storage Networking Industry Association
+ICANN	org	high	Internet Corporation for Assigned Names and Numbers
+ARIN	org	high	American Registry for Internet Numbers
+RIPE	org	high	RIPE NCC regional internet registry; COLLISION ripe
+APNIC	org	high	Asia-Pacific Network Information Centre
+ISOC	org	high	Internet Society
+IAB	org	high	Interactive Advertising Bureau; Internet Architecture Board
+AOMedia	org	high	Alliance for Open Media
+OASIS	org	high	OASIS standards consortium; COLLISION oasis
+EFF	org	high	Electronic Frontier Foundation
+FSF	org	high	Free Software Foundation
+SIL	org	high	SIL International (SIL Open Font License)
+UL	org	high	Underwriters Laboratories; 2-letter
+TÜV	org	medium	German technical inspection association
+SGS	org	high	SGS inspection and certification
+CSA	org	high	Canadian Standards Association; Connectivity Standards Alliance
+NFPA	org	high	National Fire Protection Association
+RoHS	org	high	Restriction of Hazardous Substances
+WEEE	org	high	Waste Electrical and Electronic Equipment directive
+REACH	org	high	EU chemicals regulation; COLLISION reach
+EPEAT	org	high	electronics sustainability rating
+FSC	org	high	Forest Stewardship Council
+ENERGY STAR	org	medium	US energy efficiency program (official styling)
+EBU	org	high	European Broadcasting Union
+SCTE	org	high	Society of Cable Telecommunications Engineers
+CRTC	org	high	Canadian Radio-television and Telecommunications Commission
+ACMA	org	high	Australian Communications and Media Authority
+IFPI	org	high	International Federation of the Phonographic Industry
+BPI	org	high	British Phonographic Industry
+ASCAP	org	high	American Society of Composers Authors and Publishers
+SESAC	org	high	US performing rights organization
+GEMA	org	high	German performing rights society
+SOCAN	org	high	Canadian performing rights society
+APRA	org	high	Australasian Performing Right Association
+JASRAC	org	high	Japanese performing rights society
+SACEM	org	high	French performing rights society
+PPL	org	high	UK Phonographic Performance Limited
+NMPA	org	high	National Music Publishers' Association
+SAG-AFTRA	org	high	Screen Actors Guild-AFTRA
+WGA	org	high	Writers Guild of America
+DGA	org	high	Directors Guild of America
+IATSE	org	high	International Alliance of Theatrical Stage Employees
+MPAA	org	high	Motion Picture Association of America (former name)
+AMPAS	org	high	Academy of Motion Picture Arts and Sciences
+BAFTA	org	high	British Academy of Film and Television Arts
+BBFC	org	high	British Board of Film Classification
+ASC	org	high	American Society of Cinematographers
+CAS	org	high	Cinema Audio Society; CAS memory latency
+MPSE	org	high	Motion Picture Sound Editors
+UFC	org	high	Ultimate Fighting Championship
+MMA	org	high	Mixed Martial Arts
+NASCAR	org	high	National Association for Stock Car Auto Racing
+LPGA	org	high	Ladies Professional Golf Association
+ATP	org	high	Association of Tennis Professionals; adenosine triphosphate
+WTA	org	high	Women's Tennis Association
+UEFA	org	high	Union of European Football Associations
+NCAA	org	high	National Collegiate Athletic Association
+NWSL	org	high	National Women's Soccer League
+F1	org	high	Formula One; 2-letter
+FIA	org	high	Federation Internationale de l'Automobile
+MotoGP	org	high	MotoGP motorcycle racing
+IndyCar	org	medium	IndyCar Series; series logo styling INDYCAR
+IOC	org	high	International Olympic Committee; indicators of compromise; conflicts IoC Inversion of Control / indicators of compromise
+IPL	org	high	Indian Premier League; intense pulsed light
+BCCI	org	high	Board of Control for Cricket in India
+AEW	org	high	All Elite Wrestling
+NJPW	org	high	New Japan Pro-Wrestling
+FIBA	org	high	International Basketball Federation
+UCI	org	high	Union Cycliste Internationale
+WADA	org	high	World Anti-Doping Agency
+NPR	org	high	National Public Radio
+NBC	org	high	National Broadcasting Company
+ITV	org	high	UK Independent Television
+AFP	org	high	Agence France-Presse; also Apple Filing Protocol
+UPI	org	high	United Press International; Unified Payments Interface (India)
+NYT	org	high	The New York Times
+WSJ	org	high	The Wall Street Journal
+WaPo	org	medium	The Washington Post
+CBC	org	high	Canadian Broadcasting Corporation; Complete Blood Count
+KBS	org	high	Korean Broadcasting System
+TVB	org	high	Hong Kong Television Broadcasts
+ZDF	org	high	German public broadcaster ZDF
+ARD	org	high	German public broadcaster ARD
+SVT	org	high	Swedish public broadcaster
+NRK	org	high	Norwegian public broadcaster
+TF1	org	high	French TV channel TF1
+RTVE	org	high	Spanish public broadcaster
+TVNZ	org	high	Television New Zealand
+UK	geo	high	United Kingdom; 2-letter
+US	geo	high	United States; COLLISION us; 2-letter
+UAE	geo	high	United Arab Emirates
+USSR	geo	high	Union of Soviet Socialist Republics
+DRC	geo	high	Democratic Republic of the Congo
+PRC	geo	high	People's Republic of China; also Mobipocket PRC e-book
+ROC	geo	high	Republic of China; conflicts Roc language; ROC curve
+ROK	geo	high	Republic of Korea
+DPRK	geo	high	Democratic People's Republic of Korea
+KSA	geo	high	Kingdom of Saudi Arabia
+NZ	geo	high	New Zealand; 2-letter
+APAC	geo	high	Asia-Pacific
+EMEA	geo	high	Europe Middle East and Africa
+LATAM	geo	high	Latin America
+MENA	geo	high	Middle East and North Africa
+AMER	geo	high	Americas region
+CEE	geo	high	Central and Eastern Europe; COLLISION cee
+DACH	geo	high	Germany Austria Switzerland region
+ANZ	geo	high	Australia and New Zealand
+NYC	geo	high	New York City; conflicts nyc coverage CLI
+NOLA	geo	high	New Orleans; COLLISION nola
+SoCal	geo	high	Southern California
+NorCal	geo	high	Northern California
+SoHo	geo	medium	SoHo neighborhood (Manhattan)
+NoHo	geo	medium	NoHo neighborhood
+PNW	geo	high	Pacific Northwest
+DFW	geo	high	Dallas-Fort Worth
+LA	geo	high	Los Angeles; Louisiana; COLLISION la; 2-letter
+JFK	geo	high	New York JFK airport; John F. Kennedy
+LAX	geo	high	Los Angeles airport; COLLISION lax
+LHR	geo	high	London Heathrow airport
+CDG	geo	high	Paris Charles de Gaulle airport
+SFO	geo	high	San Francisco airport
+DXB	geo	high	Dubai airport
+EUR	geo	high	Euro currency code
+GBP	geo	high	British pound currency code
+JPY	geo	high	Japanese yen currency code
+CNY	geo	high	Chinese yuan currency code
+AUD	geo	high	Australian dollar currency code; also AuD Doctor of Audiology
+NZD	geo	high	New Zealand dollar currency code
+CHF	geo	high	Swiss franc currency code
+HKD	geo	high	Hong Kong dollar currency code
+SGD	geo	high	Singapore dollar currency code
+INR	geo	high	Indian rupee currency code
+KRW	geo	high	South Korean won currency code
+BRL	geo	high	Brazilian real currency code
+MXN	geo	high	Mexican peso currency code
+ZAR	geo	high	South African rand currency code
+SEK	geo	high	Swedish krona currency code
+NOK	geo	high	Norwegian krone currency code
+DKK	geo	high	Danish krone currency code
+PLN	geo	high	Polish zloty currency code
+THB	geo	high	Thai baht currency code
+IDR	geo	high	Indonesian rupiah currency code
+MYR	geo	high	Malaysian ringgit currency code
+SAR	geo	high	Saudi riyal currency code; Search and Rescue
+ILS	geo	high	Israeli shekel currency code; instrument landing system
+UAH	geo	high	Ukrainian hryvnia currency code
+CZK	geo	high	Czech koruna currency code
+HUF	geo	high	Hungarian forint currency code
+TWD	geo	high	New Taiwan dollar currency code
+PKR	geo	high	Pakistani rupee currency code
+NGN	geo	high	Nigerian naira currency code
+EGP	geo	high	Egyptian pound currency code
+CLP	geo	high	Chilean peso currency code
+ARS	geo	high	Argentine peso currency code
+TRY	geo	high	Turkish lira currency code; COLLISION try
+RUB	geo	high	Russian ruble currency code; COLLISION rub
+COP	geo	high	Colombian peso currency code; COLLISION cop
+PEN	geo	high	Peruvian sol currency code; COLLISION pen
+GBR	geo	high	ISO 3166 code United Kingdom; also GbR German civil-law partnership
+DEU	geo	high	ISO 3166 code Germany
+FRA	geo	high	ISO 3166 code France; Frankfurt airport
+JPN	geo	high	ISO 3166 code Japan
+CHN	geo	high	ISO 3166 code China
+AUS	geo	high	ISO 3166 code Australia
+NZL	geo	high	ISO 3166 code New Zealand
+ESP	geo	high	ISO 3166 code Spain; also ESP psychic / ESP32
+MEX	geo	high	ISO 3166 code Mexico
+KOR	geo	high	ISO 3166 code South Korea
+RUS	geo	high	ISO 3166 code Russia
+ZAF	geo	high	ISO 3166 code South Africa
+NLD	geo	high	ISO 3166 code Netherlands
+DNK	geo	high	ISO 3166 code Denmark
+POL	geo	high	ISO 3166 code Poland
+TUR	geo	high	ISO 3166 code Turkey
+ARG	geo	high	ISO 3166 code Argentina
+CHL	geo	high	ISO 3166 code Chile
+ISR	geo	high	ISO 3166 code Israel
+EGY	geo	high	ISO 3166 code Egypt
+NGA	geo	high	ISO 3166 code Nigeria; National Geospatial-Intelligence Agency
+THA	geo	high	ISO 3166 code Thailand
+VNM	geo	high	ISO 3166 code Vietnam
+MYS	geo	high	ISO 3166 code Malaysia
+PHL	geo	high	ISO 3166 code Philippines
+SGP	geo	high	ISO 3166 code Singapore
+HKG	geo	high	ISO 3166 code Hong Kong
+TWN	geo	high	ISO 3166 code Taiwan
+ARE	geo	high	ISO 3166 code UAE; COLLISION are
+SAU	geo	high	ISO 3166 code Saudi Arabia
+BEL	geo	high	ISO 3166 code Belgium; COLLISION bel
+AUT	geo	high	ISO 3166 code Austria
+CHE	geo	high	ISO 3166 code Switzerland; COLLISION che
+CZE	geo	high	ISO 3166 code Czechia
+HUN	geo	high	ISO 3166 code Hungary; COLLISION hun
+ROU	geo	high	ISO 3166 code Romania
+UKR	geo	high	ISO 3166 code Ukraine
+GER	geo	high	IOC/FIFA code Germany
+NED	geo	high	IOC/FIFA code Netherlands; COLLISION Ned
+SUI	geo	high	IOC/FIFA code Switzerland
+POR	geo	high	IOC/FIFA code Portugal
+URU	geo	high	IOC/FIFA code Uruguay
+EST	geo	high	Eastern Standard Time; COLLISION est
+EDT	geo	high	Eastern Daylight Time
+CDT	geo	high	Central Daylight Time
+MST	geo	high	Mountain Standard Time; also DisplayPort Multi-Stream Transport
+MDT	geo	high	Mountain Daylight Time
+PST	geo	high	Pacific Standard Time; Outlook PST data file
+PDT	geo	high	Pacific Daylight Time
+AKST	geo	high	Alaska Standard Time
+BST	geo	high	British Summer Time
+CET	geo	high	Central European Time
+CEST	geo	high	Central European Summer Time
+EET	geo	high	Eastern European Time
+EEST	geo	high	Eastern European Summer Time
+WET	geo	high	Western European Time; COLLISION wet
+IST	geo	high	India/Israel/Irish Standard Time
+JST	geo	high	Japan Standard Time
+KST	geo	high	Korea Standard Time
+AEST	geo	high	Australian Eastern Standard Time
+AEDT	geo	high	Australian Eastern Daylight Time
+ACST	geo	high	Australian Central Standard Time
+AWST	geo	high	Australian Western Standard Time
+NZST	geo	high	New Zealand Standard Time
+NZDT	geo	high	New Zealand Daylight Time
+SGT	geo	high	Singapore Time; COLLISION sgt
+HKT	geo	high	Hong Kong Time
+MSK	geo	high	Moscow Standard Time
+DST	geo	high	Daylight Saving Time
+BCE	geo	high	Before Common Era
+BC	geo	high	Before Christ; British Columbia; 2-letter
+AD	geo	high	Anno Domini; COLLISION ad; 2-letter
+AM	geo	medium	ante meridiem; COLLISION am; 2-letter
+MHz	units	high	megahertz
+THz	units	high	terahertz
+Tbps	units	high	terabits per second
+KB	units	medium	kilobyte; Knowledge Base; 2-letter
+MB	units	high	megabyte; 2-letter
+GB	units	high	gigabyte; 2-letter
+PB	units	medium	petabyte; personal best; 2-letter
+EB	units	high	exabyte; 2-letter
+KiB	units	high	kibibyte
+GiB	units	high	gibibyte; COLLISION gib
+TiB	units	high	tebibyte
+PiB	units	medium	pebibyte
+mAh	units	high	milliampere-hour
+Ah	units	medium	ampere-hour; 2-letter; COLLISION ah
+Wh	units	high	watt-hour; 2-letter
+kWh	units	high	kilowatt-hour
+MWh	units	high	megawatt-hour
+GWh	units	high	gigawatt-hour
+TWh	units	medium	terawatt-hour
+kW	units	high	kilowatt; 2-letter
+MW	units	high	megawatt; medium wave; 2-letter
+GW	units	medium	gigawatt; 2-letter
+kWp	units	high	kilowatt-peak (solar)
+MWp	units	medium	megawatt-peak (solar)
+kV	units	high	kilovolt; conflicts KV key-value / KV cache; 2-letter
+kVA	units	high	kilovolt-ampere
+VAC	units	medium	volts AC; COLLISION vac
+VDC	units	medium	volts DC
+AWG	units	high	American Wire Gauge
+dBu	units	high	decibels unloaded (0.775 V)
+dBV	units	high	decibels relative to 1 volt
+dBi	units	high	decibels isotropic
+kPa	units	high	kilopascal
+MPa	units	high	megapascal; conflicts MPA Master of Public Administration / Motion Picture Association
+hPa	units	high	hectopascal; conflicts HPA Kubernetes autoscaler
+kN	units	medium	kilonewton; 2-letter
+kg	units	high	kilogram; also KG German company form; 2-letter
+km	units	high	kilometer; 2-letter
+mg	units	high	milligram; conflicts MG Motor brand; 2-letter
+mcg	units	high	microgram
+mmHg	units	high	millimeters of mercury
+mmol	units	medium	millimole
+IU	units	medium	International Unit; 2-letter
+kcal	units	high	kilocalorie
+mph	units	high	miles per hour; also MPH Master of Public Health
+kph	units	medium	kilometers per hour
+MPGe	units	high	Miles Per Gallon equivalent (EPA styling)
+sqft	units	medium	square feet
+FLOPS	units	high	Floating-point Operations Per Second; conflicts FLOPs operation count; COLLISION flops
+TFLOPS	units	high	teraFLOPS
+GFLOPS	units	medium	gigaFLOPS
+PFLOPS	units	medium	petaFLOPS
+TOPS	units	high	Tera Operations Per Second; COLLISION tops
+IP65	units	high	ingress protection rating 65
+IP66	units	medium	ingress protection rating 66
+IP67	units	high	ingress protection rating 67
+IP68	units	high	ingress protection rating 68
+IPX4	units	high	water resistance rating IPX4
+IPX5	units	medium	water resistance rating IPX5
+IPX7	units	high	water resistance rating IPX7
+IPX8	units	medium	water resistance rating IPX8
+MIL-STD-810G	units	medium	US military durability standard
+MIL-STD-810H	units	medium	US military durability standard
+44.1kHz	units	high	CD sample rate
+48kHz	units	high	48 kHz sample rate
+88.2kHz	units	medium	88.2 kHz sample rate
+96kHz	units	high	96 kHz sample rate
+176.4kHz	units	medium	176.4 kHz sample rate
+192kHz	units	high	192 kHz sample rate
+128kbps	units	high	128 kbps bitrate
+192kbps	units	medium	192 kbps bitrate
+256kbps	units	medium	256 kbps bitrate
+320kbps	units	high	320 kbps bitrate
+8-bit	units	high	8-bit
+10-bit	units	high	10-bit
+12-bit	units	medium	12-bit
+16-bit	units	high	16-bit
+24-bit	units	high	24-bit
+32-bit	units	high	32-bit
+64-bit	units	high	64-bit
+10bit	units	medium	10-bit (release-tag form)
+16bit	units	medium	16-bit (unhyphenated)
+24bit	units	medium	24-bit (unhyphenated)
+32bit	units	medium	32-bit (unhyphenated)
+64bit	units	medium	64-bit (unhyphenated)
+144p	units	medium	144-line video resolution
+240p	units	medium	240-line video resolution
+360p	units	high	360-line video resolution
+480p	units	high	480-line progressive
+576p	units	medium	576-line progressive
+1440p	units	high	1440-line progressive (QHD)
+4320p	units	medium	4320-line progressive (8K)
+2K	units	medium	2K resolution; 2-letter
+5K	units	medium	5K resolution; 2-letter
+6K	units	medium	6K resolution; 2-letter
+10K	units	high	10K resolution
+12K	units	medium	12K resolution
+16K	units	high	16K resolution
+24fps	units	high	24 frames per second
+25fps	units	high	25 frames per second
+30fps	units	high	30 frames per second
+48fps	units	medium	48 frames per second
+50fps	units	medium	50 frames per second
+60fps	units	high	60 frames per second
+120fps	units	high	120 frames per second
+240fps	units	medium	240 frames per second
+23.976fps	units	medium	23.976 frames per second
+29.97fps	units	medium	29.97 frames per second
+60Hz	units	high	60 hertz refresh rate
+75Hz	units	medium	75 hertz refresh rate
+90Hz	units	medium	90 hertz refresh rate
+120Hz	units	high	120 hertz refresh rate
+144Hz	units	high	144 hertz refresh rate
+165Hz	units	medium	165 hertz refresh rate
+240Hz	units	high	240 hertz refresh rate
+360Hz	units	medium	360 hertz refresh rate
+480Hz	units	medium	480 hertz refresh rate
+1GB	units	medium	1 gigabyte
+2GB	units	medium	2 gigabytes
+4GB	units	high	4 gigabytes
+8GB	units	high	8 gigabytes
+16GB	units	high	16 gigabytes
+32GB	units	high	32 gigabytes
+64GB	units	high	64 gigabytes
+128GB	units	high	128 gigabytes
+256GB	units	high	256 gigabytes
+512GB	units	high	512 gigabytes
+250GB	units	medium	250 gigabytes
+500GB	units	medium	500 gigabytes
+1TB	units	high	1 terabyte
+2TB	units	high	2 terabytes
+4TB	units	high	4 terabytes
+8TB	units	high	8 terabytes
+10TB	units	medium	10 terabytes
+12TB	units	medium	12 terabytes
+16TB	units	medium	16 terabytes
+20TB	units	medium	20 terabytes
+24TB	units	medium	24 terabytes
+NDAs	plural	high	Non-Disclosure Agreements
+SOWs	plural	high	Statements of Work
+RFPs	plural	high	Requests for Proposal
+RFQs	plural	medium	Requests for Quotation
+RFIs	plural	medium	Requests for Information
+OKRs	plural	high	Objectives and Key Results
+SOPs	plural	high	Standard Operating Procedures; conflicts SOPS secrets tool
+MOUs	plural	medium	Memoranda of Understanding
+LOIs	plural	medium	Letters of Intent; COLLISION lois
+T&Cs	plural	high	Terms and Conditions
+Q&As	plural	medium	Questions and Answers
+CEOs	plural	high	Chief Executive Officers
+CTOs	plural	high	Chief Technology Officers
+CFOs	plural	high	Chief Financial Officers
+COOs	plural	medium	Chief Operating Officers
+CIOs	plural	medium	Chief Information Officers
+SVPs	plural	medium	Senior Vice Presidents
+EVPs	plural	medium	Executive Vice Presidents
+SKUs	plural	high	Stock Keeping Units
+BOMs	plural	medium	Bills of Materials
+KOLs	plural	medium	Key Opinion Leaders
+CTAs	plural	medium	Calls To Action
+SMBs	plural	high	Small and Medium Businesses
+SMEs	plural	high	Small and Medium Enterprises
+LLCs	plural	high	Limited Liability Companies
+IPOs	plural	high	Initial Public Offerings
+ETFs	plural	high	Exchange-Traded Funds
+REITs	plural	high	Real Estate Investment Trusts
+IRAs	plural	medium	Individual Retirement Accounts
+NGOs	plural	high	Non-Governmental Organizations
+NPOs	plural	medium	Non-Profit Organizations
+DAOs	plural	medium	Decentralized Autonomous Organizations
+HOAs	plural	medium	Homeowners Associations
+PhDs	plural	high	Doctors of Philosophy
+MBAs	plural	high	Masters of Business Administration
+GCSEs	plural	high	GCSE qualifications
+A-levels	plural	medium	UK Advanced Level qualifications
+MOOCs	plural	high	Massive Open Online Courses
+MCQs	plural	medium	Multiple-Choice Questions
+NPCs	plural	high	Non-Player Characters
+RPGs	plural	high	Role-Playing Games
+DLCs	plural	high	Downloadable Content packs
+MMOs	plural	high	Massively Multiplayer Online games
+MMORPGs	plural	high	MMORPG plural
+JRPGs	plural	high	Japanese RPGs
+MOBAs	plural	medium	MOBA plural
+TCGs	plural	medium	Trading Card Games
+TTRPGs	plural	medium	Tabletop RPGs
+ROMs	plural	high	Read-Only Memory images
+LCDs	plural	high	Liquid Crystal Displays
+OLEDs	plural	high	OLED displays
+PCs	plural	high	Personal Computers; COLLISION pcs
+TVs	plural	high	Televisions
+CDs	plural	high	Compact Discs
+DVDs	plural	high	Digital Versatile Discs
+MP3s	plural	high	MP3 files
+MP4s	plural	high	MP4 files
+WAVs	plural	medium	WAV files
+TIFFs	plural	medium	TIFF files
+ZIPs	plural	medium	ZIP archives
+PCBs	plural	high	Printed Circuit Boards
+FPGAs	plural	high	Field-Programmable Gate Arrays
+ASICs	plural	high	Application-Specific Integrated Circuits; conflicts ASICS shoe brand; COLLISION asics
+NICs	plural	medium	Network Interface Cards
+PSUs	plural	high	Power Supply Units
+APUs	plural	medium	Accelerated Processing Units
+TPUs	plural	medium	Tensor Processing Units
+DACs	plural	medium	Digital-to-Analog Converters
+IEMs	plural	medium	In-Ear Monitors
+LODs	plural	medium	Levels of Detail
+UDIMs	plural	medium	UDIM tiles
+SUVs	plural	high	Sport Utility Vehicles
+EVs	plural	high	Electric Vehicles
+ATMs	plural	high	Automated Teller Machines
+UFOs	plural	high	Unidentified Flying Objects
+VIPs	plural	high	Very Important Persons
+MVPs	plural	high	Most Valuable Players / Minimum Viable Products
+VOCs	plural	medium	Volatile Organic Compounds
+DJs	plural	high	Disc Jockeys
+MCs	plural	medium	Masters of Ceremonies
+LPs	plural	medium	Long Play records; limited partners
+OSTs	plural	medium	Original Soundtracks
+VTubers	plural	high	Virtual YouTubers
+dApps	plural	medium	decentralized apps
+GPTs	plural	medium	Generative Pre-trained Transformers / custom GPTs
+ICUs	plural	medium	Intensive Care Units

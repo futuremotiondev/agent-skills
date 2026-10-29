@@ -1,0 +1,36 @@
+{
+  "acceptance": {
+    "id": "T04",
+    "request": "APA title case with my dictionary",
+    "maxRules": 4,
+    "expectedDesign": "Title pipeline (casing.md 7.3) with the default dictionary"
+  },
+  "name": "CASE Title APA",
+  "variants": [
+    "FILE"
+  ],
+  "casing": {
+    "mode": "title"
+  },
+  "collisions": "none",
+  "rules": [],
+  "referenceRules": [],
+  "tests": [
+    {
+      "in": "the ultimate guide to javascript and typescript apis.pdf",
+      "out": "The Ultimate Guide to JavaScript and TypeScript APIs.pdf"
+    },
+    {
+      "in": "iphone photography - a guide for beginners.PDF",
+      "out": "iPhone Photography - A Guide for Beginners.pdf"
+    },
+    {
+      "in": "npm tips and tricks for beginners.txt",
+      "out": "npm Tips and Tricks for Beginners.txt"
+    },
+    {
+      "in": "working with macos.md",
+      "out": "Working With macOS.md"
+    }
+  ]
+}

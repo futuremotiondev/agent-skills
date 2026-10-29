@@ -1,0 +1,138 @@
+term	issue	suggestion	evidence
+DVDScr	WRONG_CASE	DVDSCR	[high] Screener release tag is DVDSCR (also SCR/BDSCR); DVDScr is not the scene/P2P form - en.wikipedia.org (Pirated movie release types)
+UV	AMBIGUOUS	REVIEW	[high] Astral's Python tool is always lowercase uv (uv.lock, uv-python); builder resolved uv|UV to UV, so dev files become UV.lock - docs.astral.sh
+DEI	AMBIGUOUS	REVIEW	[high] Latin/Italian 'Dei' is a common title word (Agnus Dei, Opus Dei, 'dei' = of the; it zipf 6.6) -> 'Agnus DEI' in music libraries - wiktionary.org
+IST	AMBIGUOUS	REVIEW	[high] German 'ist' (is) is a top-frequency word (de zipf 7.1); German titles like 'Was ist Liebe' -> 'Was IST Liebe' - wiktionary.org
+POR	AMBIGUOUS	REVIEW	[high] Spanish/Portuguese preposition 'por' (es zipf 7.0, pt 6.9): 'Por Una Cabeza' -> 'POR Una Cabeza' - wiktionary.org
+AUS	AMBIGUOUS	REVIEW	[high] German 'aus' (from/out; de zipf 6.6) is very common in German titles ('Aus der Ferne', 'Musik aus ...') - wiktionary.org
+NAV	AMBIGUOUS	REVIEW	[high] 'nav' (navigation) is ubiquitous lowercase in web project files (nav.tsx, main-nav.css, HTML <nav>); Net Asset Value is rare in file names - developer.mozilla.org
+SSHD	AMBIGUOUS	REVIEW	[high] OpenSSH daemon is lowercase 'sshd' (sshd.service, sshd config backups); builder resolved sshd|SSHD to SSHD, so these would be rewritten - man.openbsd.org
+ToS	AMBIGUOUS	REVIEW	[high] 'TOS' is the standard tag for Star Trek: The Original Series (Star.Trek.TOS.S01E01) and equally common for Terms of Service; ToS corrupts those - en.wikipedia.org
+LOL	AMBIGUOUS	REVIEW	[med] League of Legends is officially 'LoL' and the brands pack carries LoL; this core entry forces LOL onto game files and overrides the brand entry - leagueoflegends.com
+iLO	AMBIGUOUS	REVIEW	[med] 'ILO' (International Labour Organization) is common in report/PDF names; 'ILO Convention 190.pdf' -> 'iLO Convention 190.pdf' - ilo.org
+AKA	AMBIGUOUS	REVIEW	[med] Dictionary headword is lowercase 'aka' (M-W; Grammarist lists aka/a.k.a./AKA); music files conventionally read 'Artist aka Alias'; also Japanese 'aka' (red) - merriam-webster.com
+TSX	AMBIGUOUS	REVIEW	[med] 'tsx' is the TypeScript JSX extension/term and the tsx Node runner, both lowercase and common in dev names; Toronto Stock Exchange reading is rarer - typescriptlang.org
+THA	AMBIGUOUS	REVIEW	[med] 'Tha' is a common hip-hop spelling of 'the' (Tha Carter III, Tha Dogg Pound) -> 'THA Carter III' - en.wikipedia.org
+ARS	AMBIGUOUS	REVIEW	[med] Latin 'ars' in common names (Ars Technica, Ars Electronica, Ars Nova) -> 'ARS Technica' in saved articles - arstechnica.com
+CAO	AMBIGUOUS	REVIEW	[med] Cao is a common Chinese/Vietnamese surname (Cao Fei, Cao Xueqin; vi zipf 6.2) -> 'CAO Fei' - en.wikipedia.org
+GAO	AMBIGUOUS	REVIEW	[med] Gao is a very common Chinese surname (Gao Xingjian) -> 'GAO Xingjian' - en.wikipedia.org
+HOA	AMBIGUOUS	REVIEW	[med] Hoa is a common Vietnamese given name/word ('flower'; vi zipf 6.0) -> 'Nguyen Thi HOA' - wiktionary.org
+LoRo	AMBIGUOUS	REVIEW	[med] Italian 'loro' (they/their; it zipf 6.2) and Spanish 'loro' (parrot) are ordinary title words -> 'LoRo' - wiktionary.org
+ESO	AMBIGUOUS	REVIEW	[med] Spanish 'eso' (that; es zipf 6.2) is common in Spanish titles; ESO (Elder Scrolls Online) shares casing - wiktionary.org
+ESA	AMBIGUOUS	REVIEW	[med] Spanish 'esa' (that; es zipf 5.9), e.g. 'Esa Noche' -> 'ESA Noche' - wiktionary.org
+ILS	AMBIGUOUS	REVIEW	[med] French pronoun 'ils' (they; fr zipf 6.4), e.g. film 'Ils' (2006) - wiktionary.org
+FRA	AMBIGUOUS	REVIEW	[med] Italian 'Fra' (friar) in art-history names (Fra Angelico, Fra Filippo Lippi) and Scandinavian 'fra' (from) - en.wikipedia.org
+SOM	AMBIGUOUS	REVIEW	[med] Swedish/Norwegian/Danish 'som' (as/that; sv zipf 7.2) and Portuguese 'som' (sound) - wiktionary.org
+WWW	AMBIGUOUS	REVIEW	[med] Saved pages/screenshots often carry lowercase hostnames (www.example.com_capture.png); forcing WWW rewrites the hostname, which is conventionally lowercase - rfc-editor.org (RFC 4343)
+CERO	AMBIGUOUS	REVIEW	[med] Spanish 'cero' (zero; es zipf 4.6), e.g. 'Kilometro Cero', song titles - wiktionary.org
+GERD	AMBIGUOUS	REVIEW	[med] Gerd is a common German given name (Gerd Muller, Gerd Richter) -> 'GERD Richter' - en.wikipedia.org
+DAO	AMBIGUOUS	REVIEW	[low] Dao/Dao (Vietnamese surname) and romanized 'Dao' = Tao (Dao De Jing) - en.wikipedia.org
+ROI	AMBIGUOUS	REVIEW	[low] French 'roi' (king; fr zipf 5.2): 'Le Roi Lion' -> 'Le ROI Lion' - wiktionary.org
+EIS	AMBIGUOUS	REVIEW	[low] German 'Eis' (ice; de zipf 4.6) and Dutch 'eis' (demand) - wiktionary.org
+TEM	AMBIGUOUS	REVIEW	[low] Portuguese 'tem' (has; pt zipf 6.4) in Portuguese/Brazilian titles - wiktionary.org
+BOM	AMBIGUOUS	REVIEW	[low] Portuguese 'bom' (good; pt zipf 6.0): 'Bom Dia' -> 'BOM Dia' - wiktionary.org
+GBR	AMBIGUOUS	REVIEW	[low] German 'GbR' (Gesellschaft buergerlichen Rechts) is standard in German company/document names; the note itself records the clash - de.wikipedia.org
+PTE	AMBIGUOUS	REVIEW	[low] 'Pte' (Private) is standard in Singapore company names ('Pte Ltd') -> 'PTE Ltd' - acra.gov.sg
+ACH	AMBIGUOUS	REVIEW	[low] German 'Ach' opens many Bach cantata titles (BWV 2 'Ach Gott, vom Himmel sieh darein') -> 'ACH Gott' - bach-cantatas.com
+NUMA	AMBIGUOUS	REVIEW	[low] 'Numa Numa' (O-Zone meme song) and Portuguese 'numa' (in a; pt zipf 5.5) - en.wikipedia.org
+VoLTE	AMBIGUOUS	REVIEW	[low] Italian 'volte' (times; it zipf 5.6): 'A volte' -> 'A VoLTE' - wiktionary.org
+LOI	AMBIGUOUS	REVIEW	[low] French 'loi' (law; fr zipf 5.4) in French legal document names - wiktionary.org
+CET	AMBIGUOUS	REVIEW	[low] French determiner 'cet' (this; fr zipf 5.7) in French titles - wiktionary.org
+CEST	AMBIGUOUS	REVIEW	[low] Apostrophe-stripped French C'est becomes 'Cest' in sanitized names ('Cest La Vie' -> 'CEST La Vie') - wiktionary.org
+COPPA	AMBIGUOUS	REVIEW	[low] Italian 'coppa' (cup): 'Coppa Italia' -> 'COPPA Italia' - en.wikipedia.org
+DELE	AMBIGUOUS	REVIEW	[low] Portuguese 'dele' (his; pt zipf 5.5) and given name Dele (Dele Alli) - wiktionary.org
+MENA	AMBIGUOUS	REVIEW	[low] Given name Mena (Mena Suvari, Mena Massoud); Swedish 'mena' (to mean) - en.wikipedia.org
+ONS	AMBIGUOUS	REVIEW	[low] Dutch 'ons' (us/our; nl zipf 6.2) in Dutch titles - wiktionary.org
+ROC	AMBIGUOUS	REVIEW	[low] Builder resolved Roc|ROC to ROC; 'Roc' is the Roc language, Roc Nation, Roc-A-Fella -> 'ROC Nation' - roc-lang.org
+PKG	AMBIGUOUS	REVIEW	[low] Lowercase 'pkg' is conventional in dev names (pkg-config, Go pkg/ layout) -> 'PKG-config' - freedesktop.org
+IMG	AMBIGUOUS	REVIEW	[low] 'img' is the ubiquitous lowercase abbreviation for image in web/dev names (hero-img.webp, <img>), not the disk-image format - developer.mozilla.org
+ITIN	AMBIGUOUS	REVIEW	[low] 'itin' is a common short form of itinerary in travel file names (tokyo-itin.pdf) - wiktionary.org
+ABR	AMBIGUOUS	REVIEW	[low] 'abr' is the Spanish/Portuguese abbreviation for April (abril) in dates ('15-abr-2024') - rae.es
+LoFi	WRONG_CASE	Lofi	[med] Unhyphenated form is written 'Lofi'/'lofi' (Lofi Girl, 'lofi hip hop radio'); dictionary form is 'lo-fi'; 'LoFi' would corrupt the Lofi Girl brand - lofigirl.com, en.wikipedia.org
+CS224n	WRONG_CASE	CS224N	Stanford course site title is "CS224N: Natural Language Processing with Deep Learning" (uppercase N, unlike CS231n); web.stanford.edu/class/cs224n
+ATProto	WRONG_CASE	atproto	Bluesky's own short form is lowercase atproto (repo bluesky-social/atproto, @atproto.com, @atproto/* packages); Wikipedia writes ATproto; ATProto is only informal; github.com, atproto.com, en.wikipedia.org
+Base64URL	WRONG_CASE	base64url	RFC 4648 sec. 5 and RFC 7515 name the encoding "base64url" (npm package base64url); Base64URL is not a canonical form; rfc-editor.org
+NeMo	AMBIGUOUS	REVIEW	lowercase/Title "Nemo" is far more common in file names: Finding Nemo, Captain Nemo, Linux Mint's Nemo file manager -> "Finding NeMo"; en.wikipedia.org
+SRI	AMBIGUOUS	REVIEW	collides with "Sri" (Sri Lanka, Indian honorific/names) -> "SRI Lanka"; high-frequency in photo/travel file names
+TODO	AMBIGUOUS	REVIEW	Spanish "todo" (all/everything) in song/doc titles ("Todo Cambia") and kebab dev names (todo-app, todo.txt) -> "TODO Cambia", "TODO-app"
+TODOs	AMBIGUOUS	REVIEW	Spanish "todos" ("Para Todos", "Todos Juntos") and todos.json in todo apps -> "Para TODOs"
+AMO	AMBIGUOUS	REVIEW	Spanish/Italian/Portuguese "amo" (I love), common in song titles ("Te Amo") -> "Te AMO"; AMO (addons.mozilla.org) is niche by comparison
+UNO	AMBIGUOUS	REVIEW	Spanish/Italian "uno" (one) in titles ("Capitulo Uno"), Fiat Uno, older "Arduino Uno" -> "Capitulo UNO"; the ByteDance model is niche; github.com/bytedance/UNO
+MiniMax	AMBIGUOUS	REVIEW	"minimax" is a standard game-theory/AI algorithm (minimax.py, minimax-tictactoe) -> "MiniMax.py"; company casing itself is correct (minimax.io)
+NIM	AMBIGUOUS	REVIEW	collides with the Nim programming language (official "Nim", nim-lang.org) and the game of Nim; forcing NIM corrupts Nim project/file names
+BLEU	AMBIGUOUS	REVIEW	French "bleu" (blue) is common in French file names/titles ("Bleu", "Trois Couleurs Bleu", "bleu marine") -> "BLEU"
+AIME	AMBIGUOUS	REVIEW	French "aime" (loves), e.g. song titles "Je t'aime", "Aime-moi" -> "Je t'AIME" (apostrophe splits the word)
+WER	AMBIGUOUS	REVIEW	German "wer" (who), common in German titles ("Wer bin ich", "Wer weiss") -> "WER bin ich"
+LoRAX	AMBIGUOUS	REVIEW	collides with Dr. Seuss's "The Lorax" (book/film) -> "The LoRAX"; Predibase LoRAX is niche; github.com/predibase/lorax
+YuE	AMBIGUOUS	REVIEW	"Yue" is a common Chinese surname/given name (Yue Fei) and the ISO 639-3 code for Cantonese (yue) -> "YuE"
+GRU	AMBIGUOUS	REVIEW	"Gru" (Despicable Me character) is common in image/video file names -> "GRU"; GRU (Russian intel) happens to match but Gru does not
+MyST	AMBIGUOUS	REVIEW	collides with the classic game "Myst" (Cyan, 1993; Myst remasters) -> "MyST"; mystmd.org casing itself is correct
+LoopBack	AMBIGUOUS	REVIEW	"loopback" is a generic networking/audio term (loopback adapter, audio loopback, loopback.cfg) -> "LoopBack"; IBM framework is niche; loopback.io
+NeRFs	AMBIGUOUS	REVIEW	"nerfs" (gaming patch notes "Buffs and Nerfs") and Nerf blasters (Hasbro) -> "Buffs and NeRFs"
+kW	AMBIGUOUS	REVIEW	German "KW" = Kalenderwoche (calendar week), very common in German file names ("Dienstplan KW 23") -> "kW 23"
+hPa	AMBIGUOUS	REVIEW	collides with Kubernetes HPA (HorizontalPodAutoscaler) manifests, e.g. hpa.yaml -> "hPa.yaml"; note already flags it; kubernetes.io
+MPa	AMBIGUOUS	REVIEW	collides with MPA (Motion Picture Association, Master of Public Administration) -> "MPa"; note already flags it
+kg	AMBIGUOUS	REVIEW	collides with KG (German/Austrian company form, "GmbH & Co. KG") in contracts/invoices -> "GmbH & Co. kg"; note already flags it
+mg	AMBIGUOUS	REVIEW	collides with MG (MG Motor car brand, "MG ZS") and machine-gun model names (MG 42) -> "mg ZS"; note already flags it
+mph	AMBIGUOUS	REVIEW	collides with MPH (Master of Public Health) in CV/credential file names ("Jane Doe MPH") -> "mph"; note already flags it
+SOPs	AMBIGUOUS	REVIEW	collides with the SOPS secrets tool (official "SOPS", CLI/config "sops", .sops.yaml) -> "SOPs"; getsops.io; low frequency
+HuMo	AMBIGUOUS	REVIEW	Spanish "humo" (smoke) in Spanish titles -> "HuMo"; ByteDance model is niche; low frequency
+Bunny.net	WRONG_CASE	bunny.net	Brand is written all-lowercase in its own site, blog and title ("bunny.net - The Global Edge Platform"); bunny.net
+SIE	AMBIGUOUS	REVIEW	German pronoun "Sie" (you/she/they) is one of the most frequent German words; forcing SIE corrupts German file names; wordfreq de zipf 6.8
+DER	AMBIGUOUS	REVIEW	German article "der" (extremely frequent, e.g. "Herr der Ringe") would become "Herr DER Ringe"; wordfreq de zipf 7.5
+ELLE	AMBIGUOUS	REVIEW	French pronoun "elle" and given name "Elle" (Elle Fanning, Elle King) far outnumber magazine refs; wordfreq fr zipf 6.5
+CELINE	AMBIGUOUS	REVIEW	Common first name "Celine" (e.g. "Celine Dion - My Heart Will Go On") would become "CELINE Dion"; names list + en.wikipedia.org
+ALEXA	AMBIGUOUS	REVIEW	Amazon "Alexa" (Echo) and first name Alexa are written Title case; ARRI ALEXA caps would corrupt those; amazon.com / arri.com
+TCL	AMBIGUOUS	REVIEW	Collides with the Tcl language (official casing "Tcl", e.g. Tcl/Tk scripts); forcing TCL is wrong for dev files; tcl-lang.org
+VOX	AMBIGUOUS	REVIEW	In audio file names "vox"/"Vox" = vocals (lead_vox.wav, "Vox Stem"); also Vox Media; forcing VOX wrong in audio pack; common DAW usage
+POCO	AMBIGUOUS	REVIEW	Spanish/Italian "poco" and musical term ("poco a poco", "poco rit.") would become POCO; wordfreq es zipf 5.8
+REI	AMBIGUOUS	REVIEW	Portuguese "rei" (king, "O Rei Leão") and Japanese name Rei (Rei Ayanami) are common; wordfreq pt zipf 5.1
+vivo	AMBIGUOUS	REVIEW	Spanish/Portuguese/Italian "vivo" ("En Vivo", "Ao Vivo" live recordings) - forcing lowercase changes "En Vivo" titles; wordfreq pt 5.3
+VIVE	AMBIGUOUS	REVIEW	French/Spanish "vive" ("Vive la France", "Vive Latino") would become VIVE; wordfreq es zipf 5.0
+HITMAN	AMBIGUOUS	REVIEW	Ordinary word "hitman" (e.g. "The Hitman's Bodyguard") would be forced to HITMAN; en dictionary word
+WorkSpaces	AMBIGUOUS	REVIEW	Ordinary plural "workspaces" (VS Code *.code-workspace folders, "workspaces" dirs) would become WorkSpaces; en word
+EVO	AMBIGUOUS	REVIEW	"Evo" is common shorthand (Lancer Evo, Evo tournament) and conflicts with row "OLED evo" (lowercase evo); wordfreq es 3.9
+SoX	AMBIGUOUS	REVIEW	"Sox" as in Red Sox / White Sox would become "Red SoX"; wordfreq en 3.8
+REQ	AMBIGUOUS	REVIEW	"req"/"Req" is a very common dev abbreviation (request/requirement: http_req.log); forcing REQ is wrong outside Waves context
+CSH	AMBIGUOUS	REVIEW	"csh" is the C shell (conventionally lowercase: csh, .cshrc); forcing CSH corrupts shell-related names
+OPA	AMBIGUOUS	REVIEW	German "Opa" (grandpa) and Greek "opa" are common in personal photo/video names; wordfreq de zipf 4.2
+MITRE	AMBIGUOUS	REVIEW	"mitre" is an ordinary British word (mitre saw, mitre joint, bishop's mitre); wordfreq en 2.6/es 3.7
+AIX	AMBIGUOUS	REVIEW	City "Aix" (Aix-en-Provence, Aix-les-Bains) in French/travel file names would become "AIX-en-Provence"; wordfreq fr 4.1
+WEBTOON	AMBIGUOUS	REVIEW	"webtoon" is also the generic term for Korean web comics (not only the platform); forcing WEBTOON on generic usage
+BATTLETECH	AMBIGUOUS	BattleTech	All-caps is only the 2018 HBS game's styling; franchise (tabletop, novels, MechWarrior) is "BattleTech"; en.wikipedia.org / sarna.net
+PlayMaker	AMBIGUOUS	REVIEW	Common sports word "playmaker" (note acknowledges collision); en dictionary word
+UltraFine	AMBIGUOUS	REVIEW	Common adjective "ultrafine" (ultrafine glitter/particles/liner pens); note acknowledges collision
+NETELLER	WRONG_CASE	Neteller	Owner Paysafe and neteller.com write "Neteller" in running text; caps only in logo; neteller.com / paysafe.com
+VideoBlocks	WRONG_CASE	Videoblocks	Former brand was "Videoblocks" (lowercase b) per press releases; prnewswire.com / storyblocks.com
+AudioBlocks	WRONG_CASE	Audioblocks	Former brand was "Audioblocks" (lowercase b); premiumbeat.com / storyblocks.com
+Ingress-NGINX	WRONG_CASE	ingress-nginx	Project is "Ingress NGINX" (spaced) or repo/chart "ingress-nginx"; hyphenated caps form is unofficial and corrupts the lowercase chart/repo token; github.com/kubernetes / kubernetes.dev
+FOGRA	WRONG_CASE	Fogra	The standards body writes "Fogra" in running text; caps only inside profile names (FOGRA39, separate token); fogra.org
+AMI	AMBIGUOUS	REVIEW	French "ami" (friend) and given name Ami; also AMI BIOS; wordfreq fr 5.1
+AMIs	AMBIGUOUS	REVIEW	French plural "amis" ("les amis", "entre amis") would become AMIs; wordfreq fr 5.3
+SAI	AMBIGUOUS	REVIEW	Common given name Sai (Sai Baba, Sai Pallavi) and Italian "sai"; wordfreq it 5.2
+KOMODO	AMBIGUOUS	REVIEW	Komodo dragon/island and ActiveState Komodo IDE are Title case; wordfreq en 2.6
+AMIRA	AMBIGUOUS	REVIEW	Common given name Amira; forcing ARRI caps would corrupt personal names; names usage
+BURANO	AMBIGUOUS	REVIEW	Venetian island Burano appears in travel photo names; wordfreq it 2.6
+RAVENNA	AMBIGUOUS	REVIEW	Italian city Ravenna appears in travel/photo names; wordfreq it 4.1
+BlackHole	AMBIGUOUS	REVIEW	"blackhole" as one word is common for astronomy renders/wallpapers and network blackhole routes; note acknowledges
+KRONOS	AMBIGUOUS	REVIEW	Greek titan Kronos (games, Kronos Quartet) is Title case; wordfreq de 2.7
+MoGraph	AMBIGUOUS	REVIEW	Generic motion-graphics usage is lowercase "mograph" (mograph reel, mograph templates); note acknowledges
+MainStage	AMBIGUOUS	REVIEW	Festival stage name "Mainstage" (Tomorrowland Mainstage sets) would become MainStage; wordfreq en 2.4
+YARA	AMBIGUOUS	REVIEW	Given name Yara (and Yara fertilizer company) is Title case; wordfreq pt 3.1
+NYX	AMBIGUOUS	REVIEW	Greek goddess Nyx (games/mythology art) is Title case; wordfreq en 2.7
+ATEM	AMBIGUOUS	REVIEW	German noun "Atem" (breath) would become ATEM; wordfreq de 4.1
+MAPPA	AMBIGUOUS	REVIEW	Italian noun "mappa" (map) would become MAPPA; wordfreq it 4.5
+FILA	AMBIGUOUS	REVIEW	Italian/Portuguese "fila" (row/queue) would become FILA; wordfreq it 4.7
+beIN	AMBIGUOUS	REVIEW	German noun "Bein" (leg) would become beIN; wordfreq de 4.3
+MONSTRO	AMBIGUOUS	REVIEW	Portuguese "monstro" (monster) and Pinocchio's whale Monstro; wordfreq pt 4.3
+DUPLO	AMBIGUOUS	REVIEW	Portuguese "duplo" (double) would become DUPLO; wordfreq pt 4.3
+KEV	AMBIGUOUS	REVIEW	Nickname Kev (Kevin) in personal file names would become KEV; wordfreq en 3.3
+DiDi	AMBIGUOUS	REVIEW	Given name Didi is Title case; wordfreq pt 3.3
+DeX	AMBIGUOUS	REVIEW	Name/nickname Dex (Dexter) and slang "dex" would become DeX; wordfreq en 3.3
+nubia	AMBIGUOUS	REVIEW	Historical region Nubia (Egypt/Sudan) is Title case; forcing lowercase is wrong for history/travel files
+reface	AMBIGUOUS	REVIEW	Face-swap app is styled "Reface" and "reface" is a generic verb; forcing lowercase Yamaha styling corrupts the app name
+RND	AMBIGUOUS	REVIEW	"rnd" is a common abbreviation for random (rnd_seed) and R&D; note acknowledges
+RePitch	AMBIGUOUS	REVIEW	Generic audio verb "repitch"/"repitched" (e.g. sample_repitch.wav) would become RePitch; note acknowledges
+EQuivocate	AMBIGUOUS	REVIEW	Ordinary English word "equivocate"; low risk but note acknowledges collision
+7D	AMBIGUOUS	REVIEW	"7d" is a very common duration token (last_7d, retention_7d) in data/log exports; forcing 7D
+90D	AMBIGUOUS	REVIEW	"90d" is a common duration token (metrics_90d) in data exports; forcing 90D

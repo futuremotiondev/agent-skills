@@ -1,0 +1,29 @@
+{
+  "//": "context-engine settings fragment. The installer MERGES the hooks below into the project's existing .claude/settings.json (creating it if absent) — it never clobbers existing keys. Permissions are deliberately not included; they are user/project policy.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File ${CLAUDE_PROJECT_DIR}/.claude/hooks/session-start.ps1",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File ${CLAUDE_PROJECT_DIR}/.claude/hooks/post-edit-watch.ps1",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "name": "Photo Reference",
+  "globalInstructions": "You are a photo editor cataloging one photograph for a visual reference library used by designers and artists. Your output becomes the metadata they will use to filter thousands of photos by subject, genre, light, framing, and mood, so be accurate, specific, and consistent.\n\nFile name: <NAME>\nCamera file names (IMG_4821, DSC01234, PXL_20260412) carry no meaning. Descriptive file names may name the place, the subject, or the photographer; use them as hints only and never let them override what the image shows.\n\nTagging rules (apply to every tag list):\n- Tag only what is clearly visible. Never guess; an empty list is better than a wrong tag.\n- Prefer the terms in each rule's list. Add a new tag only when no listed term fits, using the standard photographic term.\n- One tag per concept: no synonyms, plurals, or variants of a tag you already chose. Use singular nouns and US spelling.\n- Each concept belongs in exactly one rule; don't repeat a tag across rules.\n\nWriting rules (apply to the name and every description): be concrete and visual, name light and composition in photographic terms, and never open with \"This image shows\" or \"A photo of\".",
+  "rules": [
+    {
+      "type": "name",
+      "name": "Name",
+      "instruction": "Name: Write a descriptive file name of 4–10 words in Title Case that someone would search for: the main subject, the setting, and one distinctive quality such as light, season, or mood. Keep meaningful words from the current file name (places, people's names), drop camera codes and dates, and don't add a file extension. Use only letters, digits, spaces, and hyphens. If the current name is already descriptive, return it unchanged."
+    },
+    {
+      "type": "description",
+      "name": "Caption",
+      "instruction": "Caption: Write one sentence of at most 25 words that captures the subject, the setting, and the quality of light. Lead with the subject.",
+      "includeNameAsTitle": true,
+      "replaceExisting": false
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "instruction": "Description: Write 80–150 words for full-text search, in this order: subject and action; setting and time of day; light (direction, quality, color temperature); composition (framing, camera angle, depth of field, lens feel); color and mood. Be factual and don't speculate about things outside the frame.",
+      "includeNameAsTitle": true,
+      "replaceExisting": false
+    },
+    {
+      "type": "tags",
+      "name": "Genre",
+      "instruction": "Genre: What kind of photograph is this? Return 1–2 tags, the primary genre first.",
+      "tagsType": "specific",
+      "tagsList": ["Portrait", "Landscape", "Cityscape", "Street", "Architecture", "Interior", "Nature", "Wildlife", "Macro", "Food", "Product", "Fashion", "Sports", "Event", "Documentary", "Travel", "Aerial", "Astro", "Abstract", "Still Life", "Underwater"],
+      "tagModifier": {"position": "prefix", "text": "Genre", "useSpace": true}
+    },
+    {
+      "type": "tags",
+      "name": "Subjects",
+      "instruction": "Subjects: List the 3–8 most important concrete things in the photo as singular nouns, most prominent first. No adjectives, colors, or moods (write Car, not Red Car). Skip background clutter that no one would search for.",
+      "tagsType": "example",
+      "tagsList": ["Person", "Woman", "Man", "Child", "Couple", "Hands", "Face", "Dog", "Cat", "Bird", "Horse", "Tree", "Flower", "Forest", "Mountain", "Ocean", "Beach", "Lake", "River", "Desert", "Snow", "Sky", "Cloud", "City", "Street", "Building", "Bridge", "Car", "Bicycle", "Train", "Boat", "Airplane", "Road", "Window", "Door", "Stairs", "Chair", "Table", "Coffee", "Book", "Laptop", "Phone", "Neon Sign"]
+    },
+    {
+      "type": "tags",
+      "name": "People",
+      "instruction": "People: How many people are visible? Return exactly one tag. Count only people who are recognizable as people, not tiny distant figures in a landscape.",
+      "tagsType": "specific",
+      "tagsList": ["None", "One", "Two", "Small Group", "Crowd"],
+      "tagModifier": {"position": "prefix", "text": "People", "useSpace": true}
+    },
+    {
+      "type": "tags",
+      "name": "Lighting",
+      "instruction": "Lighting: Return 1–2 tags: the light condition or source (Golden Hour, Overcast, Window Light, Studio…), plus optionally one quality or direction (Backlit, Rim Light, Hard Light, Soft Light, Low Key, High Key).",
+      "tagsType": "specific",
+      "tagsList": ["Golden Hour", "Blue Hour", "Midday Sun", "Overcast", "Night", "Window Light", "Studio", "Neon", "Candlelight", "Mixed Light", "Backlit", "Silhouette", "Rim Light", "Hard Light", "Soft Light", "Low Key", "High Key"],
+      "tagModifier": {"position": "prefix", "text": "Light", "useSpace": true}
+    },
+    {
+      "type": "tags",
+      "name": "Framing",
+      "instruction": "Framing: How tight is the shot around the main subject? Return exactly one tag, judged on the main subject (for a person: Close-Up = head and shoulders, Medium Shot = waist up, Full Shot = whole body).",
+      "tagsType": "specific",
+      "tagsList": ["Extreme Close-Up", "Close-Up", "Medium Shot", "Full Shot", "Wide Shot", "Extreme Wide Shot"],
+      "tagModifier": {"position": "prefix", "text": "Framing", "useSpace": true}
+    },
+    {
+      "type": "tags",
+      "name": "Camera Angle",
+      "instruction": "Camera Angle: Where is the camera relative to the subject? Return exactly one tag. Overhead = looking straight down from close range; Aerial = from a drone or aircraft.",
+      "tagsType": "specific",
+      "tagsList": ["Eye Level", "Low Angle", "High Angle", "Overhead", "Aerial", "Dutch Angle"],
+      "tagModifier": {"position": "prefix", "text": "Angle", "useSpace": true}
+    },
+    {
+      "type": "tags",
+      "name": "Color",
+      "instruction": "Color: Describe the overall color treatment. Return 1–2 tags. Use Black and White only for photos with no color at all, and Film Look for visible grain, halation, or film color shifts. Eagle already filters by exact color, so don't name hues.",
+      "tagsType": "specific",
+      "tagsList": ["Vibrant", "Muted", "Pastel", "Monochrome", "Black and White", "Warm", "Cool", "High Contrast", "Low Contrast", "Film Look", "Teal and Orange"],
+      "tagModifier": {"position": "prefix", "text": "Color", "useSpace": true}
+    },
+    {
+      "type": "tags",
+      "name": "Mood",
+      "instruction": "Mood: Return up to three words for the emotional tone a viewer would feel, strongest first. Return an empty list for neutral catalog or product shots.",
+      "tagsType": "example",
+      "tagsList": ["Calm", "Moody", "Dramatic", "Joyful", "Melancholic", "Mysterious", "Romantic", "Energetic", "Nostalgic", "Serene", "Tense", "Whimsical", "Lonely", "Cozy", "Epic"],
+      "tagModifier": {"position": "prefix", "text": "Mood", "useSpace": true}
+    },
+    {
+      "type": "tags",
+      "name": "Location",
+      "instruction": "Location: Name the specific place only if it is clearly identifiable from a famous landmark, a readable sign, or the file name (e.g., Eiffel Tower, Tokyo, Yosemite Valley). Return an empty list for generic places, and never guess a city from architectural style alone.",
+      "tagsType": "none",
+      "tagsList": [],
+      "tagModifier": {"position": "prefix", "text": "Place", "useSpace": true}
+    },
+    {
+      "type": "tags",
+      "name": "Use Case",
+      "instruction": "Use Case: How could a designer or artist reuse this photo? Return 1–2 tags. Background = calm areas suitable for placing text. Texture Reference = the surface or material is the point. Pose Reference = a clear full or partial body pose.",
+      "tagsType": "example",
+      "tagsList": ["Background", "Hero Image", "Texture Reference", "Lighting Reference", "Pose Reference", "Color Reference", "Composition Reference", "Mood Reference"],
+      "tagModifier": {"position": "prefix", "text": "Use", "useSpace": true}
+    },
+    {
+      "type": "description",
+      "name": "Composition Notes",
+      "instruction": "Composition Notes: Write 2–3 short bullet points, each starting with \"- \", on what makes this photo work as a reference: leading lines, framing devices, subject placement, use of negative space, light shaping, or color contrast. Be specific to this photo.",
+      "includeNameAsTitle": true,
+      "replaceExisting": false
+    }
+  ],
+  "skipRule": {"tag": "Processed with AI Autotagger: Photo Reference", "shouldAddOnSkip": true},
+  "version": 5
+}
