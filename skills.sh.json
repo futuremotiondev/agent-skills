@@ -1,0 +1,11 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "paths": [
+    "./coding",
+    "./design",
+    "./den4b-renamer",
+    "./figma",
+    "./skill-meta",
+    "./specifics"
+  ]
+}
