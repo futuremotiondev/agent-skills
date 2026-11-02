@@ -1,9 +1,9 @@
 ---
-name: fm-i2v-prompt-director
+name: fm-image-to-video-prompt-generator
 description: Generate image-to-video (i2v) prompts from a source image. Analyzes composition, lighting, depth, mood, and motion potential, then produces 5 cinematically-crafted prompts across distinct archetypes (cinematic, abstract, narrative, subtle, dynamic) optimized for Veo 3.1, Runway Gen-4, Kling AI, Pika, or Minimax. Use when the user provides an image and wants video generation prompts, mentions i2v, image-to-video, Veo, Runway, Kling, or asks to animate a still image.
 ---
 
-# I2V Prompt Director
+# Image to Video (I2V) Prompt Director
 
 Generate 5 diverse, motion-focused prompts from any source image for use with image-to-video generators.
 
