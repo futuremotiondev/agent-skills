@@ -77,6 +77,82 @@
 - **Timings.** Audit on a 12-node seed selection: 34 s to the mode question, 47 s to the report, 26 s to apply five bindings, 19 s to revert them. Audit of an 844-frame page: 17 s to the scope question, 17 s to the mode question, 49 s to the report. Probe: 1 m 23 s from the disclosure answer to the first card.
 - **Frame counts can differ between runtimes.** The same collect code measured 842 frames and 618 bound values in-app against 844 and 622 over `use_figma` on the same page. The likely cause is two nested slot nodes the in-app walk does not reach; it is open (see the fm-spacing-rhythm-audit EVAL-LOG). Compare in-app counts against an MCP oracle with a tolerance of a few frames until it is settled.
 
+## Pitfalls from the v2 Plan 1 run (2026-11-02 to 2026-11-03)
+
+Extracted from the run's ledger, task reports, review reports, and live observations after Plan 1 merged. Each row is something a skill author, implementer, or tester got wrong once or nearly did. Process and Windows tooling pitfalls that are not specific to Figma skills live in the repo's `CONTRIBUTING.md`.
+
+### Figma runtime and the MCP bridge
+
+| Symptom | Cause | Rule |
+| --- | --- | --- |
+| `use_figma` returns `Return value exceeds the 48000-byte limit ... Canvas edits from this run were not committed` and the writes are gone | The limit applies to the whole return and the run is rolled back | Never pair a large return with writes (seed, apply, revert); return counts and capped rows; the probe over MCP sets `PAYLOAD = 30000` |
+| A collect that fit on the test file overflows on a real system | Payload was estimated from the test file; a 100-variable, 4-mode system returns 60 to 86 KB when every token and id is included | Estimate worst case from per-entry byte averages (a token about 164 B, a row about 292 B); return `tokenCount`, `candidateValues`, `spacingCollection`, `matchedCollections`, `libraryTokens` only; drop per-token id lists from the shipped helper |
+| An oracle run measures the wrong page or nothing | `use_figma` starts every call on the file's first page | Switch with `await figma.setCurrentPageAsync(page)` inside the same call as the walk; throw on an unknown page name |
+| A helper fence sent as written returns no result | `use_figma` runs top-level `await` and reads `return`; the in-app form is an IIFE | Drop the first `(async () => {` and last `})();` lines, keep `let MODE` before the body, and send the body |
+| `use_figma` is rejected before any code runs | The tool schema requires a `description` argument; the figma-use skill does not say so | Always pass `description`, `code`, `fileKey`, and `skillNames` |
+| Every file reads as "Document"; setting the name throws `Setting the document name is currently not supported` | `figma.root.name` is not exposed over `use_figma` | Identify files by key; `create_new_file` applies `fileName`; never verify a file name through a script |
+| A probe's "one-second toast" lasts 1 ms | `figma.notify` `timeout` is in milliseconds | Write `{ timeout: 1000 }`; probe `notify` as a call check, since a presence check cannot see a throw |
+| The probe runtime line reads `unknown` | One property getter threw inside a shared `try`; `figma.mode` reads `unknown` in both runtimes | Read `editorType`, `mode`, and `apiVersion` in separate `try` blocks; the line cannot tell in-app from MCP, so the agent names the runtime |
+| A seeded collection has mode "Mode 1", variables with `ALL_SCOPES`, and a second mode with unexpected values | API defaults: the first mode is "Mode 1", scopes default to all, `addMode` does not guarantee copied values | Rename the first mode right after creating the collection; set scopes explicitly on every variable including aliases; set every variable's value for a new mode explicitly; read the seed back |
+| Reverting an instance row leaves the layer overridden | The helper restores values, not "reset override" state | Say so in the revert report; test in-app before promising a clean undo on instances |
+| Helpers avoid `?.` and `??` | ES2020 support in the in-app sandbox was unverified | Both ran in-app in Round 3 (the revert helper); still parse every fence with `new Function` before shipping |
+| Every MCP step is blocked at session start | The `figma-desktop` server refuses connections; the remote `figma` server works | Use the remote server; load `figma-use` before `use_figma` and `figma-create-new-file` before `create_new_file`; call `create_session` with the file key before any file tool |
+
+### In-app agent behaviour
+
+| Symptom | Cause | Rule |
+| --- | --- | --- |
+| A fix on an instance row changes a main component on another page and every instance file-wide | Instance values inherit from the main component, which is the correct place to fix | Print the blast-radius sentence before the fix question ("Rows 8-10 point to main components outside the current page ...") and check it appears in test runs |
+| On a large page the bind opportunities appear only as a per-token summary and "All" does not bind them | Individual opportunity rows are listed only at 50 frames or fewer | The footer says "To bind these, select 50 frames or fewer and run the audit again"; never promise bulk binding on a large selection |
+| A host question tool cannot show five concept cards | Claude Code's question tool allows four options and adds Other itself | Offer cards 1 to 4 as options and say "Card 5 is the wildcard: choose Other and type 5"; the plain-text footer question stays canonical |
+| The probe's disclosure says it writes a client-storage key, but nothing is written | The call errors in both runtimes; the disclosure is verbatim and describes the attempt | Known mismatch; confirm after a run that no `fm-probe` layer or key remains |
+| An ideation deck cites a "landscape gap" with a count of 3 or 4 | "Gap" was undefined | A gap is a grid cell with a count of 0 or 1; cite the recon `counts`, never the capped naming sample, as a population |
+| Deck "Does" lines warn `description-lead` | The first sentence passed 250 characters; the deck author never ran the validator | State the limit in the card template and run `validate-figma-skill.mjs --description "<line>"` on every Does line before showing the deck |
+| A recon proof on an empty file "passes" | Nothing was there to observe; sample output lines were invented | Run recon on the seed file and mark sample lines "illustrative unless drawn from Observed" |
+
+### Builder and validator
+
+| Symptom | Cause | Rule |
+| --- | --- | --- |
+| A helper stays inline in the coding-agent edition | The marker is not exactly `// helper: <name>` (`^[a-z][a-z0-9-]*$`) on the fence's first line, or the fence sits outside the core `## Helper scripts` section | Watch stderr for `build warning: ... is not a valid helper marker`; `//helper:` without the space prints nothing; check the validator tail `helpers: n scripts` and that the coding-agent edition has no `javascript` fences |
+| `build error: helper "x" has no code`, a duplicate name, or an unclosed fence stops the build | Deliberate guards | A marker-only fence is an error; the revert helper's `// enhancement: revert begin/end` region wraps the whole IIFE, so a pack that strips revert must remove the whole fence |
+| A script hand-added under `dist/claude/<name>/scripts/` vanishes | The builder prunes every `.js` it did not write and reports `pruned n stale` | Never hand-edit `dist/`; regenerate from the master |
+| The coding-agent edition ships a different `author` or `version` than the master | `overlay.claude.yaml` metadata wins in the merge | After a rebuild, compare `author:` and the six metadata keys between master and `dist/claude/<name>/SKILL.md` |
+| A description containing `word: word` breaks the frontmatter | YAML reads `key: value` inside an unquoted scalar | Double-quote any description that contains a colon |
+| `--description` exits 2 or splits the text | The flag takes the description text, not a file; multi-word text must be one argument | Run from the skill folder: `node scripts/validate-figma-skill.mjs --description "<text>"`, escaping inner double quotes |
+| Running the validator on the creator's own `SKILL.md` reports dozens of errors | The creator is a coding-agent skill, not a Figma master | Check the creator with `--description` and markdownlint only; templates run with `--allow-placeholders` and show exactly two warnings, `name-format` and `description-angle` |
+| A one-sentence addition trips `body-size` | Blank lines count toward the 500-line gate and the line gate binds long before the token gate; `wc -l` differs from the validator's body count | Re-run the validator on every edition after any prose edit; merge standalone one-line paragraphs; the audit master sits at 497 of 500 and its cut list (examples to three, do-and-do-not to four rules, merged edge cases, one-line helper comments, two-sentence MCP paragraph) runs before any new directive; helpers are never cut |
+| The build accepts a top-level-await helper that was never run in-app | The parse check tries `new Function` and then the async constructor | Only the IIFE form is verified in-app; prefer it for in-app editions until a probe row says otherwise |
+| 0 warnings, but the description has no real boundary or uses "Lets designers ..." | `NOT_FOR` accepts any "does not"; the voice pattern misses some forms | Treat 0 warnings as necessary, not sufficient: read the last sentence for a "Not for ..." boundary and imperative voice; re-run the 88-skill corpus after any rule change |
+| `html-comments` warnings in Figma editions, or bracketed tags rendering as text | Separable prose was marked with HTML comments or brackets | Mark prose units with the fixed phrase (`Token mode:`, `Revert:`) at the start of the unit and code with `// enhancement: <name> begin/end`; lines inside the fenced report template are exempt |
+| A pack strip breaks the master | The tag scope rule was never written down | A block-start tag covers the block including list continuation lines; a mid-block tag covers to the sentence end; stripping revert removes the whole fence; keep `let MODE` outside the region; the `previous` capture in apply stays in the core because revert needs it |
+| The coding-agent edition reads "Run `scripts/x.js` ... through your script path" four times in a row | Pointer text replaces fences one for one | Prefer "The collect helper is `scripts/collect.js` in this folder"; budget the context cost of scripts separately from the body gate |
+| `description-lead` warning after adding a trigger clause | The first sentence passed 250 characters | Add new trigger clauses as their own sentence |
+
+### Oracle and fixtures
+
+| Symptom | Cause | Rule |
+| --- | --- | --- |
+| The oracle drifts from the shipped helper | Hunks were edited in one place only | The oracle equals the master fence except the declared hunks (no IIFE, preamble, MODE preset, `MAX_ROWS = Infinity`, selection clear, restore block); diff them after every helper change and regenerate the oracle |
+| A compare fails on `tokens` or `unbound[].ids` | The oracle returns the full lists; the shipped helper returns `tokenCount` and no ids | Compare shared fields only; match an example id against the oracle's id list, not for equality, because walk order differs |
+| `expected.json` cannot name its own commit | The fixture is written after the commit it describes | `masterCommit` is a placeholder until the compare script pins a real hash |
+| The oracle throws `SELECTION name "X" matches N top-level nodes` | A seed node was renamed or duplicated | Keep the twelve seed names unique and unchanged; restore edits after a proof (`Token card` padding left back to 8, unbound) |
+| The mock harness passes but Figma behaves differently | The mock models the author's assumptions (it kept a binding on a raw write) | Label mock numbers as sanity checks; prove every write path over `use_figma` |
+| markdownlint fails on `tests/fixtures/*.md` | The fixtures are verbatim agent output with `<figma-node-link>` elements | Exclude `**/tests/fixtures/**` from lint; never edit a fixture |
+| Discover and collect walk the file twice | The mode question needs token names before collect | `let MODE = "discover"` returns tokens only and falls back to rhythm when none exist; observed cost is flat at 22 to 24 credits per page audit regardless of canvas size |
+
+### Helper rules that reviews had to restore
+
+These are design rules in `fm-spacing-rhythm-audit`'s collect helper. Each was broken once by a plausible edit, so check them whenever the helper changes.
+
+- A spacing candidate is a FLOAT in the spacing collection whose scopes include GAP, or whose name matches `/space|spacing/i` and not `/letter|\bline[-\s]?(height|spacing)\b|paragraph/i`. The earlier `/letter|line|paragraph/i` excluded `Space/inline/200`.
+- The spacing collection is elected by candidate count, not variable count; other matched collections appear in `matchedCollections` with a reason and in the "Matched but not offered" line.
+- A value held only by an alias passes, counts in `aliasMatched`, and is never snapped or offered.
+- Zero is never a bind suggestion and passes in both modes. The maximum bind distance is 4.
+- Token mode skips negative values; rhythm mode keeps the v1.3 behaviour (-6 snaps to -8). Changing either is a ruling, not a drive-by.
+- Apply fetches the variable first and calls only `setBoundVariable` for bind fixes; a failed bind leaves the node untouched and lands in skipped with the error text. Revert guards a non-numeric `previous` before any write, keeps each row's failure local, and re-reads after every write.
+- Decided 2026-11-03 for Plan 2: an on-rhythm value with no equal token but a candidate within 4 ranks P3 as a bind opportunity, excluded from "P0 and P1 only"; the mode question shows the positive span plus a negatives clause ("2 to 160 px, plus negative tokens to -24").
+
 ## Open questions a live upload settles
 
 - Whether extra frontmatter keys are kept, stripped, or rejected on upload.
