@@ -3,7 +3,7 @@ name: fm-spacing-rhythm-audit
 description: Audits the selected frames against a 4/8 pt spacing rhythm and lists every off-grid padding and gap with the exact value, the nearest on-grid value, and a severity from P0 to P3; it snaps values only after the user confirms. With spacing tokens in the file it audits against those tokens and binds values to the matching variable. Use whenever the user asks to check the spacing, audit spacing, find off-grid padding or gaps, clean up the spacing, or asks whether a layout follows the 8 pt grid or the spacing scale. Not for restructuring layouts or converting frames to auto layout; it measures and snaps auto-layout padding and gaps only.
 metadata:
   version: "2.0"
-  author: Futuremotion
+  author: Futuremotion Studio
   category: "Design systems"
   tags: "spacing, audit, 8pt, padding, auto layout, tokens, variables"
   applies-to: "audit, variables, layout"
@@ -190,4 +190,4 @@ Check against the canvas, not from memory.
 
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file key. Run the collect, apply, and verify scripts in Helper scripts through `use_figma` (pass `skillNames: "fm-spacing-rhythm-audit"`): collect first, then present the table; after the user answers the fix question, apply in a second `use_figma` call with the confirmed rows, then verify in a third. Token mode: run collect in discover mode first, then with the chosen mode. On any `use_figma` error, stop, read the partial state with `get_metadata`, and report before retrying once.
+Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file key. Run the collect, apply, and verify scripts in Helper scripts through `use_figma` (pass `skillNames: "fm-spacing-rhythm-audit"`): collect first, then present the table; after the user answers the fix question, apply in a second `use_figma` call with the confirmed rows, then verify in a third. Token mode: run collect in discover mode first, then with the chosen mode. `use_figma` runs top-level `await` and takes the result from `return`, so send each script without its wrapper (drop the `(async () => {` line and the closing `})();` line, or send the body as-is if a script has none), and set the `let MODE` line of the collect script before each run. On any `use_figma` error, stop, read the partial state with `get_metadata`, and report before retrying once.

@@ -2,5 +2,5 @@
 license: MIT
 compatibility: Requires the Figma MCP server (use_figma, create_session, get_metadata) and the figma-use skill.
 metadata:
-  author: Futuremotion
+  author: Futuremotion Studio
   target: mcp
