@@ -20,7 +20,7 @@ These are the oracle fixtures for the 2.0 example. A script run over the Figma M
 | Simple Design System (Futuremotion's Community duplicate) | `RoEqd4VFbADE0s0nZ0n8Yj` | Scopes 3 and 4, page `Sections` (id `348:13000`), 844 auto-layout frames |
 | `fm-probe-scratch` | `kXhDI9zBD5rbh00c3Lzt9i` | Not used here. It is the capability probe's scratch file, listed for completeness. |
 
-The seed and no-tokens files were created on 2026-11-03 UTC. They replace the 2026-11-02 seed file `hPBA9odanfBNpvMRTPXZLJ` that the v1.x entries in `EVAL-LOG.md` used.
+The seed and no-tokens files were created on 2026-11-03 UTC with `create_new_file`, which leaves a file named "Document": the names in this table are the intended ones, and `use_figma` cannot set a file name ("Setting the document name is currently not supported"). Open them by key, `https://www.figma.com/design/<key>/`, and rename them in Figma by hand. They replace the 2026-11-02 seed file `hPBA9odanfBNpvMRTPXZLJ` that the v1.x entries in `EVAL-LOG.md` used.
 
 ## SEED_SELECTION
 
