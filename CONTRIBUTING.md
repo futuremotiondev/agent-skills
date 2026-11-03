@@ -11,6 +11,7 @@ How Futuremotion Studio works on this repository, and the pitfalls that have alr
 - **Line endings are LF.** Any tool that writes CRLF produces a whole-file diff and breaks the byte-identical rebuild check.
 - **`docs/` and `.superpowers/` are gitignored by design.** Specs, plans, ledgers, briefs, and reports never reach the remote. Anything that must survive a workspace cleanup goes into a committed reference or this file. A forced clean of ignored files deletes both folders without asking.
 - **Merge, commit, and push happen on Futuremotion's explicit go.** Local commits on a feature branch are fine; integration is theirs.
+- **Specification documents are never deleted.** Specs, PRDs, requirements documents, design briefs, implementation plans, plan workspaces and their ledgers, review reports, and anything else that records what was decided or why are archived, never removed. Superseded or finished documents move intact into `docs/archive/` (`docs/archive/specs/`, `docs/archive/plans/`, and `docs/archive/sdd/<plan-name>/` for retired plan workspaces), and the move is recorded in the ledger. When a process skill says to delete a plan workspace after a clean review, archive it instead. This holds even for documents that look fully superseded: the cost of keeping them is a folder; the cost of losing them is a decision nobody can reconstruct.
 
 ## Verification gates
 
@@ -68,5 +69,7 @@ The repo's plans run through the subagent-driven-development process: one implem
 
 - Specs and plans: `docs/superpowers/specs/` and `docs/superpowers/plans/` (gitignored, local only).
 - Run ledgers: `.superpowers/sdd/<plan>/progress.md` (gitignored, local only; the sole record of a run's rulings until archived).
+- Archive of finished or superseded specification documents and retired plan workspaces: `docs/archive/` (gitignored like the rest of `docs/`; because a forced clean of ignored files would remove it, keep a backup of `docs/` outside the checkout, or decide to un-ignore `docs/archive/`).
+- Research corpus behind the Figma skill landscape and the validator's calibration: `.reference/figma-skills/` at the repo root (gitignored, local only; 111 bodies, 88 unique skills).
 - Raw pitfall extraction behind this file: `docs/superpowers/notes/2026-11-03-plan-1-pitfalls-raw.md` (gitignored).
 - Live observations about the Figma runtime: `figma/fm-figma-skill-creator/references/agent-capabilities-and-tools.md` and each example's `EVAL-LOG.md`.
