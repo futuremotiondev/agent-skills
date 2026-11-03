@@ -5,3 +5,6 @@
 
 # Private working documents: specs, plans, session transcripts (local only)
 docs/
+
+# Superpowers plan workspaces (ledgers, briefs, review packages)
+.superpowers/
