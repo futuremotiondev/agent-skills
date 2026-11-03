@@ -2,3 +2,6 @@
 .claude/
 .obsolete/
 .reference/
+
+# Private session transcripts (local reference only)
+docs/conversations/
