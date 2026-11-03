@@ -117,11 +117,11 @@ The in-app tables end with the two experiment rows (`ask_user_question` and `sho
 every table is followed by the four scalar lines: payload bytes returned, walk time, nodes
 walked, and style counts.
 
-### MCP (use_figma), 2026-11-03
+### MCP (use_figma), 2026-11-03 UTC
 
 Scratch file `fm-probe-scratch` (key `kXhDI9zBD5rbh00c3Lzt9i`), empty design file, nothing
-selected. Runtime line: `editorType figma, mode unknown, apiVersion 1.0.0` (reading `figma.mode`
-throws in this runtime). A 50,000-character payload was rejected before any result returned
+selected. Runtime line: `editorType figma, mode unknown, apiVersion 1.0.0` (`figma.mode` read as
+unknown: undefined or threw). A 50,000-character payload was rejected before any result returned
 (`Return value exceeds the 48000-byte limit (52907 bytes). Canvas edits from this run were not
 committed.`), so this table is from the rerun with `PAYLOAD = 30000`.
 

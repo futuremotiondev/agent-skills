@@ -54,7 +54,7 @@
       if (!fn(figma.variables, "getVariableByIdAsync")) return miss("not a function");
       if (!aliasId) { try { const l = await figma.variables.getLocalVariablesAsync(); if (l[0]) aliasId = l[0].id; } catch (e) { /* no fallback id */ } }
       const v = await figma.variables.getVariableByIdAsync(aliasId || "VariableID:0:0");
-      if (!aliasId) return "no variable in file; null for a dummy id";
+      if (!aliasId) return v ? "no variable in file; dummy id resolved unexpectedly" : "no variable in file; null for a dummy id";
       return v ? "resolved " + v.name : "returned null for " + aliasId;
     });
     await run("figma.variables.getLocalVariablesAsync", async () => {
@@ -119,6 +119,7 @@
     await run("figma.createAutoLayout", () => {
       if (!fn(figma, "createAutoLayout")) return miss("not a function");
       auto = figma.createAutoLayout();
+      auto.name = "fm-probe";
       const mode = auto.layoutMode;
       drop(auto);
       return "created and removed; layoutMode " + mode;
@@ -138,7 +139,7 @@
     });
     await run("figma.notify", () => {
       if (!fn(figma, "notify")) return miss("not a function");
-      const h = figma.notify("fm-probe", { timeout: 1 });
+      const h = figma.notify("fm-probe", { timeout: 1000 });
       return h && fn(h, "cancel") ? "called; handler returned" : "called";
     });
     // Timed walk of the current page, page node excluded.

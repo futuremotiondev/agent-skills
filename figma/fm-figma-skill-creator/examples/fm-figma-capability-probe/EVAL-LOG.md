@@ -32,7 +32,7 @@ Tick and record the answer the first time the upload edition goes through Figma'
 
 ## MCP baseline (scratch file key: kXhDI9zBD5rbh00c3Lzt9i)
 
-2026-11-03 · v1.0 · Claude Code over MCP. File `fm-probe-scratch` (an empty design file at `https://www.figma.com/design/kXhDI9zBD5rbh00c3Lzt9i`), nothing selected, helper body run through `use_figma` in top-level-await form.
+2026-11-03 UTC · v1.0 · Claude Code over MCP. File `fm-probe-scratch` (an empty design file at `https://www.figma.com/design/kXhDI9zBD5rbh00c3Lzt9i`), nothing selected, helper body run through `use_figma` in top-level-await form.
 
 Runtime line returned: `editorType figma, mode unknown, apiVersion 1.0.0` (rerun of the final helper; the first capture read `unknown` because one throwing property took the whole line down, which is why the helper now reads each property in its own try). Every other row and scalar was identical across the two runs.
 

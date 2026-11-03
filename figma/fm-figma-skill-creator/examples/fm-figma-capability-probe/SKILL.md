@@ -1,6 +1,6 @@
 ---
 name: fm-figma-capability-probe
-description: Reports which Plugin API surfaces the Figma agent's script runtime exposes, as a table of available, missing, and error results plus payload, timing, and style counts, then asks the user to paste the table back. Use whenever the user asks to probe, test, or check what the Figma agent can do, which APIs are available, or whether scripts can do X, or asks for a capability probe or runtime check. Not for auditing or changing designs; optional, for skill authors: no skill depends on it, no end user needs it installed, and it can be removed from Figma once its table has been pasted back.
+description: "Reports which Plugin API surfaces the Figma agent's script runtime exposes, as a table of available, missing, and error results plus payload, timing, and style counts, then asks the user to paste the table back. Use whenever the user asks to probe, test, or check what the Figma agent can do, which APIs are available, or whether scripts can do X, or asks for a capability probe or runtime check. Not for auditing or changing designs; optional, for skill authors: no skill depends on it, no end user needs it installed, and it can be removed from Figma once its table has been pasted back."
 metadata:
   version: "1.0"
   author: "Futuremotion Studio"
@@ -152,7 +152,7 @@ The probe helper is self-contained and returns one result object. Every check is
       if (!fn(figma.variables, "getVariableByIdAsync")) return miss("not a function");
       if (!aliasId) { try { const l = await figma.variables.getLocalVariablesAsync(); if (l[0]) aliasId = l[0].id; } catch (e) { /* no fallback id */ } }
       const v = await figma.variables.getVariableByIdAsync(aliasId || "VariableID:0:0");
-      if (!aliasId) return "no variable in file; null for a dummy id";
+      if (!aliasId) return v ? "no variable in file; dummy id resolved unexpectedly" : "no variable in file; null for a dummy id";
       return v ? "resolved " + v.name : "returned null for " + aliasId;
     });
     await run("figma.variables.getLocalVariablesAsync", async () => {
@@ -217,6 +217,7 @@ The probe helper is self-contained and returns one result object. Every check is
     await run("figma.createAutoLayout", () => {
       if (!fn(figma, "createAutoLayout")) return miss("not a function");
       auto = figma.createAutoLayout();
+      auto.name = "fm-probe";
       const mode = auto.layoutMode;
       drop(auto);
       return "created and removed; layoutMode " + mode;
@@ -236,7 +237,7 @@ The probe helper is self-contained and returns one result object. Every check is
     });
     await run("figma.notify", () => {
       if (!fn(figma, "notify")) return miss("not a function");
-      const h = figma.notify("fm-probe", { timeout: 1 });
+      const h = figma.notify("fm-probe", { timeout: 1000 });
       return h && fn(h, "cancel") ? "called; handler returned" : "called";
     });
     // Timed walk of the current page, page node excluded.

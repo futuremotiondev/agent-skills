@@ -78,7 +78,7 @@ say so and suggest what skill or approach would be appropriate."
 
 | Dimension | Script-driven wizard (Figma Community skills) | Capability-gated prose (Qredence catalogue, Figma Advocates contracts) |
 | --- | --- | --- |
-| Length | 560 to 9,160 words, median about 2,300 | 184 to 1,337 words, median 767 |
+| Length (observed in the corpus, not a limit) | 560 to 9,160 words, median about 2,300 | 184 to 1,337 words, median 767 |
 | Tool references | Names `evaluate_script`, `get_comments`, `show_widget`, shader tools | None; describes actions ("bind the color property to the matched variable") |
 | Code | Plugin API JavaScript helpers, re-pasted per call | No code fences |
 | Questions | Scripted verbatim prompts, one per message, hard stops | Only when a missing input blocks a safe route; at most two or three per round |
