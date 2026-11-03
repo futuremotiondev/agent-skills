@@ -1,0 +1,22 @@
+# Overlay merged into the coding-agent edition's frontmatter by build-skill-editions.mjs.
+# Keys here are added to (or override) the master SKILL.md frontmatter when building
+# dist/claude/<name>/SKILL.md. The Figma editions never see these keys.
+#
+# Why a separate file: Figma reads only name and description, and tolerance for extra
+# frontmatter keys on upload is unverified. Keeping spec-only keys here lets the master
+# stay clean for the Figma upload while the coding-agent edition gets the full spec surface.
+
+# Optional. SPDX identifier or a short license note. Spec: `license`.
+license: MIT
+
+# Optional. Free-text environment requirements. Spec: `compatibility`.
+# Name the MCP server and the skill this edition depends on.
+compatibility: Requires the Figma MCP server (use_figma, create_session, get_design_context) and the figma-use skill.
+
+# Optional. Space-separated tool pre-approvals. Spec: `allowed-tools` (experimental; support varies by agent).
+# allowed-tools: mcp__figma__use_figma mcp__figma__create_session mcp__figma__get_design_context mcp__figma__get_screenshot
+
+# Optional. String map; merged over the master's metadata block. Spec: `metadata`.
+metadata:
+  author: Futuremotion
+  target: mcp

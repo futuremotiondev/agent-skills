@@ -1,0 +1,6 @@
+# Merged into dist/claude/fm-spacing-rhythm-audit/SKILL.md only. The Figma editions never see these keys.
+license: MIT
+compatibility: Requires the Figma MCP server (use_figma, create_session, get_metadata) and the figma-use skill.
+metadata:
+  author: Futuremotion
+  target: mcp

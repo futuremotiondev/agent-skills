@@ -1,0 +1,6 @@
+Start from scratch: type these into the form. Paste only the .paste.md body into Instructions.
+
+name: fm-spacing-rhythm-audit
+
+description (max 1024 chars):
+Audits the selected frames against a 4/8 pt spacing rhythm and lists every off-grid padding and gap with the exact value, the nearest on-grid value, and a severity from P0 to P3; it snaps values only after the user confirms. Use whenever the user asks to check the spacing, audit spacing, find off-grid padding or gaps, clean up the spacing, or asks whether a layout follows the 8 pt grid or the spacing scale. Not for restructuring layouts or converting frames to auto layout; it measures and snaps auto-layout padding and gaps only.
