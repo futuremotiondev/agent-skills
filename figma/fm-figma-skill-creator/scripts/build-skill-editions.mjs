@@ -109,8 +109,11 @@ function extractHelpers(body) {
     if (helpers.some((h) => h.name === marker[1])) fail(`duplicate helper name "${marker[1]}" at body line ${i + 2}`)
     const code = body.slice(i + 2, close)
     if (!code.some((l) => l.trim() !== "")) fail(`helper "${marker[1]}" has no code`)
-    // Parse check (never run): the IIFE form parses as an expression statement in a function body.
-    try { new Function(code.join("\n")) } catch (e) { fail(`helper "${marker[1]}" does not parse: ${e.message}`) }
+    // Parse check (never run): the IIFE form parses as a plain function body; a top-level-await body parses as an async one.
+    const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
+    try { new Function(code.join("\n")) } catch (e1) {
+      try { new AsyncFunction(code.join("\n")) } catch (e2) { fail(`helper "${marker[1]}" does not parse: ${e2.message}`) }
+    }
     helpers.push({ name: marker[1], code })
     out.push(helperPointer(marker[1]))
     i = close

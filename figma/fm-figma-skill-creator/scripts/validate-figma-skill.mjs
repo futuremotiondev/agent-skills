@@ -363,18 +363,21 @@ for (let i = bodyStart; i < lines.length; i++) {
 if (edition === "master") {
   let inHelpers = false
   let openFence = null
+  let openLang = ""
   for (let i = bodyStart; i < lines.length; i++) {
     const line = lines[i]
     if (!fence[i] && /^#{1,2}\s/.test(line)) inHelpers = /^##\s+Helper scripts\s*$/i.test(line) && regionAt(i) === "core"
     const f = /^\s*(`{3,}|~{3,})\s*([\w-]*)\s*$/.exec(line)
     if (f && !openFence) {
       openFence = f[1]
+      openLang = f[2]
       if (/^(javascript|js)$/i.test(f[2]) && regionAt(i) !== "core") {
         report("helper-placement", `javascript fence inside target:${regionAt(i)}; move it to the core "## Helper scripts" section with "// helper: <name>" as its first line, and reference it from both target sections`, i + 1)
       }
       continue
     }
-    if (f && openFence && f[1][0] === openFence[0] && f[1].length >= openFence.length && f[2] === "") { openFence = null; continue }
+    if (f && openFence && f[1][0] === openFence[0] && f[1].length >= openFence.length && f[2] === "") { openFence = null; openLang = ""; continue }
+    if (openFence && !/^(javascript|js)$/i.test(openLang)) continue
     if (/^\s*\/\/ helper:/.test(line) && !(inHelpers && regionAt(i) === "core")) {
       report("helper-placement", `"// helper:" marker outside the core "## Helper scripts" section; the build extracts helpers only from there`, i + 1)
     }

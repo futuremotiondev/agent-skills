@@ -12,7 +12,7 @@ metadata:
 
 # Capability probe
 
-Runs one script that tests which Plugin API surfaces the agent's script runtime exposes and returns a three-column table: API, Status (available, missing, or error), and Detail. The table goes to chat and nowhere else; the user pastes it back to whoever maintains their skills. The probe creates three temporary layers and one client-storage key, removes all of them before it returns, shows one one-second toast, and changes nothing else. It is a maintenance tool for skill authors: it reports what it observed and never adapts, retries, or works around a failed check.
+Runs one script that tests which Plugin API surfaces the agent's script runtime exposes and returns a three-column table: API, Status (available, missing, or error), and Detail. The table goes to chat and nowhere else; the user pastes it back to whoever maintains their skills. The probe creates three temporary layers and one client-storage key, removes all of them before it returns, shows one one-second toast, and changes nothing else. It is a maintenance tool for skill authors: it reports what it observed and never adapts, retries, or works around a failed check (one rerun of the whole script after a size rejection is the single exception).
 
 ## When to use
 
@@ -50,7 +50,7 @@ Print the payload length, never the payload itself. If `payloadSample` arrived s
 | --- | --- | --- |
 | <api> | <available, missing, or error> | <detail, or — when there is nothing to say> |
 
-- Payload bytes returned: <payloadBytesReturned, or sample rejected at 48,000 bytes>
+- Payload bytes returned: <payloadBytesReturned; or, after a rerun, <bytes> (first run rejected: <rejection text>)>
 - Walk time: <walkMs> ms
 - Nodes walked: <nodesWalked>
 - Style counts: text <n> · paint <n> · effect <n> · grid <n>
