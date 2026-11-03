@@ -66,6 +66,22 @@ Installed skills update with `npx skills update` and are listed with `npx skills
 > The repository ships a [`skills.sh.json`](skills.sh.json) that tells the CLI which folders hold
 > skills, so the topic layout below is discovered without any extra flags.
 
+### Vendor-specific skills
+
+The skills under [`specifics/`](specifics/) depend on one vendor's runtime and are deliberately
+left out of the CLI's discovery paths: the CLI cannot restrict a skill to one agent, so a bulk
+install would copy Claude-only skills into Gemini's folder and so on. Install them one of two ways:
+
+- **By hand.** Copy the skill folder into the agent's skills directory, project-level or global:
+  Claude Code `.claude/skills/` or `~/.claude/skills/`; Codex `.agents/skills/` or `~/.codex/skills/`;
+  Gemini CLI `.agents/skills/` or `~/.gemini/skills/`; Antigravity `.agents/skills/` or
+  `~/.gemini/antigravity/skills/`; GitHub Copilot `.agents/skills/` or `~/.copilot/skills/`; Grok Build
+  `.grok/skills/` or `~/.grok/skills/`. Microsoft 365 Copilot has no skills folder; its skills are
+  reference material for Copilot Studio and the Agents Toolkit.
+- **Through the vendor's own channel** where one exists. A Claude Code plugin marketplace for the
+  `specifics/claude/` skills is planned, with Codex's plugin system to follow.
+
+
 ## Repository layout
 
 ```text
@@ -89,7 +105,7 @@ Installed skills update with `npx skills update` and are listed with `npx skills
 | Where | What goes there | Scope |
 | --- | --- | --- |
 | A topic folder at the root (`coding/`, `design/`, `figma/`, ...) | Skills that rely only on the Agent Skills specification and tools any agent has (shell, file access, MCP) | Universal |
-| `specifics/<vendor>/` | Skills that depend on one vendor's runtime, config format, or ecosystem (for example Claude Code hooks and memory, or Codex plugin marketplaces) | That vendor only |
+| `specifics/<vendor>/` | Skills that depend on one vendor's runtime, config format, or ecosystem (for example Claude Code hooks and memory, or Codex plugin marketplaces); not in the CLI's discovery paths, see Vendor-specific skills above | That vendor only |
 | `<skill>/references/` | Long-form reference material the skill loads on demand | |
 | `<skill>/templates/` | Starter files the skill copies and adapts | |
 | `<skill>/scripts/` | Validators and helpers, invoked through their interpreter (`node`, `python`, `pwsh`) | |
