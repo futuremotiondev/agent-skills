@@ -1,6 +1,6 @@
 ---
 name: fm-figma-skill-creator
-description: Creates, converts, reviews, tests, and publishes skills that run inside Figma's built-in AI agent (single-file Markdown skills invoked with a slash command in Figma Design and Figma Make), and ports them to and from coding-agent SKILL.md skills that drive the Figma MCP server. Use whenever the user wants to create a Figma skill, write a skill for the Figma agent, turn a workflow, checklist, critique rubric, audit, or design-system rules into a Figma skill, convert an existing Claude Code, Cursor, or Codex skill to run inside Figma (or the reverse), lint or review a Figma skill, write its Community listing, or test and publish one. Not for Figma plugins or widgets (use fm-figma-plugin-creator), not for custom shaders (use fm-figma-shader-creation), and not for building the design system itself.
+description: Creates, converts, reviews, tests, and publishes skills that run inside Figma's built-in AI agent, and ports them to and from coding-agent SKILL.md skills that drive the Figma MCP server. These are single-file Markdown skills invoked with a slash command in Figma Design and Figma Make. Use whenever the user wants to create a Figma skill, write a skill for the Figma agent, turn a workflow, checklist, critique rubric, audit, or design-system rules into a Figma skill, convert an existing Claude Code, Cursor, or Codex skill to run inside Figma (or the reverse), lint or review a Figma skill, write its Community listing, or test and publish one, and whenever the user has only a vague idea for a Figma skill and wants options. Not for Figma plugins or widgets (use fm-figma-plugin-creator), not for custom shaders (use fm-figma-shader-creation), and not for building the design system itself.
 license: MIT
 compatibility: Scripts need Node 18 or newer. The Figma MCP server is optional and used only for the coding-agent edition.
 metadata:
@@ -38,6 +38,7 @@ These are facts about the runtime, not preferences. Violating one produces a ski
 
 | The user wants to... | Workflow | Start with |
 | --- | --- | --- |
+| Has a vague or exploratory idea ("something for our design system", "help with handoff") | 0. Ideate | ask the grounding question, then the concept cards |
 | Make a new skill for the Figma agent (critique, audit, generator, conventions, synthesis, process) | A. Create | `templates/skill-master.md` plus the matching `templates/type-*.md` |
 | Run an existing Claude Code, Cursor, or Codex skill inside Figma | B. Port to Figma | `scripts/build-skill-editions.mjs --flatten` |
 | Run an existing Figma skill from a coding agent over MCP | C. Port to a coding agent | the exported or pasted body |
@@ -46,7 +47,48 @@ These are facts about the runtime, not preferences. Violating one produces a ski
 | Test triggering and behaviour, iterate after a live run | F. Test and iterate | `templates/eval-queries.md`, `templates/EVAL-LOG.md` |
 | Emit a design-system-specific skill from another skill (for example fm-figma-design-system-creator) | A with `type-design-system-conventions.md` | fill the token, component, and naming tables from the system |
 
-Before starting any workflow, confirm three things with the user if they are not already stated: what the skill does in one sentence, whether it runs in Figma only or in Figma and coding agents (default: both), and whether it changes the canvas or only reports. Ask once, together, then proceed.
+Before starting Workflows A to F, confirm three things with the user if they are not already stated: what the skill does in one sentence, whether it runs in Figma only or in Figma and coding agents (default: both), and whether it changes the canvas or only reports. Ask once, together, then proceed. Workflow 0 asks one grounding question instead and pre-fills these three from the chosen card.
+
+## Workflow 0: a vague idea
+
+For a user who knows the moment that hurts but not the skill that would fix it. Ask one question, look at the file if one is offered, pitch five concept cards, and hand the chosen card to Workflow A.
+
+1. **Ask one grounding question**, verbatim: "What is the moment you wish this skill already existed, and what do people do by hand there?" Wait.
+2. **Offer recon** if a file is at hand: "If you give me the file link I'll look at how it is built before suggesting anything." If a key arrives, run the read-only inventory (the recon script below) and keep five observations: pages and their purpose by name, component-set and component counts, variable collections with mode names, text and colour style counts, and naming patterns or anything unusual (the naming sample, empty pages, Scratch pages, a Make project).
+3. **Generate five concept cards** with `templates/concept-cards.md`: map the grounding answer to surfaces and patterns through the seeds' `tags` and `fits when` lines in `references/skill-idea-catalog.md`, take at least two cards from matched cells, at least one from an empty cell, one wildcard, and check `references/skill-landscape.md` so each card says "new" or "better than X"; check feasibility against `references/agent-capabilities-and-tools.md`; cost with the observed model (about 10 credits to ask, 22 to 24 per page-scale audit, 18 per five fixes) scaled by scope. Rank by value to the user's stated moment; card 5 is the wildcard. Unsupported ideas are reshaped into plan-only form or dropped; at most one plan-only card. Before showing the deck, run each Does line through `node scripts/validate-figma-skill.mjs --description` and rewrite any line that warns.
+4. **Ask which to build.** Plain text is canonical and works in every host: "Which one should I build first? 1 to 5, or tell me what to change." In a host with a structured question tool (Claude Code's AskUserQuestion, which allows at most four options and adds Other itself), also ask through it: the deck stays five cards; cards 1 to 4 are the options, each with its hook as the description, and the question text reads "Card 5 is the wildcard: choose Other and type 5, or describe a change." Decided by Futuremotion on 2026-11-02: lose a button, never a card. Never ask twice in hosts without the tool.
+5. **Hand off to Workflow A** with the card's Does line as the description draft, its Type as the template, its Writes line as the canvas-change answer, and its Reads, Produces, and Needs as the intake answers. Its Runs in line answers the runtime question, and its Confirm before building questions are asked before Workflow A step 1. Append the chosen card to `## Promoted from sessions` in the catalog with the date.
+
+### Recon script (MCP hosts)
+
+Read-only, one call, no page switching. Load the `figma-use` skill, call `create_session` with the file key, then run the script below through `use_figma` and keep the five observations from step 2. Counts and the naming sample cover the current page only, so name that page when reporting them. Comment volume is not observed, because comments are not readable through the script path; the naming sample stands in for naming patterns. Without the Figma MCP server, skip recon and say so.
+
+```javascript
+// Workflow 0 recon: read-only inventory of the open file. No writes, no page switching.
+const page = figma.currentPage;
+const pages = figma.root.children.map((p) => ({ id: p.id, name: p.name }));
+// One traversal of the current page, tallied by node type.
+const found = page.findAllWithCriteria({ types: ["COMPONENT_SET", "COMPONENT", "INSTANCE"] });
+const counts = { componentSets: 0, components: 0, instances: 0 };
+for (const node of found) {
+  if (node.type === "COMPONENT_SET") counts.componentSets += 1;
+  else if (node.type === "COMPONENT") counts.components += 1;
+  else counts.instances += 1;
+}
+const localCollections = await figma.variables.getLocalVariableCollectionsAsync();
+const collections = localCollections.map((c) => ({
+  name: c.name,
+  modes: c.modes.map((m) => m.name),
+  variables: c.variableIds.length,
+}));
+const styles = {
+  text: (await figma.getLocalTextStylesAsync()).length,
+  paint: (await figma.getLocalPaintStylesAsync()).length,
+};
+// Naming-pattern sample: the first ten top-level layers on the current page.
+const namingSample = page.children.slice(0, 10).map((n) => n.name);
+return { page: page.name, pages, counts, collections, styles, namingSample };
+```
 
 ## Workflow A: create a new skill
 
@@ -168,10 +210,14 @@ Both scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The 
 | `references/publishing-kit.md` | you are writing the listing or publishing |
 | `references/porting-and-dual-target.md` | you are converting in either direction or marking target sections |
 | `references/troubleshooting.md` | something misbehaves, or sources disagree |
+| `references/skill-landscape.md` | you need to know whether a skill idea already exists, or a concept card must say "new" or "better than X" |
+| `references/skill-idea-catalog.md` | you are mapping a vague wish to gap cells and seeds in Workflow 0, or promoting a chosen card |
 | `templates/skill-master.md` and `templates/type-*.md` | starting any new skill |
 | `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md` | the companion files every skill folder gets |
+| `templates/concept-cards.md` | you are pitching ideas in Workflow 0: the deck header, the twenty-line card, the footer question, and the deck rules |
 | `examples/fm-spacing-rhythm-audit/` | a complete worked example with its built `dist/` editions |
 | `examples/fm-figma-capability-probe/` | you need fresh evidence of which Plugin APIs a runtime exposes; optional, for skill authors, and its pasted-back table feeds Workflow F step 5 |
+| `examples/ideation-runs.md` | you want to see Workflow 0 decks for three vague prompts and a recon smoke run |
 
 ## Final gate: do not finish until every line is true
 

@@ -4,6 +4,12 @@
 what to put in it, and what to leave out. Section order matters: the agent reads top to bottom, so
 routing and scope come first, execution detail last.
 
+When a skill starts from a Workflow 0 concept card, the card maps onto this skeleton: its Does
+line is the description draft; its hook and Fits your moment line seed the lede; its Try it prompt
+and Fits your moment line seed When to use; its Needs line becomes Before you start; and its
+Produces and Writes lines become the Output contract, with Writes deciding whether fixes wait for
+confirmation.
+
 ## Frontmatter
 
 ```yaml
