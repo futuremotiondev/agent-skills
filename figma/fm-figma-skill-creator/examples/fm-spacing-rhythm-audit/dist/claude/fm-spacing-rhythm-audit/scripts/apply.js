@@ -1,4 +1,4 @@
-// Apply: set only confirmed properties; fill `fixes` from confirmed rows (`variableId` for a bind fix); `override: true` only when the user approved an instance override.
+// Apply: set only confirmed properties; fill `fixes` from confirmed rows, one per id (`value`, and `variableId` for a bind, from the row's fix); `override: true` only when the user approved an instance override.
 (async () => {
   const fixes = [/* { id: "12:34", property: "paddingLeft", value: 16, variableId: "VariableID:1:2", override: false } */];
   const get = (id) => figma.getNodeByIdAsync ? figma.getNodeByIdAsync(id) : Promise.resolve(figma.getNodeById(id));
@@ -15,11 +15,11 @@
     try {
       let bound = false;
       // enhancement: token-conformance begin
-      // A bind fix only binds (the binding sets the value); a missing variable leaves the node untouched.
+      // A bind fix only binds (the binding sets the value; without a `value` it records the post-bind read); a missing variable leaves the node untouched.
       if (f.variableId) {
         const v = await figma.variables.getVariableByIdAsync(f.variableId);
         if (!v) { skipped.push({ ...f, previous, reason: "variable not found" }); continue; }
-        n.setBoundVariable(f.property, v); bound = true;
+        n.setBoundVariable(f.property, v); bound = true; if (typeof f.value !== "number") f.value = n[f.property];
       }
       // enhancement: token-conformance end
       if (!bound) n[f.property] = f.value;

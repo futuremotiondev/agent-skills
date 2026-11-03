@@ -88,6 +88,7 @@ const RULES = [
   { id: "slash-invocations", editions: ["master", ...FIGMA], severity: "warn", basis: "only the first skill mentioned in a prompt runs; point to others only as Not for X (use /y)" },
   { id: "capability-gates", editions: ["master", ...FIGMA], severity: "warn", basis: "capability table: prototyping, vectors, slots are Coming soon; export and diagrams unsupported in-app" },
   { id: "console-log", editions: ["master", ...FIGMA], severity: "warn", basis: "script contract: results come back through return, not console.log" },
+  { id: "helper-placement", editions: ["master"], severity: "warn", basis: "build contract: helpers live in the core `## Helper scripts` section, first line `// helper: <name>`; a fence in a target region ships to one runtime only" },
   { id: "placeholders-frontmatter", editions: ALL, severity: "error", basis: "a name or description still holding <verb> or <object> is an unfinished template" },
   { id: "placeholders-body", editions: ALL, severity: "warn", basis: "authoring placeholders such as <Step name> or <e.g. ...> must be replaced; agent fill-ins such as <n> are fine" },
 ]
@@ -350,6 +351,33 @@ for (let i = bodyStart; i < lines.length; i++) {
   // console.log inside helper code.
   if (fence[i] && /console\.log\s*\(/.test(line) && (isFigmaEdition || inRegion(i, "figma-app"))) {
     report("console-log", "helper code uses console.log; return a value instead", i + 1)
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Helper placement (master only): the builder extracts helpers only from the core `## Helper scripts`
+// section, so a javascript fence inside a target region, or a `// helper:` marker anywhere else,
+// would ship to one runtime only. Section bounds match the builder: an H1 or H2 outside a fence.
+// ---------------------------------------------------------------------------
+
+if (edition === "master") {
+  let inHelpers = false
+  let openFence = null
+  for (let i = bodyStart; i < lines.length; i++) {
+    const line = lines[i]
+    if (!fence[i] && /^#{1,2}\s/.test(line)) inHelpers = /^##\s+Helper scripts\s*$/i.test(line) && regionAt(i) === "core"
+    const f = /^\s*(`{3,}|~{3,})\s*([\w-]*)\s*$/.exec(line)
+    if (f && !openFence) {
+      openFence = f[1]
+      if (/^(javascript|js)$/i.test(f[2]) && regionAt(i) !== "core") {
+        report("helper-placement", `javascript fence inside target:${regionAt(i)}; move it to the core "## Helper scripts" section with "// helper: <name>" as its first line, and reference it from both target sections`, i + 1)
+      }
+      continue
+    }
+    if (f && openFence && f[1][0] === openFence[0] && f[1].length >= openFence.length && f[2] === "") { openFence = null; continue }
+    if (/^\s*\/\/ helper:/.test(line) && !(inHelpers && regionAt(i) === "core")) {
+      report("helper-placement", `"// helper:" marker outside the core "## Helper scripts" section; the build extracts helpers only from there`, i + 1)
+    }
   }
 }
 

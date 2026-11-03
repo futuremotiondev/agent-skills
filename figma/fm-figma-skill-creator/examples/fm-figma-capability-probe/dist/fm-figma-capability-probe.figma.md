@@ -18,16 +18,16 @@ Runs one script that tests which Plugin API surfaces the agent's script runtime 
 
 1. **Check the surface.** Run it in a Figma Design or Figma Make file; no selection is needed. In FigJam or Slides, say the probe needs a Design or Make file and stop.
 2. **Disclose and ask.** Ask, verbatim and as plain text (the question card does not render Markdown):
-   > This probe creates and deletes three temporary layers (one frame reused for both plugin-data round trips, one auto-layout frame, one text layer) writes one client-storage key, and shows one one-second toast, nothing else. Run it? 1. Yes, 2. No
+   > This probe creates and deletes three temporary layers (one frame reused for both plugin-data round trips, one auto-layout frame, one text layer), writes one client-storage key, and shows one one-second toast, nothing else. Run it? 1. Yes, 2. No
    Wait for the answer. On 2, say nothing was run or changed and stop.
 
 ## Instructions
 
 Ask one question at a time, wait for the answer, then act.
 
-1. **Run the helper once.** Run the probe helper under Helper scripts exactly as written, one time, after the user answers 1. Each target section below says how to run it on that runtime.
+1. **Run the helper once.** Run the probe helper under Helper scripts exactly as written, one time, after the user answers 1; a second run is allowed only after a size rejection, as the target section says. Each target section below says how to run it on that runtime.
 2. **Print the table exactly as returned.** One row per entry in `checks`, in the order returned, with the status and detail copied character for character. Append the two in-app experiment rows, omitted over MCP, then the four scalar lines. Use the output contract.
-3. **Ask for the paste-back.** Ask, verbatim and as plain text:
+3. **Close with the paste-back.** Say, verbatim and as plain text:
    > Paste this table back to whoever maintains your skills so the capability reference can be updated. Nothing in your file was changed.
    Then stop.
 
@@ -58,15 +58,15 @@ The table holds every entry in `checks`, then the two in-app experiment rows, om
 - **Do:** `figma.loadAllPagesAsync | missing | not a function`, printed as returned.
 - **Do not:** Rerunning a failed check with a workaround and printing "available (via fallback)".
 
-### One run
+### One run, or two only after a size rejection
 
-- **Do:** One helper call, one table, then the paste-back question.
+- **Do:** One helper call, one table, then the paste-back line; a second call, with `PAYLOAD` at 30000, only when the first was rejected for size.
 - **Do not:** Running the helper a second time to confirm an error, or splitting it into one call per check.
 
 ## Examples
 
 **Request:** "What can the Figma agent's scripts do in this file?" with nothing selected.
-**Result:** The disclosure question. On 1, one helper run, the two in-app experiments, the table with its four scalar lines, and the paste-back question.
+**Result:** The disclosure question. On 1, one helper run, the two in-app experiments, the table with its four scalar lines, and the paste-back line.
 
 **Request:** "Probe the agent's APIs" and the user answers 2 to the disclosure question.
 **Result:** "Nothing was run or changed." No helper call, no table.
@@ -79,9 +79,9 @@ The table holds every entry in `checks`, then the two in-app experiment rows, om
 
 ## Final gate: do not finish until every line is true
 
-- [ ] The user answered 1 to the disclosure question before the helper ran, and it ran exactly once
+- [ ] The user answered 1 to the disclosure question before the helper ran, and it ran once, or twice only after a size rejection
 - [ ] Every row came from the helper's result or from an experiment actually attempted, copied without change
-- [ ] No layer named fm-probe remains on the current page, and the paste-back question was asked
+- [ ] No layer named fm-probe remains on the current page, and the paste-back line was said
 
 ## Helper scripts
 
@@ -256,7 +256,7 @@ The probe helper is self-contained and returns one result object. Every check is
 
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, run the probe helper through it once, exactly as written; it returns the result object. If no script tool is available, follow the edge case for a missing script path.
+If a script-execution tool such as `evaluate_script` is available, run the probe helper through it once, exactly as written; it returns the result object. If the run is rejected for size, run it exactly once more with `PAYLOAD` set to 30000 and record the rejection text on the payload line. If no script tool is available, follow the edge case for a missing script path.
 
 After the helper returns and before printing the table, run the two UI experiments, one at a time, and append their rows after the helper's rows in this order. A tool that exists but fails records `error` with the error text.
 

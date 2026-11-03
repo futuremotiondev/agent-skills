@@ -939,6 +939,8 @@ Task 7 ran the Workflow 0 recon script on 2026-11-03 UTC through `use_figma` aga
 
 A fresh sonnet agent then followed Workflow 0 in `SKILL.md` with this recon result pasted as Observed. The prompt was "something to keep our spacing honest" and the grounding answer "people eyeball padding and nobody binds tokens". The agent ran the validator on each Does line and rewrote none. The deck follows verbatim inside the fence, because its headings would repeat ones already in this file.
 
+Sample output lines are the agent's illustrations, not recon-derived values.
+
 ```markdown
 ## Concept cards for: "something to keep our spacing honest" (people eyeball padding and nobody binds tokens)
 

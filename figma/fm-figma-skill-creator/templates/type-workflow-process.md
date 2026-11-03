@@ -3,6 +3,11 @@ name: fm-<process>-workflow
 description: Runs the <process name: e.g. "design handoff", "component release", "weekly file hygiene"> workflow end to end: <stage 1>, <stage 2>, <stage 3>, with a checkpoint between stages and a final checklist. Use whenever the user asks to "run the <process>", "prepare this for <outcome>", "get this ready for <audience>", or "do the <process> checklist". Not for a single stage on its own (use /fm-<stage-skill>).
 metadata:
   version: "1.0"
+  author: "Futuremotion Studio"
+  category: "<one of the six Community categories>"
+  tags: "<comma-separated, lowercase>"
+  applies-to: "<pattern and surface>"
+  runtimes: "figma-design, figma-make, mcp"
 ---
 
 # <Process name> workflow

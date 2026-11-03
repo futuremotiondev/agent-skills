@@ -18,5 +18,5 @@ compatibility: Requires the Figma MCP server (use_figma, create_session, get_des
 
 # Optional. String map; merged over the master's metadata block. Spec: `metadata`.
 metadata:
-  author: Futuremotion
+  author: Futuremotion Studio
   target: mcp

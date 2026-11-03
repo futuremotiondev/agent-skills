@@ -18,6 +18,7 @@
 //                                    `// helper: <helper>`; the fence becomes a one-line pointer in
 //                                    the coding-agent SKILL.md. The Figma editions keep every fence.
 //                                    The build owns that scripts/ folder: stale *.js files are pruned.
+//                                    Each helper must parse (checked with new Function before any write).
 //
 // Flatten (second form) reads <skill-dir>/SKILL.md plus references/*.md and writes
 // <out>/<name>.flat.md with every referenced Markdown file appended as a section and links
@@ -108,6 +109,8 @@ function extractHelpers(body) {
     if (helpers.some((h) => h.name === marker[1])) fail(`duplicate helper name "${marker[1]}" at body line ${i + 2}`)
     const code = body.slice(i + 2, close)
     if (!code.some((l) => l.trim() !== "")) fail(`helper "${marker[1]}" has no code`)
+    // Parse check (never run): the IIFE form parses as an expression statement in a function body.
+    try { new Function(code.join("\n")) } catch (e) { fail(`helper "${marker[1]}" does not parse: ${e.message}`) }
     helpers.push({ name: marker[1], code })
     out.push(helperPointer(marker[1]))
     i = close
@@ -311,7 +314,7 @@ function flatten(dir) {
   if (manual.length) {
     console.log(`\nNeeds manual conversion (no folders in a Figma skill):`)
     for (const m of manual) console.log(`  - ${m}`)
-    console.log(`  scripts -> ordered natural-language steps or a feature-checked evaluate_script block inside <!-- target:figma-app -->`)
+    console.log(`  scripts -> ordered natural-language steps, or a core "## Helper scripts" fence whose first line is "// helper: <name>", run from both target sections`)
     console.log(`  assets  -> fenced blocks or tables; drop binaries`)
   }
   console.log(`\nNext: mark tool-specific sections with <!-- target:figma-app --> / <!-- target:mcp -->, then build editions from the flat file.`)

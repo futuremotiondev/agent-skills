@@ -25,7 +25,7 @@ Workflow 0 fills this template to pitch five skill ideas to a user who arrived w
 - **Produces:** <chat report | new frame beside the source | bindings | comment | generated raster image applied as a fill (in-app image creation, MCP generate_image) | an existing shader or generative plugin applied as a fill with set parameters (in-app, needs the shader's trigger words) | Make code change>
 - **Needs:** <prerequisites: what must be selected, a connected library, a spacing or colour collection, a Make project, a connector; "nothing beyond a selection" when true>
 - **Try it:** "<example prompt a designer would type>"
-- **Sample output:** <one line of what the user would see, e.g. the first table row or the first sentence of the report>
+- **Sample output:** <one line of what the user would see, e.g. the first table row or the first sentence of the report; illustrative unless drawn from Observed>
 
 <!-- Fit -->
 

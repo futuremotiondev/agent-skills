@@ -18,13 +18,20 @@ name: fm-<verb>-<object>
 description: <capability naming the output>. Use whenever the user asks to "<phrase>", "<phrase>" or "<phrase>", or selects <object> and asks to <verb> it. Not for <nearest wrong task> (use /<other-skill>).
 metadata:
   version: "1.0"
+  author: "Futuremotion Studio"
+  category: "<one of the six Community categories>"
+  tags: "<comma-separated, lowercase>"
+  applies-to: "<pattern and surface>"
+  runtimes: "figma-design, figma-make, mcp"
 ---
 ```
 
 - `name`: lowercase, hyphens, `fm-` prefix, verb-object. It is the slash command.
 - `description`: the routing text. Third-person capability, then requirement-style triggers with
   quoted user phrases, then one exclusion. Under 1,024 characters, key use case first.
-- `metadata.version` stays in the master; the build strips it from the Figma edition.
+- `metadata` holds six quoted strings: `version`, `author`, `category`, `tags`, `applies-to`, and
+  `runtimes`, which a later manifest generator reads. They stay in the master and the coding-agent
+  edition; the build strips them from the upload edition, which keeps only name and description.
 
 ## Title and lede
 
@@ -60,8 +67,8 @@ Then numbered steps. Each step is a direct instruction with numbers, names, and 
 adjectives. Build on a duplicate or a new frame placed next to the source. Include a **Verify**
 step that reads the result back from the canvas in a separate step.
 
-For script-driven skills, keep the step text tool-neutral here and put the code in the in-app
-section at the end.
+For script-driven skills, keep the step text tool-neutral here and put the code in the core
+Helper scripts section, described below.
 
 ## Output contract
 
@@ -91,6 +98,27 @@ Each case says what to do when the ideal path fails, and why the rule exists:
   exactly what failed, stop that item, never substitute.
 - A feature is "coming soon" or unsupported: produce the plan, hand the step to the user.
 
+## Helper scripts (only when the skill runs code)
+
+A core section after Common edge cases and before the Final gate. It holds one fenced `javascript`
+block per helper whose first body line is `// helper: <name>`, with the name matching
+`^[a-z][a-z0-9-]*$` (lowercase, hyphenated). Each helper is self-contained and returns a plain
+object; nothing persists between calls. Both target sections run the helpers by name. The build
+inlines every helper in the Figma editions and moves each to `scripts/<name>.js` in the
+coding-agent edition, leaving a one-line pointer. A helper fence inside a target section ships to
+one runtime only, so the validator warns about it (`helper-placement`), and a `// helper:` marker
+anywhere else is not extracted.
+
+```javascript
+// helper: collect
+// Collect: what it reads or builds, in one line.
+(async () => {
+  const sel = figma.currentPage.selection;
+  if (sel.length === 0) return { error: "nothing selected" };
+  return { ok: true };
+})();
+```
+
 ## Final gate
 
 A checklist the agent must satisfy "against the canvas, not from memory" before finishing: every
@@ -102,16 +130,17 @@ output matches the contract.
 ```markdown
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
-If a script-execution tool such as `evaluate_script` is available, use it for steps 2 and 3 with the
-helper below: return values with `return`, re-fetch nodes by id in every call, load fonts before any
-text edit, and measure in a later call than the one that builds. If it is not available, perform the
+If a script-execution tool such as `evaluate_script` is available, run the collect helper in Helper
+scripts for steps 2 and 3: return values with `return`, re-fetch nodes by id in every call, load fonts
+before any text edit, and measure in a later call than the one that builds. If it is not available, perform the
 steps with your own canvas tools and say which path you took.
 <!-- /target -->
 
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file
-key, read with `get_design_context` or `get_screenshot`, and write with `use_figma`.
+key, read with `get_design_context` or `get_screenshot`, and write with `use_figma`. Run the collect
+helper in Helper scripts through `use_figma` without its `(async () => {` and `})();` wrapper lines.
 <!-- /target -->
 ```
 

@@ -3,6 +3,11 @@ name: fm-<topic>-synthesis
 description: Synthesises <input: e.g. "the file's comments", "a pasted interview transcript", "the sticky notes in the selected FigJam section"> into <output: e.g. "a ranked list of themes with evidence, open questions, and next steps"> as a chat report and, on request, a summary frame next to the source. Use whenever the user asks to "summarise the feedback", "what are the themes", "synthesise this research", "pull insights from", or wants a readout before a review. Not for critiquing the design itself (use /fm-<lens>-critique).
 metadata:
   version: "1.0"
+  author: "Futuremotion Studio"
+  category: "<one of the six Community categories>"
+  tags: "<comma-separated, lowercase>"
+  applies-to: "<pattern and surface>"
+  runtimes: "figma-design, figma-make, mcp"
 ---
 
 # <Topic> synthesis

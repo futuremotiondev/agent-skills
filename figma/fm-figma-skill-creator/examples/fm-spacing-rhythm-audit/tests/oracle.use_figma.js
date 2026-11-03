@@ -1,7 +1,7 @@
-// mirrors examples/fm-spacing-rhythm-audit/SKILL.md collect helper at a312065
+// mirrors examples/fm-spacing-rhythm-audit/SKILL.md collect helper as of the Plan 1 fix round (parent da17b9e)
 // Oracle for fm-spacing-rhythm-audit 2.0, run through use_figma (top-level await, result from return).
-// Changes from the master fence: no IIFE wrapper, this preamble, MODE preset, MAX_ROWS and the per-token id cap
-// lifted to Infinity, and one line after the walk that clears the selection. Edit SELECTION, PAGE, and MODE per scope.
+// Changes from the master fence: no IIFE wrapper, this preamble, MODE preset, MAX_ROWS lifted to Infinity, one line after the walk
+// that clears the selection, and a block before the return that restores `tokens` and `unbound[].ids`. Edit SELECTION, PAGE, and MODE per scope.
 const SELECTION = "page"; // "page" (every top-level node on the page) or an array of top-level node names
 const PAGE = null; // page name to switch to first; null keeps the current page (use_figma starts on the first page)
 // Resolve the scope and select it; each name must match exactly one top-level node.
@@ -71,24 +71,25 @@ let MODE = "tokens"; // tokens | rhythm, set per scope (the helper falls back to
     const matchedCollections = [...unoffered].map(([id, m]) => ({ name: cols.get(id).name, count: [...m.values()].reduce((a, b) => a + b, 0), reasons: [...m].map(([w, n]) => n + " " + w).join(", ") }));
     let lib = "unavailable";
     try { const tl = figma.teamLibrary; if (tl && tl.getAvailableLibraryVariableCollectionsAsync) lib = (await tl.getAvailableLibraryVariableCollectionsAsync()).length ? "present, not audited" : "none"; } catch (e) { lib = "unavailable"; }
-    return { all: found, libraryTokens: lib, matchedCollections, spacingCollection: c ? { id: c.id, name: c.name, defaultModeName: dm ? dm.name : "", min: Math.min(...vals), max: Math.max(...vals) } : null };
+    return { all: found, candidateValues: [...new Set(vals)].sort((a, b) => a - b), libraryTokens: lib, matchedCollections, spacingCollection: c ? { id: c.id, name: c.name, defaultModeName: dm ? dm.name : "", min: Math.min(...vals), max: Math.max(...vals) } : null };
   };
-  let found = { all: [], libraryTokens: "unavailable", matchedCollections: [], spacingCollection: null };
+  let found = { all: [], candidateValues: [], libraryTokens: "unavailable", matchedCollections: [], spacingCollection: null };
   try { found = await discoverTokens(); } catch (e) { /* no variables API: rhythm mode below */ }
-  const { all, libraryTokens, matchedCollections, spacingCollection } = found;
-  if (MODE === "discover") return { mode: "discover", tokens: all, libraryTokens, spacingCollection, matchedCollections };
-  // Later runs carry only the spacing collection's candidates, which keeps the result small.
+  const { all, candidateValues, libraryTokens, matchedCollections, spacingCollection } = found;
+  // Token entries stay internal (the spacing collection's candidates, one per variable per mode); results carry only their count.
   const tokens = spacingCollection ? all.filter((t) => t.candidate && t.collection === spacingCollection.id) : [];
+  if (MODE === "discover") return { mode: "discover", tokenCount: tokens.length, candidateValues, spacingCollection, matchedCollections, libraryTokens };
   if (tokens.length === 0) MODE = "rhythm";
   const rhythm = onGrid, col = spacingCollection && cols.get(spacingCollection.id);
   const inCol = (t, modeId) => !!col && t.collection === col.id && t.modeId === modeId;
   // Rhythm mode: the spacing collection's Default-mode values also count as on-grid.
   if (MODE === "rhythm" && col) { const extra = new Set(tokens.filter((t) => inCol(t, col.defaultModeId)).map((t) => t.value)); onGrid = (v) => rhythm(v) || extra.has(v); }
-  // Bind candidates per mode: non-alias, non-zero tokens of the spacing collection only.
+  // Per mode: bind candidates are the spacing collection's non-alias, non-zero tokens; its alias tokens are never offered.
   const cands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && !t.isAlias && t.value !== 0)]) : []);
-  const bound = new Map(), boundTop = new Map(), opps = new Map(), choices = new Map(), onRhythm = new Set(), negatives = new Map();
+  const aliasCands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && t.isAlias)]) : []);
+  const bound = new Map(), boundTop = new Map(), opps = new Map(), choices = new Map(), onRhythm = new Set(), negatives = new Map(), aliasMatched = new Map();
   const nearestToken = (v, values) => values.reduce((b, x) => (b === null || Math.abs(x - v) < Math.abs(b - v) || (Math.abs(x - v) === Math.abs(b - v) && x < b) ? x : b), null);
-  // One value in token mode: null when it passes or is a bind opportunity, else { target, fix }.
+  // One value in token mode: null when it passes (a value only an alias holds passes too) or is a bind opportunity, else { target, fix }.
   const tokenCheck = (own, k, v, isBound) => {
     if (isBound || v === 0) return null;
     const key = own.id + "|" + k, modes = own.resolvedVariableModes || {};
@@ -96,10 +97,11 @@ let MODE = "tokens"; // tokens | rhythm, set per scope (the helper falls back to
     const pool = cands.get(modes[col.id]) || cands.get(col.defaultModeId) || [];
     const eq = pool.filter((t) => t.value === v);
     if (eq.length) { opps.set(key, { own, k, v, eq }); return null; }
+    if ((aliasCands.get(modes[col.id]) || aliasCands.get(col.defaultModeId) || []).some((t) => t.value === v)) { aliasMatched.set(key, { own, k, v }); return null; }
     const tv = nearestToken(v, pool.map((t) => t.value));
     if (tv !== null && Math.abs(tv - v) <= 4) {
       const same = pool.filter((t) => t.value === tv);
-      const fix = { kind: "bind", variableId: same[0].id, name: same[0].name, modeName: same[0].modeName };
+      const fix = { kind: "bind", value: tv, variableId: same[0].id, name: same[0].name, modeName: same[0].modeName };
       choices.set(fix, { list: same, top: topOf(own).id });
       return { target: tv, fix };
     }
@@ -236,9 +238,9 @@ let MODE = "tokens"; // tokens | rhythm, set per scope (the helper falls back to
   const unbound = new Map(), oppRows = [];
   for (const o of opps.values()) {
     const t = pick(o.eq, topOf(o.own).id), id = o.own.id, key = t.id + "|" + t.modeId, ci = compInfo(o.own);
-    const u = unbound.get(key) || { tokenName: t.name, tokenId: t.id, modeName: t.modeName, count: 0, exampleId: id, examplePath: pathOf(o.own), ids: [] };
-    u.count++; if (u.ids.length < Infinity && !u.ids.includes(id)) u.ids.push(id); unbound.set(key, u);
-    oppRows.push({ id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "P3", boundId: null, note: also("unbound; bind to " + t.name, o.eq, t), fix: { kind: "bind", variableId: t.id, name: t.name, modeName: t.modeName }, ids: [id], count: 1 });
+    const u = unbound.get(key) || { tokenName: t.name, tokenId: t.id, modeName: t.modeName, count: 0, exampleId: id, examplePath: pathOf(o.own) };
+    u.count++; unbound.set(key, u);
+    oppRows.push({ id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "P3", boundId: null, note: also("unbound; bind to " + t.name, o.eq, t), fix: { kind: "bind", value: o.v, variableId: t.id, name: t.name, modeName: t.modeName }, ids: [id], count: 1 });
   }
   const negRows = [...negatives.values()].map((o) => { const ci = compInfo(o.own); return { id: o.own.id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "—", boundId: null, note: "negative value, not snapped", fix: null, ids: [o.own.id], count: 1 }; });
   const off = new Map();
@@ -249,7 +251,10 @@ let MODE = "tokens"; // tokens | rhythm, set per scope (the helper falls back to
     const e = off.get(b.id + "|" + mid) || { name: va ? va.name : b.id, value: b.v, modeName: m ? m.name : "", values: 0 };
     e.values++; off.set(b.id + "|" + mid, e);
   }
-  Object.assign(out, { mode: MODE, tokens, libraryTokens, spacingCollection, matchedCollections, unbound: [...unbound.values()].sort((a, b) => b.count - a.count), onRhythmNoToken: onRhythm.size, offRhythmTokens: [...off.values()], boundPassed: MODE === "tokens" ? bound.size : [...bound.values()].filter((b) => onGrid(b.v)).length });
+  Object.assign(out, { mode: MODE, tokenCount: tokens.length, libraryTokens, spacingCollection, matchedCollections, unbound: [...unbound.values()].sort((a, b) => b.count - a.count), onRhythmNoToken: onRhythm.size, aliasMatched: aliasMatched.size, offRhythmTokens: [...off.values()], boundPassed: MODE === "tokens" ? bound.size : [...bound.values()].filter((b) => onGrid(b.v)).length });
   out.rows = list.concat(frames <= 50 ? oppRows : [], negRows).slice(0, MAX_ROWS);
   // enhancement: token-conformance end
+  // oracle: restore what the helper no longer returns, for the compare script: the full token list and each unbound token's node ids
+  out.tokens = tokens;
+  for (const o of opps.values()) { const t = pick(o.eq, topOf(o.own).id), u = unbound.get(t.id + "|" + t.modeId); if (!u.ids) u.ids = []; if (!u.ids.includes(o.own.id)) u.ids.push(o.own.id); }
   return out;

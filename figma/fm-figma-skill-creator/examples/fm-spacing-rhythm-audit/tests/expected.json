@@ -1,6 +1,6 @@
 {
   "generated": "2026-11-03",
-  "masterCommit": "a312065",
+  "masterCommit": "da17b9e+final-fix",
   "seedFileKey": "hSEurPqV8Dgzn9yTwPSnnL",
   "notokensFileKey": "idjl35MjLGg4IJtPPH86GA",
   "modesSupported": true,
@@ -174,6 +174,7 @@
       ],
       "unbound": [],
       "onRhythmNoToken": 0,
+      "aliasMatched": 0,
       "boundPassed": 1,
       "offRhythmTokens": [
         {
@@ -743,6 +744,7 @@
         }
       ],
       "onRhythmNoToken": 4,
+      "aliasMatched": 0,
       "boundPassed": 6,
       "offRhythmTokens": [
         {
@@ -793,6 +795,7 @@
           "note": "inherited by 3 instances",
           "fix": {
             "kind": "bind",
+            "value": 16,
             "variableId": "VariableID:2:9",
             "name": "Space/400",
             "modeName": "Default"
@@ -815,6 +818,7 @@
           "note": "",
           "fix": {
             "kind": "bind",
+            "value": 12,
             "variableId": "VariableID:2:8",
             "name": "Space/300",
             "modeName": "Default"
@@ -837,6 +841,7 @@
           "note": "",
           "fix": {
             "kind": "bind",
+            "value": 8,
             "variableId": "VariableID:2:7",
             "name": "Space/200",
             "modeName": "Default"
@@ -859,6 +864,7 @@
           "note": "inherited by 2 instances",
           "fix": {
             "kind": "bind",
+            "value": 12,
             "variableId": "VariableID:2:8",
             "name": "Space/300",
             "modeName": "Default"
@@ -881,6 +887,7 @@
           "note": "instance override; main component uses 13",
           "fix": {
             "kind": "bind",
+            "value": 16,
             "variableId": "VariableID:2:9",
             "name": "Space/400",
             "modeName": "Default"
@@ -903,6 +910,7 @@
           "note": "fractional",
           "fix": {
             "kind": "bind",
+            "value": 16,
             "variableId": "VariableID:2:9",
             "name": "Space/400",
             "modeName": "Default"
@@ -925,6 +933,7 @@
           "note": "fractional",
           "fix": {
             "kind": "bind",
+            "value": 16,
             "variableId": "VariableID:2:9",
             "name": "Space/400",
             "modeName": "Default"
@@ -947,6 +956,7 @@
           "note": "fractional",
           "fix": {
             "kind": "bind",
+            "value": 16,
             "variableId": "VariableID:2:9",
             "name": "Space/400",
             "modeName": "Default"
@@ -969,6 +979,7 @@
           "note": "fractional",
           "fix": {
             "kind": "bind",
+            "value": 16,
             "variableId": "VariableID:2:9",
             "name": "Space/400",
             "modeName": "Default"
@@ -991,6 +1002,7 @@
           "note": "unbound; bind to Space/400",
           "fix": {
             "kind": "bind",
+            "value": 16,
             "variableId": "VariableID:2:9",
             "name": "Space/400",
             "modeName": "Default"
@@ -1013,6 +1025,7 @@
           "note": "unbound; bind to Space/400",
           "fix": {
             "kind": "bind",
+            "value": 16,
             "variableId": "VariableID:2:9",
             "name": "Space/400",
             "modeName": "Default"
@@ -1035,6 +1048,7 @@
           "note": "unbound; bind to Space/200",
           "fix": {
             "kind": "bind",
+            "value": 8,
             "variableId": "VariableID:2:7",
             "name": "Space/200",
             "modeName": "Default"
@@ -1057,6 +1071,7 @@
           "note": "unbound; bind to Space/200",
           "fix": {
             "kind": "bind",
+            "value": 8,
             "variableId": "VariableID:2:7",
             "name": "Space/200",
             "modeName": "Default"
@@ -1079,6 +1094,7 @@
           "note": "unbound; bind to Space/200",
           "fix": {
             "kind": "bind",
+            "value": 8,
             "variableId": "VariableID:2:7",
             "name": "Space/200",
             "modeName": "Default"
@@ -1101,6 +1117,7 @@
           "note": "unbound; bind to Space/200",
           "fix": {
             "kind": "bind",
+            "value": 8,
             "variableId": "VariableID:2:7",
             "name": "Space/200",
             "modeName": "Default"
@@ -1123,6 +1140,7 @@
           "note": "unbound; bind to Space/150",
           "fix": {
             "kind": "bind",
+            "value": 6,
             "variableId": "VariableID:2:6",
             "name": "Space/150",
             "modeName": "Default"
@@ -1145,6 +1163,7 @@
           "note": "unbound; bind to Space/200",
           "fix": {
             "kind": "bind",
+            "value": 8,
             "variableId": "VariableID:2:7",
             "name": "Space/200",
             "modeName": "Default"
@@ -1167,6 +1186,7 @@
           "note": "unbound; bind to Space/200",
           "fix": {
             "kind": "bind",
+            "value": 8,
             "variableId": "VariableID:2:7",
             "name": "Space/200",
             "modeName": "Default"
@@ -1189,6 +1209,7 @@
           "note": "unbound; bind to Space/200",
           "fix": {
             "kind": "bind",
+            "value": 8,
             "variableId": "VariableID:2:7",
             "name": "Space/200",
             "modeName": "Default"
@@ -1211,6 +1232,7 @@
           "note": "unbound; bind to Space/300",
           "fix": {
             "kind": "bind",
+            "value": 10,
             "variableId": "VariableID:2:8",
             "name": "Space/300",
             "modeName": "Compact"
@@ -1362,6 +1384,7 @@
       "matchedCollections": [],
       "unbound": [],
       "onRhythmNoToken": 0,
+      "aliasMatched": 0,
       "boundPassed": 0,
       "offRhythmTokens": [],
       "rows": [

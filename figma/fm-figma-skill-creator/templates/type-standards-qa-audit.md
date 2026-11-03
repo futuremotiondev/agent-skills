@@ -3,6 +3,11 @@ name: fm-<standard>-audit
 description: Audits the selected frames against <the standard: e.g. "the 4/8 pt spacing rhythm", "AA contrast and 44 px targets", "layer naming conventions"> and lists every violation with the exact value and the exact fix, ranked by severity, fixing only after confirmation. Use whenever the user asks to "check <standard>", "audit <standard>", "find <violations>", or asks whether the selection follows <standard>. Not for restructuring layouts (use /fm-<layout-skill>).
 metadata:
   version: "1.0"
+  author: "Futuremotion Studio"
+  category: "<one of the six Community categories>"
+  tags: "<comma-separated, lowercase>"
+  applies-to: "<pattern and surface>"
+  runtimes: "figma-design, figma-make, mcp"
 ---
 
 # <Standard> audit
@@ -81,19 +86,12 @@ Measures the selection against a numeric standard and reports violations as a ra
 - **Instances with overrides.** Report the override; fixing may need the main component. Say so.
 - **No violations.** Say "no violations in <n> frames" and stop.
 
-## Final gate: do not finish until every line is true
+## Helper scripts
 
-- [ ] Every row's current value was read from the canvas
-- [ ] No fix was applied without the user's numbered answer
-- [ ] Every applied fix was re-read and matches the target
-- [ ] Structure, constraints, and sizes outside the named property are unchanged
-
-<!-- target:figma-app -->
-## In-app execution (Figma agent)
-
-If a script-execution tool such as `evaluate_script` is available, use it to collect values and to apply confirmed snaps. Collect in one call per <25> frames, apply in a separate call, and verify in a third. Return plain objects; nothing persists between calls. If it is not available, read the properties with your own canvas tools and apply fixes one layer at a time, reporting each.
+Each helper is self-contained and returns a plain object; nothing persists between calls. Both target sections below run it by name.
 
 ```javascript
+// helper: collect
 // Collect auto-layout spacing for the selection (read-only).
 (async () => {
   const allowed = [0, 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96];
@@ -114,10 +112,22 @@ If a script-execution tool such as `evaluate_script` is available, use it to col
   return { count: rows.length, rows: rows.slice(0, 200) };
 })();
 ```
+
+## Final gate: do not finish until every line is true
+
+- [ ] Every row's current value was read from the canvas
+- [ ] No fix was applied without the user's numbered answer
+- [ ] Every applied fix was re-read and matches the target
+- [ ] Structure, constraints, and sizes outside the named property are unchanged
+
+<!-- target:figma-app -->
+## In-app execution (Figma agent)
+
+If a script-execution tool such as `evaluate_script` is available, use it to run the collect helper in Helper scripts and to apply confirmed snaps. Collect in one call per <25> frames, apply in a separate call, and verify in a third. Return plain objects; nothing persists between calls. If it is not available, read the properties with your own canvas tools and apply fixes one layer at a time, reporting each.
 <!-- /target -->
 
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call. Use `create_session` for the file key, run the collection script above through `use_figma` (pass `skillNames: "fm-<standard>-audit"`), present the table, and apply confirmed snaps in a second `use_figma` call that sets only the named properties by node id, then re-reads them.
+Load the `figma-use` skill before any `use_figma` call. Use `create_session` for the file key, run the collect helper in Helper scripts through `use_figma` without its `(async () => {` and `})();` wrapper lines (pass `skillNames: "fm-<standard>-audit"`), present the table, and apply confirmed snaps in a second `use_figma` call that sets only the named properties by node id, then re-reads them.
 <!-- /target -->

@@ -3,6 +3,11 @@ name: fm-<verb>-<object>
 description: <Third-person capability naming the output, e.g. "Audits the selected frames against a 4/8 pt spacing rhythm and lists every off-grid padding or gap with the exact fix.">. Use whenever the user asks to "<phrase 1>", "<phrase 2>" or "<phrase 3>", or selects <object> and asks to <verb> it. Not for <nearest wrong task> (use /<other-skill>).
 metadata:
   version: "1.0"
+  author: "Futuremotion Studio"
+  category: "<one of the six Community categories>"
+  tags: "<comma-separated, lowercase>"
+  applies-to: "<pattern and surface>"
+  runtimes: "figma-design, figma-make, mcp"
 ---
 
 # <Title in plain words>
@@ -72,6 +77,21 @@ Cap the output at <N> findings, ordered by impact. Say "no supported findings" r
 - **The request needs a feature the agent does not have** (prototyping, vectors, slots, export, diagrams). Produce the plan and hand that step to the user.
 - **The surface is Figma Make, FigJam, or Slides.** <Branch or plan-only behaviour.>
 
+## Helper scripts
+
+<Keep this section only when the skill runs code; delete it otherwise.> One fenced `javascript` block per helper, with `// helper: <name>` as its first line (lowercase and hyphenated, such as `collect` or `apply-fixes`). Each helper is self-contained and returns a plain object; nothing persists between calls. Both target sections below run the helpers by name; the build inlines them in the Figma editions and moves each to `scripts/<name>.js` in the coding-agent edition.
+
+```javascript
+// helper: collect
+// Collect: <one line on what it reads or builds>. Self-contained; nothing persists between calls.
+(async () => {
+  const sel = figma.currentPage.selection;
+  if (sel.length === 0) return { error: "nothing selected" };
+  // ...
+  return { ok: true };
+})();
+```
+
 ## Final gate: do not finish until every line is true
 
 Check against the canvas, not from memory.
@@ -84,21 +104,11 @@ Check against the canvas, not from memory.
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, use it for steps <2 and 3> with the helper below. Return values with `return`, re-fetch nodes by id in every call, load fonts before any text edit, keep each call to a small batch, and measure in a later call than the one that builds. If it is not available, perform the steps with your own canvas tools and say which path you took.
-
-```javascript
-// <helper name>: <one line on what it reads or builds>. Self-contained; nothing persists between calls.
-(async () => {
-  const sel = figma.currentPage.selection;
-  if (sel.length === 0) return { error: "nothing selected" };
-  // ...
-  return { ok: true };
-})();
-```
+If a script-execution tool such as `evaluate_script` is available, run the collect helper in Helper scripts for steps <2 and 3>. Return values with `return`, re-fetch nodes by id in every call, load fonts before any text edit, keep each call to a small batch, and measure in a later call than the one that builds. If it is not available, perform the steps with your own canvas tools and say which path you took.
 <!-- /target -->
 
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file key, read with `get_design_context` or `get_screenshot`, and write with `use_figma`, passing `skillNames: "fm-<verb>-<object>"`. On any `use_figma` error: stop, inspect partial state with `get_metadata`, remove partial output, fix the root cause, then retry once.
+Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file key, read with `get_design_context` or `get_screenshot`, and write with `use_figma`, passing `skillNames: "fm-<verb>-<object>"`. Run the collect helper in Helper scripts through `use_figma` without its wrapper: drop the `(async () => {` line and the closing `})();` line. On any `use_figma` error: stop, inspect partial state with `get_metadata`, remove partial output, fix the root cause, then retry once.
 <!-- /target -->

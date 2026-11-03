@@ -4,7 +4,7 @@ description: Creates, converts, reviews, tests, and publishes skills that run in
 license: MIT
 compatibility: Scripts need Node 18 or newer. The Figma MCP server is optional and used only for the coding-agent edition.
 metadata:
-  version: "1.0"
+  version: "1.1"
   author: Futuremotion
 ---
 
@@ -116,11 +116,11 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 
 3. **Write the description first.** Formula: third-person capability that names the output, then "Use whenever the user asks to ..." with three to five quoted or near-verbatim phrases, then "Not for ... (use /fm-other)". Read it back: would a designer who has never seen the skill type one of those phrases? If not, rewrite before touching the body.
 
-4. **Write the body in the skeleton order:** title and lede, When to use, Before you start (surface check, scope question verbatim, inputs), Instructions (numbered, one question per message, a Verify step), Output contract, Do and do not (named rules with real values), Examples, Common edge cases, Final gate. `references/skeleton-guide.md` explains each section. `references/authoring-styles.md` has the verbatim idioms from Figma's own skills and the Cheddar customized-vs-generic lesson; read it the first time you author in a session.
+4. **Write the body in the skeleton order:** title and lede, When to use, Before you start (surface check, scope question verbatim, inputs), Instructions (numbered, one question per message, a Verify step), Output contract, Do and do not (named rules with real values), Examples, Common edge cases, Helper scripts (only when the skill runs code), Final gate. `references/skeleton-guide.md` explains each section. `references/authoring-styles.md` has the verbatim idioms from Figma's own skills and the Cheddar customized-vs-generic lesson; read it the first time you author in a session.
 
 5. **Replace every angle-bracket placeholder.** Agent fill-ins such as `<n>` in an output contract may stay; authoring placeholders such as `<Step name>` may not. Keep the core tool-neutral.
 
-6. **Add the target sections** at the end of the body. `target:figma-app` holds any `evaluate_script` helpers (self-contained, `return` values, re-fetch nodes by id, batches of about 25, measure in a later call, fonts loaded before text edits) with a prose fallback sentence. `target:mcp` holds the `figma-use` prerequisite, `create_session`, and `use_figma` with `skillNames`. `references/agent-capabilities-and-tools.md` lists what each runtime has.
+6. **Put helper code in the core, then add the target sections** at the end of the body. Code lives in a core `## Helper scripts` section after Common edge cases and before the Final gate: one fenced `javascript` block per helper whose first body line is `// helper: <name>`, with the name matching `^[a-z][a-z0-9-]*$` (lowercase, hyphenated). Each helper is self-contained, returns values with `return`, re-fetches nodes by id, works in batches of about 25, measures in a later call, and loads fonts before text edits. The build inlines every helper in the Figma editions and moves each to `scripts/<name>.js` in the coding-agent edition; a helper fence inside a target section would ship to one runtime only, and the validator warns about it (`helper-placement`). Both target sections run the helpers by name: `target:figma-app` through `evaluate_script`, with a prose fallback sentence; `target:mcp` with the `figma-use` prerequisite, `create_session`, and `use_figma` with `skillNames`, sending each helper without its `(async () => {` and `})();` wrapper lines. `references/agent-capabilities-and-tools.md` lists what each runtime has.
 
 7. **Validate and build:**
 
@@ -138,7 +138,7 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 ## Workflow B: port a coding-agent skill to Figma
 
 1. Flatten: `node scripts/build-skill-editions.mjs --flatten path/to/skill --out dist/`. The flat file inlines `references/*.md` and lists `scripts/` and `assets/` for manual conversion.
-2. Walk the 14-step porting table in `references/porting-and-dual-target.md`: move Claude Code keys to the overlay, convert scripts to ordered steps or an in-app helper, convert assets to fenced blocks or tables, delete relative links, move MCP tool text into `target:mcp`, add a `target:figma-app` section with a fallback, re-check size and split at about 500 lines.
+2. Walk the 14-step porting table in `references/porting-and-dual-target.md`: move Claude Code keys to the overlay, convert scripts to ordered steps or a core helper (Workflow A step 6), convert assets to fenced blocks or tables, delete relative links, move MCP tool text into `target:mcp`, add a `target:figma-app` section with a fallback, re-check size and split at about 500 lines.
 3. Rename to `fm-<verb>-<object>` if the source name is generic, and rewrite the description with the formula.
 4. Validate as master, build, validate the three editions, and hand over as in Workflow A step 9.
 

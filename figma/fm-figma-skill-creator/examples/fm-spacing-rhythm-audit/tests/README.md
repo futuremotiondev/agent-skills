@@ -7,8 +7,8 @@ These are the oracle fixtures for the 2.0 example. A script run over the Figma M
 | File | What it is |
 | --- | --- |
 | `seed.use_figma.js` | Builds the seed on the page named "Seed": the `Card` component and three instances, eight test frames, and the `Legacy` and `Spacing` variable collections. It is idempotent by name, so a second run creates nothing and returns the same ids. Top-level `await`, no wrapper. |
-| `oracle.use_figma.js` | The master's collect helper as of commit `a312065`, unwrapped for `use_figma`. It adds a preamble (`SELECTION`, `PAGE`, `MODE`), lifts `MAX_ROWS` and the per-token id cap to `Infinity`, and clears the selection after the walk. Nothing else differs from the fence in `SKILL.md`. |
-| `expected.json` | Expected results per scope, in the shape Plan 2's compare script reads. Rows and `unbound[].ids` are uncapped. The apply and revert proofs sit under `scopes[1].proofs`. |
+| `oracle.use_figma.js` | The master's collect helper as of the Plan 1 fix round (parent `da17b9e`), unwrapped for `use_figma`. It adds a preamble (`SELECTION`, `PAGE`, `MODE`), lifts `MAX_ROWS` to `Infinity`, clears the selection after the walk, and adds a block before the return that restores the two fields the helper no longer returns: the full `tokens` list and each `unbound[]` entry's node `ids`. Nothing else differs from the fence in `SKILL.md`. |
+| `expected.json` | Expected results per scope, in the shape Plan 2's compare script reads. Rows are uncapped. `tokens` and `unbound[].ids` come from the oracle's restore block; the skill's own collect returns `tokenCount` and no ids, which keeps it under the 48,000-byte `use_figma` limit. The apply and revert proofs sit under `scopes[1].proofs`. `masterCommit` reads `da17b9e+final-fix` because a file cannot name the commit that contains it; Plan 2 pins the real hash. |
 | `fixtures/` | Verbatim in-app outputs and counts from the v1.2 scale test (2026-11-02), kept as history. See the caveats below. |
 
 ## File keys
@@ -39,8 +39,8 @@ The names are distinct. The oracle resolves each one to exactly one top-level no
    - `SELECTION`: `"page"` selects every top-level node on the page, which is how this suite defines a page scope. The master helper itself only walks the current selection. Otherwise use an array of top-level names, for example the twelve above.
    - `PAGE`: `null` keeps the current page. `use_figma` starts every call on the file's first page, so set a page name (for example `"Sections"`) to audit any other page.
    - `MODE`: `"tokens"` or `"rhythm"`. Without spacing tokens the helper falls back to rhythm by itself, which is what scope 5 checks.
-4. Compare the returned object with the matching `scopes[]` entry: `counts`, then `rows`, `unbound`, `onRhythmNoToken`, `boundPassed`, `offRhythmTokens`, and the token fields.
-5. Proofs (scope 2): run the apply helper on `Token card` padding left with the `Space/200` variable id, then the revert helper with the returned `applied` list (expect `reverted: 1`). Set the padding to 12 by hand and run revert again with the same list: expect `skipped` with `reason: "changed since"` and `actual: 12`. Afterwards restore the seed: padding left 8, unbound.
+4. Compare the returned object with the matching `scopes[]` entry: `counts`, then `rows`, `unbound`, `onRhythmNoToken`, `aliasMatched`, `boundPassed`, `offRhythmTokens`, and the token fields. A run of the skill's own collect has `tokenCount` where the oracle has `tokens`, and no `unbound[].ids`; compare those two fields only against an oracle run.
+5. Proofs (scope 2): run the apply helper on `Token card` padding left with the `Space/200` variable id, then the revert helper with the returned `applied` list as its `changes` array (expect `reverted: 1`). Set the padding to 12 by hand and run revert again with the same list: expect `skipped` with `reason: "changed since"` and `actual: 12`. Afterwards restore the seed: padding left 8, unbound.
 
 | Scope | File | Page | Selection | MODE sent | Mode returned |
 | --- | --- | --- | --- | --- | --- |

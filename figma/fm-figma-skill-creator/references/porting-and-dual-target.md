@@ -22,8 +22,9 @@ figma/fm-<skill>/
     fm-<skill>.paste.fields.txt the name and description to type into the Start-from-scratch form
     claude/fm-<skill>/SKILL.md  coding-agent edition: mcp sections kept, figma-app gone, overlay applied
     claude/fm-<skill>/scripts/<helper>.js
-                                one file per core helper fence (first line `// helper: <helper>`);
-                                the coding-agent SKILL.md carries a one-line pointer instead
+                                one file per fence in the core `## Helper scripts` section whose
+                                first line is `// helper: <helper>` (`^[a-z][a-z0-9-]*$`); the
+                                coding-agent SKILL.md carries a one-line pointer instead
 ```
 
 `node scripts/build-skill-editions.mjs SKILL.md --out dist/` produces the three editions. The
@@ -57,7 +58,7 @@ build removes them and the validator rejects any that remain.
 | 3 | Move Claude Code keys (`disable-model-invocation`, `argument-hint`, `allowed-tools`, `when_to_use`, `model`, `context`, `hooks`, `paths`) into `overlay.claude.yaml` | to Figma | Figma's behaviour with extra keys is unverified |
 | 4 | Inline every `references/*.md` the agent always needs; shrink sometimes-needed reference to a table or checklist | to Figma | No folders in Figma |
 | 5 | Convert `assets/` templates to fenced blocks or tables; drop binaries | to Figma | No folders; image rendering unverified |
-| 6 | Replace `scripts/` with ordered natural-language steps, or a feature-checked `evaluate_script` block inside `target:figma-app` | to Figma | No shell in-app |
+| 6 | Replace `scripts/` with ordered natural-language steps, or a fence in the core `## Helper scripts` section (first line `// helper: <name>`) that both target sections run, behind a feature check in-app | to Figma | No shell in-app; the build extracts helpers only from that section |
 | 7 | Move `use_figma` code, `create_session`, `get_design_context`, `skillNames`, and `figma-use` prerequisites into `target:mcp` | to Figma | MCP-only tools |
 | 8 | Move `evaluate_script`, `show_widget`/`sendPrompt`/`read_me`, `get_comments`, shader tools into `target:figma-app` with a prose fallback | to MCP | In-app-only tools |
 | 9 | Delete relative links; refer to sibling skills only as "Not for X (use /y)" | to Figma | Single file; only the first skill runs |

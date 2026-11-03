@@ -21,7 +21,7 @@ Audits the selected frames against a 4/8 pt spacing rhythm and lists every off-g
 
 **How to use it.** Select the frames, type `/fm-spacing-rhythm-audit`, and read the table. The skill then asks one question: apply all, apply P0 and P1 only, pick rows, or none. After applying it re-reads every changed value and reports what was verified. Works in Figma Design; in Figma Make it returns the allowed spacing values as a checklist.
 
-**What it will not do.** It does not add auto layout, move layers, or change sizes or constraints, and it never changes or removes an existing variable binding. In token mode it adds a binding only on rows you confirm that are not bound yet. If you need a layout rebuilt, use a layout skill first and run this audit after.
+**What it will not do.** It does not add auto layout, move layers, or change sizes or constraints, and it never changes or removes a variable binding that existed before it ran. In token mode it adds a binding only on rows you confirm that are not bound yet. If you need a layout rebuilt, use a layout skill first and run this audit after.
 
 ## Example prompts (shown on the page)
 

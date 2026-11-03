@@ -3,6 +3,11 @@ name: fm-make-<artifact>
 description: Builds <the artifact: e.g. "a type-scale specimen frame", "a presentation frame with a generated background", "an anatomy diagram"> from the selection as a new frame placed next to the source, asking one question at a time for the choices that change the result. Use whenever the user asks to "make a <artifact>", "build a <artifact>", "generate a <artifact>", or selects <the input> and asks for <artifact>. Not for editing the selected layers themselves (use /fm-<edit-skill>).
 metadata:
   version: "1.0"
+  author: "Futuremotion Studio"
+  category: "<one of the six Community categories>"
+  tags: "<comma-separated, lowercase>"
+  applies-to: "<pattern and surface>"
+  runtimes: "figma-design, figma-make, mcp"
 ---
 
 # Make a <artifact>

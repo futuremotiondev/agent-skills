@@ -3,6 +3,11 @@ name: fm-<system>-conventions
 description: Applies the <System name> design system conventions when designing or editing in Figma: tokens, spacing, type scale, components, naming, and accessibility rules. Always use this skill when the user asks to "use <System>", "follow <System>", "make this on-brand", "apply the design system", or builds or edits anything in a file connected to the <System> library. Not for publishing or restructuring the library itself (use /fm-<system>-library-admin).
 metadata:
   version: "1.0"
+  author: "Futuremotion Studio"
+  category: "<one of the six Community categories>"
+  tags: "<comma-separated, lowercase>"
+  applies-to: "<pattern and surface>"
+  runtimes: "figma-design, figma-make, mcp"
 ---
 
 # <System name> conventions

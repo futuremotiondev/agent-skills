@@ -25,6 +25,10 @@ in the coding-agent edition, and past about 12,000 in the master, upload, and pa
 lines and 5,000 tokens are the Agent Skills spec's guidance for coding-agent context, while Figma
 enforces no body limit and its longest first-party skill is about 12,000 tokens.
 
+The `helper-placement` rule (master only) warns when a `javascript` fence sits inside a target
+region, or a `// helper:` marker sits outside the core `## Helper scripts` section. The build
+extracts helpers only from that section, so either one would ship a helper to one runtime only.
+
 ## The trigger eval (description quality)
 
 The description is the only field every runtime routes on. Test it before testing the body.

@@ -3,6 +3,11 @@ name: fm-<lens>-critique
 description: Critiques the selected frames, flow, or Make screen through <the lens: e.g. "a conversion-focused product lens">, returning at most five findings ranked P0 to P3 with visible evidence and one concrete change each. Use whenever the user asks to "critique this", "review this design", "give feedback on", "what would <persona> say", or wants a design review before a share-out. Not for applying fixes (use /fm-<fix-skill>) and not for copy-only reviews (use /fm-ux-writing-review).
 metadata:
   version: "1.0"
+  author: "Futuremotion Studio"
+  category: "<one of the six Community categories>"
+  tags: "<comma-separated, lowercase>"
+  applies-to: "<pattern and surface>"
+  runtimes: "figma-design, figma-make, mcp"
 ---
 
 # <Lens> critique
