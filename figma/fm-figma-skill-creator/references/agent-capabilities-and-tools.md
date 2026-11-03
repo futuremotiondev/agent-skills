@@ -176,10 +176,11 @@ Round 3; testing-and-maintenance step 5 says where to read them.
 What this run shows: the in-app script runtime matches MCP on every API row the scratch file could
 test, and the seed file fills the rows MCP missed for lack of content (instance, bound variables,
 variables, collections). `setPluginData` and `clientStorage` error with the same text as over MCP;
-`setSharedPluginData` works; `figma.notify` returns. The return carrying the 50,000-character
-sample did not arrive whole; the same return measured 52,907 bytes over MCP, so the in-app limit is
-somewhere below that total and a too-large return fails quietly; keep helper results small. `ask_user_question` renders a card with clickable options;
-`show_widget` is missing, so every picker needs its numbered-options text fallback.
+`setSharedPluginData` works; `figma.notify` returns. The return carrying the 50,000-character sample
+did not arrive whole; the same return measured 52,907 bytes over MCP, so the in-app limit is
+somewhere below that total and a too-large return fails quietly; keep helper results small.
+`ask_user_question` renders a card with clickable options; `show_widget` is missing, so every picker
+needs its numbered-options text fallback.
 
 Decision-gate UI (Round 3, 2026-11-03, screenshots of every gate): a gate whose skill text names the
 structured question tool renders as a card with lettered clickable options (A, B, ...) plus "Add a
