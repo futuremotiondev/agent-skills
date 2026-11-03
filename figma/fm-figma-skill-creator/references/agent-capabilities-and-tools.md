@@ -101,6 +101,75 @@ block must follow:
 | `setPluginData` / `getPluginData` | Silently unavailable | Not supported | Use `setSharedPluginData` or layer names |
 | `node.query()`, `node.set()`, `figma.io.write`, `node.placeholder` | Zero in-app uses | Documented extensions | Unverified in-app; MCP sections only |
 
+## Observed in-app (probe results)
+
+These tables come from running `examples/fm-figma-capability-probe/` and are observed, not
+reconstructed: each row is what one run of the probe helper returned in one runtime on the stated
+date. They take precedence over the reconstructed rules above for the same runtime and date. Keep
+one dated table per runtime (Figma Design agent, Figma Make agent, MCP); a newer paste-back for a
+runtime replaces its older table (Workflow F step 5). After replacing one, revisit every
+`target:figma-app` section that relies on an API now marked `missing` or `error`.
+
+Format: three columns, `| API | Status | Detail |`. Status is `available`, `missing`, or
+`error`; Detail is the probe's own text (the first 120 characters of an error), or `—` when there
+is nothing to say, and `presence only` marks rows that were checked for existence but not called.
+The in-app tables end with the two experiment rows (`ask_user_question` and `show_widget`), and
+every table is followed by the four scalar lines: payload bytes returned, walk time, nodes
+walked, and style counts.
+
+### MCP (use_figma), 2026-11-03
+
+Scratch file `fm-probe-scratch` (key `kXhDI9zBD5rbh00c3Lzt9i`), empty design file, nothing
+selected. The runtime line came back `unknown` because reading `figma.editorType`, `figma.mode`,
+or `figma.apiVersion` threw. A 50,000-character payload was rejected before any result returned
+(`Return value exceeds the 48000-byte limit (52907 bytes). Canvas edits from this run were not
+committed.`), so this table is from the rerun with `PAYLOAD = 30000`.
+
+| API | Status | Detail |
+| --- | --- | --- |
+| figma.getNodeByIdAsync | available | resolved the current page |
+| figma.currentPage.selection | available | 0 selected |
+| node.getMainComponentAsync | missing | no instance on page |
+| node.boundVariables | missing | no auto-layout node on page |
+| figma.variables.getVariableByIdAsync | available | no variable in file; null for a dummy id |
+| figma.variables.getLocalVariablesAsync | available | 0 variables |
+| figma.variables.getLocalVariableCollectionsAsync | available | 0 collections |
+| figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
+| figma.variables.importVariableByKeyAsync | available | presence only |
+| node.setBoundVariable | available | presence only |
+| figma.getLocalTextStylesAsync | available | 0 styles |
+| figma.getLocalPaintStylesAsync | available | 0 styles |
+| figma.getLocalEffectStylesAsync | available | 0 styles |
+| figma.getLocalGridStylesAsync | available | 0 styles |
+| figma.getStyleByIdAsync | missing | no local style in file |
+| node.setFillStyleIdAsync | available | presence only |
+| node.setTextStyleIdAsync | available | presence only |
+| figma.getImageByHash + image.getBytesAsync | missing | no image on page |
+| figma.createImage | available | presence only |
+| node.setPluginData / getPluginData | error | Error: in setPluginData: figma.setPluginData is not supported in this host runtime (only private plugins on web can use |
+| node.setSharedPluginData / getSharedPluginData | available | round trip ok |
+| figma.clientStorage.setAsync / getAsync | error | Error: in setAsync: "setAsync" is not a supported API |
+| node.query | available | presence only |
+| node.set | available | presence only |
+| figma.createAutoLayout | available | created and removed; layoutMode HORIZONTAL |
+| figma.loadAllPagesAsync | available | presence only |
+| figma.ui | available | presence only |
+| text sizing: resize, textAutoResize, characters | available | height 15 at width 200 |
+| figma.notify | available | called; handler returned |
+
+The two in-app experiment rows are omitted over MCP.
+
+- Payload bytes returned: 30000 (a 50,000-character sample is rejected: the bridge limits the whole return to 48,000 bytes)
+- Walk time: 1 ms
+- Nodes walked: 0
+- Style counts: text 0, paint 0, effect 0, grid 0
+
+What this run shows: `setPluginData` errors and `setSharedPluginData` works; `clientStorage`
+is unsupported; `figma.notify` did not throw over MCP, although the figma-use guidance says it
+does; and `use_figma` rejects any return over 48,000 bytes and discards the run's canvas edits.
+The rows that miss for lack of content (instance, auto layout, style, image) need a seeded file
+to test.
+
 ## Credits-aware instructions
 
 Every run costs credits proportional to the work. Write skills that scope to the selection, read

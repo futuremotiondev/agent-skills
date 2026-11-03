@@ -119,6 +119,7 @@ Before starting any workflow, confirm three things with the user if they are not
 2. **Behaviour eval.** Run the Examples section prompts and check each line of the Final gate against the canvas. Any source edit, silent scope expansion, or unverified number is a defect.
 3. **Live test log.** One entry per session in `EVAL-LOG.md`: prompt, selection, what the agent did, what it should have done, the change made. Bump `metadata.version` on every description or instruction change and re-upload; Figma keeps no version history.
 4. **Settle open questions.** The first upload of any skill should record whether extra frontmatter keys survive, whether size limits exist, whether tables and images render, and whether `node.query` and `node.set` work under `evaluate_script`. Write the answers into `references/troubleshooting.md`.
+5. **Probe paste-back.** When the user pastes a probe table, add it to `references/agent-capabilities-and-tools.md` under 'Observed in-app (probe results)' as a dated table for that runtime, replacing an older table for the same runtime; then revisit every `target:figma-app` section that relies on an API now marked `missing` or `error`.
 
 ## House style in one table
 
@@ -170,6 +171,7 @@ Both scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The 
 | `templates/skill-master.md` and `templates/type-*.md` | starting any new skill |
 | `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md` | the companion files every skill folder gets |
 | `examples/fm-spacing-rhythm-audit/` | a complete worked example with its built `dist/` editions |
+| `examples/fm-figma-capability-probe/` | you need fresh evidence of which Plugin APIs a runtime exposes; optional, for skill authors, and its pasted-back table feeds Workflow F step 5 |
 
 ## Final gate: do not finish until every line is true
 

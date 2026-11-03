@@ -1,0 +1,6 @@
+Start from scratch: type these into the form. Paste only the .paste.md body into Instructions.
+
+name: fm-figma-capability-probe
+
+description (max 1024 chars):
+Reports which Plugin API surfaces the Figma agent's script runtime exposes, as a table of available, missing, and error results plus payload, timing, and style counts, then asks the user to paste the table back. Use whenever the user asks to probe, test, or check what the Figma agent can do, which APIs are available, or whether scripts can do X, or asks for a capability probe or runtime check. Not for auditing or changing designs; optional, for skill authors: no skill depends on it, no end user needs it installed, and it can be removed from Figma once its table has been pasted back.
