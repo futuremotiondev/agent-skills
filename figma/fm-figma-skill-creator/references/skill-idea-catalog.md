@@ -11,7 +11,7 @@ Counts of landscape rows per pattern and surface, computed from the `Pattern` an
 | audit | 6 | 1 | 0 | 2 | 6 | 2 | 1 | 2 | 3 | 0 |
 | generator | 2 | 1 | 2 | 1 | 5 | 1 | 0 | 2 | 3 | 4 |
 | critique | 0 | 0 | 0 | 0 | 6 | 2 | 0 | 1 | 0 | 1 |
-| synthesis | 0 | 0 | 0 | 0 | 0 | 7 | 0 | 0 | 1 | 5 |
+| synthesis | 0 | 0 | 0 | 0 | 0 | 8 | 0 | 0 | 1 | 4 |
 | workflow | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 2 | 4 | 7 |
 | conventions | 1 | 3 | 0 | 2 | 1 | 2 | 1 | 3 | 3 | 0 |
 
@@ -63,11 +63,11 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
 ### audit × variables
 
 - **fm-variable-mode-gap-audit**
-  - tier: A
+  - tier: B
   - description: Audits local variable collections for values missing in a mode, aliases that point at deleted variables, and values identical across every mode, and lists each variable with the mode and a suggested value. Use whenever the user asks to check variable modes, find broken aliases, audit dark mode values, or clean up a variable collection. Not for comparing variables with code tokens (use design-tokens-sync).
   - tags: variables; audit; drift, consistency, review
   - fits when: A team adds a second mode to an existing collection and needs to know which variables were never given a value in it.
-  - feasibility: supported. Using variables is Supported in the capability table, and the MCP probe returned available for getLocalVariablesAsync, getLocalVariableCollectionsAsync, and getVariableByIdAsync, which resolves a dangling alias to null.
+  - feasibility: supported. Using variables is Supported in the capability table, and the MCP probe returned available for getLocalVariablesAsync, getLocalVariableCollectionsAsync, and getVariableByIdAsync. The probe ran on a file with no variables, so real collections, modes, and alias chains were not exercised; the first live run confirms how a broken alias reads.
   - credits: 22 to 24 credits per collection pass [page-scale audit]; about 18 credits per five values set after confirmation [five-fix model]
   - differs from: design-tokens-sync, which compares Figma variables with code tokens; this checks the collections against themselves and needs no codebase.
 
@@ -86,12 +86,12 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
 
 - **fm-target-size-audit**
   - tier: A
-  - description: Measures every interactive instance in the selected frames against the 24 by 24 px WCAG 2.2 AA target minimum and an optional 44 px goal, and lists each failure with its exact size and the padding that would fix it. Use whenever the user asks to check tap targets, touch targets, hit areas, or button sizes for accessibility. Not for colour contrast or a full accessibility review (use accessibility-audit).
+  - description: Measures the controls in the selected frames, found by component and layer name, against the 24 by 24 px WCAG 2.2 AA target minimum and an optional 44 px goal, and lists each failure with its size and the padding that fixes it. Use whenever the user asks to check tap targets, touch targets, hit areas, or button sizes for accessibility. Not for colour contrast or a full accessibility review (use accessibility-audit).
   - tags: accessibility; audit; accessibility, handoff, review
   - fits when: A mobile flow is close to done and someone asks whether its buttons and links are big enough to tap.
-  - feasibility: supported. Reading sizes and editing auto-layout padding are Supported (edit layout); measurements are taken in a later call than any build, per the script rules.
+  - feasibility: supported. Prototype reactions are not readable by the agent, so interactive instances are found by component and layer name (button, link, toggle, and similar) and the list is shown for confirmation before measuring. Reading sizes and editing auto-layout padding are Supported (edit layout); measurements are taken in a later call than any build, per the script rules.
   - credits: 22 to 24 credits per page [page-scale audit]; about 18 credits per five padding fixes [five-fix model]
-  - differs from: accessibility-audit, which checks five WCAG areas at summary level; this measures every target with a number and offers the exact padding change.
+  - differs from: accessibility-audit, which checks five WCAG areas at summary level; this measures each confirmed control with a number and offers the exact padding change.
 
 ### audit × documentation
 
@@ -254,7 +254,7 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
   - description: Runs a copy review round on the selected frames: it proposes each copy change as a comment pinned to its text layer, waits for a writer to approve in the thread, then applies the approved lines and lists what changed. Use whenever the user asks to run a copy review, get copy approved, or route text changes to a writer before applying them. Not for judging tone (use content-tone-review).
   - tags: content; workflow; review, handoff, consistency
   - fits when: A product writer has to approve every string before it ships, and the designer wants the approvals recorded where the copy lives.
-  - feasibility: plan-only for posting and reading comments over MCP, which has no comment tool. In-app, adding and reviewing comments are Supported.
+  - feasibility: plan-only for posting and reading comments over MCP, which has no comment tool. In-app, adding and reviewing comments are Supported in the capability table, but pinning a comment to a text layer and reading approvals back from its thread are untested; no probe covers comments, so this rests on documented capability alone.
   - credits: 22 to 24 credits to collect strings and post proposals [page-scale audit]; about 18 credits per five approved lines applied [five-fix model]
   - differs from: content-tone-review, which flags off-voice lines in chat; this runs the approval loop through comment threads and applies what was approved.
 
@@ -265,7 +265,7 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
   - description: Runs a confirmed accessibility fix list on the selected frames in batches of five, applying each fix, reading the canvas back, and recording progress on the frames so a later run resumes where this one stopped. Use whenever the user asks to fix accessibility issues, work through an accessibility audit, or apply contrast and target-size fixes. Not for finding issues in the first place (use accessibility-audit).
   - tags: accessibility; workflow; accessibility, review, cost
   - fits when: An audit returned forty accessibility findings and the designer wants them fixed in safe, resumable batches.
-  - feasibility: supported. Progress is written with shared plugin data, which the MCP probe round-tripped; private plugin data and client storage both errored there and are not used.
+  - feasibility: supported. Progress is written with shared plugin data, which the MCP probe round-tripped; private plugin data and client storage both errored there and are not used. Shared plugin data is untested in-app, so the in-app edition rests on that MCP evidence until an in-app probe table is pasted back.
   - credits: about 18 credits per batch of five fixes [five-fix model]; about 10 credits to confirm each batch [ask]
   - differs from: accessibility-audit, which reports issues; this applies a confirmed list in verified batches and can resume.
 
@@ -283,11 +283,11 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
 ### conventions × documentation
 
 - **fm-file-cover-standard**
-  - tier: A
+  - tier: B
   - description: Applies a team's file conventions to the open file: a cover frame with title, status, owner, and date, page names and order from a fixed list, and section labels on each page, listing every change before it is made. Use whenever the user asks to add a cover page, set the file status, standardise page names, or set up a file the team way. Not for reorganising exploration work (use file-cleanup).
   - tags: documentation; conventions; onboarding, naming, consistency
   - fits when: A new project file is created and the team wants every file to open on the same cover and page order.
-  - feasibility: supported. Renaming and creating frames are Supported, as are file metadata actions; labels on other pages wait until each page is loaded, because loading all pages at once is not implemented in-app.
+  - feasibility: supported. Renaming and creating frames are Supported, as are file metadata actions; labels on other pages wait until each page is loaded, because loading all pages at once is not implemented in-app. The probe ran on a one-page empty file, so renaming and reordering real pages was not exercised.
   - credits: about 10 credits to confirm the cover fields [ask]; about 18 credits per five pages renamed or labelled [five-fix model]
   - differs from: file-cleanup, which reorganizes a messy file around its content; this stamps a fixed house template on any file, new or old.
 
