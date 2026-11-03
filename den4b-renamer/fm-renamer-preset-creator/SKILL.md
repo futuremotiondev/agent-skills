@@ -6,7 +6,7 @@ description: Create, modify, explain and verify den4b ReNamer presets (.rnp) for
 # ReNamer preset creator
 
 Turns a plain-language renaming request into correct, minimal **den4b ReNamer 7.10** presets that look exactly like
-presets Jay saves himself, proves them on throwaway files, and explains or edits existing presets.
+presets the user saves, proves them on throwaway files, and explains or edits existing presets.
 
 **Environment:** ReNamer portable at `C:\Tools\den4b Renamer` (from `config.json`), presets in its `Presets\` folder,
 Windows 11, PowerShell 7.4+. All scripts are in `scripts/` and run with `pwsh`; paths come from `config.json`.
@@ -26,8 +26,8 @@ Windows 11, PowerShell 7.4+. All scripts are in `scripts/` and run with `pwsh`; 
 The most common failure is the right rules for the wrong interpretation. Before designing, hold **3–8 concrete
 `before → after` pairs**, including at least one awkward case (extra dots, brackets, digits, mixed case, an
 already-correct name). They become the spec's `tests`.
-- Jay gave examples → restate them as a fixture table; ask only about genuine gaps.
-- He gave none → invent representative pairs and ask him to confirm or correct them in **one** message.
+- The user gave examples → restate them as a fixture table; ask only about genuine gaps.
+- None given → invent representative pairs and ask the user to confirm or correct them in **one** message.
 - When both variants are built, include at least one CONTENTS fixture (`"variant": "CONTENTS"`, the folder in
   `inputs`, nested files in `expect`); otherwise the CONTENTS preset ships unverified (the harness warns).
 - Settle these too (defaults when unattended):
@@ -74,7 +74,7 @@ harness is unavailable, say so and mark the preset **unverified**.
   3. Before → after table, each row ✓ (harness-verified) or ◻ (verify in GUI).
   4. Warnings: every builder warning, GUI-only parts, order dependence (Serialize), review-tier terms used, known limits
      hit by the fixtures.
-  5. How to run it, e.g. `ReNamer.exe /preset "<Variant> <Name>"` or Jay's context-menu wrapper.
+  5. How to run it, e.g. `ReNamer.exe /preset "<Variant> <Name>"` or the user's context-menu wrapper.
 
 ### 6. Explain or modify an existing preset
 ```powershell
@@ -92,7 +92,7 @@ $d.Explanation          # Markdown: filters, one sentence per rule, validator no
 ## Hard rules
 1. **Never write `.rnp` syntax from memory.** Keys, enums and encoding come from `rnp-format.md`; the scripts implement
    them. Anything marked ◐ or ✗ there must be probed before use.
-2. **Never rename Jay's real files** and never edit ReNamer's `Settings.ini`. Tests run only on throwaway copies.
+2. **Never rename the user's real files** and never edit ReNamer's `Settings.ini`. Tests run only on throwaway copies.
 3. **Stage first, deliver after validation.** Never write straight into `Presets\`; never overwrite without showing the
    diff and getting a yes.
 4. **Extension always lowercase** (validator check 6): the last Case rule sets `EXTENSIONALWAYSLOWERCASE=1`, and only
@@ -105,7 +105,7 @@ $d.Explanation          # Markdown: filters, one sentence per rule, validator no
    `CASESENSITIVE=1` when a pattern depends on case; literal `$` in a replacement is `\$`.
 9. **Validator 0 errors + all fixtures passing** before a preset is called done. Report anything not harness-verified.
 
-## Jay's conventions
+## House conventions
 - **Names:** `FILE <Name>.rnp` renames exactly the passed files *and* folders, never their contents; `CONTENTS
   <Name>.rnp` renames what's inside passed folders, recursively. `<Name>` is Title Case, descriptive, a valid Windows
   file name. Topic sub-prefixes like `CASE` are fine (`FILE CASE Kebab`). **`UI`** marks templates meant to be edited
@@ -124,9 +124,9 @@ calls for them, named in the report. CamelCase splitting = CleanUp `INSERTSPACEB
 ## Collisions
 Any rule that removes or normalises information (timestamps, counters, brackets, case folding, separators) can merge
 distinct names. When the fixtures could collide, add colliding inputs and set `collisions`:
-- `nopad|pad2|pad3|pad4` → Jay's serializer (`Save 1.svg`, `Save 2.svg`), appended as the **last** rule. **GUI-only:
+- `nopad|pad2|pad3|pad4` → Futuremotion's serializer (`Save 1.svg`, `Save 2.svg`), appended as the **last** rule. **GUI-only:
   preview twice** (learning pass, then serializing pass), uses a shared tally file, shows popups, doesn't work from
-  `/silent` or context-menu "rename with preset". Tell Jay this in the report.
+  `/silent` or context-menu "rename with preset". Tell the user this in the report.
 - `stock` → den4b's single-pass script (`Save.svg`, `Save (2).svg`, …), CLI-safe ✓. Offer it when the preset must run
   unattended. It only sees the batch: if a serialized name already exists (a `Save (2).svg` in the folder), ReNamer
   refuses the whole batch.
@@ -134,7 +134,7 @@ distinct names. When the fixtures could collide, add colliding inputs and set `c
   pre-serialization name) + one batch test with `expectExit: 1` and unchanged names (ReNamer refuses conflicting new
   names ✓). The serializer itself is ◻ "verify in GUI".
 
-## Decisions in force (Jay can change any)
+## Decisions in force (the user can change any)
 | # | Decision | Default |
 |---|---|---|
 | D1 | Script language | PowerShell 7.4+ |
@@ -158,7 +158,7 @@ distinct names. When the fixtures could collide, add colliding inputs and set `c
 - **GUI-only serializers** can't be verified by the harness (see Collisions).
 - **No renaming onto an existing name:** ReNamer refuses the whole batch when a new name equals another file's current
   name, even one being renamed away in the same batch (swaps, chains) ✓. Exit 1, nothing renamed.
-- **No PowerShell available** (e.g. a sandbox without Jay's machine): write the `.rnp` by hand from `rnp-format.md`
+- **No PowerShell available** (e.g. a sandbox without the user's machine): write the `.rnp` by hand from `rnp-format.md`
   §1.2/§4, read the TSVs directly, and label the preset **unverified**.
 
 ## Maintenance

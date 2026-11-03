@@ -590,7 +590,7 @@ process {
                         if ($casing['lastWordRule'] ?? $true) {
                             $rules.Add((& $regexRule `
                                 "(\s)$guard(\p{Ll})(\p{L}*)$" '$1\U$2$3' `
-                                'Capitalize last word (Jay rule, not APA)'))
+                                'Capitalize last word (house rule, not APA)'))
                         }
                     }
                     'lower' {

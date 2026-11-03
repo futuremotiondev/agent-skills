@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply Jay's 2026-09-28 casing decisions to casing-dictionary.tsv (the _spec copy).
+"""Apply Futuremotion's 2026-09-28 casing decisions to casing-dictionary.tsv (the _spec copy).
 
 Each change is keyed by the row's current (term, source) so nothing else can match.
 Writes the dictionary back in the file's own order (tier, pack, term casefold),
@@ -11,8 +11,8 @@ from pathlib import Path
 
 SKILL = Path(r'D:\AI\Skills\futuremotion\fm-renamer-preset-creator')
 DICT = SKILL / '_spec' / 'data' / 'casing-dictionary.tsv'
-AUDIT = SKILL / '_spec' / 'data' / 'expansion-2026-09-28' / 'jay-decisions.tsv'
-D = "Jay's decision 2026-09-28"
+AUDIT = SKILL / '_spec' / 'data' / 'expansion-2026-09-28' / 'casing-decisions-2026-09-28.tsv'
+D = "Futuremotion's decision 2026-09-28"
 TIER_ORDER = {'core': 0, 'proper': 1, 'review': 2}
 FIELDS = ['term', 'tier', 'pack', 'source', 'note']
 
@@ -31,7 +31,7 @@ CHANGES = {
     ('DOM', 'base'):      dict(tier='core', note=f'{D}: auto-applied despite Dom (name)'),
     ('CI', 'added'):      dict(tier='core', note=f'{D}: auto-applied despite Italian ci and initials'),
 }
-# Already in the casing Jay chose: verified, left untouched
+# Already in the casing chosen: verified, left untouched
 UNCHANGED = ['WASM', 'LoRA', 'README']
 
 

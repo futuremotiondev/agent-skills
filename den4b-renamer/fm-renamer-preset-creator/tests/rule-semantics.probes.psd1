@@ -150,7 +150,7 @@
       @{ ID = 'RegEx'; Config = @('EXPRESSION=( - | – | — )(?!(?:iPhone|npm)\b)(\p{Ll})', 'REPLACE=$1\U$2', 'CASESENSITIVE=1', 'SKIPEXTENSION=1') }
       @{ ID = 'RegEx'; Config = @('EXPRESSION=(\s)(?!(?:iPhone|npm)\b)(\p{Ll})(\p{L}*)$', 'REPLACE=$1\U$2$3', 'CASESENSITIVE=1', 'SKIPEXTENSION=1') }
     ); Expect = @('A Guide - The Sequel of It.txt', 'iPhone Tips and Tricks for The.txt', 'npm and the Web.txt', 'The Lord of the Rings and a Guide To.txt') }
-  @{ Name = 'BUG REPRO Jay''s "CASE Capitalize All Preserve" (2nd rule WHAT=5 without PRESERVECASE)'; Files = @('the lord of the rings with a guide.txt'); Rules = @(
+  @{ Name = 'BUG REPRO Futuremotion''s "CASE Capitalize All Preserve" (2nd rule WHAT=5 without PRESERVECASE)'; Files = @('the lord of the rings with a guide.txt'); Rules = @(
       @{ ID = 'Case'; Config = @('WHAT=3', 'PRESERVECASE=1', 'SKIPEXTENSION=1', 'EXTENSIONALWAYSLOWERCASE=1', 'EXTENSIONALWAYSUPPERCASE=0', 'FORCECASE=1', 'FRAGMENTSTEXT=a,an,the,and,or,but,nor,of,with,to,for,is,to') }
       @{ ID = 'Case'; Config = @('WHAT=5', 'PRESERVECASE=0', 'SKIPEXTENSION=1', 'EXTENSIONALWAYSLOWERCASE=1', 'EXTENSIONALWAYSUPPERCASE=0', 'FORCECASE=0', 'FRAGMENTSTEXT=a,an,the,and,or,but,nor,of,with,to,for,is,to') }
     ); Expect = @('The lord of the rings with a guide.txt') }

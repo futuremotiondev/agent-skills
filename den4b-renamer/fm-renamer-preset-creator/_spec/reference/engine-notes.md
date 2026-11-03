@@ -1,7 +1,7 @@
 # ReNamer engine notes: RegEx, Pascal Script, meta tags, CLI, and pipeline behaviour
 
 > Companion to `rnp-format.md`. ✓ = verified by probe on ReNamer 7.10. Other items come from den4b docs, the changelog, or
-> Jay's own debugging history (noted as *field-tested*). In Markdown tables, `\|` is an escaped `|`.
+> Futuremotion's own debugging history (noted as *field-tested*). In Markdown tables, `\|` is an escaped `|`.
 
 ## 1. Regular Expressions (TRegExpr, FPC build updated 2023-12)
 
@@ -19,7 +19,7 @@ atomic groups and possessive quantifiers (since 7.4.0.2).
 - `CASESENSITIVE=0` (the default) makes letter classes case-insensitive, so any pattern that depends on case (`\p{Lu}`, `[A-Z]`, `V(?=\d)`) needs `CASESENSITIVE=1`.
 - `\b` and `\w` count `_` and digits as word characters ✓. `cat_dog` contains no word `cat`.
 - With `SKIPEXTENSION=1` the subject is the base name only, so `$` anchors before the extension ✓.
-- Jay's history says "no reliable lookarounds". That note predates 7.4.0.2. Lookarounds are verified working in 7.10 ✓, but capture-and-reinsert is still the most portable style.
+- Futuremotion's history says "no reliable lookarounds". That note predates 7.4.0.2. Lookarounds are verified working in 7.10 ✓, but capture-and-reinsert is still the most portable style.
 - Prefer one well-anchored RegEx over several Replace rules only when it stays readable. Otherwise use Replace with `*|*` pairs.
 
 ## 2. Pascal Script
@@ -27,7 +27,7 @@ atomic groups and possessive quantifiers (since 7.4.0.2).
 **Model.** The script runs once per file, in file-table order. `FileName` holds the **current new name including the extension**
 (the output of the previous rules) and is what you modify. `FilePath` is the original full path (read-only). Global `var`
 declarations persist across files **within one preview pass**, and ReNamer re-initialises script state on **every preview**
-(*field-tested*: this is why Jay's serializer keeps its cross-pass tally on disk).
+(*field-tested*: this is why Futuremotion's serializer keeps its cross-pass tally on disk).
 
 **API essentials** (full list: den4b docs → Pascal Script: Functions):
 
@@ -43,7 +43,7 @@ declarations persist across files **within one preview pass**, and ReNamer re-in
 | State | `SetGlobalVar` / `GetGlobalVar` / `GetGlobalVarDef` (7.4.0.2+; whether they survive between previews is unverified; probe before relying on it) |
 | Control | `Error('msg')` aborts with a message (7.2.0.7+). `ShowMessage` / `WideShowMessage` / `DialogYesNo` are modal |
 
-**Hard-won rules** (*field-tested* by Jay unless marked):
+**Hard-won rules** (*field-tested* unless marked):
 1. **Boolean expressions are not short-circuited.** Guard every `S[i]` index access with its own nested `if`, never `if (i <= Length(S)) and (S[i] = 'x')`.
 2. Strings are 1-based. Use the `Wide*` functions for Unicode safety.
 3. `FileReadTextLines` leaves the UTF-8 BOM on line 1. For byte-exact I/O use `FileReadContent` → strip the BOM → `UTF8Decode` → `WideSplitString`.
@@ -70,7 +70,7 @@ end.
 
 ## 3. Meta tags (insert as `:Tag_Name:`) ✓ syntax
 
-The list below was extracted from the ReNamer 7.10 binary. Use them in Insert `TEXT`, Replace `TEXTWITH` and Rearrange `NEWPATTERN`, or read them in Pascal via `CalculateMetaTag`. Date tags use the format in *Settings → Meta Tags* (Jay: `mm-dd-yyyy h_n_s_am/pm`). Reformat it with a Reformat Date rule, or use `CalculateMetaTagFormat` in Pascal for a fixed format.
+The list below was extracted from the ReNamer 7.10 binary. Use them in Insert `TEXT`, Replace `TEXTWITH` and Rearrange `NEWPATTERN`, or read them in Pascal via `CalculateMetaTag`. Date tags use the format in *Settings → Meta Tags* (example setting: `mm-dd-yyyy h_n_s_am/pm`). Reformat it with a Reformat Date rule, or use `CalculateMetaTagFormat` in Pascal for a fixed format.
 
 - **File:** `File_BaseName File_FileName File_Extension File_FilePath File_FolderName File_FolderPath File_GrandparentFolderName File_GrandparentFolderPath File_DateCreated File_DateModified File_Size File_SizeBytes File_SizeKB File_SizeMB File_SizeGB File_DOSName`
 - **Image / photo:** `Image_Width Image_Height Image_WidthAndHeight Image_AspectRatio Image_Pixels EXIF_Date EXIF_Make EXIF_Model EXIF_Description TIFF_Date TIFF_Make TIFF_Model TIFF_Description IPTC_Caption IPTC_City IPTC_Headline IPTC_Keywords IPTC_Location IPTC_ObjectName`
@@ -84,29 +84,29 @@ The list below was extracted from the ReNamer 7.10 binary. Use them in Insert `T
 ## 4. Command line & harness facts
 
 ```text
-ReNamer.exe /preset "<name or full .rnp path>" [paths…]          # open GUI with preset loaded (Jay's usual)
+ReNamer.exe /preset "<name or full .rnp path>" [paths…]          # open GUI with preset loaded (the usual way)
 ReNamer.exe /rename "<name or full .rnp path>" [paths…]          # preview + rename, GUI shown on problems
 ReNamer.exe /silent /rename "<name or full .rnp path>" [paths…]  # unattended; exit code 0 = OK, non-zero = warning/error ✓
 ```
 - A full `.rnp` path works ✓, so test presets never need to be copied into the Presets folder.
 - The preset's `[Filters]` are applied to folders passed on the command line ✓.
 - The CLI instance may **rewrite `Settings.ini`** on exit ✓. Snapshot and restore it. It runs fine next to an open GUI instance ✓.
-- Presets that need two previews (Jay's serializer) or show dialogs **cannot** be verified through `/silent`. Test them without that rule, and hand the rest to Jay for a GUI check.
+- Presets that need two previews (Futuremotion's serializer) or show dialogs **cannot** be verified through `/silent`. Test them without that rule, and hand the rest to the user for a GUI check.
 
 ## 5. Pipeline behaviour worth designing around
 
 - **Rules chain in order.** Each rule sees the previous rule's output. Put normalisation first (separators → spaces, trim), then structural edits, then casing, then serialization.
 - **Order the tail like this:** … → casing tail (its last Case rule sets `EXTENSIONALWAYSLOWERCASE=1`) → collision script, if any, always the very last rule. After the last Case rule, only rules with `SKIPEXTENSION=1` or the marked collision script may follow, so nothing can undo the lowercase extension (SPEC §7.1).
-- **Folders** have no extension in Jay's setup (`AllowProcessingExtensionsInFolders=0`), so `SKIPEXTENSION` is irrelevant for them. `FirstDotAtFileNameStartIsExtension=0` means `.gitignore` is a base name, not an extension.
+- **Folders** have no extension in the user's setup (`AllowProcessingExtensionsInFolders=0`), so `SKIPEXTENSION` is irrelevant for them. `FirstDotAtFileNameStartIsExtension=0` means `.gitignore` is a base name, not an extension.
 - **Case-only renames** (`photo.JPG` → `photo.jpg`) work on NTFS ✓.
 - **Collision detection** compares names ordinally (7.9.0.4+). Windows reserved names (`CON`, `NUL`, `COM1`…) and forbidden characters `\ / : * ? " < > |` fail validation, so never generate them.
-- **Serialization order** = file-table order (Jay: natural sort, remembered sort column).
+- **Serialization order** = file-table order (e.g. natural sort, remembered sort column).
 
-## 6. Jay's existing Pascal assets (`C:\Tools\den4b Renamer\Scripts\`)
+## 6. Existing Pascal assets (`C:\Tools\den4b Renamer\Scripts\`)
 
 | Script | Use | Constraint |
 |---|---|---|
 | `Claude Serialize Duplicates - No Zero Padding.pas` / `- 2-Digit` / `- 3-Digit` / `- 4-Digit` (v5) | Numbers **whole groups** of names that collide *after* all upstream rules (`Save 1.svg, Save 2.svg`); unique names untouched; rule-agnostic | **GUI only, preview twice** (first pass learns, second serializes). Uses a shared disk tally `C:\Users\Public\ReNamer-Serialize-Duplicates-Tally.txt`. Shows popups. Must be the **last** rule. UTF-8 **with BOM**, so strip it when embedding. |
 | `Pad Ampersands.pas`, `Prepare Linux Icon Pack.pas`, `Normalize Linux MIME VndNames.pas` | Existing task scripts | Reuse where they fit; they are field-tested. |
-| *(CamelCase splitting)* | Jay's old CamelCase scripts were retired | Use CleanUp split + generated rejoin pairs (SPEC §7.5); don't port the old scripts. |
-| `Serialize duplicates.pas` (den4b stock) | Single-pass: appends ` (2)`, ` (3)` … to the 2nd and later occurrences; the first file keeps its name | CLI-safe, no dialogs. Different output style from Jay's. |
+| *(CamelCase splitting)* | Futuremotion's old CamelCase scripts were retired | Use CleanUp split + generated rejoin pairs (SPEC §7.5); don't port the old scripts. |
+| `Serialize duplicates.pas` (den4b stock) | Single-pass: appends ` (2)`, ` (3)` … to the 2nd and later occurrences; the first file keeps its name | CLI-safe, no dialogs. Different output style from Futuremotion's. |

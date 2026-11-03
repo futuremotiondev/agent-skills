@@ -3487,7 +3487,7 @@ CFFI	core	dev	added	C Foreign Function Interface for Python
 Chakra UI	core	dev	added	React component library (spaced)
 Chart.js	core	dev	added	
 ChatOps	core	dev	added	chat-driven operations
-CI	core	dev	added	Jay's decision 2026-09-28: auto-applied despite Italian ci and initials
+CI	core	dev	added	Futuremotion's decision 2026-09-28: auto-applied despite Italian ci and initials
 CICD	core	dev	added	CI/CD without slash
 CIL	core	dev	added	Common Intermediate Language
 CJS	core	dev	added	CommonJS abbreviation
@@ -3765,7 +3765,7 @@ JetBrains Rider	core	dev	added	.NET IDE
 JetBrains Toolbox	core	dev	added	JetBrains IDE manager
 JFrog Artifactory	core	dev	added	artifact repository
 Joy UI	core	dev	added	MUI component library
-JS	core	dev	added	Jay's decision 2026-09-28: promoted from legacy review
+JS	core	dev	added	Futuremotion's decision 2026-09-28: promoted from legacy review
 JScript	core	dev	added	Microsoft JS dialect; internal caps
 json-server	core	dev	added	fake REST API; lowercase
 Json.NET	core	dev	added	.NET JSON library
@@ -5455,7 +5455,7 @@ DataStore	core	general	base
 DatoCMS	core	general	base	
 DaVinciResolve	core	general	base	
 dayjs	core	general	base	official lowercase styling
-DB	core	general	added	Jay's decision 2026-09-28: DB over dB; promoted from legacy review
+DB	core	general	added	Futuremotion's decision 2026-09-28: DB over dB; promoted from legacy review
 DBeaver	core	general	base	
 DBMS	core	general	base	
 dbt	core	general	base	official lowercase styling
@@ -5498,7 +5498,7 @@ DoH	core	general	base
 DOHC	core	general	added	Double Overhead Camshaft
 DolbyDigital	core	general	base	
 DolbyVision	core	general	base	
-DOM	core	general	base	Jay's decision 2026-09-28: auto-applied despite Dom (name)
+DOM	core	general	base	Futuremotion's decision 2026-09-28: auto-applied despite Dom (name)
 DomainTools	core	general	base	
 DOMS	core	general	added	Delayed Onset Muscle Soreness
 dotCover	core	general	base	
@@ -5660,7 +5660,7 @@ GalliumOS	core	general	base
 GameCenter	core	general	base	
 GameMaker	core	general	base	
 GameStop	core	general	base	
-GaN	core	general	base	Jay's decision 2026-09-28: GaN (was GAN; the plural GANs is unchanged)
+GaN	core	general	base	Futuremotion's decision 2026-09-28: GaN (was GAN; the plural GANs is unchanged)
 GC-MS	core	general	added	Gas Chromatography-Mass Spectrometry
 GCC	core	general	base	
 GCP	core	general	base	
@@ -5676,7 +5676,7 @@ GHG	core	general	added	Greenhouse Gas
 GiantBicycles	core	general	base	
 GiantSwarm	core	general	base	
 GIF	core	general	base	
-Gigabyte	core	general	base	Jay's decision 2026-09-28: exact casing forced in title mode too (GIGABYTE -> Gigabyte)
+Gigabyte	core	general	base	Futuremotion's decision 2026-09-28: exact casing forced in title mode too (GIGABYTE -> Gigabyte)
 GIMP	core	general	base	
 GitBash	core	general	base	
 GitBook	core	general	base	
@@ -6177,7 +6177,7 @@ nvm	core	general	base	official lowercase styling
 NVMe	core	general	base	
 NWOT	core	general	added	New Without Tags
 NWT	core	general	added	New With Tags
-NX	core	general	added	Jay's decision 2026-09-28: NX over Nx; promoted from legacy review
+NX	core	general	added	Futuremotion's decision 2026-09-28: NX over Nx; promoted from legacy review
 NZXT	core	general	base	
 o11y	core	general	base	official lowercase styling
 OaklandRaiders	core	general	base	
@@ -6324,7 +6324,7 @@ PRNG	core	general	base
 ProductHunt	core	general	base	
 ProRail	core	general	base	
 protobuf	core	general	base	official lowercase styling
-PS	core	general	added	user-requested (Jay): Photoshop / PlayStation / PostScript; almost always capitalized
+PS	core	general	added	user-requested: Photoshop / PlayStation / PostScript; almost always capitalized
 PSA	core	general	added	Public Service Announcement; professional services automation
 PSCustomObject	core	general	base	
 PSGallery	core	general	base	
@@ -6333,7 +6333,7 @@ PSScriptAnalyzer	core	general	base
 PTSD	core	general	added	Post-Traumatic Stress Disorder
 PubNub	core	general	base	
 PubSub	core	general	base	
-Puma	core	general	base	Jay's decision 2026-09-28: exact casing forced in title mode too (PUMA -> Puma)
+Puma	core	general	base	Futuremotion's decision 2026-09-28: exact casing forced in title mode too (PUMA -> Puma)
 PumpkinDB	core	general	base	
 PureScript	core	general	base	
 PushPress	core	general	base	
@@ -6370,7 +6370,7 @@ QwikCity	core	general	base
 RabbitMQ	core	general	base	
 RadixUI	core	general	base	
 RainbowSixSiege	core	general	base	
-RAM	core	general	base	Jay's decision 2026-09-28: auto-applied despite ram (animal/verb)
+RAM	core	general	base	Futuremotion's decision 2026-09-28: auto-applied despite ram (animal/verb)
 RapidAPI	core	general	base	
 RaspberryPi	core	general	base	
 RaspberryPiFoundation	core	general	base	
@@ -6527,7 +6527,7 @@ SNS	core	general	base
 SNSBank	core	general	base	
 SOA	core	general	base	
 SOASTA	core	general	base	
-SOC	core	general	base	Jay's decision 2026-09-28: SOC (was SoC)
+SOC	core	general	base	Futuremotion's decision 2026-09-28: SOC (was SoC)
 SocketIO	core	general	base	
 SoftTeco	core	general	base	
 SOHC	core	general	added	Single Overhead Camshaft
@@ -6799,7 +6799,7 @@ WinDbg	core	general	base
 WindowsStore	core	general	base	
 WindowsTerminal	core	general	base	
 WinForms	core	general	base	
-WinGet	core	general	base	Jay's decision 2026-09-28: WinGet (was winget)
+WinGet	core	general	base	Futuremotion's decision 2026-09-28: WinGet (was winget)
 WinRM	core	general	base	
 WinRT	core	general	base	
 WinUI	core	general	base	

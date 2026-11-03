@@ -27,7 +27,7 @@
       15  Every rule has a non-empty comment
 
     Profile Strict (default) is for every preset the skill generates.
-    Profile Legacy is for decoding Jay's existing presets in the explain and
+    Profile Legacy is for decoding the user's existing presets in the explain and
     modify flows: checks 1, 3, 4, 6, 7, 8 and 14 drop to warnings, because
     older presets can lack Comment lines, use legacy values or a different
     key order. Rules the skill adds or changes must still pass Strict.
@@ -483,7 +483,7 @@ process {
                         'an empty <LC> list); it matches everywhere.')
                 }
                 if ($expr -eq '') {
-                    # UI presets are templates Jay fills in before running.
+                    # UI presets are templates the user fills in before running.
                     $isTemplate = $fileName -cmatch '^(FILE|CONTENTS) UI '
                     & $add 11 ($isTemplate ? 'Warning' : 'Error') $idx (
                         'EXPRESSION is empty' +
@@ -527,7 +527,7 @@ process {
                 }
                 # Pascal Script does not short-circuit, so a bounds check
                 # joined by and/or to an index access can still read out of
-                # range. Jay's serializers are field-tested, so skip them.
+                # range. Futuremotion's serializers are field-tested, so skip them.
                 if (-not (& $isCollision $r)) {
                     $n = 0
                     foreach ($line in ($src -split '\r?\n')) {

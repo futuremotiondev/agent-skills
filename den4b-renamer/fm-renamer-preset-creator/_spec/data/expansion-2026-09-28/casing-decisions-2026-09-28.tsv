@@ -1,0 +1,13 @@
+old	new	tier	pack	source	note
+GAN	GaN	core->core	general->general	base->base	Futuremotion's decision 2026-09-28: GaN (was GAN; the plural GANs is unchanged)
+SoC	SOC	core->core	general->general	base->base	Futuremotion's decision 2026-09-28: SOC (was SoC)
+winget	WinGet	core->core	general->general	base->base	Futuremotion's decision 2026-09-28: WinGet (was winget)
+SoCs	SOCs	core->core	plural->plural	added->added	plural of SOC (was SoCs; follows the SOC decision)
+Gigabyte	Gigabyte	proper->core	general->general	base->base	Futuremotion's decision 2026-09-28: exact casing forced in title mode too (GIGABYTE -> Gigabyte)
+Puma	Puma	proper->core	general->general	base->base	Futuremotion's decision 2026-09-28: exact casing forced in title mode too (PUMA -> Puma)
+CI	CI	review->core	dev->dev	added->added	Futuremotion's decision 2026-09-28: auto-applied despite Italian ci and initials
+DOM	DOM	review->core	general->general	base->base	Futuremotion's decision 2026-09-28: auto-applied despite Dom (name)
+RAM	RAM	review->core	general->general	base->base	Futuremotion's decision 2026-09-28: auto-applied despite ram (animal/verb)
+DB	DB	review->core	legacy-tech->general	legacy->added	Futuremotion's decision 2026-09-28: DB over dB; promoted from legacy review
+JS	JS	review->core	legacy-tech->dev	legacy->added	Futuremotion's decision 2026-09-28: promoted from legacy review
+NX	NX	review->core	legacy-tech->general	legacy->added	Futuremotion's decision 2026-09-28: NX over Nx; promoted from legacy review

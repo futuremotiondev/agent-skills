@@ -1,14 +1,14 @@
 # Casing dictionary — curation report
 
 `casing-dictionary.tsv` is the **single source of truth** for special casing. It replaces the comma list embedded in the old
-spec and in the "Main Case" rule of Jay's `00 Clean Up Filename` presets. The builder turns a selection of it into
+spec and in the "Main Case" rule of the `00 Clean Up Filename` presets. The builder turns a selection of it into
 `FRAGMENTSTEXT` at build time, so nobody ever hand-maintains a 2,000-word comma string again.
 
 ## Sources
 
 | source | origin | trust |
 |---|---|---|
-| `base` | Jay's live "Main Case" fragment list (2,171 entries = the old spec's list + `and`) | reviewed by Jay over time |
+| `base` | Futuremotion's live "Main Case" fragment list (2,171 entries = the old spec's list + `and`) | reviewed over time |
 | `added` | New entries curated for this spec: acronym plurals, AI/ML, dev, design, audio, media/codec, file-format, Apple | hand-checked official casings |
 | `legacy` | The 8 fragment lists in the 9 Case rules of the disabled `Presets Disabled\00 Cleanup Presets\00 SMART Clean Up.rnp` (last saved 2024-12-14; its SMART siblings carry copies of the same lists): tech/Windows, audio plug-ins, media/LUT/camera, design sites, brands, Roman numerals. 3,699 raw entries became 3,103 rows after removing terms already in `base`/`added`, duplicates and invalid characters | tiers assigned by script rules (below), **not checked by hand** |
 
@@ -30,7 +30,7 @@ File format: tab-separated, UTF-8, one header row (`term tier pack source note`)
 
 ## Counts
 
-After the 2026-09-28 expansion and Jay's casing decisions (both sections at the end; the original v2.1 counts were
+After the 2026-09-28 expansion and Futuremotion's casing decisions (both sections at the end; the original v2.1 counts were
 5,646 rows: base 1631/452/84, added 261/100/15, legacy 2470/117/516; straight after the expansion: base 1627/456/84,
 added 6564/2646/1049, legacy 2465/121/516):
 
@@ -48,7 +48,7 @@ added 6564/2646/1049, legacy 2465/121/516):
 - **Added 376 reviewed entries.** Acronym plurals were the biggest gap: `API` never matches `APIs` (verified), and neither `iPhone` nor `MacBook` was present at all.
 - **Dropped 5 entries containing characters that can't occur in filenames** (TCP/IP (legacy), S/PDIF (legacy), I/O (legacy), D/A (legacy), Mid/Side (legacy)) and 9 fragments with leading or trailing punctuation (com. (legacy), de. (legacy), dev. (legacy), im. (legacy), io. (legacy), net. (legacy), org. (legacy), SEQ- (legacy), A.O.M. (legacy)).
 
-## Decisions for Jay
+## Decisions for the owner
 1. **Legacy packs:** 2470 legacy entries auto-classified as `core` (plug-in names, Windows tools, audio gear) are available as opt-in packs, not the default. Promote the packs you trust by changing their `source` to `base`.
 2. **Review tier:** skim the 84 base items below. Anything you want auto-applied again, set `tier` to `core` (or `proper`).
 3. **Brand styling calls** worth confirming: `REAPER`, `KORG` (official all-caps styling), `Valhalla DSP`, `3ds Max` (base also has `3dsMax`), `IMDB` (official `IMDb`, legacy), `cURL` (now officially `curl`, legacy), `EPUB` (was `EPub` in legacy).
@@ -73,7 +73,7 @@ added 6564/2646/1049, legacy 2465/121/516):
 | `Crystal` | ordinary English word (zipf 4.4) |
 | `Discourse` | ordinary English word (zipf 3.8) |
 | `Doctrine` | ordinary English word (zipf 4.0) |
-| `DOM` | Dom (name) — back to `core` on 2026-09-28 (Jay's decision) |
+| `DOM` | Dom (name) — back to `core` on 2026-09-28 (Futuremotion's decision) |
 | `DoS` | DOS (MS-DOS) vs DoS (attack) |
 | `dotfiles` | generic code term; forcing lowercase breaks normal titles |
 | `Drip` | ordinary English word (zipf 3.6) |
@@ -104,7 +104,7 @@ added 6564/2646/1049, legacy 2465/121/516):
 | `Python` | ordinary English word (zipf 3.8) |
 | `RAG` | rag (cloth) |
 | `Rails` | ordinary English word (zipf 3.8) |
-| `RAM` | ram (animal/verb) — back to `core` on 2026-09-28 (Jay's decision) |
+| `RAM` | ram (animal/verb) — back to `core` on 2026-09-28 (Futuremotion's decision) |
 | `ReFS` | refs (English) |
 | `regex` | generic code term; forcing lowercase breaks normal titles |
 | `regexp` | generic code term; forcing lowercase breaks normal titles |
@@ -222,7 +222,7 @@ audio: 136, brand: 5, design: 2, legacy-tech: 273, media: 8, roman: 92. Filter t
 
 ## 2026-09-28 expansion (+9,883 rows)
 
-Requested by Jay: expand the dictionary as far as possible (brands, technologies, AI, acronyms) and add `PS`
+Requested by the owner: expand the dictionary as far as possible (brands, technologies, AI, acronyms) and add `PS`
 (Photoshop / PlayStation / PostScript), which is now a `core` row. Full audit trail — every candidate with its tier and
 reason, the auditors' flags, conflicts, corrections and the tiering scripts — is in `expansion-2026-09-28\`.
 
@@ -263,10 +263,10 @@ YaRN, `React` over ReAct, `KV` over kV, `IdP`, `IoU`, `IoC`, `GPOs`, `SOPs`, `PE
 (`IMDb`, `4chan`, `9GAG`, `pCloud`, `Xfce`, `Btrfs`, `rclone`, `jsDelivr`, `CRYENGINE`, `aiohttp`, `curl`, `vCard`,
 `u-he`, `Soundtoys`, `DECALmachine`, `Launchpad`, `HDRI`, `Sci-Fi`, `KitBash3D`, `aescripts`, `C-Log`, `DnB`,
 `DIRECTV`, `Mii`; the typo `MESHmashine` was superseded by a new `MESHmachine` row), 1 `added` row (`soothe2`) and
-**6 `base` rows (Jay's list):** `FreeCodeCamp` → `freeCodeCamp`, `JAMstack` → `Jamstack`, `SourceTree` → `Sourcetree`,
+**6 `base` rows (Futuremotion's list):** `FreeCodeCamp` → `freeCodeCamp`, `JAMstack` → `Jamstack`, `SourceTree` → `Sourcetree`,
 `nmap` → `Nmap`, `ZigBee` → `Zigbee`, `FlyDubai` → `flydubai`. Revert any of these by editing the row.
 
-**Decisions for Jay** (items marked ✓ were decided on 2026-09-28, see the next section)
+**Decisions for the owner** (items marked ✓ were decided on 2026-09-28, see the next section)
 1. Base rows whose official casing differs: ✓ `Puma`, ✓ `Gigabyte`, ✓ `NX`, ✓ `WinGet`, ✓ `WASM`; still open:
    `actix`/`tokio` (docs: Actix/Tokio), `stylelint` (Stylelint), `fail2ban` (Fail2Ban), `clang` (Clang).
 2. Spellings blocked by an existing row with other casing: ✓ `SOC`, ✓ `LoRA`, ✓ `GaN`, ✓ `DB`, ✓ `README`; still open:
@@ -275,12 +275,12 @@ YaRN, `React` over ReAct, `KV` over kV, `IdP`, `IoU`, `IoC`, `GPOs`, `SOPs`, `PE
 4. Speed: the Case rule costs ≈ 16 ms/file (title) / 19 ms/file (preserve) with the full default, versus ≈ 4 ms before.
    For batches of thousands, use `sources: ["base"]` plus the needed `optInPacks` (`casing.md` §2).
 
-## 2026-09-28 Jay's casing decisions (12 rows)
+## 2026-09-28 Futuremotion's casing decisions (12 rows)
 
-Jay settled items 1 and 2 above, and chose four review-tier words to auto-apply. Applied by
-`expansion-2026-09-28\apply_decisions.py`; every row change is in `expansion-2026-09-28\jay-decisions.tsv`.
+Items 1 and 2 above were settled, and four were chosen review-tier words to auto-apply. Applied by
+`expansion-2026-09-28\apply_decisions.py`; every row change is in `expansion-2026-09-28\casing-decisions-2026-09-28.tsv`.
 
-| Jay's casing | Row change |
+| Futuremotion's casing | Row change |
 |---|---|
 | `Puma`, `Gigabyte` | Already this casing. `proper` → `core`, so title mode (which keeps words that arrive in capitals) also turns `PUMA`/`GIGABYTE` into `Puma`/`Gigabyte`. |
 | `WinGet` | `winget` → `WinGet` (`base`). New rejoin pair `Win Get` → `WinGet`, `brand` (added to the hand list in `classify-rejoin.py`). |

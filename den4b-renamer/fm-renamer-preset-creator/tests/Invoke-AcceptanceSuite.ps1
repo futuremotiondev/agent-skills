@@ -139,7 +139,7 @@ end {
             $target = [IO.Path]::Combine((Get-RnpConfig).ReNamerPath,
                 'Presets', $acc['roundTrip'])
             if (-not (Test-Path -LiteralPath $target)) {
-                # Not a failure: the scenario needs Jay's installed preset.
+                # Not a failure: the scenario needs the user's installed preset.
                 $row.Name = $acc['roundTrip']
                 $row.Status = 'SKIPPED'
                 $row.Detail = "Preset not installed: $target"

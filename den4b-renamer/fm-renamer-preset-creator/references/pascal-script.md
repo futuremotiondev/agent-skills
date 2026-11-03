@@ -15,13 +15,13 @@ Use a script only when native rules can't express the logic:
 - **Per-file meta tag formatting** that Insert can't do (`CalculateMetaTagFormat`).
 - **Replacing 4+ fragile rules** with one clear script.
 
-Anything a native rule does natively stays native: native rules show their settings in the GUI, and Jay can tweak them
+Anything a native rule does natively stays native: native rules show their settings in the GUI, and the user can tweak them
 without reading code.
 
 ## 2. Writing rules
 
 1. Start from the skeleton below: a header comment saying what it does, a `CONFIG` `const` block at the top (the only part
-   Jay should need to edit), and comments for skimmability.
+   the user should need to edit), and comments for skimmability.
 2. **No short-circuit evaluation.** `if (I <= Length(S)) and (S[I] = 'x')` still evaluates `S[I]` and raises "Out of
    string range" at the end of the string. Nest the index access in its own `if` (validator check 12 flags suspects).
 3. Strings are 1-based. Use the `Wide*` functions for Unicode safety (`WideExtractBaseName`, `WideUpperCase`, …).
@@ -72,7 +72,7 @@ value. Don't write the source into a JSON string by hand; keep it in a `.pas` fi
 ```
 
 `sourceFile` is resolved relative to the preset-spec's folder (or the current folder with `-SpecJson`). The builder
-strips a UTF-8 BOM (Jay's `.pas` files have one) and normalises line endings to CRLF. The key `SOURCE` (ANSI) belongs
+strips a UTF-8 BOM (the user's `.pas` files have one) and normalises line endings to CRLF. The key `SOURCE` (ANSI) belongs
 to presets from ReNamer < 7; never emit it.
 
 ## 4. Testing recipe
@@ -86,7 +86,7 @@ to presets from ReNamer < 7; never emit it.
    & scripts/Invoke-RnpProbe.ps1 -Preset $b.Path -Tests .\my-script.json
    ```
 3. A compile error shows up as a **non-zero exit code with every name unchanged**; the harness asserts the exit code,
-   so it fails loudly. Read the error text by loading the preset in the GUI (Jay) if needed.
+   so it fails loudly. Read the error text by loading the preset in the GUI if needed.
 4. Scripts with dialogs, or that need two previews, can't run under `/silent`: test everything around them in the
    harness and mark the script's own effect ◻ "verify in GUI".
 
@@ -94,13 +94,13 @@ to presets from ReNamer < 7; never emit it.
 
 | File | What it does | Constraints |
 |---|---|---|
-| `serialize-duplicates-nopad.pas` (+ `-pad2`, `-pad3`, `-pad4`) | Jay's v5 serializer. Numbers **whole groups** of names that collide after all upstream rules (`Save 1.svg`, `Save 2.svg`, `Save 3.svg`); unique names untouched; works with any upstream rules | **GUI only, preview twice** (first pass learns, second serializes); shared tally file `C:\Users\Public\ReNamer-Serialize-Duplicates-Tally.txt`; shows popups; must be the last rule. The builder embeds it for `collisions: nopad/pad2/pad3/pad4` |
+| `serialize-duplicates-nopad.pas` (+ `-pad2`, `-pad3`, `-pad4`) | Futuremotion's v5 serializer. Numbers **whole groups** of names that collide after all upstream rules (`Save 1.svg`, `Save 2.svg`, `Save 3.svg`); unique names untouched; works with any upstream rules | **GUI only, preview twice** (first pass learns, second serializes); shared tally file `C:\Users\Public\ReNamer-Serialize-Duplicates-Tally.txt`; shows popups; must be the last rule. The builder embeds it for `collisions: nopad/pad2/pad3/pad4` |
 | `serialize-duplicates-stock.pas` | den4b's stock single-pass serializer: the first file keeps its name, later duplicates get ` (2)`, ` (3)`… (compared case-insensitively) | CLI-safe, no dialogs ✓ [E03]. Only sees the batch: if a serialized name already exists (`Save (2).svg` in the batch or on disk), ReNamer refuses the whole batch ✓. The builder embeds it for `collisions: stock` |
 | `examples/batch-index-autowidth.pas` | Prefixes the batch position, zero-padded to the width of the batch size (`01`–`10` for 10 files) | Order = file-table order. Verified by `tests/examples/E01-pascal-batch-index.json` |
 
-Jay's other scripts in `C:\Tools\den4b Renamer\Scripts\` (`Pad Ampersands.pas`, `Prepare Linux Icon Pack.pas`,
+Other scripts in `C:\Tools\den4b Renamer\Scripts\` (`Pad Ampersands.pas`, `Prepare Linux Icon Pack.pas`,
 `Normalize Linux MIME VndNames.pas`) are field-tested and can be reused where they fit: copy, strip the BOM, reference
-with `sourceFile`. His old CamelCase scripts were retired; use the CleanUp split + rejoin (`casing.md` §5).
+with `sourceFile`. The old CamelCase scripts were retired; use the CleanUp split + rejoin (`casing.md` §5).
 
 ## 6. Future assets (not built yet)
 

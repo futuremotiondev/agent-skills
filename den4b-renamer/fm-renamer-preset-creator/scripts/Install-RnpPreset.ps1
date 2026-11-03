@@ -11,7 +11,7 @@
       * Existing preset with identical bytes: reported as Unchanged.
       * Existing preset that differs: NOT touched unless -Force. The result
         carries a rule-level diff (rules added or removed, IDs, Config keys,
-        Marked, Comment, [Filters]) so the change can be shown to Jay and
+        Marked, Comment, [Filters]) so the change can be shown to the user and
         confirmed first. With -Force the old file is backed up to BackupDir
         (config.json, %TEMP%\rnp-backups) with a timestamp, then replaced.
 
@@ -28,7 +28,7 @@
 .PARAMETER Force
     Replace a differing existing preset (after backing it up), or install
     even though a preset with the same name lives in another Presets
-    subfolder. Only use it after Jay confirmed.
+    subfolder. Only use it after the user confirmed.
 
 .INPUTS
     System.String[]
@@ -113,7 +113,7 @@ begin {
 
     # RULE-LEVEL DIFF ──────────────────────────────────────────────────────────
     # Describes how the new preset differs from the installed one, in terms
-    # Jay can check at a glance. Long values are shortened.
+    # the user can check at a glance. Long values are shortened.
     $short = {
         param([string] $Value)
         $v = $Value -replace "`r`n", '⏎'

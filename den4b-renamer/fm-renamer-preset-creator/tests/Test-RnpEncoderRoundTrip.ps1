@@ -7,7 +7,7 @@
     Decodes every Config value and Comment in every .rnp under the given
     folders, re-encodes it with ConvertTo-RnpConfigValue from RnpCommon.psm1
     (the Mapping row exception included) and
-    compares the result byte for byte with what ReNamer saved. On Jay's
+    compares the result byte for byte with what ReNamer saved. On the user's
     158 presets (ReNamer 7.10) all 6,860 values round-trip. Any mismatch
     means the encoder, or ReNamer's format, has changed.
 

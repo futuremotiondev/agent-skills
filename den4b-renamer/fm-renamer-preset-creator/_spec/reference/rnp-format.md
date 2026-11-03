@@ -105,7 +105,7 @@ These settings apply to items added to ReNamer while the preset is loaded: drag-
 | `MasksOnFileName` | `1` = masks test the file name only ✓; `0` = masks test the full path ✓ (`*\sub\*` matches `sub\c.txt` only with `0`). Extension masks like `*.txt` behave the same either way ✓. |
 | `Masks` / `MasksExclude` | `;`-separated wildcard lists, **raw** (e.g. `*.jpg;*.png`) ✓. Empty = no filtering. |
 
-**Jay's two canonical blocks** (from his presets; these are the defaults the skill emits):
+**Futuremotion's two canonical blocks** (from its presets; these are the defaults the skill emits):
 
 | Variant | AddFilesFromFolders | AddFoldersAsFiles | IncludeSubfolders | IncludeHidden | IncludeSystem | SkipRootFoldersAsFiles | MasksOnFileName |
 |---|---|---|---|---|---|---|---|
@@ -118,7 +118,7 @@ Probe evidence: a CONTENTS block with `Masks=*.txt` renamed `a.txt` and `sub\c.t
 
 ## 3. Rule reference (all 18 rules)
 
-Tables group related keys for readability; the **authoritative write order is the §4 template line** for each rule (it matches what ReNamer saves). The "Skill default" column is what the builder emits when a request doesn't specify the key. Those defaults are Jay's conventions, not necessarily ReNamer's GUI defaults. **"—" means required**: there is no default; the preset-spec must state the value explicitly (an explicit empty string is allowed where it makes sense, e.g. RegEx `REPLACE` or Replace `TEXTWITH`), and the builder errors if the key is missing.
+Tables group related keys for readability; the **authoritative write order is the §4 template line** for each rule (it matches what ReNamer saves). The "Skill default" column is what the builder emits when a request doesn't specify the key. Those defaults are Futuremotion's conventions, not necessarily ReNamer's GUI defaults. **"—" means required**: there is no default; the preset-spec must state the value explicitly (an explicit empty string is allowed where it makes sense, e.g. RegEx `REPLACE` or Replace `TEXTWITH`), and the builder errors if the key is missing.
 
 ### 3.1 Insert — `ID=Insert`
 | Key | Type | Values / notes | Skill default |
@@ -139,7 +139,7 @@ Tables group related keys for readability; the **authoritative write order is th
 | `FROMPOSITION` | int | 1-based; the character *at* this position is deleted ✓ | 1 |
 | `UNTILCOUNT` | int | Number of characters to delete, counted from FROMPOSITION ✓ | 1 |
 | `FROMDELIMITER` / `UNTILDELIMITER` | str | Any text, e.g. `-`, ` ` ✓ | empty |
-| `DELETECURRENTNAME` | bool | Deletes the whole name ✓. Later rules can rebuild it (Jay uses this with Insert `:File_FolderName:`). | 0 |
+| `DELETECURRENTNAME` | bool | Deletes the whole name ✓. Later rules can rebuild it (Futuremotion presets use this with Insert `:File_FolderName:`). | 0 |
 | `RIGHTTOLEFT` | bool | Delete the last N chars (`UNTIL=1`) ✓ or the last word (`UNTIL=3` + delimiter) ✓ | 0 |
 | `SKIPEXTENSION` | bool | | 1 |
 | `LEAVEDELIMITER` | bool | 0 = delimiters are deleted with the range ✓ · 1 = delimiters are kept ✓ | 0 |
@@ -242,7 +242,7 @@ Canonical order (differs from the grouping above): `CHECKENGLISHLETTERS;CHECKDIG
 | `NUMERALSYSTEM` | enum | **1** decimal ✓ · **2** English letters ✓ (5 → `e`) · **3** Roman ✓ · **4** Simplified Chinese ✓ · **5** custom alphabetic ✓ · **6** custom numeric ✓ · **7** music notes ✓ · 0/8 = no-op | 1 |
 | `CUSTOMSYMBOLS` | str | Symbol set for 5/6 | empty |
 
-⚠ Serialization follows the **file-table order**, which comes from the user's sort settings (Jay: natural sort, remembered column). State that assumption in the preset comment.
+⚠ Serialization follows the **file-table order**, which comes from the user's sort settings (e.g. natural sort, remembered column). State that assumption in the preset comment.
 
 ### 3.10 Randomize — `ID=Randomize`
 | Key | Type | Values / notes | Skill default |
@@ -282,7 +282,7 @@ Canonical order (differs from the grouping above): `CHECKENGLISHLETTERS;CHECKDIG
 
 Canonical order: `BRACKETSROUND;BRACKETSSQUARE;BRACKETSCURVY;SPACESDOT;SPACESCOMMA;SPACESUNDERSCORE;SPACESPLUS;SPACESHYPHEN;SPACESWEB;SPACESSKIPVERSIONS;SPACESFIX;SKIPEXTENSION;PREPAREFORSHAREPOINT;INSERTSPACEBEFORECAPITALS;NORMALIZESPACES;STRIPUNICODEMARKS;STRIPUNICODEEMOJI`.
 Skill default (§4 template): everything 0 except `SPACESFIX=1; SKIPEXTENSION=1`. Turn on only the flags the request needs.
-Observed in Jay's older "tidy" presets: `NORMALIZESPACES=1; STRIPUNICODEMARKS=1; STRIPUNICODEEMOJI=1` as well. Don't copy that by default: stripping diacritics rewrites accented names (`Café` → `Cafe`).
+Observed in Futuremotion's older "tidy" presets: `NORMALIZESPACES=1; STRIPUNICODEMARKS=1; STRIPUNICODEEMOJI=1` as well. Don't copy that by default: stripping diacritics rewrites accented names (`Café` → `Cafe`).
 
 ### 3.13 Translit — `ID=Translit`
 | Key | Type | Values / notes | Skill default |
@@ -320,7 +320,7 @@ Replacement is global (every match). Rule ID is **`RegEx`**, not `RegularExpress
 ### 3.16 Pascal Script — `ID=PascalScript`
 | Key | Type | Notes |
 |---|---|---|
-| `SOURCEUTF8` | str | Complete script source, UTF-8, lines joined with CRLF, encoded per §1.2 ✓. Unicode literals work ✓. **Strip the UTF-8 BOM** from `.pas` files before embedding (Jay's `.pas` files have one). Legacy presets from ReNamer < 7 used `SOURCE` (ANSI). Never emit it. |
+| `SOURCEUTF8` | str | Complete script source, UTF-8, lines joined with CRLF, encoded per §1.2 ✓. Unicode literals work ✓. **Strip the UTF-8 BOM** from `.pas` files before embedding (the user's `.pas` files have one). Legacy presets from ReNamer < 7 used `SOURCE` (ANSI). Never emit it. |
 
 ### 3.17 User Input — `ID=UserInput`
 | Key | Type | Values / notes |

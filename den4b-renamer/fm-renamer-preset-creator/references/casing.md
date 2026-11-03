@@ -7,14 +7,14 @@
 
 ## 1. Lowercase-extension guarantee (validator check 6)
 
-Jay's convention: every preset leaves the extension lowercase.
+House convention: every preset leaves the extension lowercase.
 
 1. The **last active Case rule** in the stack has `EXTENSIONALWAYSLOWERCASE=1` and `EXTENSIONALWAYSUPPERCASE=0`.
 2. After that rule only two kinds of rule may follow: (a) rules whose Config contains `SKIPEXTENSION=1` (the title-case
    RegEx fix-ups, the kebab Replace), and (b) the collision script, recognised by the `[fm-collision]` marker in its
    comment. Rules without a SKIPEXTENSION key (Extension, PascalScript) or with `SKIPEXTENSION=0` may not follow it.
 3. **Append only when needed.** If the user rules plus the casing tail already satisfy 1–2, the builder appends nothing.
-   Otherwise (e.g. mode `none` with no Case rule) it appends Jay's standard rule, comment `Extension always lower case`:
+   Otherwise (e.g. mode `none` with no Case rule) it appends the standard rule, comment `Extension always lower case`:
    ```text
    Case  WHAT=0  PRESERVECASE=0  SKIPEXTENSION=1  EXTENSIONALWAYSLOWERCASE=1  EXTENSIONALWAYSUPPERCASE=0  FORCECASE=0  FRAGMENTSTEXT=
    ```
@@ -28,8 +28,8 @@ Disabled rules (`Marked=0`) don't run, so the builder and validator ignore them 
 plain capitalized names (`Google`, `Blender`), a no-op under Capitalize Every Word but meaningful in preserve and sentence
 modes · `review` = collides with ordinary words (`Apple`, `Word`, `Spring`), opt-in only, by name.
 
-**Sources:** `base` = Jay's old "Main Case" list (reviewed over years) · `added` = curated for this skill (acronym
-plurals, AI/ML, dev, design, audio, media, formats, Apple) · `legacy` = auto-classified lists from Jay's old SMART
+**Sources:** `base` = Futuremotion's old "Main Case" list (reviewed over years) · `added` = curated for this skill (acronym
+plurals, AI/ML, dev, design, audio, media, formats, Apple) · `legacy` = auto-classified lists from Futuremotion's old SMART
 presets, never used by default; reachable through opt-in packs.
 
 The preset-spec's `casing.dictionary` object drives this deterministic selection (implemented by
@@ -75,7 +75,7 @@ The builder appends the mode's rules **after** the user rules. Every Case rule i
 | mode | Rules appended | Default dictionary tiers | Notes |
 |---|---|---|---|
 | `none` | The standard ext-lowercase Case rule, only if §1 isn't already met | — | Stacks without casing (T01) or with their own Case rule (T14) |
-| `preserve` *(default)* | 1 Case rule: `WHAT=0 PRESERVECASE=1 FORCECASE=1` + fragments | core, proper | Mirrors Jay's "Main Case": fixes brand casing, touches nothing else (T05 ✓) |
+| `preserve` *(default)* | 1 Case rule: `WHAT=0 PRESERVECASE=1 FORCECASE=1` + fragments | core, proper | Mirrors Futuremotion's "Main Case": fixes brand casing, touches nothing else (T05 ✓) |
 | `title` | 4 rules, see the block below | core | APA (T04 ✓) |
 | `sentence` | 1 Case rule: `WHAT=7 PRESERVECASE=0 FORCECASE=1` + fragments | core, proper | Lowercases proper nouns, which is why `proper` matters here. Also capitalizes after `. ` ✓ |
 | `lower` / `upper` | 1 Case rule: `WHAT=1` / `WHAT=2`, no fragments | — | — |
@@ -124,7 +124,7 @@ The builder appends the mode's rules **after** the user rules. Every Case rule i
 - APA capitalizes the first word of the title and of any subtitle (after ` - `, ` – `, ` — `; colons can't occur in
   filenames), both halves of hyphenated major words (ReNamer does this ✓), and every word of four or more letters
   (`With`, `From`).
-- **Last-word capitalization is Jay's stated rule, not APA** (it comes from Chicago/AP). It's the default (D4) and can be
+- **Last-word capitalization is a house rule, not APA** (it comes from Chicago/AP). It's the default (D4) and can be
   turned off with `lastWordRule: false`.
 - Known limit: the pipeline can't tell a particle ("Set **Up** the Server") from a preposition ("Walk **up** the hill"),
   so `up` stays lowercase mid-title. A future Pascal APA rule could handle a phrasal-verb list (`pascal-script.md`).
@@ -182,7 +182,7 @@ The builder appends the mode's rules **after** the user rules. Every Case rule i
 | `data/camelcase-rejoin.tsv` | UTF-8, tab-separated, header row `split term kind` (tab-separated). `split` = the exact text CleanUp produced; `kind` ∈ brand/review. 3,771 rows. |
 | `data/apa-minor-words.txt` | One word per line, `#` lines are comments. The file order is the emission order. |
 
-**Editing the dictionary** (Jay's call, never silently by the skill): add a row with the exact casing, `tier` `core`
+**Editing the dictionary** (the user's call, never silently by the skill): add a row with the exact casing, `tier` `core`
 for non-trivial casing or `proper` for a plain capitalized name, `source` `added`. Terms must not contain commas or
 filename-illegal characters. A term that collides with an ordinary English word, a common word in Spanish, German,
 French, Italian or Portuguese (song titles), or a common given name belongs in `review`. After editing,

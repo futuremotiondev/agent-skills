@@ -226,7 +226,7 @@ function ConvertTo-RnpValue {
         Encodes the UTF-8 bytes of Value one by one: A-Z, a-z and 0-9 stay
         literal, a space becomes '+', and every other byte becomes %XX with
         uppercase hex. This reproduces ReNamer's own output byte for byte
-        (6,860 of 6,860 values in Jay's 158 presets round-trip).
+        (6,860 of 6,860 values in Futuremotion's 158 presets round-trip).
 
     .PARAMETER Value
         The raw (decoded) value to encode. Null is treated as empty.
@@ -817,7 +817,7 @@ function Get-RnpConfig {
 function Get-RnpFiltersBlock {
     <#
     .SYNOPSIS
-        Returns Jay's canonical [Filters] block for FILE or CONTENTS.
+        Returns Futuremotion's canonical [Filters] block for FILE or CONTENTS.
 
     .DESCRIPTION
         Reads assets\filters\<Variant>.ini (key=value lines under [Filters])

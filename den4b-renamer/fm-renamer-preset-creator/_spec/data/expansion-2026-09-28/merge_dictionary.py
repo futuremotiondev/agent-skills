@@ -57,7 +57,7 @@ def main():
     for c in csv.DictReader(open(HERE / 'classified.tsv', encoding='utf-8'), delimiter='\t'):
         note = c['reason'] if c['tier'] == 'review' else c['note']
         if c['term'] == 'PS':
-            note = "user-requested (Jay): Photoshop / PlayStation / PostScript; almost always capitalized"
+            note = "user-requested: Photoshop / PlayStation / PostScript; almost always capitalized"
         added.append({'term': c['term'], 'tier': c['tier'], 'pack': c['pack'], 'source': 'added', 'note': short(note)})
     # A corrected legacy typo that the research already added as a clean 'added' row: keep the added row
     added_keys = {a['term'].casefold() for a in added}

@@ -52,7 +52,7 @@ a misspelt `colisions` or `expected` would otherwise silently default. Also allo
 `<Variant> <name>.rnp`.
 
 **`variants`** — `FILE` renames exactly the passed files and folders; `CONTENTS` renames what is inside passed folders,
-recursively. Each gets Jay's canonical `[Filters]` block (`assets/filters/FILE.ini`, `CONTENTS.ini`).
+recursively. Each gets Futuremotion's canonical `[Filters]` block (`assets/filters/FILE.ini`, `CONTENTS.ini`).
 
 **`filters`** — only known `[Filters]` keys; values are raw text (`*.jpg;*.png`), never percent-encoded. Requested masks
 apply to both variants.
@@ -110,7 +110,7 @@ writer, rule catalog, dictionary selection). Paths come from `config.json`.
 | `Install-RnpPreset.ps1` | staging → `Presets\`; never overwrites silently (diff + `NeedsConfirmation`); backs up before replacing | `-LiteralPath`, `-Subfolder`, `-Force`, `-WhatIf` | 1 if confirmation is needed |
 
 Build output (one object per preset): `Name, Variant, Path, RuleCount, DictionaryTerms, FragmentsBytes, Collision,
-StrictRules, Warnings`. Report every warning to Jay. The harness also warns when a built variant has no test.
+StrictRules, Warnings`. Report every warning to the user. The harness also warns when a built variant has no test.
 
 **Typical session** (PowerShell 7, from the skill folder):
 ```powershell
@@ -128,10 +128,10 @@ rule-semantics suite after every ReNamer update.
 
 ## 4. Validator checks
 
-Profile **Strict** (default) is for every generated preset. **Legacy** is for Jay's existing presets in the explain and
+Profile **Strict** (default) is for every generated preset. **Legacy** is for the user's existing presets in the explain and
 modify flows: checks 1, 3, 4, 6, 7, 8 and 14 drop to warnings, except for the rules named in `-StrictRules` (the ones
 the skill added or changed), which must still pass Strict. An empty RegEx `EXPRESSION` in a `UI` template preset is a
-warning (a placeholder Jay fills in), otherwise an error.
+warning (a placeholder the user fills in), otherwise an error.
 
 | # | Check | Level |
 |---|---|---|

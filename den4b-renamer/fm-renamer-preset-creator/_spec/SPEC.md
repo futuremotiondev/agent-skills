@@ -2,10 +2,10 @@
 
 > **Purpose of this document:** the build brief for an agent skill that turns plain-language renaming requests into correct,
 > minimal, convention-compliant **den4b ReNamer** presets (`.rnp`), and can explain, modify and verify them.
-> **Target:** ReNamer **7.10** (portable, `C:\Tools\den4b Renamer`), used by Jay on Windows 11.
+> **Target:** ReNamer **7.10** (portable, `C:\Tools\den4b Renamer`), used on Windows 11.
 > **Skill location:** `D:\AI\Skills\futuremotion\fm-renamer-preset-creator\` (this package lives in its `_spec\` subfolder).
-> **Version history:** v1 = Jay's original brief (its rule syntax was largely incorrect; see Appendix A). v2 (2026-09-27) = rewritten and
-> verified against Jay's 158 real presets, the ReNamer binary and CLI probes. **v2.1** (same day) = revised after an independent review:
+> **Version history:** v1 = the original brief (its rule syntax was largely incorrect; see Appendix A). v2 (2026-09-27) = rewritten and
+> verified against Futuremotion's 158 real presets, the ReNamer binary and CLI probes. **v2.1** (same day) = revised after an independent review:
 > every flagged claim re-probed, and **162 asserting CLI probes now pass** (140 rule-semantics + 22 acceptance reference probes; each
 > checks the resulting names *and* ReNamer's exit code).
 
@@ -17,7 +17,7 @@
 | `reference/rnp-format.md` | **Verified** file format, encoding and every rule's keys/enums | `references/rnp-format.md`, verbatim except for link rewrites (rule 5) |
 | `reference/engine-notes.md` | RegEx flavour, Pascal Script API and gotchas, meta tags, CLI, pipeline behaviour | `references/engine-notes.md`, verbatim except for link rewrites |
 | `data/casing-dictionary.tsv` | 15,528-entry tiered casing dictionary (5,646 in v2.1; +9,883 researched rows on 2026-09-28, audit trail in `data/expansion-2026-09-28/`). Tab-separated, header row `term tier pack source note`, no comment lines | `data/casing-dictionary.tsv` |
-| `data/casing-dictionary-review.md` | How the dictionary was curated, plus items for Jay to review | Stays in `_spec` (human-facing) |
+| `data/casing-dictionary-review.md` | How the dictionary was curated, plus items for the owner to review | Stays in `_spec` (human-facing) |
 | `data/apa-minor-words.txt` | The 22 APA minor words, one per line (`#` lines are comments) | `data/apa-minor-words.txt` |
 | `data/camelcase-rejoin.tsv` | 3,771 `split → term` pairs that undo CleanUp's CamelCase split for dictionary terms (1,131 `brand`, 2,640 `review`; v2.1 had 1,264 = 419 + 845), §7.5 | `data/camelcase-rejoin.tsv` |
 | `tools/rnp-probe/Invoke-RnpProbe.ps1` | Working CLI harness (tested): asserts names and exit code | `scripts/Invoke-RnpProbe.ps1` |
@@ -28,9 +28,9 @@
 
 **Ground rules for the builder:**
 1. **Never re-derive `.rnp` syntax from memory, the den4b docs, or v1.** `reference/rnp-format.md` is authoritative. If you need a value it marks ◐/✗, probe it with the harness first.
-2. Load the `fm-powershell-coding-style` skill before writing any `.ps1` (Jay's conventions: PowerShell 7.4+, `-LiteralPath`, `begin/process/end`, comment-based help).
-3. Keep `SKILL.md` lean (≤ ~250 lines: workflow + hard rules + pointers). Put depth in `references/`, loaded on demand. This is Jay's stated preference.
-4. Finish by running `tests/rule-semantics.probes.psd1`, `tests/acceptance-reference.probes.psd1` and the §11 acceptance suite on Jay's machine. Everything must pass before the skill is considered done.
+2. Load the `fm-powershell-coding-style` skill before writing any `.ps1` (Futuremotion's conventions: PowerShell 7.4+, `-LiteralPath`, `begin/process/end`, comment-based help).
+3. Keep `SKILL.md` lean (≤ ~250 lines: workflow + hard rules + pointers). Put depth in `references/`, loaded on demand. This is the owner's stated preference.
+4. Finish by running `tests/rule-semantics.probes.psd1`, `tests/acceptance-reference.probes.psd1` and the §11 acceptance suite on the user's machine. Everything must pass before the skill is considered done.
 5. **Link rewrites for the verbatim copies.** The two reference files point back into this package. When copying them, rewrite: every `SPEC §7.x` → `casing.md`; `SPEC §12` / "calibration item C1" → the Known-limits section of `SKILL.md`; `../tools/rnp-probe/*.psd1` and `Test-RnpEncoderRoundTrip.ps1` → `../tests/…`; `Invoke-RnpProbe.ps1` → `../scripts/…`. Afterwards, grep the skill for `SPEC §` and `../tools/`: zero hits.
 6. **Markdown pipes.** Inside table cells, `\|` is an escaped `|` (the Replace multi-find separator is the three characters `*|*`). Every regex or multi-value string that must be copied exactly lives in a code block in this package, never in a table cell. Keep it that way in the skill.
 
@@ -38,12 +38,12 @@
 
 ## 1. Goal and definition of done
 
-The skill produces presets that are **correct the first time**, **as small as possible**, and **indistinguishable from presets Jay would save himself**.
+The skill produces presets that are **correct the first time**, **as small as possible**, and **indistinguishable from presets the user would save themselves**.
 
 A generated preset is *done* when all of the following hold:
 1. It loads in ReNamer 7.10 with no warnings, and every rule shows the intended settings in the GUI.
 2. `Test-RnpPreset.ps1` (validator, §10.3) reports **0 errors**.
-3. Its fixture tests (the before→after examples agreed with Jay) **pass in the CLI harness**. The only exception is GUI-only parts (§8), which are listed as "verify in GUI".
+3. Its fixture tests (the before→after examples agreed with the user) **pass in the CLI harness**. The only exception is GUI-only parts (§8), which are listed as "verify in GUI".
 4. It follows every convention in §6 (naming, filters, extension casing, rule comments).
 5. It uses the **fewest rules that stay readable**. Deletion test: removing any **user-designed** rule must change at least one fixture result. Builder-appended rules (the casing tail and the collision script) are exempt: they encode conventions, and the fixtures may not exercise them.
 
@@ -51,7 +51,7 @@ A generated preset is *done* when all of the following hold:
 
 **In scope:** creating new presets from a description or examples; modifying existing presets (decode → change → rebuild → diff); explaining any `.rnp` in plain English; producing FILE/CONTENTS pairs; writing Pascal Script when native rules can't express the logic; verifying through the CLI harness on throwaway copies.
 
-**Out of scope:** renaming Jay's real files (the skill builds presets; Jay runs them); editing ReNamer's `Settings.ini`; generating multi-row **Mapping** or multi-line **User Input** rules until calibration item C1 (§12) is closed.
+**Out of scope:** renaming the user's real files (the skill builds presets; the user runs them); editing ReNamer's `Settings.ini`; generating multi-row **Mapping** or multi-line **User Input** rules until calibration item C1 (§12) is closed.
 
 ## 3. Skill architecture (target layout)
 
@@ -70,8 +70,8 @@ fm-renamer-preset-creator/
 │  ├─ camelcase-rejoin.tsv
 │  └─ apa-minor-words.txt
 ├─ assets/
-│  ├─ pascal/                    # BOM-stripped copies of Jay's field-tested scripts (see engine-notes §6)
-│  │  ├─ serialize-duplicates-nopad.pas   (+ -pad2, -pad3, -pad4; GUI-only, Jay's v5)
+│  ├─ pascal/                    # BOM-stripped copies of Futuremotion's field-tested scripts (see engine-notes §6)
+│  │  ├─ serialize-duplicates-nopad.pas   (+ -pad2, -pad3, -pad4; GUI-only, Futuremotion's v5)
 │  │  └─ serialize-duplicates-stock.pas   # den4b's single-pass `Serialize duplicates.pas`, CLI-safe
 │  └─ filters/                   # FILE.ini and CONTENTS.ini [Filters] blocks (§6.2)
 ├─ scripts/
@@ -95,7 +95,7 @@ description: Create, modify, explain and verify den4b ReNamer presets (.rnp) for
   rule sets are mentioned.
 ```
 
-**Scripting language (decision D1, default applied):** PowerShell 7.4+ for all scripts. It is Jay's primary stack, the harness is Windows-only anyway, and he will maintain these. Fallback when no PowerShell is available (e.g. claude.ai sandbox): Claude writes the `.rnp` by hand using `rnp-format.md` §1.2/§4 and reads the TSVs directly. Presets built that way must say they are **unverified**.
+**Scripting language (decision D1, default applied):** PowerShell 7.4+ for all scripts. It is Futuremotion's primary stack, the harness is Windows-only anyway, and the team will maintain these. Fallback when no PowerShell is available (e.g. claude.ai sandbox): Claude writes the `.rnp` by hand using `rnp-format.md` §1.2/§4 and reads the TSVs directly. Presets built that way must say they are **unverified**.
 
 ---
 
@@ -103,8 +103,8 @@ description: Create, modify, explain and verify den4b ReNamer presets (.rnp) for
 
 ### 4.1 Intake: examples first
 The most common failure is building the right rules for the wrong interpretation. Before designing anything, the skill must hold **3–8 concrete `before → after` pairs**, including at least one awkward case (extra dots, brackets, digits, mixed case, already-correct names). These pairs become the preset-spec `tests` (§10.1).
-- If Jay gave examples, restate them as a fixture table and ask only about genuine gaps.
-- If he gave none, **invent representative pairs from the description and ask him to confirm or correct them.** This is one message, not a questionnaire.
+- If the user gave examples, restate them as a fixture table and ask only about genuine gaps.
+- If none were given, **invent representative pairs from the description and ask the user to confirm or correct them.** This is one message, not a questionnaire.
 - Also settle, with defaults when unattended:
 
 | Question | Default when not specified |
@@ -169,17 +169,17 @@ Every rule gets a `comment` (it becomes ReNamer's rule comment). Omitted config 
 - **One readable RegEx beats five Replace rules; for literal finds, one Replace rule with many `*|*` pairs beats both.** This is the biggest lever for small presets.
 - **Don't fight earlier rules.** If rule 7 undoes rule 3, redesign.
 - **Anchor RegEx rules** (`^`, `$`, lookarounds) so they can't fire on unrelated parts of other files in the batch.
-- **Guard numeric patterns** against resolutions (`1920x1080`), dates and versions. Jay's version-string rules in `00 Clean Up Filename` are the starting model (T6), but they also turn dates into versions (`Invoice 2024-05-01` → `Invoice v2024.05.01` ✓ observed), and so would T6's reference regex for a space-separated date. Add a date guard (a 19xx/20xx year followed by a month ≤ 12 and a day ≤ 31) unless the request says otherwise.
+- **Guard numeric patterns** against resolutions (`1920x1080`), dates and versions. Futuremotion's version-string rules in `00 Clean Up Filename` are the starting model (T6), but they also turn dates into versions (`Invoice 2024-05-01` → `Invoice v2024.05.01` ✓ observed), and so would T6's reference regex for a space-separated date. Add a date guard (a 19xx/20xx year followed by a month ≤ 12 and a day ≤ 31) unless the request says otherwise.
 - **Prefer `SKIPEXTENSION=1` everywhere** unless the extension itself is the target.
 
 ---
 
-## 6. Jay's conventions (mandatory)
+## 6. House conventions (mandatory)
 
 ### 6.1 Naming
 - `CONTENTS <Name>.rnp`: renames the **contents** of passed folders (recursive).
 - `FILE <Name>.rnp`: renames exactly the passed files **and** folders, never their contents.
-- `<Name>` is Title Case and descriptive, verb-first where natural (`FILE Delete Last Word Dash`, `CONTENTS Prefix Folder Name`). Topic sub-prefixes such as `CASE` are used in his library (`FILE CASE Kebab`). **Observed:** `UI` marks templates meant to be edited before running (e.g. `FILE UI Prefix` inserts a placeholder `KEY `). Confirm with Jay (D5) before generating `UI` presets.
+- `<Name>` is Title Case and descriptive, verb-first where natural (`FILE Delete Last Word Dash`, `CONTENTS Prefix Folder Name`). Topic sub-prefixes such as `CASE` are used in the Futuremotion library (`FILE CASE Kebab`). **Observed:** `UI` marks templates meant to be edited before running (e.g. `FILE UI Prefix` inserts a placeholder `KEY `). Confirm with the user (D5) before generating `UI` presets.
 - The name must be a valid Windows filename, with no `\ / : * ? " < > |`.
 
 ### 6.2 `[Filters]`: always included, determined by the variant
@@ -189,10 +189,10 @@ Use the two blocks in `rnp-format.md` §2 verbatim (FILE: `0/1/0/1/1/0/0`, CONTE
 The preset must **guarantee** a lowercase extension (§7.1). `EXTENSIONALWAYSUPPERCASE` is always `0`.
 
 ### 6.4 Rule comments
-Every rule gets a short `Comment=` stating its intent (`Strip Envato UTC timestamp`). They show in ReNamer's rules list, so Jay can read a preset at a glance. The collision script's comment also carries the `[fm-collision]` marker (§8).
+Every rule gets a short `Comment=` stating its intent (`Strip Envato UTC timestamp`). They show in ReNamer's rules list, so the user can read a preset at a glance. The collision script's comment also carries the `[fm-collision]` marker (§8).
 
 ### 6.5 Style fidelity
-Emit exactly what ReNamer would save: canonical key order (`rnp-format.md` §4), all keys present, CRLF, no BOM, `Marked=1`, sections from `[Rule0]`. A preset the skill writes should be indistinguishable from one Jay saved in the GUI.
+Emit exactly what ReNamer would save: canonical key order (`rnp-format.md` §4), all keys present, CRLF, no BOM, `Marked=1`, sections from `[Rule0]`. A preset the skill writes should be indistinguishable from one saved in the GUI.
 
 ---
 
@@ -201,7 +201,7 @@ Emit exactly what ReNamer would save: canonical key order (`rnp-format.md` §4),
 ### 7.1 Lowercase-extension guarantee (validator-enforced)
 1. The **last Case rule** in the stack has `EXTENSIONALWAYSLOWERCASE=1` and `EXTENSIONALWAYSUPPERCASE=0`.
 2. After that rule, only two kinds of rule may follow: (a) rules whose Config contains `SKIPEXTENSION=1` (e.g. the title-case RegEx fix-ups, the kebab Replace), and (b) the collision script, identified by the `[fm-collision]` marker in its comment (§8). Rules without a SKIPEXTENSION key (Extension, PascalScript) or with `SKIPEXTENSION=0` may not follow it.
-3. **Append only when needed.** If the user rules plus the casing tail already satisfy 1–2, the builder appends nothing. Otherwise (e.g. mode `none` with no Case rule) it appends Jay's standard rule, comment `Extension always lower case`:
+3. **Append only when needed.** If the user rules plus the casing tail already satisfy 1–2, the builder appends nothing. Otherwise (e.g. mode `none` with no Case rule) it appends the standard rule, comment `Extension always lower case`:
    ```text
    Case  WHAT=0  PRESERVECASE=0  SKIPEXTENSION=1  EXTENSIONALWAYSLOWERCASE=1  EXTENSIONALWAYSUPPERCASE=0  FORCECASE=0  FRAGMENTSTEXT=
    ```
@@ -226,7 +226,7 @@ emit            FRAGMENTSTEXT = [22 minor words in file order, title mode only] 
 
 - **Why this sort:** overlapping fragments apply in list order and the later one wins (✓), so phrases (`Visual Studio Code`) must come after their parts (`Visual Studio`). The ordinal tie-break makes builds byte-reproducible.
 - **Opt-in packs:** `audio`, `media`, `design`, `legacy-tech`, `brand`, `roman`, `code`, only when the request's domain calls for them. Name every review-tier term used in the report.
-- **Size (verified at full scale ✓):** title default = 1,892 terms + 22 minor words ≈ 16.5 KB raw / 20.4 KB encoded (T4b); preserve default = 2,444 terms ≈ 21.0 KB raw / 26.0 KB encoded (T5b). Comparable to Jay's current 2,171-entry "Main Case" rule, so no performance concern. *(v2.1 numbers. After the 2026-09-28 expansion: title 8,199 terms ≈ 81 KB raw, preserve 11,299 ≈ 116 KB, ≈ 16–19 ms/file vs ≈ 4 ms; see `references/casing.md` for the lean `"sources": ["base"]` option.)*
+- **Size (verified at full scale ✓):** title default = 1,892 terms + 22 minor words ≈ 16.5 KB raw / 20.4 KB encoded (T4b); preserve default = 2,444 terms ≈ 21.0 KB raw / 26.0 KB encoded (T5b). Comparable to Futuremotion's current 2,171-entry "Main Case" rule, so no performance concern. *(v2.1 numbers. After the 2026-09-28 expansion: title 8,199 terms ≈ 81 KB raw, preserve 11,299 ≈ 116 KB, ≈ 16–19 ms/file vs ≈ 4 ms; see `references/casing.md` for the lean `"sources": ["base"]` option.)*
 - **Known limits** (verified): underscores and digits glue words together, so run separator normalisation (CleanUp/Replace) *before* the Case rule; plurals need their own entries (`API` ≠ `APIs`); fragments can't contain commas.
 
 ### 7.3 Casing modes (the builder's `casing.mode`)
@@ -236,11 +236,11 @@ The builder appends the mode's rules **after** the user rules. Every Case rule i
 | mode | Rules appended | Default dictionary tiers | Notes |
 |---|---|---|---|
 | `none` | The standard ext-lowercase Case rule, only if §7.1 isn't already met | — | For stacks without casing (T1) or with their own Case rule (T14) |
-| `preserve` *(default)* | 1 Case rule: `WHAT=0 PRESERVECASE=1 FORCECASE=1` + fragments | core, proper | Mirrors Jay's "Main Case": fixes brand casing, touches nothing else. T5/T5b ✓ |
+| `preserve` *(default)* | 1 Case rule: `WHAT=0 PRESERVECASE=1 FORCECASE=1` + fragments | core, proper | Mirrors Futuremotion's "Main Case": fixes brand casing, touches nothing else. T5/T5b ✓ |
 | `title` | 4 rules, see the block below | core | APA. T4/T4b ✓ |
 | `sentence` | 1 Case rule: `WHAT=7 PRESERVECASE=0 FORCECASE=1` + fragments | core, proper | Sentence case lowercases proper nouns, which is why `proper` matters here. It also capitalizes after `. ` ✓ |
 | `lower` / `upper` | 1 Case rule: `WHAT=1` / `WHAT=2`, no fragments | — | — |
-| `kebab` / `snake` | CleanUp (`_`, `-`, `%20` → space; fix spaces) → Case `WHAT=1` → Replace space → `-` / `_` | — | T3 ✓. Jay's `FILE CASE Kebab` minus its redundant `--` rule |
+| `kebab` / `snake` | CleanUp (`_`, `-`, `%20` → space; fix spaces) → Case `WHAT=1` → Replace space → `-` / `_` | — | T3 ✓. Futuremotion's `FILE CASE Kebab` minus its redundant `--` rule |
 | `verbatim` | Nothing | — | Explain/modify flows only (§4.8): rules are emitted exactly as given |
 
 **Title pipeline** (verified end-to-end ✓ with the full default dictionary, T4b):
@@ -262,7 +262,7 @@ The builder appends the mode's rules **after** the user rules. Every Case rule i
 ### 7.4 APA notes
 - Minor words (lowercase *inside* a title): `and as but for if nor or so yet · a an the · at by in of off on per to up via` (`data/apa-minor-words.txt`).
 - APA capitalizes the first word of the title and of any subtitle (after ` - `, ` – `, ` — `; colons can't occur in filenames), both halves of hyphenated major words (ReNamer does this ✓), and every word of four or more letters (`With`, `From`).
-- **Last-word capitalization is Jay's stated rule, not APA** (it comes from Chicago/AP). It's kept as the default (D4) and can be turned off with `lastWordRule: false`.
+- **Last-word capitalization is a house rule, not APA** (it comes from Chicago/AP). It's kept as the default (D4) and can be turned off with `lastWordRule: false`.
 - Known limit: the pipeline can't tell a particle ("Set **Up** the Server") from a preposition ("Walk **up** the hill"), so `up` stays lowercase mid-title. A future Pascal APA rule (§9) could handle a phrasal-verb list.
 
 ### 7.5 CamelCase rejoin (`data/camelcase-rejoin.tsv`)
@@ -290,7 +290,7 @@ The builder appends the mode's rules **after** the user rules. Every Case rule i
 ## 8. Collisions and serialization
 
 - **Detect risk:** any rule that removes or normalises information (timestamps, counters, brackets, case folding, separator changes) can merge distinct names. When risk exists, add colliding inputs to the tests.
-- **Default remedy:** append Jay's **`serialize-duplicates-<pad>.pas`** (`nopad|pad2|pad3|pad4`) as the **last** rule, BOM stripped, embedded via `SOURCEUTF8`, with a comment ending in the marker `[fm-collision]`, e.g. `Serialize duplicates, no padding (GUI only: preview twice) [fm-collision]`. The validator uses the marker to recognise it (§7.1, §10.3). Tell Jay in the report: **GUI-only, preview twice** (learning pass, then serializing pass), uses the shared tally file, and doesn't work from `/silent` or "rename with preset" shortcuts.
+- **Default remedy:** append Futuremotion's **`serialize-duplicates-<pad>.pas`** (`nopad|pad2|pad3|pad4`) as the **last** rule, BOM stripped, embedded via `SOURCEUTF8`, with a comment ending in the marker `[fm-collision]`, e.g. `Serialize duplicates, no padding (GUI only: preview twice) [fm-collision]`. The validator uses the marker to recognise it (§7.1, §10.3). Tell the user in the report: **GUI-only, preview twice** (learning pass, then serializing pass), uses the shared tally file, and doesn't work from `/silent` or "rename with preset" shortcuts.
 - **CLI-safe alternative** (when the preset must run unattended): den4b's stock single-pass `Serialize duplicates.pas` (`collisions: "stock"`; appends ` (2)`, ` (3)` … to the 2nd and later occurrences per its docs, so probe it once before first use; it also carries the `[fm-collision]` marker) or Serialize with `RESETIFFILENAMECHANGES=1` (numbers every file, requires adjacency). Offer these only on request.
 - **Verification** (the harness runs the preset **without** a GUI-only serializer; the CLI-safe `stock` script stays in, and its tests assert the final serialized names):
   1. Each colliding input as **its own test**, asserting its pre-serialization name. This proves the upstream rules.
@@ -301,11 +301,11 @@ The builder appends the mode's rules **after** the user rules. Every Case rule i
 - **Use it when native rules can't express the logic:** conditions on name structure, cross-file state, external lookups (dictionary files), per-file meta tag formatting, or when it replaces 4+ fragile rules with one clear script.
 - **Write it** from the skeleton in `engine-notes.md` §2: a `CONFIG` `const` block at the top, comments for skimmability, `Wide*` functions throughout, nested `if`s for index guards (no short-circuit evaluation), no dialogs unless the preset is explicitly GUI-only, no `{$INCLUDE}`.
 - **Embed** with `SOURCEUTF8` (BOM stripped, CRLF). **Verify** with the harness: a compile error shows up as a non-zero exit code with names unchanged, which the harness's exit-code assertion catches.
-- **Existing assets:** the serializers are ready to embed. Jay's old CamelCase scripts are retired (Appendix B #4); don't use or port them.
+- **Existing assets:** the serializers are ready to embed. Futuremotion's old CamelCase scripts are retired (Appendix B #4); don't use or port them.
 - **Future assets** worth creating once the skill exists (not required for v1):
   - `camelcase-protected-split.pas`: find dictionary terms first (case-sensitive; not preceded by a letter, not followed by a lowercase letter), protect them, then split the rest. It closes the §7.5 limits (`iPhone15Pro`, `BackupToiCloud`). Embed the term list in a `CONFIG` block generated from `camelcase-rejoin.tsv` so the preset stays self-contained, and prove it against T10c–T10e before shipping.
   - `apa-title-case.pas`: full APA, including a phrasal-verb list and dictionary protection.
-  - `casing-from-dictionary-file.pas`: reads the TSV at runtime, generalising Jay's `CasingCorrector.pas` approach.
+  - `casing-from-dictionary-file.pas`: reads the TSV at runtime, generalising Futuremotion's `CasingCorrector.pas` approach.
 
 ---
 
@@ -352,7 +352,7 @@ The builder appends the mode's rules **after** the user rules. Every Case rule i
 Input: a preset-spec path (or JSON via pipeline). Steps: fill defaults (rnp-format §4; never for required keys) → insert the CamelCase rejoin rule and, if requested, the digit-capital repair after it (§7.5) → append the casing tail (§7.3), then the ext rule only if §7.1 needs it, then the collision rule (§8) → select, sort and join dictionary terms (§7.2) → encode values (rnp-format §1.2) → number sections from 0 → append the variant's `[Filters]` block → write one `.rnp` per variant (UTF-8 no BOM, CRLF) to staging → emit a build summary object (paths, rule count, fragment count and size, warnings). Switch `-SkipCollisionRule` writes the harness copy without a GUI-only serializer. Deterministic: the same spec must produce byte-identical output.
 
 ### 10.3 `Test-RnpPreset.ps1` (validator / linter)
-Errors fail the build; warnings go into the report. Two profiles: **`-Profile Strict`** (default; every generated preset) and **`-Profile Legacy`** (decoded existing presets in the explain/modify flows): checks 1, 3, 4, 6, 7, 8 and 14 drop to warnings (older presets can lack `Comment=` lines, which only exist since 7.6.0.1, and may use legacy values or key orders), so Jay's presets can be explained and edited, while rules the skill adds or changes must still pass Strict.
+Errors fail the build; warnings go into the report. Two profiles: **`-Profile Strict`** (default; every generated preset) and **`-Profile Legacy`** (decoded existing presets in the explain/modify flows): checks 1, 3, 4, 6, 7, 8 and 14 drop to warnings (older presets can lack `Comment=` lines, which only exist since 7.6.0.1, and may use legacy values or key orders), so the user's presets can be explained and edited, while rules the skill adds or changes must still pass Strict.
 
 | # | Check | Level |
 |---|---|---|
@@ -383,14 +383,14 @@ Decodes a `.rnp` into (a) a preset-spec (`casing.mode: "verbatim"`, `collisions:
 ## 11. Acceptance suite (evals)
 Turn each row into `tests/acceptance/<id>.json`: a preset-spec with `casing.mode` and `collisions` pinned as in the table, `rules` left empty for the skill to design, and the fixtures as `tests`. The skill passes when every generated preset validates, its tests pass in the harness, and its rule count is ≤ "Max rules" (counting every rule in the built preset, including the casing tail and the collision script). Every budget has been proven achievable by `acceptance-reference.probes.psd1`.
 
-| id | Request (as Jay might phrase it) | casing / collisions | Fixtures (in → out) | Max rules | Expected design |
+| id | Request (as the user might phrase it) | casing / collisions | Fixtures (in → out) | Max rules | Expected design |
 |---|---|---|---|---|---|
 | T1 | "Prefix files with their folder name" | none / none | `Icons\home.SVG` → `Icons\Icons home.svg` | 2 | Insert `:File_FolderName: ` + ext Case |
 | T2 | "Strip Envato timestamps" | none / none | `Retro Pack-2024-05-01-10-20-30-utc.zip` → `Retro Pack.zip`; `Film LUT 2024 05 01 10 20 30 UTC.CUBE` → `Film LUT.cube` | 2 | One anchored RegEx (below) + ext Case |
 | T3 | "Kebab-case everything" | kebab / none | `My Cool_File v2.PNG` → `my-cool-file-v2.png`; `already-kebab.svg` → unchanged | 3 | The kebab tail (§7.3) |
 | T4 | "APA title case with my dictionary" | title / none | `the ultimate guide to javascript and typescript apis.pdf` → `The Ultimate Guide to JavaScript and TypeScript APIs.pdf`; `iphone photography - a guide for beginners.PDF` → `iPhone Photography - A Guide for Beginners.pdf` | 4 | §7.3 title pipeline |
 | T5 | "Fix brand casing only, touch nothing else" | preserve / none | `learn github and node.js basics.md` → `learn GitHub and Node.js basics.md` | 1 | preserve tail |
-| T6 | "Turn spaced version numbers into v-dotted" | none / none | `Blender 4 2 1 Setup.exe` → `Blender v4.2.1 Setup.exe`; `Tool 2 0 1 5.zip` → `Tool v2.0.1.5.zip`; `Wallpaper 1920 1080.jpg` → unchanged | 3 | Guarded RegEx per group count (below; Jay's model) + ext Case |
+| T6 | "Turn spaced version numbers into v-dotted" | none / none | `Blender 4 2 1 Setup.exe` → `Blender v4.2.1 Setup.exe`; `Tool 2 0 1 5.zip` → `Tool v2.0.1.5.zip`; `Wallpaper 1920 1080.jpg` → unchanged | 3 | Guarded RegEx per group count (below; Futuremotion's model) + ext Case |
 | T7 | "Number files per folder, 2-digit, after the folder name" (CONTENTS only) | none / none | `Textures\a.jpg`, `Textures\b.jpg` → `Textures\Textures 01.jpg`, `Textures\Textures 02.jpg` | 4 | Delete whole base name (pos 1 till end) → Insert folder → Serialize (suffix, reset per folder, pad 2) → ext Case |
 | T8 | "US dates to ISO" | none / none | `Invoice 12-31-2025.pdf` → `Invoice 2025-12-31.pdf` | 2 | Reformat Date `mm-dd-yyyy` → `yyyy-mm-dd` + ext Case |
 | T9 | "Clean YouTube download names" | none / none | `Song_Name%20(Official Video) [HD].MP4` → `Song Name.mp4` | 2 | CleanUp (brackets, `_`, `%20`, fix spaces) + ext Case |
@@ -415,7 +415,7 @@ T14  EXPRESSION   *(\(\d+\)|-\d+)$                                       REPLACE
 
 ## 12. Open items
 
-**Calibration (Jay, ~2 minutes in the GUI):**
+**Calibration (the user, ~2 minutes in the GUI):**
 - ~~**C1:** Save one throwaway preset containing a two-row Mapping and a two-line User Input.~~ **Closed 2026-09-28.** Both presets were saved from the GUI into `_spec\calibration\` (`C1 Calibration Mapping UserInput.rnp`, `C1b Calibration Special Chars.rnp`) and probed (`_spec\calibration\c1-probes.psd1`). Mapping rows are encoded one by one and joined with a raw `|`; User Input lines are joined with a bare CR (`%0D`). The skill's `references/rnp-format.md` §1.2 and §3.17–3.18 hold the verified format, and `tests/rule-semantics.probes.psd1` now asserts all 155 cases.
 
 **Decisions (defaults already applied; change any):**
@@ -460,8 +460,8 @@ T14  EXPRESSION   *(\(\d+\)|-\d+)$                                       REPLACE
 | Put APA minor words into Case fragments | Fragments also lowercase the **first and last** word (✓ reproduced), so fix-ups are required (§7.3) |
 | Serialize-duplicate scripts: just append | GUI-only, preview twice, shared tally file, BOM must be stripped |
 
-## Appendix B — Issues found in Jay's current presets
-1. **`FILE CASE Capitalize All Preserve`, `CONTENTS CASE Capitalize All Preserve`, `FILE CASE Capitalize All`, `CONTENTS CASE Capitalize All`**: the second Case rule (`WHAT=5`, `PRESERVECASE=0`) re-lowercases everything after the first letter. "the lord of the rings with a guide" → **"The lord of the rings with a guide"** (✓ reproduced). *Jay fixed the two CONTENTS presets on 2026-09-27 (rule 2 now `PRESERVECASE=1`); the FILE twins exist only as the misnamed `Presets 02.rnp` / `Presets 03.rnp`.* Minimal fix: set `PRESERVECASE=1` on rule 2, which gives "The Lord of the Rings with a Guide" (the fragment list still lowercases `with` and `is`, which APA capitalizes). Better: replace both presets with the §7.3 title pipeline.
+## Appendix B — Issues found in Futuremotion's current presets
+1. **`FILE CASE Capitalize All Preserve`, `CONTENTS CASE Capitalize All Preserve`, `FILE CASE Capitalize All`, `CONTENTS CASE Capitalize All`**: the second Case rule (`WHAT=5`, `PRESERVECASE=0`) re-lowercases everything after the first letter. "the lord of the rings with a guide" → **"The lord of the rings with a guide"** (✓ reproduced). *The two CONTENTS presets were fixed on 2026-09-27 (rule 2 now `PRESERVECASE=1`); the FILE twins exist only as the misnamed `Presets 02.rnp` / `Presets 03.rnp`.* Minimal fix: set `PRESERVECASE=1` on rule 2, which gives "The Lord of the Rings with a Guide" (the fragment list still lowercases `with` and `is`, which APA capitalizes). Better: replace both presets with the §7.3 title pipeline.
 2. **`00 Clean Up Filename` → "Main Case"** contains `and`, so a name starting with "And …" is forced to "and …". Removed from the dictionary in v2.
 3. Main dictionary had 3 duplicates (`TailwindCSS`, `FSharp`, `AirAsia`) and 84 collision-prone terms (see `casing-dictionary-review.md`).
 4. **Retired 2026-09-27 (sent to the Recycle Bin; no preset embedded them):** `Scripts\00 CamelCase Separation with Exceptions.pas` checked `S[I + 1]` in the same `and` as its bounds check, and Pascal Script doesn't short-circuit, so a name ending in a capital after a digit or capital (`Test2A`, or any uppercase extension such as `logo.PNG`, since it ran on the extension too) raised "Out of string range". It knew 3 terms. `Scripts\CamelCaseSeparationWithExceptions.pas` never compiled: it called undefined `DoSomething`/`DoAnother`. §7.5 replaces both. `Seperate CamelCase with Whitelist.pas` (2023) was recycled the same day for the same reason.
