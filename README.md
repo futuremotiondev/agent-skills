@@ -98,6 +98,7 @@ install would copy Claude-only skills into Gemini's folder and so on. Install th
 │   ├── grok/            Grok Build
 │   └── ms365-copilot/   Microsoft 365 Copilot
 ├── .assets/         Logos and header artwork used by this README
+├── CONTRIBUTING.md  Ground rules, verification gates, and known pitfalls for working on this repo
 └── skills.sh.json   Discovery paths for the skills CLI
 ```
 
@@ -149,7 +150,7 @@ Every skill folder is named with the `fm-` prefix and matches its frontmatter `n
 | Skill | What it does | Scope |
 | --- | --- | --- |
 | [`fm-figma-shader-creation`](figma/fm-figma-shader-creation/) | Creates and modifies custom Figma shader effects and fills (`main.ts`, WebGPU/WGSL): runtime contract, controls, factory presets, commenting standard, MCP and in-app workflows, cover artwork and publishing. Ships effect and fill templates and a dependency-free validator. | Universal |
-| [`fm-figma-skill-creator`](figma/fm-figma-skill-creator/) | Creates, converts, reviews, tests, and publishes skills for Figma's built-in AI agent (single-file slash-command skills for Figma Design and Make) and ports them to and from coding-agent SKILL.md skills for the Figma MCP server. Ships six type templates, a 30-rule validator, a three-edition build and flatten script, a publishing kit, and a worked example (`fm-spacing-rhythm-audit`). | Universal |
+| [`fm-figma-skill-creator`](figma/fm-figma-skill-creator/) | Creates, converts, reviews, tests, and publishes skills for Figma's built-in AI agent (single-file slash-command skills for Figma Design and Make) and ports them to and from coding-agent SKILL.md skills for the Figma MCP server. Starts from an ideation workflow backed by a landscape of 100 published Figma skills and a catalog of 21 gated concept seeds. Ships six type templates, a 31-rule validator, a three-edition build script that extracts helper scripts for the coding-agent edition, a publishing kit, and two worked examples: `fm-spacing-rhythm-audit` (with an MCP oracle and test fixtures) and `fm-figma-capability-probe` (a runtime probe for the in-app agent). | Universal |
 | [`fm-figma-design-skill-finder`](figma/fm-figma-design-skill-finder/) | Researches and ranks Figma-specific agent skills across the Figma Community library and the MCP skill ecosystem, producing a verified, scored catalog. | Universal |
 
 Planned additions: `fm-figma-design-system-creator` (builds a design system over MCP and emits a
@@ -205,6 +206,9 @@ These depend on one vendor's runtime and are installed only for that agent.
   CLI discovers it.
 - Lint Markdown with the conventions in
   [`fm-markdown-formatting-guidelines`](coding/fm-markdown-formatting-guidelines/) before committing.
+- Read [`CONTRIBUTING.md`](CONTRIBUTING.md) first: the ground rules (one editable master per skill,
+  generated `dist/` folders, verbatim test fixtures, owner and metadata conventions), the
+  verification gates, and the Windows, shell, and planning pitfalls already hit once.
 
 ## License
 
