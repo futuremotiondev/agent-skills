@@ -17,6 +17,7 @@
 //                                    one file per core `## Helper scripts` fence whose first line is
 //                                    `// helper: <helper>`; the fence becomes a one-line pointer in
 //                                    the coding-agent SKILL.md. The Figma editions keep every fence.
+//                                    The build owns that scripts/ folder: stale *.js files are pruned.
 //
 // Flatten (second form) reads <skill-dir>/SKILL.md plus references/*.md and writes
 // <out>/<name>.flat.md with every referenced Markdown file appended as a section and links
@@ -25,7 +26,7 @@
 // Dependency-free. Markers: <!-- target:figma-app --> ... <!-- /target --> and <!-- target:mcp -->.
 // Exit 1 on a build error (unbalanced markers, missing name/description, unreadable overlay).
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, statSync } from "node:fs"
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, statSync, unlinkSync, rmdirSync } from "node:fs"
 import { join, dirname, basename, resolve, relative, extname } from "node:path"
 import { spawnSync } from "node:child_process"
 import { fileURLToPath } from "node:url"
@@ -96,16 +97,37 @@ function extractHelpers(body) {
     if (!fence[i] && /^#{1,2}\s/.test(line)) inSection = HELPER_HEADING.test(line) && regionAt(i) === "core"
     const open = inSection && regionAt(i) === "core" ? /^\s*(`{3,})\s*javascript\s*$/.exec(line) : null
     const marker = open && i + 1 < body.length ? HELPER_MARKER.exec(body[i + 1]) : null
+    // Near miss: starts like a marker but fails the strict form; warn and keep the fence inline.
+    if (open && !marker && i + 1 < body.length && body[i + 1].startsWith("// helper:")) {
+      console.warn(`build warning: body line ${i + 2}: "${body[i + 1]}" is not a valid helper marker (// helper: <lowercase-name>); fence left inline`)
+    }
     if (!marker) { out.push(line); continue }
     let close = i + 1
     while (close < body.length && !new RegExp(`^\\s*\`{${open[1].length},}\\s*$`).test(body[close])) close++
     if (close >= body.length) fail(`helper fence "${marker[1]}" at body line ${i + 1} is never closed`)
     if (helpers.some((h) => h.name === marker[1])) fail(`duplicate helper name "${marker[1]}" at body line ${i + 2}`)
-    helpers.push({ name: marker[1], code: body.slice(i + 2, close) })
+    const code = body.slice(i + 2, close)
+    if (!code.some((l) => l.trim() !== "")) fail(`helper "${marker[1]}" has no code`)
+    helpers.push({ name: marker[1], code })
     out.push(helperPointer(marker[1]))
     i = close
   }
   return { lines: out, helpers }
+}
+
+/**
+ * The build owns dist/claude/<name>/scripts/: delete every *.js there that this build did not
+ * write, then remove the folder when no helpers were written and it is empty. Returns the number
+ * of stale files removed (counted, not deleted, on --dry-run).
+ */
+function pruneStaleScripts(scriptsDir, helpers) {
+  if (!existsSync(scriptsDir) || !statSync(scriptsDir).isDirectory()) return 0
+  const keep = new Set(helpers.map((h) => `${h.name}.js`))
+  const stale = readdirSync(scriptsDir).filter((f) => f.endsWith(".js") && !keep.has(f) && statSync(join(scriptsDir, f)).isFile())
+  if (dryRun) return stale.length
+  for (const f of stale) unlinkSync(join(scriptsDir, f))
+  if (helpers.length === 0 && readdirSync(scriptsDir).length === 0) rmdirSync(scriptsDir)
+  return stale.length
 }
 
 // ---------------------------------------------------------------------------
@@ -174,6 +196,7 @@ function buildEditions(master) {
   const claudeDir = join(outDir, "claude", name)
   emit(join(claudeDir, "SKILL.md"), [...claudeFm, "", ...mcpBody])
   for (const h of helpers) emit(join(claudeDir, "scripts", `${h.name}.js`), h.code)
+  const pruned = pruneStaleScripts(join(claudeDir, "scripts"), helpers)
 
   // Copy references/ (coding-agent only) when the master has one.
   const refDir = join(dirname(masterAbs), "references")
@@ -191,7 +214,7 @@ function buildEditions(master) {
   for (const w of written) {
     console.log(`  ${relative(process.cwd(), w.path) || w.path}${w.copied ? "  (copied)" : `  ${w.lines} lines, ${w.words} words`}`)
   }
-  console.log(`  helpers: ${helpers.length} scripts${helpers.length ? ` (${helpers.map((h) => `scripts/${h.name}.js`).join(", ")})` : ""}`)
+  console.log(`  helpers: ${helpers.length} scripts${helpers.length ? ` (${helpers.map((h) => h.name).join(", ")})` : ""}${pruned ? `; pruned ${pruned} stale` : ""}`)
   console.log(`\nStart-from-scratch fields (type these into Figma's form for the paste edition):`)
   console.log(`  name:        ${name}`)
   console.log(`  description: ${String(descF.value).trim()}`)

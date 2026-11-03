@@ -31,7 +31,7 @@
 | --- | --- | --- | --- |
 | 1 | Frontmatter on upload vs paste | Upload shows name and description for review; paste keeps the block as text; Figma's own example ships two blocks | Upload edition with one clean block; paste edition with none |
 | 2 | Extra frontmatter keys | Figma silent; one Qredence skill ships `compatibility` without issue | Strip from the Figma edition until an upload test proves tolerance |
-| 3 | Size limits | None published; spec recommends under 500 lines; Figma's longest skill is 9,160 words | Aim under 500 lines; justify longer with deterministic output |
+| 3 | Size limits | Figma enforces no body limit and its longest first-party skill is about 12k tokens; the spec recommends under 500 lines, and about 5k tokens is its coding-agent guidance | Keep 500 lines in every edition, about 5k tokens in the coding-agent edition, and under about 12k tokens in the Figma editions; justify longer with deterministic output |
 | 4 | Auto-selection | "You must invoke" vs "invoked automatically"; no algorithm | `/name` is the contract; auto-trigger is tuned by evals |
 | 5 | Community review | None documented for skills; MCP FAQ says no approval; plugins are reviewed | Assume immediate publication; self-review |
 | 6 | Plan availability wording | "All plans" vs named lists vs Full-seat-only chat visibility | Say "needs edit access and the agent" |

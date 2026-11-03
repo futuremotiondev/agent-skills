@@ -122,6 +122,7 @@ never ship. `scripts/build-skill-editions.mjs` strips them.
 
 ## Size
 
-Aim under 500 lines and about 5,000 tokens. Figma's longest first-party skill is 9,160 words and
-earns it with deterministic output; a long skill also costs more credits per run. Split into two
+Aim under 500 lines in every edition; about 5,000 tokens is the coding-agent guidance, while Figma
+enforces no body limit and its longest first-party skill is about 12,000 tokens. That skill earns
+its length with deterministic output; a long skill also costs more credits per run. Split into two
 named skills rather than exceed the target without a reason.
