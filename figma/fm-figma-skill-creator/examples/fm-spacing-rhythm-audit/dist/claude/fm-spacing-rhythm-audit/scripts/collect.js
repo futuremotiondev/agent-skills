@@ -12,13 +12,15 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
     return hi % 8 === 0 && lo % 8 !== 0 ? hi : lo;
   };
   // enhancement: token-conformance begin
-  // Discovery: local FLOAT variables scoped to GAP or WIDTH_HEIGHT, or named space or spacing; one entry
-  // per variable per mode, aliases resolved (three hops) and flagged. Reads only; never imports.
-  const V = figma.variables, cols = new Map();
+  // Discovery: candidates are local FLOAT variables scoped to GAP, or named space or spacing but not letter,
+  // line, or paragraph spacing; WIDTH_HEIGHT-only and type-spacing variables are matched, never offered.
+  if (MODE !== "discover" && MODE !== "tokens") MODE = "rhythm";
+  const V = figma.variables, cols = new Map(), varCache = new Map();
+  const getVar = (id) => { if (!varCache.has(id)) varCache.set(id, V.getVariableByIdAsync(id)); return varCache.get(id); };
   const isAlias = (x) => !!x && typeof x === "object" && x.type === "VARIABLE_ALIAS";
   const resolveValue = async (x, modeId) => {
     for (let hop = 0; hop < 3 && isAlias(x); hop++) {
-      const t = await V.getVariableByIdAsync(x.id);
+      const t = await getVar(x.id);
       if (!t) return null;
       const tc = cols.get(t.variableCollectionId);
       x = modeId in t.valuesByMode ? t.valuesByMode[modeId] : t.valuesByMode[tc ? tc.defaultModeId : Object.keys(t.valuesByMode)[0]];
@@ -27,29 +29,38 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
   };
   const discoverTokens = async () => {
     for (const c of await V.getLocalVariableCollectionsAsync()) cols.set(c.id, c);
-    const found = [], perCol = new Map();
+    const found = [], perCol = new Map(), unoffered = new Map();
+    const tally = (cid, why, n) => { const m = unoffered.get(cid) || new Map(); m.set(why, (m.get(why) || 0) + n); unoffered.set(cid, m); };
     for (const v of await V.getLocalVariablesAsync("FLOAT")) {
-      const c = cols.get(v.variableCollectionId);
-      const scoped = (v.scopes || []).some((s) => s === "GAP" || s === "WIDTH_HEIGHT");
-      if (!c || !(scoped || /space|spacing/i.test(v.name))) continue;
-      perCol.set(c.id, (perCol.get(c.id) || 0) + 1);
+      const c = cols.get(v.variableCollectionId), scopes = v.scopes || [];
+      const named = /space|spacing/i.test(v.name), typeName = /letter|line|paragraph/i.exec(v.name);
+      const candidate = scopes.includes("GAP") || (named && !typeName);
+      if (!c || !(candidate || named || scopes.includes("WIDTH_HEIGHT"))) continue;
+      if (candidate) perCol.set(c.id, (perCol.get(c.id) || 0) + 1);
+      else tally(c.id, named ? typeName[0].toLowerCase() + "-spacing" : "WIDTH_HEIGHT", 1);
       for (const m of c.modes) {
         const raw = v.valuesByMode[m.modeId], value = await resolveValue(raw, m.modeId);
-        if (value !== null) found.push({ id: v.id, name: v.name, value, collection: c.id, modeId: m.modeId, modeName: m.name, isAlias: isAlias(raw) });
+        if (value !== null) found.push({ id: v.id, name: v.name, value, collection: c.id, modeId: m.modeId, modeName: m.name, isAlias: isAlias(raw), candidate });
       }
     }
     let best = null;
     for (const [id, count] of perCol) if (best === null || count > perCol.get(best)) best = id;
-    const c = best && cols.get(best), dm = c && c.modes.find((m) => m.modeId === c.defaultModeId);
-    const vals = c ? found.filter((t) => t.collection === c.id && t.modeId === c.defaultModeId && !t.isAlias).map((t) => t.value) : [];
+    let c = best && cols.get(best);
+    const vals = c ? found.filter((t) => t.candidate && t.collection === c.id && t.modeId === c.defaultModeId && !t.isAlias).map((t) => t.value) : [];
+    if (!vals.length) c = null; // no non-alias Default-mode candidate: treat the file as having no spacing tokens
+    for (const [id, count] of perCol) if (!c || id !== c.id) tally(id, id === best ? "alias only" : "not elected", count);
+    const dm = c && c.modes.find((m) => m.modeId === c.defaultModeId);
+    const matchedCollections = [...unoffered].map(([id, m]) => ({ name: cols.get(id).name, count: [...m.values()].reduce((a, b) => a + b, 0), reasons: [...m].map(([w, n]) => n + " " + w).join(", ") }));
     let lib = "unavailable";
     try { const tl = figma.teamLibrary; if (tl && tl.getAvailableLibraryVariableCollectionsAsync) lib = (await tl.getAvailableLibraryVariableCollectionsAsync()).length ? "present, not audited" : "none"; } catch (e) { lib = "unavailable"; }
-    return { tokens: found, libraryTokens: lib, spacingCollection: c ? { id: c.id, name: c.name, defaultModeName: dm ? dm.name : "", min: vals.length ? Math.min(...vals) : null, max: vals.length ? Math.max(...vals) : null } : null };
+    return { all: found, libraryTokens: lib, matchedCollections, spacingCollection: c ? { id: c.id, name: c.name, defaultModeName: dm ? dm.name : "", min: Math.min(...vals), max: Math.max(...vals) } : null };
   };
-  let found = { tokens: [], libraryTokens: "unavailable", spacingCollection: null };
+  let found = { all: [], libraryTokens: "unavailable", matchedCollections: [], spacingCollection: null };
   try { found = await discoverTokens(); } catch (e) { /* no variables API: rhythm mode below */ }
-  const { tokens, libraryTokens, spacingCollection } = found;
-  if (MODE === "discover") return { mode: "discover", tokens, libraryTokens, spacingCollection };
+  const { all, libraryTokens, matchedCollections, spacingCollection } = found;
+  if (MODE === "discover") return { mode: "discover", tokens: all, libraryTokens, spacingCollection, matchedCollections };
+  // Later runs carry only the spacing collection's candidates, which keeps the result small.
+  const tokens = spacingCollection ? all.filter((t) => t.candidate && t.collection === spacingCollection.id) : [];
   if (tokens.length === 0) MODE = "rhythm";
   const rhythm = onGrid, col = spacingCollection && cols.get(spacingCollection.id);
   const inCol = (t, modeId) => !!col && t.collection === col.id && t.modeId === modeId;
@@ -57,12 +68,13 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
   if (MODE === "rhythm" && col) { const extra = new Set(tokens.filter((t) => inCol(t, col.defaultModeId)).map((t) => t.value)); onGrid = (v) => rhythm(v) || extra.has(v); }
   // Bind candidates per mode: non-alias, non-zero tokens of the spacing collection only.
   const cands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && !t.isAlias && t.value !== 0)]) : []);
-  const bound = new Map(), boundTop = new Map(), opps = new Map(), choices = new Map(), onRhythm = new Set();
+  const bound = new Map(), boundTop = new Map(), opps = new Map(), choices = new Map(), onRhythm = new Set(), negatives = new Map();
   const nearestToken = (v, values) => values.reduce((b, x) => (b === null || Math.abs(x - v) < Math.abs(b - v) || (Math.abs(x - v) === Math.abs(b - v) && x < b) ? x : b), null);
   // One value in token mode: null when it passes or is a bind opportunity, else { target, fix }.
   const tokenCheck = (own, k, v, isBound) => {
     if (isBound || v === 0) return null;
     const key = own.id + "|" + k, modes = own.resolvedVariableModes || {};
+    if (v < 0) { negatives.set(key, { own, k, v }); return null; }
     const pool = cands.get(modes[col.id]) || cands.get(col.defaultModeId) || [];
     const eq = pool.filter((t) => t.value === v);
     if (eq.length) { opps.set(key, { own, k, v, eq }); return null; }
@@ -176,7 +188,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
   // the same names become one row with every id, so the table stays short and the fix still hits all.
   const merged = new Map();
   for (const r of rows.values()) {
-    const key = [r.group, r.path, r.property, r.current].join("|");
+    const key = [r.group, r.path, r.property, r.current, r.fix.modeName].join("|");
     const m = merged.get(key);
     if (m) { m.ids.push(r.id); m.count++; } else merged.set(key, { ...r, ids: [r.id], count: 1 });
   }
@@ -211,17 +223,17 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
     u.count++; if (u.ids.length < 25 && !u.ids.includes(id)) u.ids.push(id); unbound.set(key, u);
     oppRows.push({ id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "P3", boundId: null, note: also("unbound; bind to " + t.name, o.eq, t), fix: { kind: "bind", variableId: t.id, name: t.name, modeName: t.modeName }, ids: [id], count: 1 });
   }
-  const off = new Map(), vars = new Map();
+  const negRows = [...negatives.values()].map((o) => { const ci = compInfo(o.own); return { id: o.own.id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "—", boundId: null, note: "negative value, not snapped", fix: null, ids: [o.own.id], count: 1 }; });
+  const off = new Map();
   for (const b of bound.values()) {
     if (rhythm(b.v)) continue;
-    if (!vars.has(b.id)) vars.set(b.id, await V.getVariableByIdAsync(b.id));
-    const va = vars.get(b.id), c = va && cols.get(va.variableCollectionId);
+    const va = await getVar(b.id), c = va && cols.get(va.variableCollectionId);
     const mid = c ? (b.modes || {})[c.id] || c.defaultModeId : "", m = c && c.modes.find((x) => x.modeId === mid);
     const e = off.get(b.id + "|" + mid) || { name: va ? va.name : b.id, value: b.v, modeName: m ? m.name : "", values: 0 };
     e.values++; off.set(b.id + "|" + mid, e);
   }
-  Object.assign(out, { mode: MODE, tokens, libraryTokens, spacingCollection, unbound: [...unbound.values()].sort((a, b) => b.count - a.count), onRhythmNoToken: onRhythm.size, offRhythmTokens: [...off.values()], boundPassed: MODE === "tokens" ? bound.size : [...bound.values()].filter((b) => onGrid(b.v)).length });
-  if (frames <= 50) out.rows = list.concat(oppRows).slice(0, MAX_ROWS);
+  Object.assign(out, { mode: MODE, tokens, libraryTokens, spacingCollection, matchedCollections, unbound: [...unbound.values()].sort((a, b) => b.count - a.count), onRhythmNoToken: onRhythm.size, offRhythmTokens: [...off.values()], boundPassed: MODE === "tokens" ? bound.size : [...bound.values()].filter((b) => onGrid(b.v)).length });
+  out.rows = list.concat(frames <= 50 ? oppRows : [], negRows).slice(0, MAX_ROWS);
   // enhancement: token-conformance end
   return out;
 })();

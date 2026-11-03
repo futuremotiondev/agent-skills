@@ -14,10 +14,16 @@
     if (prior && prior.id !== f.variableId) { skipped.push({ ...f, reason: "existing binding" }); continue; }
     if (insideInstance(n) && !f.override) { skipped.push({ ...f, reason: "override not approved" }); continue; }
     try {
-      n[f.property] = f.value;
+      let bound = false;
       // enhancement: token-conformance begin
-      if (f.variableId) { const v = await figma.variables.getVariableByIdAsync(f.variableId); if (!v) throw new Error("variable not found"); n.setBoundVariable(f.property, v); }
+      // A bind fix only binds (the binding sets the value); a missing variable leaves the node untouched.
+      if (f.variableId) {
+        const v = await figma.variables.getVariableByIdAsync(f.variableId);
+        if (!v) { skipped.push({ ...f, previous, reason: "variable not found" }); continue; }
+        n.setBoundVariable(f.property, v); bound = true;
+      }
       // enhancement: token-conformance end
+      if (!bound) n[f.property] = f.value;
       applied.push({ id: f.id, property: f.property, previous, previousVariableId, value: f.value, variableId: f.variableId || null });
     } catch (e) { skipped.push({ ...f, previous, reason: String(e) }); }
   }
