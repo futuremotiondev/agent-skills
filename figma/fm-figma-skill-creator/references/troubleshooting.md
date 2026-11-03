@@ -57,7 +57,10 @@
 - Chat output renders Markdown tables, bold, and layer references as clickable node links (`figma-node-link`, and a grouped variant for several nodes). The agent produces these links on its own when the output names layers.
 - Questions are shown in a response card that does not render Markdown: `**1. Option**` appears with literal asterisks. Write verbatim questions as plain text.
 - Results matched the `evaluate_script` helpers' logic exactly, including tie-breaks, but the chat does not show whether the helper ran or the agent re-implemented it.
-- No AI-credit counter is visible in the Figma UI on a Starter-tier team; runs of 24 to 45 s per step.
+- AI credits are shown per response once you know where to look. Observed on a 30-page design system: about 10 credits to ask the scope question, 22 to 24 to audit a page whether it holds 842 or 1,937 auto-layout frames, 18 to apply five fixes, 4 to decline. Cost tracks reasoning, not canvas size. Runs took 18 to 56 s.
+- An `evaluate_script`-style collection over 1,939 frames and 1,372 instances completes in under 2 s with a payload under 5 KB; a 2,000-frame cap is comfortable.
+- `SLOT` is a live node type (Figma Slots) with auto-layout properties; the agent does not count slots as frames in its own tallies, so state the counting rule in the skill.
+- The agent reads variable bindings on main components even when the skill's helper does not, and will name the token; make the helper match so the oracle and the report agree.
 - The agent reads "never change sizes" as "preserve the rendered height of hug frames" and will silently revert a confirmed change to honour it. Define size change precisely and forbid silent reverts.
 
 ## Open questions a live upload settles

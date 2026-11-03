@@ -2,7 +2,7 @@
 name: fm-spacing-rhythm-audit
 description: Audits the selected frames against a 4/8 pt spacing rhythm and lists every off-grid padding and gap with the exact value, the nearest on-grid value, and a severity from P0 to P3; it snaps values only after the user confirms. Use whenever the user asks to check the spacing, audit spacing, find off-grid padding or gaps, clean up the spacing, or asks whether a layout follows the 8 pt grid or the spacing scale. Not for restructuring layouts or converting frames to auto layout; it measures and snaps auto-layout padding and gaps only.
 metadata:
-  version: "1.1"
+  version: "1.3"
   author: Futuremotion
   target: mcp
 license: MIT
@@ -26,29 +26,29 @@ Measures auto-layout padding and gaps in the selection against a 4/8 pt rhythm a
 2. **Resolve the scope.** Use the current selection. If nothing is selected, ask, verbatim and as plain text (the question card does not render Markdown):
    > Nothing's selected. 1. Audit the current page (slow and credit-hungry on large pages), or 2. select the frames you want audited?
    Wait for the answer. Never expand to the whole file.
-3. **Confirm the scale.** Default rhythm: a value is on-grid when it is 0, a multiple of 4 below 48, or a multiple of 8 at 48 and above. If the user names a different scale, or the file's library guidelines document one, use that instead and state it in the report.
+3. **Confirm the scale.** Default rhythm: a value is on-grid when it is 0, a multiple of 4 below 48, or a multiple of 8 at 48 and above. A gap of exactly 2 is a half-step that many systems allow; report it at P3 unless the user says 2 is disallowed. If the user names a different scale, or the file's library guidelines document one, use that instead and state it in the report.
 
 ## Instructions
 
 Ask one question at a time, wait for the answer, then act. Every question offers numbered options and stops.
 
-1. **Collect.** For every visible frame in scope that has auto layout, read padding top, right, bottom, left, and gap; read the row gap only when the frame wraps. Skip hidden layers and count them. Do not measure absolute-positioned children; count them as not measurable.
-2. **Fold inherited values.** An instance whose value equals its main component's value is inheriting it. Report that value once, on the main component's row, with a note "inherited by N instances"; if the main component is outside the selection, still list it once and say so. Only a value that differs from the main component gets its own row, marked as an override.
+1. **Collect.** For every visible node in scope that has auto layout (frames, components, variants, instances, and slots all count as frames here), read padding top, right, bottom, left, and gap; read the row gap only when the frame wraps. Skip hidden layers and count them. Do not measure absolute-positioned children; count them as not measurable. Stop at 2,000 frames, say the scope was truncated, and ask whether to continue by section.
+2. **Fold inherited values and merge twins.** An instance whose value equals its main component's value is inheriting it. Report that value once, on the main component's row, with a note "inherited by N instances". If the main component sits outside the selection or on another page, still list it once and say where it is. Only a value that differs from the main component gets its own row, marked as an override. Distinct frames that read identically (same component, path, property, and value, such as four nested "Block" frames) merge into one row noted "in N frames"; a fix on that row applies to all of them.
 3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48. Under a 4 pt grid the largest possible delta below 48 is 2, so severity keys on 2 versus 1.
-4. **Rank.** Assign a priority from the location and the delta:
-   - **P0**: delta of 2 or more on a main component or component set, or inside one.
-   - **P1**: delta of 2 or more on any other frame; delta of 1 on a main component; or any override inside an instance, because the lasting fix belongs in the main component.
-   - **P2**: delta of 1 on a plain frame; or any value bound to a variable (change the variable, not the layer).
-   - **P3**: fractional deltas below 1, and anything on a page named Scratch, Archive, or Playground.
-5. **Report** using the output contract. If the user asked a yes-or-no question, answer it in one line first ("Not entirely. I found 10 off-grid values. Nothing was changed."). List at most 30 rows, highest priority first, then largest delta. Summarise the rest by count per priority.
+4. **Rank.** Assign a priority from the location and the delta. Inside a component, depth counts: the component itself or its direct child frames are what designers see; deeper frames are internals.
+   - **P0**: delta of 2 or more on a main component, a component set, or a direct child frame of one.
+   - **P1**: delta of 2 or more deeper inside a component, or on any plain frame; delta of 1 anywhere inside a component; or any override inside an instance, because the lasting fix belongs in the main component.
+   - **P2**: delta of 1 on a plain frame; or any value bound to a variable, on the layer itself or on the main component it inherits from (change the variable, not the layer). Name the token. When bound values reveal a token outside the rhythm, such as a 6 pt step, say so in the report: that is a scale decision for the system owner, not a defect to snap.
+   - **P3**: fractional deltas below 1, gaps of exactly 2, and anything on a page named Scratch, Archive, or Playground.
+5. **Report** using the output contract. If the user asked a yes-or-no question, answer it in one line first ("Not entirely. I found 10 off-grid values. Nothing was changed."). Rows are sorted by priority, then by largest delta. When there are more than 30 rows, show the group summary first (one line per component or top-level frame with its row counts by priority), then the top 30 rows, then the remaining count per priority.
 6. **Offer the fix.** Ask, verbatim and as plain text:
    > Apply the snaps listed above? 1. All, 2. P0 and P1 only, 3. Pick by row number, 4. None.
-   Wait. Apply only the chosen rows, only on those layers, by setting the named property to the nearest on-grid value. Never touch a variable binding, a layer's structure, constraints, or layout mode, and never set a width or height. A hug-sized frame that grows or shrinks because its padding or gap changed is the expected result, not a size change; never revert a confirmed snap for that reason. For rows inside an instance, apply only if the user confirmed that creating an override is acceptable; otherwise point at the main component. If you believe a confirmed row is unsafe to apply, leave it unapplied, say why, and ask; never revert silently.
+   Wait. If any chosen row is a main component outside the selection or on another page, say so in one line before applying ("Rows 3 to 5 change main components on Inputs and AI Chat, so every instance in the file updates"), then apply. Apply only the chosen rows, only on those layers, by setting the named property to the nearest on-grid value. Never touch a variable binding, a layer's structure, constraints, or layout mode, and never set a width or height. A hug-sized frame that grows or shrinks because its padding or gap changed is the expected result, not a size change; never revert a confirmed snap for that reason. For rows inside an instance, apply only if the user confirmed that creating an override is acceptable; otherwise point at the main component. If you believe a confirmed row is unsafe to apply, leave it unapplied, say why, and ask; never revert silently.
 7. **Verify.** Re-read every changed property from the canvas and compare it with the target. Report mismatches as not fixed, with the value actually read.
 
 ## Output contract
 
-Use the Figma UI names for properties: Padding top, Padding right, Padding bottom, Padding left, Gap, Row gap. Show deltas signed (−2 means the value comes down by 2). Where the surface supports it, make each layer reference a clickable node link.
+Use the Figma UI names for properties: Padding top, Padding right, Padding bottom, Padding left, Gap, Row gap. Show deltas signed (−2 means the value comes down by 2). Put Priority second so it stays visible in a narrow panel. Where the surface supports it, make each layer reference a clickable node link.
 
 ```markdown
 <One-line answer if the user asked a question.>
@@ -56,10 +56,15 @@ Use the Figma UI names for properties: Padding top, Padding right, Padding botto
 ## Spacing rhythm audit: <scope name>
 - Scale: 4 pt below 48, 8 pt from 48 (or the stated scale)
 - Frames measured: <n> · Hidden skipped: <n> · Not measurable (absolute children): <n>
-- Off-grid values: P0 <n> · P1 <n> · P2 <n> · P3 <n>
+- Off-grid values: P0 <n> · P1 <n> · P2 <n> · P3 <n> (<n> values in <n> rows)
+- Bound to variables: <n> values using <token names>; left to a variable-level decision
 - No changes applied.
 
-| # | Layer (path) | Property | Current | Nearest | Delta | Priority | Note |
+## By component (only when more than 30 rows)
+| Component or frame | Rows | P0 | P1 | P2 | P3 |
+| --- | --- | --- | --- | --- | --- |
+
+| # | Priority | Layer (path) | Property | Current | Nearest | Delta | Note |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 
 ## After fixes (only if applied)
@@ -97,6 +102,11 @@ Say "no off-grid values in" followed by the frame count instead of producing an 
 - **Do:** "Hero: Gap 14 → 16 applied; the frame grew from 96 to 98 px because it hugs its content."
 - **Do not:** "Hero remains at 14. Snapping increased its height, so I reverted it."
 
+### Summarise before you list
+
+- **Do:** "AI Sidebar: 8 values (Padding left and right 6 → 8 in four nested Block frames). Checkbox: 1 value, inherited by 9."
+- **Do not:** Thirty rows of "Block / Block / Block" with the rest of the page cut off.
+
 ## Examples
 
 **Request:** "Check the spacing on these cards" with four card instances selected.
@@ -104,6 +114,9 @@ Say "no off-grid values in" followed by the frame count instead of producing an 
 
 **Request:** "Is this on the 8pt grid?" with nothing selected.
 **Result:** The verbatim scope question in plain text. If the user picks the page, a one-line answer, then the audit.
+
+**Request:** "Audit spacing" with a design-system section of 300 frames selected.
+**Result:** The header counts, a "By component" summary, the top 30 rows, the remaining counts, then the fix question.
 
 **Request:** "Fix all of them" after the report.
 **Result:** Snaps applied only to the listed rows, each re-read, then the "After fixes" block with verified counts. Hug frames that changed height are reported, not reverted.
@@ -117,9 +130,10 @@ Say "no off-grid values in" followed by the frame count instead of producing an 
 - **Values bound to variables.** Report the variable name and its resolved value at P2; never overwrite the binding. Suggest changing the variable.
 - **Percentages or mixed values.** Report them in the Note column; do not snap them.
 - **Instances with overrides.** Report the override; the lasting fix is the main component. Apply an override only on explicit confirmation.
-- **Main component outside the selection.** List it once with the inherited count and say it is outside the selection; the fix still goes there.
+- **Main component outside the selection or on another page.** List it once with the inherited count and name the page; the fix still goes there.
+- **Gap of 2.** Half-step; P3 with a note, unless the user disallows 2.
 - **Fractional values such as 15.5.** Treat as off-grid; nearest on-grid is 16; rank P3 and note the fraction.
-- **Large scope.** Above 400 frames, stop collecting, report the first 400, and ask whether to continue in batches.
+- **Large scope.** Above 2,000 frames, stop collecting, report what was measured, and ask whether to continue by section.
 - **Figma Make.** Return the allowed-value list as a checklist and stop.
 
 ## Final gate: do not finish until every line is true
@@ -128,6 +142,7 @@ Check against the canvas, not from memory.
 
 - [ ] Every Current value in the table was read from a layer
 - [ ] Inherited instance values appear once, on the main component row
+- [ ] More than 30 rows means a "By component" summary came first
 - [ ] No snap was applied before the user answered the numbered fix question
 - [ ] Every confirmed snap was applied or explicitly declined with a reason; none was reverted silently
 - [ ] Every applied snap was re-read and equals the Nearest value

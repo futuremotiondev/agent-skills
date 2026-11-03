@@ -24,6 +24,32 @@ This is the first skill built through fm-figma-skill-creator, so its first uploa
 
 ## Entries
 
+### 2026-11-02 · v1.2 · scale test in Figma (Simple Design System copy)
+
+- **Edition tested:** paste (v1.2).
+- **Run A, AI section (51 frames), slash:** 47 s. 14 values in 6 rows; P1 2, P2 12. The 12 padding values are bound to `Space/150` (a 6 pt token) on their main components; the agent ranked them P2, named the token, and merged the five nested Blocks into one row with a grouped link. Oracle had ranked them P0 and P1 because the v1.2 helper did not check the main component's bindings on inherited rows. Agent correct, oracle wrong.
+- **Run B, Sections page via scope question, then `2`:** 10 + 24 + 18 credits; 18 s + 42 s + 27 s. 842 frames (oracle 844; the agent does not count the two `SLOT` nodes as frames), 9 hidden, 4 absolute. 18 values in 10 rows: P0 2 (Hero slots), P1 3, P2 12 (bound), P3 1 (2 px half-step). Priority in column two, grouped links, "No changes applied". Fix pass applied the five gap snaps at their main components, including sources on the Inputs and AI Chat pages, verified 5 of 5, left bound values and the half-step alone. Canvas read-back over MCP confirmed every value and the bindings.
+- **Run C, Examples page (1,937 frames) via scope question, then `4`:** 22 + 4 credits; 40 s. 17 values in 9 rows: P0 4 (Home Page and Article Section gaps per platform), P2 12, P3 1. The three gaps fixed in Run B no longer appear, which is the correct consequence of fixing main components. "I've left everything unchanged." after `4`.
+- **Output contract met:** yes, all three runs.
+- **Source changed:** only the five confirmed gap rows in Run B.
+- **Credits:** about 10 to ask the scope question, 22 to 24 to audit a page regardless of size (842 or 1,937 frames), 18 to fix five values, 4 to decline.
+- **Defects:** 6. Oracle and helper ignored bindings on inherited rows (agent compensated). 7. Editing main components on other pages is correct and was disclosed in notes, but deserved an explicit blast-radius line before applying. 8. "Frames measured" needs a stated counting rule (slots and components count).
+- **Change made (v1.3):** inherited rows check the main component's bindings; variable names resolved and shown; "Bound to variables" line in the header; blast-radius sentence before applying rows outside the selection; counting rule stated in step 1.
+- **Re-test needed:** optional; v1.3 changes are to the helper's classification and two sentences of instruction, both already exhibited by the agent in Runs A to C.
+
+### 2026-11-02 · v1.2 · scale test preparation (MCP oracle, read-only)
+
+- **File:** duplicate of Figma's Simple Design System (Community), key MvJFAtAswCm20cI7hEtc0v. 30 pages; Examples page holds 1,939 auto-layout frames and 1,372 instances at depth 13.
+- **Oracle method:** the collect helper run over `use_figma` with the test selection set programmatically, before the in-app run, so expected counts are exact.
+- **v1.1 helper at scale (defects found):** main components on other pages printed as " / Avatar Block / Info" (unnamed top-level section, no page name); one component's nested frames produced ten identical-looking rows; every row inside a design system ranked P0; a 2 px gap ranked like any other value; the 400-frame cap was far below what the helper handles (1,939 frames in 3.3 s, 3.4 KB payload).
+- **v1.2 changes:** paths skip unnamed ancestors, keep the last four segments, and name the page; severity inside components keys on depth (root or direct child is P0, deeper is P1); 2 px gaps rank P3 as half-steps; identical rows merge with "in N frames" and carry all ids; a "By component" summary precedes the table when rows exceed 30; frame cap raised to 2,000 with a truncation flag; Priority moved to the second column.
+- **Expected results (v1.2 oracle):**
+  - AI section (51 frames): 14 values; P0 2, P1 12; groups AI Sidebar 11, AI Chat -> User message 2, AI -> Conversation 1. 0.25 s.
+  - Sections page (844 frames, 9 hidden, 4 absolute): 18 values in 10 rows; P0 4, P1 13, P3 1; groups AI Sidebar 11, Hero (Slot) 2, AI Chat -> User message 2, Checkbox Field 1, AI -> Conversation 1, Avatar Block 1. 1.2 s.
+  - Examples page (1,939 frames, 4 absolute): 20 values; P0 6, P1 13, P3 1; adds Examples / Home Page 2 and Examples/Article 2 (Section gap 10 → 8 per platform). 1.7 s, 4.7 KB payload.
+- **Static:** master, upload, paste, coding-agent editions all 0 errors, 0 warnings; markdownlint clean; helper parses (111 lines).
+- **Re-test needed:** yes, in-app, against the numbers above.
+
 ### 2026-11-02 · v1.1 · Figma Design
 
 - **Edition tested:** paste (`dist/fm-spacing-rhythm-audit.paste.md` in Instructions; name and description typed into the form). The form enforces a 1,024-character description limit.
