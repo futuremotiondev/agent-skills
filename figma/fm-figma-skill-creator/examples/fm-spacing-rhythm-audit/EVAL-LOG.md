@@ -11,8 +11,8 @@ This is the first skill built through fm-figma-skill-creator, so its first uploa
 - [x] Body size limit hit: no (upload edition of about 190 lines accepted)
 - [x] Markdown tables render in chat output: yes, with clickable node links (`figma-node-link`); question cards do not render Markdown
 - [ ] `evaluate_script` ran the collect helper as written: not observable from the chat; results matched the helper's logic exactly
-- [ ] `figma.getNodeByIdAsync` available in-app: yes / no
-- [ ] `node.boundVariables` readable in-app: yes / no
+- [x] `figma.getNodeByIdAsync` available in-app: yes (capability probe, 2026-11-03)
+- [x] `node.boundVariables` readable in-app: yes (capability probe, 2026-11-03; Round 3 bound counts)
 - [ ] Export produces: ____ (format, whether frontmatter round-trips)
 
 ## Static results (2026-11-02)
@@ -23,6 +23,74 @@ This is the first skill built through fm-figma-skill-creator, so its first uploa
 - Coding-agent edition: see build log
 
 ## Entries
+
+### Round 3 in-app, v2.0 (fixed in 2.1), 2026-11-03
+
+- **Edition tested:** upload, v2.0, Figma Design agent. Every gate was screenshotted.
+- **Credits:** not shown in the chat UI in any of the runs below.
+
+#### Prompt (a): seed file, SEED_SELECTION (12 nodes), `/fm-spacing-rhythm-audit`, then 1
+
+- **Timings:** 34 s to the mode question, 47 s from the mode answer to the report, 26 s from the row-number answer to the apply reply, 19 s for the revert.
+- **Report against scope 2:** 0 mismatches. Mode tokens (Spacing), each layer's applied mode. Frames 11, hidden 1, not measurable 0. P0 2 · P1 4 · P2 0 · P3 4 (10 values in 10 rows). Bound values 6 passed. Tokens off the 4/8 rhythm: `legacy/odd-18` = 18 (4 values) and `Space/300` = 10 in Compact (1). Bind opportunities: 11 values across 4 tokens, the table equal to scope 2's `unbound` (`Space/200` 7, `Space/400` 2, `Space/150` 1, `Space/300` Compact 1). On rhythm, no matching token: 4. Matched but not offered: Legacy (1 token). 21 ranked rows in the oracle's order with current, nearest, fix, and priority equal. Note under the table: rows 11 to 21 are optional binding opportunities, and row 6 (the `Card / Override` gap 15) stays unchanged unless the override is approved.
+- **Apply (answer 3, rows 13 to 17, `Token card`):** paddings 8 → bind `Space/200`, gap 6 → bind `Space/150`. Changed 5 properties on 1 layer, verified 5 of 5. Equal to the apply proof (previous 8, previous binding none).
+- **Revert ("revert the last snaps"):** all five restored to their numbers, unbound, verified 5 of 5, none skipped. Equal to the revert proof. The changed-since path was not exercised in-app.
+- **Gates:** mode and fix questions rendered as cards with lettered clickable options. The row-number follow-up rendered as a card reading "Awaiting custom response", and the agent added presets "1. Choose rows 1-5, 2. Choose rows 7-10" that the skill never defined; they would have snapped the Card and Fractional rows.
+
+#### Prompt (b): Simple Design System duplicate `RoEqd4VFbADE0s0nZ0n8Yj`, Sections page, nothing selected
+
+- **Prompts:** "Audit the spacing on this page", then 1 (scope), then 1 (mode), then 4 at the fix question.
+- **Timings:** 17 s to the scope question, 17 s to the mode question, 49 s to the report.
+- **Gates:** the scope question rendered as plain text and was answered by typing. The mode question (range −24 to 160 px, equal to the Size collection) and the fix question rendered as cards. Decline reply: "I've left everything unchanged. The audit found 10 token mismatches and 42 optional binding opportunities across 842 auto-layout frames."
+- **Header against scope 3:**
+
+  | Line | Agent | Oracle | Match |
+  | --- | --- | --- | --- |
+  | Frames measured | 842 | 844 | no (−2) |
+  | Hidden / not measurable | 9 / 4 | 9 / 4 | yes |
+  | Priority | P0 7, P1 3, P2 0, P3 0 | same | yes |
+  | Bound values passed | 618 | 622 | no (−4) |
+  | Tokens off the 4/8 rhythm | `Space/150` = 6, 12 values | same | yes |
+  | Bind opportunities | 42 across 7 tokens | same | yes |
+  | Mode | tokens, Size, Default | same | yes |
+  | Matched but not offered | not printed | Responsive (1 WIDTH_HEIGHT) | no (omitted) |
+  | On rhythm, no matching token; library tokens | not printed (0; none) | 0; none | acceptable |
+
+- **Rows against scope 3:** 10 of 10 equal on id, property, current, nearest, fix token, delta, and priority: `4331:7191` ×5 (20 → `Space/400`, −4, P0), `6062:12601` and `6062:12602` (10 → `Space/200`, P0), `565:14466` (inherited by 9), `4317:11278` (1), `4317:10977` (2). The blast-radius sentence for rows 8 to 10 was present.
+- **Bind-opportunity table:** counts 15 / 10 / 6 / 5 / 4 / 1 / 1 equal. Example layers equal the oracle's `exampleId` except `Space/400`, which shows `6031:7224` (in the oracle's id list) instead of `7717:4142`; acceptable, and consistent with a different visiting order in-app. The 50-frame footer line was present.
+- **Tie disclosure (Ruling 32):** the agent said "The 20 px values below follow a 4 pt rhythm, but don't match this system's tokens. Where tokens were equally near, I chose the lower value." 20 is 4 from both `Space/400` (16) and `Space/600` (24); the lower was chosen, as the oracle does. Whether an on-rhythm value with a token within 4 should rank P0 or pass is Futuremotion's decision in Plan 2; 2.1 leaves the classification unchanged.
+
+#### Mismatches, each with its root cause
+
+1. **Scope question as plain text** (instruction). Step 2 did not route the scope question through the structured question tool, while steps 5 and 6 did through the in-app section. Fixed in 2.1: step 2 and step 6 say "through a structured question tool when the runtime has one", and the in-app section names `ask_user_question` for the scope, mode, and fix questions.
+2. **Invented presets at the row-number follow-up** (agent behaviour the instruction allowed). Fixed in 2.1: on 3, ask "Which row numbers?" as a free-text question with no preset options or ranges, and apply exactly the rows named; the in-app section repeats it.
+3. **"Matched but not offered" dropped in (b)** (instruction). The line was defined only in the discover step, so it was not part of the output contract; prompt (a) printed it, prompt (b) did not. Fixed in 2.1: the line is in the report template and the output-contract prose, omitted when `matchedCollections` is empty, and the discover step says to repeat it in the report header.
+4. **842 frames and 618 bound values against 844 and 622** (runtime, open defect; no helper change). The collect walk (`"layoutMode" in n && n.layoutMode !== "NONE"`, a manual recursion over `children`, `visible === false` skips) is identical in v1.2 and 2.0, and v1.2 Run B also read 842, so the gap is reproducible, not a restated number. The v1.2 attribution to "the two SLOT nodes" is wrong: the Hero slots `6062:12601` and `6062:12602` are measured in-app, because they appear as rows 6 and 7 with no inherited note. A read-only `use_figma` replay of the walk on 2026-11-03 found exactly one pair of frames that accounts for both gaps: the two nested `Code` slots, `I4317:11022;4317:10969;4317:10864` and `I4331:7195;4317:10969;4317:10864`. Each is a SLOT inside an `AI Chat -> Code Block` instance that sits in the `Content` slot of an `AI -> Conversation` instance inside the `AI Chatbot` component set; they are the only measured SLOTs nested in slot content inside another instance. Their four paddings are bound and inherited, so the four bound keys sit on the main slot `4317:10864` (page AI Chat) and are reached only through these two frames: skipping both removes exactly 2 frames and 4 bound values. Hypotheses for why the in-app walk misses them: (H1) the in-app runtime does not list a slot that belongs to an instance placed inside another instance's slot, so `Code Block`'s `children` comes back without its `Code` slot; (H2) those nested nodes read `visible === false` or lack `layoutMode` in-app; (H3) the agent ran its own walk rather than the helper (the chat cannot show which), though matching rows, priorities, and the same 842 in two versions make this least likely. The helper is not changed on a guess.
+
+#### Change made (2.1)
+
+`metadata.version` 2.0 → 2.1. Step 2: the scope question goes through the structured question tool when the runtime has one. Step 4: the matched-but-not-offered line is repeated in the report header. Step 6: the fix question names the structured question tool, and the row-number follow-up is free text with no presets. Output contract: "Matched but not offered" in the prose and the template. In-app section: `ask_user_question` for the scope, mode, and fix questions, and the free-text row-number follow-up. The token classification (Ruling 32) and every helper are unchanged. Rebuilt the editions; static results are below the Round 4 note.
+
+#### Round 4 (optional, folds into the next real use of the skill)
+
+Confirm the scope question renders as a card and the header carries the Matched-but-not-offered line; the Ruling 31 frame-count diagnostic is a one-prompt check whenever someone cares. That check: on the Sections page of `RoEqd4VFbADE0s0nZ0n8Yj`, ask the agent to run this through its script tool and paste the result back, then run the same script over `use_figma` and compare:
+
+```javascript
+// Ruling 31 diagnostic: read-only. Does this runtime reach the nested Code slots?
+const ids = ["I4317:11022;4317:10969", "I4317:11022;4317:10969;4317:10864", "I4331:7195;4317:10969;4317:10864"];
+const out = [];
+for (const id of ids) {
+  const n = await figma.getNodeByIdAsync(id);
+  out.push(n ? { id, type: n.type, visible: n.visible, layoutMode: "layoutMode" in n ? n.layoutMode : "absent", children: "children" in n ? n.children.map((c) => c.id + " " + c.type) : "absent" } : { id, found: false });
+}
+return out;
+```
+
+Over MCP (2026-11-03) the `Code Block` instance lists two children, `I4317:11022;4317:10969;4317:319` (FRAME) and the `Code` slot, and both `Code` slots read SLOT, visible, VERTICAL, each with one TEXT child. A different in-app answer confirms H1 or H2; the same answer points to H3, and the next step is to have the agent return the measured frame ids from the collect helper and diff them against the oracle.
+
+#### Static (2.1)
+
+The master validates with 0 errors and 0 warnings at 497 body lines (2.0: 496). The build printed `helpers: 4 scripts`, and the upload, paste, and coding-agent editions each validate with 0 errors and 0 warnings (489, 488, and 163 body lines). markdownlint is clean on the touched files.
 
 ### v2.0 oracle, 2026-11-03 UTC
 

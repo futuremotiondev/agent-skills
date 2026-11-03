@@ -22,8 +22,8 @@ Turns raw qualitative input into a short, evidence-backed readout. Every theme c
 
 ## Before you start
 
-1. **Identify the input.** One of: file comments, a selected FigJam section of stickies, pasted text, or a text layer. If several are present, ask, verbatim:
-   > Which input should I synthesise? **1. File comments**, **2. the selected stickies or frames**, **3. the text you pasted**?
+1. **Identify the input.** One of: file comments, a selected FigJam section of stickies, pasted text, or a text layer. If several are present, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
+   > Which input should I synthesise? 1. File comments, 2. the selected stickies or frames, 3. the text you pasted?
 2. **Confirm the question.** Synthesis needs a question. If none was given, ask: "What decision will this readout inform?" and wait. Do not synthesise against an unstated goal.
 3. **Check the volume.** Under <5> items: say the sample is too small for themes and return a plain list instead. Over <200> items: say so, sample the most recent <100>, and state the cut.
 
@@ -105,7 +105,7 @@ If a canvas summary is requested: a frame named `Synthesis / <topic>` placed 80 
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
 
-Read comments with the comments capability if available; read stickies and text layers from the selection. If a script-execution tool such as `evaluate_script` is available, use it to collect sticky text (`node.text.characters` for stickies, `node.characters` for text) in batches of about 50 nodes and return plain arrays; build the optional summary frame in a separate call with `figma.createAutoLayout()`, loading fonts first.
+If a structured question tool such as `ask_user_question` is available, ask every numbered question through it with the same options; the plain-text wording is the fallback and the record of what was asked. Read comments with the comments capability if available; read stickies and text layers from the selection. If a script-execution tool such as `evaluate_script` is available, use it to collect sticky text (`node.text.characters` for stickies, `node.characters` for text) in batches of about 50 nodes and return plain arrays; build the optional summary frame in a separate call with `figma.createAutoLayout()`, loading fonts first.
 <!-- /target -->
 
 <!-- target:mcp -->

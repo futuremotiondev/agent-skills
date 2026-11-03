@@ -23,8 +23,8 @@ Measures the selection against a numeric standard and reports violations as a ra
 ## Before you start
 
 1. **Check the surface.** Figma Design only. In Make, return the standard as a checklist for the code instead.
-2. **Resolve the scope.** Use the selection. If nothing is selected, ask, verbatim:
-   > Nothing's selected. **1. Audit the current page** (this can be slow and costly on large pages), or **2. select the frames you want audited**?
+2. **Resolve the scope.** Use the selection. If nothing is selected, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
+   > Nothing's selected. 1. Audit the current page (this can be slow and costly on large pages), or 2. select the frames you want audited?
 3. **Confirm the standard.** Allowed values: <e.g. 0, 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96>. Tolerance: <e.g. none; 1 px rounding counts as a violation>. If the file has a documented scale in its library guidelines, use that instead and say so.
 
 ## Instructions
@@ -33,8 +33,8 @@ Measures the selection against a numeric standard and reports violations as a ra
 2. **Classify.** A value is compliant when it is in the allowed set. Otherwise compute the nearest allowed value and the delta.
 3. **Rank.** P0: <e.g. value off by 3 px or more on a component>; P1: <off by 1 to 2 px on a component, or any amount on a top-level frame>; P2: <on a nested utility frame>; P3: <inside detached or scratch frames>.
 4. **Report** using the contract. Cap at <20> rows; summarise the rest by count.
-5. **Offer the fix.** Ask, verbatim:
-   > Apply the <N> snaps listed above? **1. All**, **2. P0 and P1 only**, **3. Pick by number**, **4. None**.
+5. **Offer the fix.** Ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
+   > Apply the <N> snaps listed above? 1. All, 2. P0 and P1 only, 3. Pick by number, 4. None.
    Wait. Apply only what was chosen, on the listed layers, by setting the property to the nearest allowed value. Never change layer structure, constraints, or sizes beyond the property named.
 6. **Verify.** Re-read every changed property and compare to the target value.
 
@@ -123,7 +123,7 @@ Each helper is self-contained and returns a plain object; nothing persists betwe
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, use it to run the collect helper in Helper scripts and to apply confirmed snaps. Collect in one call per <25> frames, apply in a separate call, and verify in a third. Return plain objects; nothing persists between calls. If it is not available, read the properties with your own canvas tools and apply fixes one layer at a time, reporting each.
+If a structured question tool such as `ask_user_question` is available, ask every numbered question through it with the same options; the plain-text wording is the fallback and the record of what was asked. If a script-execution tool such as `evaluate_script` is available, use it to run the collect helper in Helper scripts and to apply confirmed snaps. Collect in one call per <25> frames, apply in a separate call, and verify in a third. Return plain objects; nothing persists between calls. If it is not available, read the properties with your own canvas tools and apply fixes one layer at a time, reporting each.
 <!-- /target -->
 
 <!-- target:mcp -->

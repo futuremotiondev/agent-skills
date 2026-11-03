@@ -25,8 +25,8 @@ Run this as a series of prompts: S1 → checkpoint → S2 → checkpoint → S3 
 ## Before you start
 
 1. **Check the surface.** Figma Design file with edit access. In Make, run the stages that apply to code and skip canvas stages, saying which were skipped.
-2. **Resolve scope.** The selected page or frames. If nothing is selected, ask, verbatim:
-   > Nothing's selected. **1. Run the workflow on the current page**, or **2. select the frames first**?
+2. **Resolve scope.** The selected page or frames. If nothing is selected, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
+   > Nothing's selected. 1. Run the workflow on the current page, or 2. select the frames first?
 3. **Confirm inputs.** <Owner, target date, audience, library version, naming rules>. Ask for anything missing before S1; do not assume.
 
 ## Instructions
@@ -37,8 +37,8 @@ Run this as a series of prompts: S1 → checkpoint → S2 → checkpoint → S3 
 2. <Action.>
 3. **Done when:** <checkable condition, e.g. "no frame named `Frame <n>` remains in scope; no hidden top-level frames">.
 
-**Checkpoint 1.** Report what changed as counts, then ask, verbatim:
-> Stage 1 done: <n> renamed, <n> moved, <n> deleted. **1. Continue to <Stage 2>**, **2. Show me the list first**, **3. Stop here**.
+**Checkpoint 1.** Report what changed as counts, then ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
+> Stage 1 done: <n> renamed, <n> moved, <n> deleted. 1. Continue to <Stage 2>, 2. Show me the list first, 3. Stop here.
 Wait.
 
 ### S2: <Stage 2 name, e.g. "Compliance">
@@ -113,7 +113,7 @@ At the end: the marked checklist, the names and locations of anything created, a
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, use one call per stage for collection, one for changes, one for the done-check, each on batches of about 25 frames. Re-fetch nodes by id in every call. Never carry the done-check inside the call that made the changes.
+If a structured question tool such as `ask_user_question` is available, ask every numbered question through it with the same options; the plain-text wording is the fallback and the record of what was asked. If a script-execution tool such as `evaluate_script` is available, use one call per stage for collection, one for changes, one for the done-check, each on batches of about 25 frames. Re-fetch nodes by id in every call. Never carry the done-check inside the call that made the changes.
 <!-- /target -->
 
 <!-- target:mcp -->

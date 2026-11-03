@@ -25,8 +25,8 @@ Three principles matter more than the template: every finding carries visible ev
 ## Before you start
 
 1. **Check the surface.** Figma Design: critique the selected layers. Figma Make: critique the current screen's navigation, states, and feedback paths. A screenshot or reference with no editable context: critique what is visible and say so.
-2. **Resolve the target.** Use the selection. If nothing is selected, ask, verbatim:
-   > Nothing's selected. **1. Review the current page**, or **2. select the frames you want reviewed**?
+2. **Resolve the target.** Use the selection. If nothing is selected, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
+   > Nothing's selected. 1. Review the current page, or 2. select the frames you want reviewed?
    If the target is too broad (a whole product, brand, and system at once), narrow to one surface and state the boundary.
 3. **Confirm the lens inputs.** <Persona notes, product goal, audience, constraints.> If a stated constraint is missing, say so and ask; never assume the audience.
 

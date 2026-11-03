@@ -53,7 +53,7 @@ The scope gate. Always three checks:
 1. **Surface.** Design file: canvas layers. Make file: project code or a spec. FigJam or Slides, or
    a request that needs prototyping, vectors, slots, exports, or diagrams: plan only, say so.
 2. **Scope.** Use the current selection. If nothing is selected, ask a verbatim question with
-   numbered options and stop. Never expand to the page or file without asking.
+   numbered options (through a structured question tool when the runtime has one) and stop. Never expand to the page or file without asking.
 3. **Inputs.** Library, collection, connector, brand rules. If one is missing, say what is missing
    and ask for the source of truth. Never invent values.
 
@@ -61,7 +61,12 @@ The scope gate. Always three checks:
 
 Open with the interaction contract when the skill asks questions: one question per message,
 numbered options, wait, act, move on; never two questions in one message; never answer your own
-question; re-ask narrowly on ambiguity.
+question; re-ask narrowly on ambiguity. Every gate (scope, mode, fix, disclosure, checkpoint) is
+asked "through a structured question tool when the runtime has one", in plain text without
+Markdown, and the `target:figma-app` section names `ask_user_question` for those gates: in Round 3
+(2026-11-03) the gates that named the tool rendered as cards with clickable options and the ones
+that did not rendered as plain text. A follow-up that needs free text, such as row numbers, is asked
+as free text with no preset options; the agent otherwise invents presets the skill never defined.
 
 Then numbered steps. Each step is a direct instruction with numbers, names, and thresholds, not
 adjectives. Build on a duplicate or a new frame placed next to the source. Include a **Verify**

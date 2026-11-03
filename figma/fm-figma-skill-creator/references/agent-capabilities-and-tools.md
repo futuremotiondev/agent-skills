@@ -54,12 +54,12 @@ each by evidence and always pair an in-app tool with a prose fallback.
 | Tool or phrase | Evidence | Observed contract | Safe to name? |
 | --- | --- | --- | --- |
 | `evaluate_script` | Figma-co-authored Community skills (`comments-do-try-consider`, `figma-ux-writing-style`) and many third-party skills; undocumented | Runs Plugin API JavaScript in the open file; the `return` value is the result; `console.log` is not returned; node references, loaded fonts, and helpers do not persist between calls; "has output limits" (no number); a third-party author caps batches at 25 rows | In-app only. Feature-detect ("if a script-execution tool is available") and give a prose fallback |
-| `show_widget` with `sendPrompt(...)` and `read_me` | Figma's own help-center example (`hifi-mockup-presenter`) and one third-party skill; undocumented; contract appears to match Anthropic's visualize tool | Renders an interactive HTML widget in chat; widget JS calls `sendPrompt(text)` as if the user typed it; `read_me` supplies the stylesheet | In-app pickers only, always with a numbered-options text fallback |
+| `show_widget` with `sendPrompt(...)` and `read_me` | Figma's own help-center example (`hifi-mockup-presenter`) and one third-party skill; undocumented; contract appears to match Anthropic's visualize tool | Renders an interactive HTML widget in chat; widget JS calls `sendPrompt(text)` as if the user typed it; `read_me` supplies the stylesheet. **Missing** in the Figma Design agent probe of 2026-11-03: no picker rendered | Never the only path: in-app pickers only, always with a numbered-options text fallback, and expect the fallback to run |
 | `get_comments` | Figma-co-authored skill; third-party | Params `pageId`, `nextCursor`; returns `id`, `message`, `user.handle`, `position.nodeId`, `reactions` | In-app only |
 | `list_shader_fills`, `get_shader_fill` | Figma-co-authored `shader-starter` | Lists and reads shader fills ("Do not guess a type string") | In-app only |
 | "Figma's AI image creation tool" | Figma help-center example | Generates an image used as a fill | Yes, by capability name |
 | Library search (`use-design-system`, `select-design-libraries`) | Figma Advocates `update-components` | Runtime skills, not tools; returns component sets with `componentSetKey` | Describe as "search the connected library" |
-| `ask_user_question` | Figma-co-authored `catch-me-up` (per search) | Structured multiple choice | Optional; numbered options in text work everywhere |
+| `ask_user_question` | Figma-co-authored `catch-me-up` (per search); **available** in the Figma Design agent probe of 2026-11-03 | Structured multiple choice; renders a card with lettered clickable options plus an "Add a custom response" option; the card does not render Markdown | Name it in `target:figma-app` for every gate, with the plain-text question as the fallback |
 | `create_design` | Figma-co-authored `feedback-map` (per search) | Declarative design creation | Unverified; avoid |
 | Web search, connectors | Documented capabilities | No tool names in any skill | Describe in prose; handle absence |
 | `use_figma`, `create_session`, `get_design_context`, `get_screenshot`, `download_assets`, `skillNames` | Official **MCP** tools for external agents | Absent from every in-app body; a Figma-authored skill states the in-app agent "cannot... there is no MCP tool available to it" | MCP section only |
@@ -77,15 +77,21 @@ core.
 strong inference is one runtime with the in-app host missing some features. Rules an in-app script
 block must follow:
 
-- Send results back with `return`; `console.log` is not returned; `figma.notify()` throws.
+- Send results back with `return`; `console.log` is not returned. `figma.notify()` was called
+  and returned a handler in both probe runs (2026-11-03), although the figma-use guidance says it
+  throws; a skill should still not depend on a toast.
 - Load fonts before any text edit (`figma.loadFontAsync`), every call.
 - Re-fetch nodes by id in every call (`figma.getNodeByIdAsync`); node references and ids can stop
   resolving between calls.
 - Measure in a later call than the one that builds: `node.width` on a freshly appended `FILL`
   child can read `0` in the same call.
-- `setPluginData` / `getPluginData` are silently unavailable; `figma.loadAllPagesAsync` is "not
-  implemented" (feature-check and degrade to the current page); wrap per-node inspection in
-  try/catch because malformed remote components throw.
+- `setPluginData` throws ("not supported in this host runtime") and `figma.clientStorage` is
+  "not a supported API" in both runtimes; `setSharedPluginData` round-trips. `figma.loadAllPagesAsync`
+  is present but its call is untested (third-party reports say "not implemented"), so feature-check
+  and degrade to the current page; wrap per-node inspection in try/catch because malformed remote
+  components throw.
+- Returns are truncated, not rejected, somewhere below 50,000 bytes in-app; over MCP, `use_figma`
+  rejects returns over 48,000 bytes. Keep results small in both.
 - Keep batches small (a third-party author caps at 25 rows per call) and keep helper code under
   about 150 lines, re-pasted per call because nothing persists.
 - Text sizing order: `resize(width, 16)`, then `textAutoResize = 'HEIGHT'`, then `characters`.
@@ -97,9 +103,10 @@ block must follow:
 | `await node.screenshot()` | Third-party in-app skills | Documented | Probably safe; feature-detect |
 | `figma.motion.*` | Figma-authored motion skills | Not listed | In-app motion only |
 | `getNodeByIdAsync`, `loadFontAsync`, `figma.variables.*`, `figma.teamLibrary.*`, `importComponentByKeyAsync` | Dozens of uses | Standard API | Safe |
-| `figma.loadAllPagesAsync` | "Not implemented" | Pages load incrementally | Feature-check |
-| `setPluginData` / `getPluginData` | Silently unavailable | Not supported | Use `setSharedPluginData` or layer names |
-| `node.query()`, `node.set()`, `figma.io.write`, `node.placeholder` | Zero in-app uses | Documented extensions | Unverified in-app; MCP sections only |
+| `figma.loadAllPagesAsync` | Present, call untested (probe, 2026-11-03); third parties report "not implemented" | Pages load incrementally | Feature-check |
+| `setPluginData` / `getPluginData` | Throws: not supported in this host runtime (probe, 2026-11-03) | Throws, same text | Use `setSharedPluginData` or layer names |
+| `figma.clientStorage` | Throws: not a supported API (probe, 2026-11-03) | Throws, same text | Do not persist state; nothing survives between calls anyway |
+| `node.query()`, `node.set()`, `figma.io.write`, `node.placeholder` | `node.query` and `node.set` present in-app (probe, 2026-11-03, presence only); zero in-app uses | Documented extensions | Calls unverified in-app; MCP sections only |
 
 ## Observed in-app (probe results)
 
@@ -116,6 +123,71 @@ is nothing to say, and `presence only` marks rows that were checked for existenc
 The in-app tables end with the two experiment rows (`ask_user_question` and `show_widget`), and
 every table is followed by the four scalar lines: payload bytes returned, walk time, nodes
 walked, and style counts.
+
+### Figma Design agent (evaluate_script), 2026-11-03
+
+Seed file `fm-spacing-audit-seed` (key `hSEurPqV8Dgzn9yTwPSnnL`), nothing selected, upload of
+`fm-figma-capability-probe` 1.0, Futuremotion's paste-back. Runtime line: `Figma Design agent;
+script reports editorType figma, mode unknown, apiVersion 1.0.0`. The disclosure question rendered as
+plain text (1.0 did not name the structured question tool for it); the first card, the
+`ask_user_question` experiment, appeared 1 m 23 s after the answer. Credits were not shown in the
+chat UI.
+
+| API | Status | Detail |
+| --- | --- | --- |
+| figma.getNodeByIdAsync | available | resolved the current page |
+| figma.currentPage.selection | available | 0 selected |
+| node.getMainComponentAsync | available | main component Card |
+| node.boundVariables | available | 0 bound properties on Card |
+| figma.variables.getVariableByIdAsync | available | resolved legacy/odd-18 |
+| figma.variables.getLocalVariablesAsync | available | 7 variables |
+| figma.variables.getLocalVariableCollectionsAsync | available | 2 collections |
+| figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
+| figma.variables.importVariableByKeyAsync | available | presence only |
+| node.setBoundVariable | available | presence only |
+| figma.getLocalTextStylesAsync | available | 0 styles |
+| figma.getLocalPaintStylesAsync | available | 0 styles |
+| figma.getLocalEffectStylesAsync | available | 0 styles |
+| figma.getLocalGridStylesAsync | available | 0 styles |
+| figma.getStyleByIdAsync | missing | no local style in file |
+| node.setFillStyleIdAsync | available | presence only |
+| node.setTextStyleIdAsync | available | presence only |
+| figma.getImageByHash + image.getBytesAsync | missing | no image on page |
+| figma.createImage | available | presence only |
+| node.setPluginData / getPluginData | error | Error: in setPluginData: figma.setPluginData is not supported in this host runtime (only private plugins on web can use |
+| node.setSharedPluginData / getSharedPluginData | available | round trip ok |
+| figma.clientStorage.setAsync / getAsync | error | Error: in setAsync: "setAsync" is not a supported API |
+| node.query | available | presence only |
+| node.set | available | presence only |
+| figma.createAutoLayout | available | created and removed; layoutMode HORIZONTAL |
+| figma.loadAllPagesAsync | available | presence only |
+| figma.ui | available | presence only |
+| text sizing: resize, textAutoResize, characters | available | height 15 at width 200 |
+| figma.notify | available | called; handler returned |
+| ask_user_question | available | Yes |
+| show_widget | missing | — |
+
+- Payload bytes returned: 50000 truncated
+- Walk time: 3 ms
+- Nodes walked: 20
+- Style counts: text 0 · paint 0 · effect 0 · grid 0
+
+What this run shows: the in-app script runtime matches MCP on every API row the scratch file could
+test, and the seed file fills the rows MCP missed for lack of content (instance, bound variables,
+variables, collections). `setPluginData` and `clientStorage` error with the same text as over MCP;
+`setSharedPluginData` works; `figma.notify` returns. A 50,000-character return came back truncated
+rather than rejected, so the in-app limit sits below 50,000 bytes and a too-large return fails
+quietly; keep helper results small. `ask_user_question` renders a card with clickable options;
+`show_widget` is missing, so every picker needs its numbered-options text fallback.
+
+Decision-gate UI (Round 3, 2026-11-03, screenshots of every gate): a gate whose skill text names the
+structured question tool renders as a card with lettered clickable options (A, B, ...) plus "Add a
+custom response"; a gate that does not name it renders as plain text, answered by typing. The
+audit's mode and fix questions rendered as cards; its scope question and the probe's disclosure
+rendered as plain text. A free-text follow-up shows as a card reading "Awaiting custom response",
+and there the agent added presets the skill never defined. House rule since then: every gate names
+the tool, with the plain-text wording as the fallback, and free-text follow-ups say "no preset
+options".
 
 ### MCP (use_figma), 2026-11-03 UTC
 

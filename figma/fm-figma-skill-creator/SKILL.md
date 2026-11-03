@@ -180,8 +180,8 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 | Element | Write it as |
 | --- | --- |
 | Description | `Audits the selected frames against X and lists every Y with the exact fix. Use whenever the user asks to "check X", "audit X", or "find Y". Not for Z (use /fm-z).` |
-| Scope question | `> Nothing's selected. **1. Audit the current page**, or **2. select the frames you want first**?` then wait |
-| Question contract | One question per message, numbered options, stop. Never answer your own question or guess at an ambiguous reply. |
+| Scope question | `> Nothing's selected. 1. Audit the current page, or 2. select the frames you want first?` as plain text (question cards do not render Markdown), then wait |
+| Question contract | One question per message, numbered options, stop. Every gate (scope, mode, fix, disclosure) says "through a structured question tool when the runtime has one", and the `target:figma-app` section names `ask_user_question`; the plain-text wording is the fallback and the record. Gates that name the tool render as cards with clickable options in-app; gates that do not render as plain text (Round 3, 2026-11-03). A follow-up that needs free text, such as row numbers, is asked as free text with no preset options. Never answer your own question or guess at an ambiguous reply. |
 | Instruction | Verb first, with a number: "Snap each value to the nearest of 0, 4, 8, 12, 16, 24, 32, 40, 48, 64." |
 | Named rule | `### Snap, do not nudge` with a **Do** bullet holding a real value and a **Do not** bullet holding the wrong output |
 | Output contract | A fenced Markdown block the agent fills; a cap on rows; "no supported findings" instead of padding |
@@ -194,10 +194,10 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 | Section | May name | Must not name |
 | --- | --- | --- |
 | Core (tool-neutral) | design actions, Figma UI features (variables, components, styles, modes, comments, auto layout) | any tool identifier |
-| `target:figma-app` | `evaluate_script`, `show_widget` and `sendPrompt`, `read_me`, `get_comments`, shader fill tools, Figma's AI image creation capability, `ask_user_question` | MCP tools |
+| `target:figma-app` | `evaluate_script`, `show_widget` and `sendPrompt` (missing in the 2026-11-03 Design-agent probe; never the only path), `read_me`, `get_comments`, shader fill tools, Figma's AI image creation capability, `ask_user_question` | MCP tools |
 | `target:mcp` | `figma-use` skill, `create_session`, `use_figma` with `skillNames`, `get_design_context`, `get_screenshot`, `get_metadata`, `download_assets`, `generate_image` | in-app tools |
 
-The evaluate_script contract is undocumented. Treat it as the Plugin API with these observed limits: nothing persists between calls, results come back through `return`, `setPluginData` is unavailable, `loadAllPagesAsync` is not implemented, measurements read zero in the call that built the node, and text sizing works in the order resize, then `textAutoResize`, then `characters`. `references/agent-capabilities-and-tools.md` carries the evidence tier for each claim.
+The evaluate_script contract is undocumented. Treat it as the Plugin API with these observed limits: nothing persists between calls, results come back through `return` and are truncated (not rejected) somewhere below 50,000 bytes, `setPluginData` throws (use `setSharedPluginData`), `figma.clientStorage` is not supported, `loadAllPagesAsync` exists but is untested (feature-check and degrade to the current page), measurements read zero in the call that built the node, and text sizing works in the order resize, then `textAutoResize`, then `characters`. `references/agent-capabilities-and-tools.md` carries the evidence tier for each claim.
 
 ## Scripts
 

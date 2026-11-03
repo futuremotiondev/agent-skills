@@ -17,7 +17,7 @@ Runs one script that tests which Plugin API surfaces the agent's script runtime 
 ## Before you start
 
 1. **Check the surface.** Run it in a Figma Design or Figma Make file; no selection is needed. In FigJam or Slides, say the probe needs a Design or Make file and stop.
-2. **Disclose and ask.** Ask, verbatim and as plain text (the question card does not render Markdown):
+2. **Disclose and ask.** Ask, verbatim and as plain text (through a structured question tool when the runtime has one; the question card does not render Markdown):
    > This probe creates and deletes three temporary layers (one frame reused for both plugin-data round trips, one auto-layout frame, one text layer), writes one client-storage key, and shows one one-second toast, nothing else. Run it? 1. Yes, 2. No
    Wait for the answer. On 2, say nothing was run or changed and stop.
 
@@ -256,7 +256,7 @@ The probe helper is self-contained and returns one result object. Every check is
 
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, run the probe helper through it once, exactly as written; it returns the result object. If the run is rejected for size, run it exactly once more with `PAYLOAD` set to 30000 and record the rejection text on the payload line. If no script tool is available, follow the edge case for a missing script path.
+If a structured question tool such as `ask_user_question` is available, ask the disclosure question through it with the same numbered options; the plain-text wording is the fallback and the record of what was asked. If a script-execution tool such as `evaluate_script` is available, run the probe helper through it once, exactly as written; it returns the result object. If the run is rejected for size, run it exactly once more with `PAYLOAD` set to 30000 and record the rejection text on the payload line. If no script tool is available, follow the edge case for a missing script path.
 
 After the helper returns and before printing the table, run the two UI experiments, one at a time, and append their rows after the helper's rows in this order. A tool that exists but fails records `error` with the error text.
 

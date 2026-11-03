@@ -24,14 +24,14 @@ metadata:
 ## Before you start
 
 1. **Check the surface.** In a Figma Design file, work on canvas layers. In a Figma Make file, <edit project code / return a spec> instead. If the request needs prototyping, vector editing, slots, asset export, or diagrams, produce a plan only and say so; those are not available to the agent today.
-2. **Resolve the scope.** Use the current selection. If nothing is selected, ask, verbatim:
-   > Nothing's selected. **1. <Option, e.g. Audit the current page>**, or **2. select the layers you want first**?
+2. **Resolve the scope.** Use the current selection. If nothing is selected, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
+   > Nothing's selected. 1. <Option, e.g. Audit the current page>, or 2. select the layers you want first?
    Wait for the answer. Do not expand to the whole page or file without asking.
 3. **Confirm inputs.** <Library, variable collection, connector, brand rules the skill needs>. If one is missing, say exactly what is missing and ask for the source of truth. Do not invent values.
 
 ## Instructions
 
-Run this as a series of prompts when a question is needed: ask one question, wait for the answer, act, then move on. Every question offers numbered options and stops. Never ask two questions in one message, never answer your own question, and never guess at an ambiguous reply; ask again, more narrowly.
+Run this as a series of prompts when a question is needed: ask one question, wait for the answer, act, then move on. Every question offers numbered options and stops, through a structured question tool when the runtime has one, in plain text otherwise. A follow-up that needs free text, such as row numbers, is asked as free text with no preset options. Never ask two questions in one message, never answer your own question, and never guess at an ambiguous reply; ask again, more narrowly.
 
 1. **<Step name>.** <Direct instruction with numbers, names, and thresholds, not adjectives. Example: "Snap each value to the nearest of 0, 4, 8, 12, 16, 24, 32, 40, 48, 64.">
 2. **<Step name>.** <Instruction.> Work on a duplicate or a new frame placed <80 px to the right of> the source. Never move, edit, or delete the source.
@@ -104,7 +104,7 @@ Check against the canvas, not from memory.
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, run the collect helper in Helper scripts for steps <2 and 3>. Return values with `return`, re-fetch nodes by id in every call, load fonts before any text edit, keep each call to a small batch, and measure in a later call than the one that builds. If it is not available, perform the steps with your own canvas tools and say which path you took.
+If a structured question tool such as `ask_user_question` is available, ask every numbered question through it with the same options; the plain-text wording is the fallback and the record of what was asked. If a script-execution tool such as `evaluate_script` is available, run the collect helper in Helper scripts for steps <2 and 3>. Return values with `return`, re-fetch nodes by id in every call, load fonts before any text edit, keep each call to a small batch, and measure in a later call than the one that builds. If it is not available, perform the steps with your own canvas tools and say which path you took.
 <!-- /target -->
 
 <!-- target:mcp -->

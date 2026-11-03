@@ -2,7 +2,7 @@
 name: fm-figma-capability-probe
 description: "Reports which Plugin API surfaces the Figma agent's script runtime exposes, as a table of available, missing, and error results plus payload, timing, and style counts, then asks the user to paste the table back. Use whenever the user asks to probe, test, or check what the Figma agent can do, which APIs are available, or whether scripts can do X, or asks for a capability probe or runtime check. Not for auditing or changing designs; optional, for skill authors: no skill depends on it, no end user needs it installed, and it can be removed from Figma once its table has been pasted back."
 metadata:
-  version: "1.0"
+  version: "1.1"
   author: Futuremotion Studio
   category: "Workflows"
   tags: "probe, capabilities, plugin api, runtime, skill authoring"
@@ -27,7 +27,7 @@ Runs one script that tests which Plugin API surfaces the agent's script runtime 
 ## Before you start
 
 1. **Check the surface.** Run it in a Figma Design or Figma Make file; no selection is needed. In FigJam or Slides, say the probe needs a Design or Make file and stop.
-2. **Disclose and ask.** Ask, verbatim and as plain text (the question card does not render Markdown):
+2. **Disclose and ask.** Ask, verbatim and as plain text (through a structured question tool when the runtime has one; the question card does not render Markdown):
    > This probe creates and deletes three temporary layers (one frame reused for both plugin-data round trips, one auto-layout frame, one text layer), writes one client-storage key, and shows one one-second toast, nothing else. Run it? 1. Yes, 2. No
    Wait for the answer. On 2, say nothing was run or changed and stop.
 

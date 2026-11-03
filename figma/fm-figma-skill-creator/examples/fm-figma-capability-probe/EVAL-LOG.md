@@ -10,7 +10,7 @@ Tick and record the answer the first time the upload edition goes through Figma'
 - [ ] Name or description length limit hit: yes / no (lengths tried: ____)
 - [ ] Body size limit hit: yes / no (lines / bytes tried: ____)
 - [ ] Markdown images or links render in the instructions view: yes / no
-- [ ] `node.query` / `node.set` work under `evaluate_script`: yes / no / not tried
+- [ ] `node.query` / `node.set` work under `evaluate_script`: present (presence only, 2026-11-03); calls not tried
 - [ ] Export produces: ____ (format, whether frontmatter round-trips)
 
 ## Entry template
@@ -83,4 +83,19 @@ Changes made in response (still v1.0, before any upload): `PAYLOAD` constant wit
 
 ## Entries
 
-No live in-app entries yet.
+### 2026-11-03 · v1.0 (fixed in 1.1) · Figma Design (Round 3, prompt c)
+
+- **Edition tested:** upload, v1.0.
+- **File and selection:** `fm-spacing-audit-seed` (`hSEurPqV8Dgzn9yTwPSnnL`); nothing selected.
+- **Prompt:** `/fm-figma-capability-probe`, then 1 to the disclosure, then A ("Yes") to the question-card experiment.
+- **Triggered:** yes by slash.
+- **What the agent did:** asked the disclosure as plain text, with no card ("This probe creates and deletes three temporary layers ..., writes one client-storage key, and shows one one-second toast, nothing else. Run it? 1. Yes, 2. No"); after the typed 1, ran the helper and asked the `ask_user_question` experiment as a card (A Yes, B No, C I only see text, D custom) 1 m 23 s later; recorded `show_widget` as missing because no widget tool existed (no two-card picker appeared); printed the table immediately after the answer. The reply box then read "Ask for changes".
+- **What it should have done:** the same, except that the disclosure should have been a card; 1.0 did not name the structured question tool for it.
+- **Output contract met:** yes. 31 rows (29 helper rows and the two experiment rows) in the helper's order, the runtime line, and the four scalar lines.
+- **Source changed:** no. No fm-probe layer was left behind; the client-storage write errored, so there was no key to leave.
+- **Credits consumed:** not shown in the chat UI.
+- **Result:** the full table is merged into `references/agent-capabilities-and-tools.md` as the first in-app dated table, "Figma Design agent (evaluate_script), 2026-11-03". Against the MCP baseline above: identical on every row the empty scratch file could test; the seed file fills four rows MCP reported missing for lack of content (`getMainComponentAsync` "main component Card", `boundVariables` "0 bound properties on Card", `getVariableByIdAsync` "resolved legacy/odd-18", 7 variables and 2 collections). `setPluginData` and `clientStorage` error with the same text in both runtimes; `setSharedPluginData` round-trips; `figma.notify` was called and returned; `node.query` and `node.set` are present (presence only). `ask_user_question` is available and rendered a card; `show_widget` is missing.
+- **Scalars:** payload bytes returned "50000 truncated", so an in-app return is truncated below 50,000 bytes rather than rejected (over MCP, `use_figma` rejects returns over 48,000 bytes); walk 3 ms; 20 nodes walked; style counts 0 / 0 / 0 / 0. Runtime line: `editorType figma, mode unknown, apiVersion 1.0.0`, the same as over MCP.
+- **Defects:** 1. The disclosure gate rendered as plain text, because the instruction did not route it through the structured question tool (the experiment question, which did, rendered as a card).
+- **Change made (1.1):** `metadata.version` 1.0 → 1.1. The disclosure is asked "through a structured question tool when the runtime has one", and the in-app section names `ask_user_question` for it, with the plain-text wording as the fallback. The helper and the two experiments are unchanged: the probe keeps testing `show_widget` and `clientStorage` on purpose. Rebuilt; the master and the upload, paste, and coding-agent editions each validate with 0 errors and 0 warnings.
+- **Round 4 (optional, folds into the next real use of the skill):** confirm the scope question renders as a card and the header carries the Matched-but-not-offered line; the Ruling 31 frame-count diagnostic is a one-prompt check whenever someone cares. Those are fm-spacing-rhythm-audit's items; for this probe, the next real run only needs to confirm that the disclosure renders as a card.

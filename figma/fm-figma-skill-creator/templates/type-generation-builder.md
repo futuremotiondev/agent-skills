@@ -40,8 +40,8 @@ Run this as a series of prompts: P1 → P2 → A1 → P3 → A2 → A3. Ask one 
 
 ### P2: Choose <the first option set>
 
-Ask, verbatim, with numbered options:
-> Which <option>? **1. <A>** · **2. <B>** · **3. <C>**
+Ask, verbatim, with numbered options (through a structured question tool when the runtime has one; plain text otherwise):
+> Which <option>? 1. <A> · 2. <B> · 3. <C>
 Wait.
 
 ### A1: Compute
@@ -50,7 +50,7 @@ From the input and the answers, compute every dimension: <e.g. padding = 18 perc
 
 ### P3: Confirm placement
 
-> Build it as a new frame **1. to the right of the source** or **2. on a new page named "<artifact>"**?
+> Build it as a new frame 1. to the right of the source or 2. on a new page named "<artifact>"?
 Wait.
 
 ### A2: Build
@@ -112,7 +112,7 @@ Check against the canvas, not from memory.
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, build with it: one call to read the source and compute, one call to build, one call to verify. Use `figma.createAutoLayout()` for stacks; load fonts with `figma.loadFontAsync` in every call that touches text; re-fetch the source by id in every call; measure in the verify call, not the build call. Keep each call under about 150 lines and return plain objects. If a background image is needed, use Figma's AI image creation capability for the prompt below and apply it as a fill. If no script tool is available, build with your own canvas tools and say which path you took.
+If a structured question tool such as `ask_user_question` is available, ask every numbered question through it with the same options; the plain-text wording is the fallback and the record of what was asked. If a script-execution tool such as `evaluate_script` is available, build with it: one call to read the source and compute, one call to build, one call to verify. Use `figma.createAutoLayout()` for stacks; load fonts with `figma.loadFontAsync` in every call that touches text; re-fetch the source by id in every call; measure in the verify call, not the build call. Keep each call under about 150 lines and return plain objects. If a background image is needed, use Figma's AI image creation capability for the prompt below and apply it as a fill. If no script tool is available, build with your own canvas tools and say which path you took.
 <!-- /target -->
 
 <!-- target:mcp -->

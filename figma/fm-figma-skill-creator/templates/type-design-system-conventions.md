@@ -24,8 +24,8 @@ Use these rules whenever you design, build, or edit in a <System>-connected file
 
 1. **Check the library is connected.** Confirm the <System> library (team: <team>, file: <library file name>) is enabled in this file. If not, say so and stop; do not recreate tokens locally.
 2. **Check the mode.** Variable modes: <e.g. Light, Dark, High contrast>. Default to <Light> unless the frame already uses another mode.
-3. **Resolve scope.** Apply to the selection only. If nothing is selected and the user asks for a review, ask, verbatim:
-   > Nothing's selected. **1. Review the current page**, or **2. select the frames to review**?
+3. **Resolve scope.** Apply to the selection only. If nothing is selected and the user asks for a review, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
+   > Nothing's selected. 1. Review the current page, or 2. select the frames to review?
 
 ## Instructions
 
@@ -117,7 +117,7 @@ Report only:
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, use it for the verify step: walk the selection, collect fills without `boundVariables`, padding and gap values not bound to `space/*`, and instances whose `mainComponent` is null (detached). Return a plain list; apply fixes in a later call; re-read in a third. Keep each call to about 25 frames.
+If a structured question tool such as `ask_user_question` is available, ask every numbered question through it with the same options; the plain-text wording is the fallback and the record of what was asked. If a script-execution tool such as `evaluate_script` is available, use it for the verify step: walk the selection, collect fills without `boundVariables`, padding and gap values not bound to `space/*`, and instances whose `mainComponent` is null (detached). Return a plain list; apply fixes in a later call; re-read in a third. Keep each call to about 25 frames.
 <!-- /target -->
 
 <!-- target:mcp -->
