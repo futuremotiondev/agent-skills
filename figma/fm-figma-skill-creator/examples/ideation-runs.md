@@ -265,7 +265,7 @@ Prompt: "help my team with handoff". Grounding answer: "devs ask which frame is 
 - **Grounded in:** catalog seed fm-file-cover-standard
 - **Landscape:** better than file-cleanup because it stamps one fixed house template on any file, where file-cleanup reorganizes a messy file around its content
 
-- **Runs in:** both — Figma agent in Design, supported today (renaming and frame creation are Supported; pages are handled one at a time because loading all pages at once is not implemented in-app); MCP agents run the same steps
+- **Runs in:** both — Figma agent in Design, supported today (renaming and frame creation are Supported; pages are handled one at a time because loading all pages at once is present in-app but its call is untested, and third parties report it not implemented); MCP agents run the same steps
 - **Risk:** renames pages file-wide; every rename is listed and confirmed before it is applied
 - **Cost:** about 28 credits per five-page file (10 to confirm the cover fields, 18 per five pages renamed)
 - **Build effort:** small — a fixed template, one list of status values, and a confirm-then-apply loop
@@ -557,7 +557,7 @@ Prompt: "something for our design system". Grounding answer: "designers keep han
 - **Grounded in:** landscape gap synthesis × components (0 rows in the gap grid)
 - **Landscape:** new
 
-- **Runs in:** both — supported on the current page only, since loading every page is not implemented in-app; instance and override reads are standard Plugin API and the first live run confirms them, because the MCP probe page held no instance
+- **Runs in:** both — supported on the current page only, since loading every page is present in-app but its call is untested (third parties report it not implemented); instance and override reads are standard Plugin API and the first live run confirms them, because the MCP probe page held no instance
 - **Risk:** read-only
 - **Cost:** about 22 to 24 credits per page (observed cost model, read-only audit)
 - **Build effort:** medium — grouping and counting helper code, a capped output table, and a clear statement of which page was read
@@ -897,7 +897,7 @@ Prompt: "make our marketing pages better". Grounding answer: "every landing page
 - **Grounded in:** landscape gap synthesis × layout (count 0)
 - **Landscape:** better than visual-consistency-check because it names the templates a flow already follows instead of flagging inconsistencies
 
-- **Runs in:** both — supported today on the current page; loading every page is not implemented in-app, so the digest names the page it read
+- **Runs in:** both — supported today on the current page; loading every page is present in-app but its call is untested (third parties report it not implemented), so the digest names the page it read
 - **Risk:** read-only
 - **Cost:** about 23 credits per page of screens (from the observed page-scale audit cost, read-only)
 - **Build effort:** small — reads frame structure only; one grouping rule and one output table
@@ -1019,7 +1019,7 @@ Sample output lines are the agent's illustrations, not recon-derived values.
 - **Grounded in:** landscape gap synthesis × layout (count 0 in the gap grid)
 - **Landscape:** new
 
-- **Runs in:** both — supported today on the current page only (loading all pages is not implemented in-app, so the digest names the page it read)
+- **Runs in:** both — supported today on the current page only (loading all pages is present in-app but its call is untested, and third parties report it not implemented, so the digest names the page it read)
 - **Risk:** read-only
 - **Cost:** about 23 credits per run (page-scale audit, read-only, from the observed cost model)
 - **Build effort:** small — one collection pass, a frequency table, and an outlier rule

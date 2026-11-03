@@ -35,7 +35,7 @@ Measures the selection against a numeric standard and reports violations as a ra
 4. **Report** using the contract. Cap at <20> rows; summarise the rest by count.
 5. **Offer the fix.** Ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
    > Apply the <N> snaps listed above? 1. All, 2. P0 and P1 only, 3. Pick by number, 4. None.
-   Wait. Apply only what was chosen, on the listed layers, by setting the property to the nearest allowed value. Never change layer structure, constraints, or sizes beyond the property named.
+   Wait. On 3, ask "Which row numbers?" as a free-text question with no preset options or ranges, and apply exactly the rows named. Apply only what was chosen, on the listed layers, by setting the property to the nearest allowed value. Never change layer structure, constraints, or sizes beyond the property named.
 6. **Verify.** Re-read every changed property and compare to the target value.
 
 ## Output contract

@@ -199,7 +199,7 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
   - description: Summarizes how library components are used across the current page, grouping instances by component, counting overrides by property, and naming the recurring override patterns that suggest a missing variant. Use whenever the user asks how a component is used, which overrides keep repeating, or whether the library is missing a variant. Not for auditing component definitions (use analyze-components).
   - tags: components; synthesis; drift, consistency, review
   - fits when: A design-system lead sees the same override on a button in every product file and wants evidence that a variant is missing.
-  - feasibility: supported on the current page. Loading every page is not implemented in-app, so the digest names the page it read; instance and override reads are standard Plugin API, and the first live run confirms them over MCP, where the probe's empty page held no instance.
+  - feasibility: supported on the current page. Loading every page is present in-app but its call is untested (third parties report it not implemented), so feature-check first and the digest names the page it read; instance and override reads are standard Plugin API, and the first live run confirms them over MCP, where the probe's empty page held no instance.
   - credits: 22 to 24 credits per page [page-scale audit, read-only]
   - differs from: analyze-components, which audits component definitions for orphans and duplicates; this reads how instances are overridden in practice and turns the patterns into variant proposals.
 
@@ -287,7 +287,7 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
   - description: Applies a team's file conventions to the open file: a cover frame with title, status, owner, and date, page names and order from a fixed list, and section labels on each page, listing every change before it is made. Use whenever the user asks to add a cover page, set the file status, standardise page names, or set up a file the team way. Not for reorganising exploration work (use file-cleanup).
   - tags: documentation; conventions; onboarding, naming, consistency
   - fits when: A new project file is created and the team wants every file to open on the same cover and page order.
-  - feasibility: supported. Renaming and creating frames are Supported, as are file metadata actions; labels on other pages wait until each page is loaded, because loading all pages at once is not implemented in-app. The probe ran on a one-page empty file, so renaming and reordering real pages was not exercised.
+  - feasibility: supported. Renaming and creating frames are Supported, as are file metadata actions; labels on other pages wait until each page is loaded, because loading all pages at once is present in-app but its call is untested (third parties report it not implemented); feature-check first. The probe ran on a one-page empty file, so renaming and reordering real pages was not exercised.
   - credits: about 10 credits to confirm the cover fields [ask]; about 18 credits per five pages renamed or labelled [five-fix model]
   - differs from: file-cleanup, which reorganizes a messy file around its content; this stamps a fixed house template on any file, new or old.
 

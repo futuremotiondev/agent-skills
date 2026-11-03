@@ -53,7 +53,8 @@ The scope gate. Always three checks:
 1. **Surface.** Design file: canvas layers. Make file: project code or a spec. FigJam or Slides, or
    a request that needs prototyping, vectors, slots, exports, or diagrams: plan only, say so.
 2. **Scope.** Use the current selection. If nothing is selected, ask a verbatim question with
-   numbered options (through a structured question tool when the runtime has one) and stop. Never expand to the page or file without asking.
+   numbered options (through a structured question tool when the runtime has one) and stop. Never
+   expand to the page or file without asking.
 3. **Inputs.** Library, collection, connector, brand rules. If one is missing, say what is missing
    and ask for the source of truth. Never invent values.
 
