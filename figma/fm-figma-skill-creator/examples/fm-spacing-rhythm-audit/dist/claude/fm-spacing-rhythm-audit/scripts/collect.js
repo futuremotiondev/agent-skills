@@ -12,8 +12,8 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
     return hi % 8 === 0 && lo % 8 !== 0 ? hi : lo;
   };
   // enhancement: token-conformance begin
-  // Discovery: candidates are local FLOAT variables scoped to GAP, or named space or spacing but not letter,
-  // line, or paragraph spacing; WIDTH_HEIGHT-only and type-spacing variables are matched, never offered.
+  // Discovery: candidates are local FLOAT variables scoped to GAP, or named space or spacing but not letter-spacing,
+  // line-height, line-spacing, or paragraph-spacing; WIDTH_HEIGHT-only and type-spacing names are matched, never offered.
   if (MODE !== "discover" && MODE !== "tokens") MODE = "rhythm";
   const V = figma.variables, cols = new Map(), varCache = new Map();
   const getVar = (id) => { if (!varCache.has(id)) varCache.set(id, V.getVariableByIdAsync(id)); return varCache.get(id); };
@@ -33,11 +33,11 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
     const tally = (cid, why, n) => { const m = unoffered.get(cid) || new Map(); m.set(why, (m.get(why) || 0) + n); unoffered.set(cid, m); };
     for (const v of await V.getLocalVariablesAsync("FLOAT")) {
       const c = cols.get(v.variableCollectionId), scopes = v.scopes || [];
-      const named = /space|spacing/i.test(v.name), typeName = /letter|line|paragraph/i.exec(v.name);
+      const named = /space|spacing/i.test(v.name), typeName = /letter|\bline[-\s]?(height|spacing)\b|paragraph/i.exec(v.name);
       const candidate = scopes.includes("GAP") || (named && !typeName);
       if (!c || !(candidate || named || scopes.includes("WIDTH_HEIGHT"))) continue;
       if (candidate) perCol.set(c.id, (perCol.get(c.id) || 0) + 1);
-      else tally(c.id, named ? typeName[0].toLowerCase() + "-spacing" : "WIDTH_HEIGHT", 1);
+      else tally(c.id, named ? (/^line/i.test(typeName[0]) ? "line-" + typeName[1].toLowerCase() : typeName[0].toLowerCase() + "-spacing") : "WIDTH_HEIGHT", 1);
       for (const m of c.modes) {
         const raw = v.valuesByMode[m.modeId], value = await resolveValue(raw, m.modeId);
         if (value !== null) found.push({ id: v.id, name: v.name, value, collection: c.id, modeId: m.modeId, modeName: m.name, isAlias: isAlias(raw), candidate });
