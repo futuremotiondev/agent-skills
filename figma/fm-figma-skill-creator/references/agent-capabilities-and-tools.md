@@ -170,9 +170,11 @@ does; and `use_figma` rejects any return over 48,000 bytes and discards the run'
 The rows that miss for lack of content (instance, auto layout, style, image) need a seeded file
 to test.
 
-Added 2026-11-03 UTC, outside the probe: `figma.root.name = "..."` throws `Error: in set_name:
-Setting the document name is currently not supported`, so a file created with `create_new_file`
-keeps the name "Document" until someone renames it in Figma. Plan 2 adds this check to the probe.
+Added 2026-11-03 UTC, outside the probe: over `use_figma`, `figma.root.name` reads back as
+"Document" whatever the file is called in Figma, and `figma.root.name = "..."` throws `Error: in
+set_name: Setting the document name is currently not supported`. The root name identifies nothing;
+use the file key. `create_new_file` does apply the `fileName` it is given. Plan 2 adds this check
+to the probe.
 
 ## Credits-aware instructions
 
