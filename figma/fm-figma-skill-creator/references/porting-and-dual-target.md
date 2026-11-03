@@ -21,9 +21,13 @@ figma/fm-<skill>/
     fm-<skill>.paste.md         Start-from-scratch edition: same body, no frontmatter
     fm-<skill>.paste.fields.txt the name and description to type into the Start-from-scratch form
     claude/fm-<skill>/SKILL.md  coding-agent edition: mcp sections kept, figma-app gone, overlay applied
+    claude/fm-<skill>/scripts/<helper>.js
+                                one file per core helper fence (first line `// helper: <helper>`);
+                                the coding-agent SKILL.md carries a one-line pointer instead
 ```
 
-`node scripts/build-skill-editions.mjs SKILL.md --out dist/` produces the three editions.
+`node scripts/build-skill-editions.mjs SKILL.md --out dist/` produces the three editions. The
+Figma editions inline every helper fence; only the coding-agent edition moves them to `scripts/`.
 `node scripts/build-skill-editions.mjs --flatten path/to/multi-file-skill --out dist/` inlines
 `references/*.md` into one file for the reverse direction.
 

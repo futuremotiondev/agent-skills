@@ -4,7 +4,12 @@
 // Usage:
 //   node validate-figma-skill.mjs <skill.md> --edition master|upload|paste|coding-agent
 //                                 [--prefix fm-] [--allow-placeholders] [--strict] [--json]
+//   node validate-figma-skill.mjs --description "<text>" [--strict] [--json]
+//                                                    # check one description string, no file
 //   node validate-figma-skill.mjs --rules            # print the rule table and exit
+//
+// --description runs only the description rules, with the coding-agent lead check applied,
+// because seeds and concept cards target the coding-agent edition first.
 //
 // Editions:
 //   master        the Git source: one frontmatter block, tool-neutral core, target-marked sections
@@ -16,8 +21,8 @@
 // table printed by --rules is the same data the checks run from. Exit code 1 when any error
 // is reported (or any warning with --strict), 0 otherwise.
 
-import { readFileSync, existsSync } from "node:fs"
-import { basename, dirname, resolve } from "node:path"
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs"
+import { basename, dirname, resolve, join } from "node:path"
 import {
   normalize, parseFrontmatter, getField, findFrontmatterLikeBlocks,
   scanFences, scanRegions, wordCount,
@@ -39,8 +44,11 @@ const asJson = args.includes("--json")
 const strict = args.includes("--strict")
 const allowPlaceholders = args.includes("--allow-placeholders")
 const prefix = opt("--prefix", "fm-")
-const edition = opt("--edition", "master")
-const file = args.find((a) => !a.startsWith("--") && a !== prefix && a !== edition)
+const descriptionText = opt("--description")
+const descriptionMode = args.includes("--description")
+// Description mode checks a bare string; applicability follows the coding-agent edition.
+const edition = descriptionMode ? "coding-agent" : opt("--edition", "master")
+const file = args.find((a) => !a.startsWith("--") && a !== prefix && a !== edition && a !== descriptionText)
 
 
 // ---------------------------------------------------------------------------
@@ -76,7 +84,7 @@ const RULES = [
   { id: "html-comments", editions: FIGMA, severity: "warn", basis: "Figma renders HTML comments as visible instruction text" },
   { id: "image-links", editions: FIGMA, severity: "warn", basis: "image rendering in the Figma instructions view is unverified" },
   { id: "headings-required", editions: ALL, severity: "warn", basis: "Figma dev recipe: When to use, Instructions, Common edge cases; first-party final gate or output contract" },
-  { id: "body-size", editions: ALL, severity: "warn", basis: "spec: under 500 lines and about 5k tokens; Figma's longest first-party skill is 9,160 words" },
+  { id: "body-size", editions: ALL, severity: "warn", basis: "spec: under 500 lines; about 5k tokens is coding-agent context guidance; Figma enforces no body limit and its longest first-party skill is about 12k tokens (calibrated 2026-11-02)" },
   { id: "slash-invocations", editions: ["master", ...FIGMA], severity: "warn", basis: "only the first skill mentioned in a prompt runs; point to others only as Not for X (use /y)" },
   { id: "capability-gates", editions: ["master", ...FIGMA], severity: "warn", basis: "capability table: prototyping, vectors, slots are Coming soon; export and diagrams unsupported in-app" },
   { id: "console-log", editions: ["master", ...FIGMA], severity: "warn", basis: "script contract: results come back through return, not console.log" },
@@ -86,16 +94,20 @@ const RULES = [
 const RULE_BY_ID = new Map(RULES.map((r) => [r.id, r]))
 
 if (wantRules) { printRules(); process.exit(0) }
-if (!file || args.includes("--help") || args.includes("-h")) {
+if (descriptionMode && descriptionText === null) {
+  console.error(`--description needs the description text as its value`)
+  process.exit(2)
+}
+if ((!file && !descriptionMode) || args.includes("--help") || args.includes("-h")) {
   console.log(`Usage: node validate-figma-skill.mjs <skill.md> --edition ${EDITIONS.join("|")} [--prefix fm-] [--allow-placeholders] [--strict] [--json]
+       node validate-figma-skill.mjs --description "<text>" [--strict] [--json]
        node validate-figma-skill.mjs --rules`)
-  process.exit(file ? 0 : 1)
+  process.exit(file || descriptionMode ? 0 : 1)
 }
 if (!EDITIONS.includes(edition)) {
   console.error(`Unknown --edition "${edition}". Expected one of: ${EDITIONS.join(", ")}`)
   process.exit(2)
 }
-if (!existsSync(file)) { console.error(`File not found: ${file}`); process.exit(2) }
 
 function printRules() {
   const pad = (s, n) => String(s).padEnd(n)
@@ -108,21 +120,92 @@ function printRules() {
 }
 
 // ---------------------------------------------------------------------------
+// Findings. finding() applies the rule table (edition applicability, severity) and returns
+// null when the rule does not apply; report() pushes into the shared list.
+// ---------------------------------------------------------------------------
+
+const findings = []
+
+function finding(id, message, line) {
+  const rule = RULE_BY_ID.get(id)
+  if (!rule) throw new Error(`unknown rule id ${id}`)
+  if (!rule.editions.includes(edition)) return null
+  let severity = rule.severity
+  if (id === "description-angle" && allowPlaceholders) severity = "warn"
+  return { severity, rule: id, message, line: line ?? null }
+}
+
+function report(id, message, line) {
+  const f = finding(id, message, line)
+  if (f) findings.push(f)
+}
+
+// ---------------------------------------------------------------------------
+// Description rules. Shared by the file path (frontmatter description) and --description.
+// Returns the findings; the caller pushes them. `descField.line` is null in --description mode.
+// ---------------------------------------------------------------------------
+
+function checkDescription(description, descField) {
+  // Third person, capability first. Must catch, anywhere in the text: helps|assists|enables|
+  // allows|lets|guides|empowers followed within two words by "you" or "designers to"
+  // ("helps you", "guides designers to"); the openers "This skill", "Designed to", "A skill
+  // that/to"; and first person ("I ..."/"We ..." openers, "I will", "I'll"), plus a "You" opener.
+  const VOICE = /\b(helps|assists|enables|allows|lets|guides|empowers)\s+(?:[\w'-]+\s+)?(you|designers\s+to)\b|^(this skill|designed to|a skill (that|to))\b|^(i|we|you)\b|\b(i will|i'll)\b/i
+  // Second-person address in the first sentence: "you" or "your" anywhere in it.
+  const VOICE_YOU = /\b(you|your)\b/i
+  // A trigger clause. Must catch: "Use when", "Use whenever", "Use this skill when", "Use it
+  // when", "Trigger whenever", "Invoke it when", "Activate when", "Run when", "Apply when",
+  // "Always use"; or at least two double-quoted phrases (a trigger list without a verb).
+  const USE_TRIGGER = /\b(use|trigger|invoke|activate|run|apply)( this( skill)?| it)?\s+(it\s+)?when(ever)?\b|\balways use\b/i
+  const QUOTED_PHRASE = /["“][^"”]+["”]/g
+  // A boundary. Must catch: "Not for", "Do not use", "Don't use", "Does not", "Doesn't",
+  // "Excludes", "outside its/the scope", "Skip (it) for", "leave ... to /other-skill".
+  const NOT_FOR = /\bnot for\b|\bdo not use\b|\bdon't use\b|\bdoes not\b|\bdoesn't\b|\bexcludes\b|\boutside (its|the) scope\b|\bskip (it )?for\b|\bleave .{1,40} to \//i
+  // Restriction phrasing Figma advises against. Must catch: "only when", "only if", "unless",
+  // "exclusively", "solely", "strictly", "limited to", "restricted to", "except when/if".
+  const RESTRICTIVE = /\bonly (when|if)\b|\bunless\b|\bexclusively\b|\bsolely\b|\bstrictly\b|\blimited to\b|\brestricted to\b|\bexcept (when|if)\b/i
+
+  const out = []
+  const add = (id, message) => { const f = finding(id, message, descField.line); if (f) out.push(f) }
+  const firstStop = description.search(/[.!?](\s|$)/)
+  const firstSentence = firstStop === -1 ? description : description.slice(0, firstStop + 1)
+
+  if (description.length < 1 || description.length > 1024) {
+    add("description-length", `description is ${description.length} chars; must be 1-1024`)
+  }
+  if (/[<>]/.test(description)) add("description-angle", "description contains < or >")
+  if (VOICE.test(description) || VOICE_YOU.test(firstSentence)) {
+    add("description-voice", "description should be third person and name the capability (\"Audits...\", not \"Helps you audit...\")")
+  }
+  const hasUse = USE_TRIGGER.test(description) || (description.match(QUOTED_PHRASE) || []).length >= 2
+  if (!hasUse) add("description-triggers", "description has no \"Use when / Use whenever\" trigger clause")
+  if (!NOT_FOR.test(description)) add("description-triggers", "description has no \"Not for X (use /y)\" boundary")
+  if (RESTRICTIVE.test(description)) {
+    add("description-restrictive", "description uses restriction phrasing (only when / unless / solely); phrase triggers as requirements")
+  }
+  if (description.length > 250 && (firstStop === -1 || firstStop > 250)) {
+    add("description-lead", `first sentence runs ${firstStop === -1 ? "to the end" : firstStop + 1 + " chars"}; put the key use case in the first 250`)
+  }
+  return out
+}
+
+// ---------------------------------------------------------------------------
+// --description mode: no file; only the description rules, coding-agent applicability.
+// ---------------------------------------------------------------------------
+
+if (descriptionMode) {
+  const value = descriptionText.trim()
+  findings.push(...checkDescription(value, { value, line: null }))
+  finish({ file: null, edition: "description", chars: value.length }, "description")
+}
+
+// ---------------------------------------------------------------------------
 // Load and pre-scan
 // ---------------------------------------------------------------------------
 
+if (!existsSync(file)) { console.error(`File not found: ${file}`); process.exit(2) }
 const source = normalize(readFileSync(file, "utf8"))
 const lines = source.split("\n")
-const findings = []
-
-function report(id, message, line) {
-  const rule = RULE_BY_ID.get(id)
-  if (!rule) throw new Error(`unknown rule id ${id}`)
-  if (!rule.editions.includes(edition)) return
-  let severity = rule.severity
-  if (id === "description-angle" && allowPlaceholders) severity = "warn"
-  findings.push({ severity, rule: id, message, line: line ?? null })
-}
 
 const fm = parseFrontmatter(lines)
 const fence = scanFences(lines)
@@ -184,26 +267,7 @@ if (edition !== "paste") {
 
   // description
   if (!descField) report("description-length", "frontmatter has no `description`", fm.present ? 1 : null)
-  else {
-    if (description.length < 1 || description.length > 1024) {
-      report("description-length", `description is ${description.length} chars; must be 1-1024`, descField.line)
-    }
-    if (/[<>]/.test(description)) report("description-angle", "description contains < or >", descField.line)
-    if (/^(i|we|you)\b/i.test(description) || /\b(helps you|i will|i'll|lets you)\b/i.test(description)) {
-      report("description-voice", "description should be third person and name the capability (\"Audits...\", not \"Helps you audit...\")", descField.line)
-    }
-    const hasUse = /\buse (this (skill )?)?(it )?when(ever)?\b|\balways use\b|\buse whenever\b/i.test(description)
-    const hasNot = /\bnot for\b|\bdo not use\b|\bdon't use\b/i.test(description)
-    if (!hasUse) report("description-triggers", "description has no \"Use when / Use whenever\" trigger clause", descField.line)
-    if (!hasNot) report("description-triggers", "description has no \"Not for X (use /y)\" boundary", descField.line)
-    if (/\bonly (when|if)\b|\bunless\b|\bexclusively\b/i.test(description)) {
-      report("description-restrictive", "description uses restriction phrasing (only when / unless); phrase triggers as requirements", descField.line)
-    }
-    const firstStop = description.search(/[.!?](\s|$)/)
-    if (description.length > 250 && (firstStop === -1 || firstStop > 250)) {
-      report("description-lead", `first sentence runs ${firstStop === -1 ? "to the end" : firstStop + 1 + " chars"}; put the key use case in the first 250`, descField.line)
-    }
-  }
+  else findings.push(...checkDescription(description, descField))
 
   // keys
   const specKeys = new Set(["name", "description", "license", "compatibility", "metadata", "allowed-tools"])
@@ -309,9 +373,15 @@ if (!hasHeading(/final gate|output contract|output|checklist|done when|completio
 const bodyLineCount = bodyLines.filter((l) => l.trim() !== "").length
 const words = wordCount(bodyLines)
 const approxTokens = Math.round(words * 1.35)
+// Lines: the spec's 500 applies everywhere. Tokens: about 5k is coding-agent context guidance;
+// Figma enforces no body limit, so its editions warn only past its longest first-party skill (~12k).
 if (bodyLines.length > 500) report("body-size", `body is ${bodyLines.length} lines (${bodyLineCount} non-blank); spec recommends under 500`, null)
-if (approxTokens > 5000) report("body-size", `body is about ${approxTokens} tokens (${words} words); spec recommends about 5k`, null)
-if (words > 9000) report("body-size", `body is ${words} words, past the longest first-party Figma skill (9,160); split it`, null)
+if (edition === "coding-agent" && approxTokens > 5000) {
+  report("body-size", `body is about ${approxTokens} tokens (${words} words); the spec's coding-agent guidance is about 5k`, null)
+}
+if (edition !== "coding-agent" && approxTokens > 12000) {
+  report("body-size", `body is about ${approxTokens} tokens (${words} words), past the longest first-party Figma skill (about 12k); split it`, null)
+}
 
 // ---------------------------------------------------------------------------
 // Slash invocations, capability gates, placeholders (prose only)
@@ -383,19 +453,37 @@ if (!allowPlaceholders) {
 // Output
 // ---------------------------------------------------------------------------
 
-const order = { error: 0, warn: 1, info: 2 }
-findings.sort((a, b) => order[a.severity] - order[b.severity] || (a.line ?? 0) - (b.line ?? 0))
-const errors = findings.filter((f) => f.severity === "error").length
-const warns = findings.filter((f) => f.severity === "warn").length
-const summary = { file, edition, name: name || null, lines: lines.length, bodyLines: bodyLines.length, words, approxTokens, errors, warnings: warns }
-
-if (asJson) {
-  console.log(JSON.stringify({ ...summary, findings }, null, 2))
-} else {
-  for (const f of findings) {
-    console.log(`${f.severity.toUpperCase().padEnd(5)} ${f.rule.padEnd(24)} ${(f.line ? `L${f.line}` : "").padEnd(6)} ${f.message}`)
+// Coding-agent edition: helpers ship as scripts/*.js beside SKILL.md, so count the files.
+let helperScripts = null
+if (edition === "coding-agent") {
+  const scriptsDir = join(dirname(resolve(file)), "scripts")
+  if (existsSync(scriptsDir) && statSync(scriptsDir).isDirectory()) {
+    helperScripts = readdirSync(scriptsDir).filter((f) => f.endsWith(".js") && statSync(join(scriptsDir, f)).isFile()).length
   }
-  const verdict = errors ? "FAIL" : strict && warns ? "FAIL (strict)" : "OK"
-  console.log(`${verdict}: ${basename(file)} [${edition}] — ${errors} error${errors === 1 ? "" : "s"}, ${warns} warning${warns === 1 ? "" : "s"}; ${bodyLines.length} body lines, ${words} words (~${approxTokens} tokens)`)
 }
-process.exit(errors || (strict && warns) ? 1 : 0)
+
+const sizeTail = `${bodyLines.length} body lines, ${words} words (~${approxTokens} tokens)${helperScripts === null ? "" : `; helpers: ${helperScripts} scripts`}`
+finish(
+  { file, edition, name: name || null, lines: lines.length, bodyLines: bodyLines.length, words, approxTokens, ...(helperScripts === null ? {} : { helperScripts }) },
+  `${basename(file)} [${edition}]`,
+  sizeTail,
+)
+
+/** Sort and print the findings, print the verdict line, and exit (1 on errors, or warnings with --strict). */
+function finish(summary, label, tail = "") {
+  const order = { error: 0, warn: 1, info: 2 }
+  findings.sort((a, b) => order[a.severity] - order[b.severity] || (a.line ?? 0) - (b.line ?? 0))
+  const errors = findings.filter((f) => f.severity === "error").length
+  const warns = findings.filter((f) => f.severity === "warn").length
+
+  if (asJson) {
+    console.log(JSON.stringify({ ...summary, errors, warnings: warns, findings }, null, 2))
+  } else {
+    for (const f of findings) {
+      console.log(`${f.severity.toUpperCase().padEnd(5)} ${f.rule.padEnd(24)} ${(f.line ? `L${f.line}` : "").padEnd(6)} ${f.message}`)
+    }
+    const verdict = errors ? "FAIL" : strict && warns ? "FAIL (strict)" : "OK"
+    console.log(`${verdict}: ${label} — ${errors} error${errors === 1 ? "" : "s"}, ${warns} warning${warns === 1 ? "" : "s"}${tail ? `; ${tail}` : ""}`)
+  }
+  process.exit(errors || (strict && warns) ? 1 : 0)
+}

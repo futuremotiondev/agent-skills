@@ -20,6 +20,11 @@ node scripts/validate-figma-skill.mjs dist/claude/<name>/SKILL.md --edition codi
 Fix every error. Justify any warning you keep in the skill's notes. The validator encodes the
 rules in `validate-figma-skill.mjs --rules`.
 
+The `body-size` rule warns past 500 body lines in every edition, past about 5,000 estimated tokens
+in the coding-agent edition, and past about 12,000 in the master, upload, and paste editions: 500
+lines and 5,000 tokens are the Agent Skills spec's guidance for coding-agent context, while Figma
+enforces no body limit and its longest first-party skill is about 12,000 tokens.
+
 ## The trigger eval (description quality)
 
 The description is the only field every runtime routes on. Test it before testing the body.

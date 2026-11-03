@@ -13,6 +13,10 @@
 //   <out>/<name>.paste.fields.txt    the name and description to type into the Start-from-scratch form
 //   <out>/claude/<name>/SKILL.md     coding-agent edition: mcp sections kept, figma-app removed,
 //                                    overlay merged into the frontmatter; references/ copied beside it
+//   <out>/claude/<name>/scripts/<helper>.js
+//                                    one file per core `## Helper scripts` fence whose first line is
+//                                    `// helper: <helper>`; the fence becomes a one-line pointer in
+//                                    the coding-agent SKILL.md. The Figma editions keep every fence.
 //
 // Flatten (second form) reads <skill-dir>/SKILL.md plus references/*.md and writes
 // <out>/<name>.flat.md with every referenced Markdown file appended as a section and links
@@ -68,6 +72,43 @@ function emit(path, lines) {
 }
 
 // ---------------------------------------------------------------------------
+// Helper extraction (coding-agent edition only)
+// ---------------------------------------------------------------------------
+
+const HELPER_HEADING = /^##\s+Helper scripts\s*$/i
+const HELPER_MARKER = /^\/\/ helper: ([a-z][a-z0-9-]*)$/
+const helperPointer = (name) => `Run \`scripts/${name}.js\` (in this folder) through your script path.`
+
+/**
+ * Inside the core `## Helper scripts` section only, replace each ```javascript fence whose first
+ * body line is `// helper: <name>` with a one-line pointer. Fences without the marker stay inline.
+ * Returns { lines, helpers: [{ name, code }] } where code is the fence body minus the marker line.
+ */
+function extractHelpers(body) {
+  const fence = scanFences(body)
+  const { regionAt } = scanRegions(body)
+  const out = []
+  const helpers = []
+  let inSection = false
+  for (let i = 0; i < body.length; i++) {
+    const line = body[i]
+    // Section bounds: the core heading opens it; the next H1 or H2 outside a fence closes it.
+    if (!fence[i] && /^#{1,2}\s/.test(line)) inSection = HELPER_HEADING.test(line) && regionAt(i) === "core"
+    const open = inSection && regionAt(i) === "core" ? /^\s*(`{3,})\s*javascript\s*$/.exec(line) : null
+    const marker = open && i + 1 < body.length ? HELPER_MARKER.exec(body[i + 1]) : null
+    if (!marker) { out.push(line); continue }
+    let close = i + 1
+    while (close < body.length && !new RegExp(`^\\s*\`{${open[1].length},}\\s*$`).test(body[close])) close++
+    if (close >= body.length) fail(`helper fence "${marker[1]}" at body line ${i + 1} is never closed`)
+    if (helpers.some((h) => h.name === marker[1])) fail(`duplicate helper name "${marker[1]}" at body line ${i + 2}`)
+    helpers.push({ name: marker[1], code: body.slice(i + 2, close) })
+    out.push(helperPointer(marker[1]))
+    i = close
+  }
+  return { lines: out, helpers }
+}
+
+// ---------------------------------------------------------------------------
 // Build editions from a master
 // ---------------------------------------------------------------------------
 
@@ -106,7 +147,9 @@ function buildEditions(master) {
   }
 
   const figmaBody = selectTarget(body, ["figma-app"])
-  const mcpBody = selectTarget(body, ["mcp"])
+  // Coding-agent body: core helper fences move to scripts/<helper>.js before target selection.
+  const { lines: agentBody, helpers } = extractHelpers(body)
+  const mcpBody = selectTarget(agentBody, ["mcp"])
 
   // Upload edition: name + description only. Figma's tolerance for other keys is unverified.
   const uploadFm = serializeFrontmatter([
@@ -130,6 +173,7 @@ function buildEditions(master) {
   const claudeFm = serializeFrontmatter(mergeFields(fm.fields, overlayFields))
   const claudeDir = join(outDir, "claude", name)
   emit(join(claudeDir, "SKILL.md"), [...claudeFm, "", ...mcpBody])
+  for (const h of helpers) emit(join(claudeDir, "scripts", `${h.name}.js`), h.code)
 
   // Copy references/ (coding-agent only) when the master has one.
   const refDir = join(dirname(masterAbs), "references")
@@ -147,6 +191,7 @@ function buildEditions(master) {
   for (const w of written) {
     console.log(`  ${relative(process.cwd(), w.path) || w.path}${w.copied ? "  (copied)" : `  ${w.lines} lines, ${w.words} words`}`)
   }
+  console.log(`  helpers: ${helpers.length} scripts${helpers.length ? ` (${helpers.map((h) => `scripts/${h.name}.js`).join(", ")})` : ""}`)
   console.log(`\nStart-from-scratch fields (type these into Figma's form for the paste edition):`)
   console.log(`  name:        ${name}`)
   console.log(`  description: ${String(descF.value).trim()}`)
