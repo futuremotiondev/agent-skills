@@ -17,6 +17,7 @@ These are the oracle fixtures for the 2.0 example. A script run over the Figma M
 | --- | --- | --- |
 | `fm-spacing-audit-seed` | `hSEurPqV8Dgzn9yTwPSnnL` | Scopes 1 and 2, the apply and revert proofs, and the real-recon ideation deck |
 | `fm-spacing-audit-notokens` | `idjl35MjLGg4IJtPPH86GA` | Scope 5: one vertical auto-layout frame `Plain` (id `1:2`), padding 18 on every side, no variables |
+| Simple Design System (Futuremotion's Community duplicate) | `RoEqd4VFbADE0s0nZ0n8Yj` | Scopes 3 and 4, page `Sections` (id `348:13000`), 844 auto-layout frames |
 | `fm-probe-scratch` | `kXhDI9zBD5rbh00c3Lzt9i` | Not used here. It is the capability probe's scratch file, listed for completeness. |
 
 The seed and no-tokens files were created on 2026-11-03 UTC. They replace the 2026-11-02 seed file `hPBA9odanfBNpvMRTPXZLJ` that the v1.x entries in `EVAL-LOG.md` used.
@@ -46,19 +47,13 @@ The names are distinct. The oracle resolves each one to exactly one top-level no
 | --- | --- | --- | --- | --- | --- |
 | 1 | seed | Seed | SEED_SELECTION | rhythm | rhythm |
 | 2 | seed | Seed | SEED_SELECTION | tokens | tokens |
-| 3 | Simple Design System copy | Sections | page | tokens | pending |
-| 4 | Simple Design System copy | Sections | page | rhythm | pending |
+| 3 | Simple Design System copy | Sections | page | tokens | tokens |
+| 4 | Simple Design System copy | Sections | page | rhythm | rhythm |
 | 5 | no-tokens | Page 1 | page | tokens | rhythm (no tokens) |
 
-## Pending scopes 3 and 4
+## Scopes 3 and 4
 
-Scopes 3 and 4 need a fresh Community duplicate of Figma's Simple Design System. `expected.json` holds them as pending entries: `"fileKey": null`, a `pending` reason, and no counts. To fill them:
-
-1. Futuremotion duplicates the file from the Community and shares its URL.
-2. Run the oracle with `PAGE = "Sections"` and `SELECTION = "page"`, once with `MODE = "tokens"` (scope 3) and once with `MODE = "rhythm"` (scope 4). Find the page by name, because page ids from the earlier copy do not apply.
-3. Replace each pending entry with the full scope object, copied verbatim, and record the new key in this table and in `EVAL-LOG.md`.
-
-Do this before Round 3 prompt (b).
+Filled on 2026-11-03 UTC from Futuremotion's fresh Community duplicate (`RoEqd4VFbADE0s0nZ0n8Yj`), with `PAGE = "Sections"`, `SELECTION = "page"`, and `MODE` set to `tokens` (scope 3) and `rhythm` (scope 4). The page was found by name; its id in this duplicate is `348:13000`. Both runs measured 844 frames, skipped 9 hidden, and counted 4 absolute children. The returned payloads were 9,441 bytes (scope 3) and 5,619 bytes (scope 4) in oracle shape, and 5,580 and 2,468 bytes in the skill's own shape (no `tokens`, no `unbound[].ids`), all well under the 48,000-byte `use_figma` limit. Node ids in these scopes belong to this duplicate; a different copy needs a rerun.
 
 ## Fixture caveats
 

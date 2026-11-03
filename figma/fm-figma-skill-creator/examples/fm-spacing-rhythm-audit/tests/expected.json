@@ -3,6 +3,7 @@
   "masterCommit": "da17b9e+final-fix",
   "seedFileKey": "hSEurPqV8Dgzn9yTwPSnnL",
   "notokensFileKey": "idjl35MjLGg4IJtPPH86GA",
+  "simpleDesignSystemFileKey": "RoEqd4VFbADE0s0nZ0n8Yj",
   "modesSupported": true,
   "scopes": [
     {
@@ -1347,19 +1348,909 @@
     },
     {
       "scope": 3,
-      "fileKey": null,
+      "fileKey": "RoEqd4VFbADE0s0nZ0n8Yj",
       "page": "Sections",
       "selection": "page",
       "mode": "tokens",
-      "pending": "awaiting Futuremotion's fresh Simple Design System duplicate"
+      "counts": {
+        "framesMeasured": 844,
+        "hiddenSkipped": 9,
+        "notMeasurable": 4,
+        "byPriority": {
+          "P0": 7,
+          "P1": 3,
+          "P2": 0,
+          "P3": 0
+        }
+      },
+      "tokens": [
+        {
+          "id": "VariableID:9:11258",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11259",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11260",
+          "name": "Space/300",
+          "value": 12,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11261",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11262",
+          "name": "Space/600",
+          "value": 24,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11263",
+          "name": "Space/Negative 100",
+          "value": -4,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11264",
+          "name": "Space/Negative 200",
+          "value": -8,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11265",
+          "name": "Space/Negative 300",
+          "value": -12,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11266",
+          "name": "Space/Negative 400",
+          "value": -16,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11267",
+          "name": "Space/Negative 600",
+          "value": -24,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:107:11150",
+          "name": "Space/1600",
+          "value": 64,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:346:10896",
+          "name": "Space/4000",
+          "value": 160,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:346:10902",
+          "name": "Space/800",
+          "value": 32,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:346:10903",
+          "name": "Space/1200",
+          "value": 48,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:346:10904",
+          "name": "Space/2400",
+          "value": 96,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:364:11151",
+          "name": "Space/0",
+          "value": 0,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:364:11161",
+          "name": "Space/050",
+          "value": 2,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:364:11163",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        }
+      ],
+      "libraryTokens": "none",
+      "spacingCollection": {
+        "id": "VariableCollectionId:9:11257",
+        "name": "Size",
+        "defaultModeName": "Default",
+        "min": -24,
+        "max": 160
+      },
+      "matchedCollections": [
+        {
+          "name": "Responsive",
+          "count": 1,
+          "reasons": "1 WIDTH_HEIGHT"
+        }
+      ],
+      "unbound": [
+        {
+          "tokenName": "Space/600",
+          "tokenId": "VariableID:9:11262",
+          "modeName": "Default",
+          "count": 15,
+          "exampleId": "2142:11381",
+          "examplePath": "Card / Asset Type=Icon, Variant=Default, Direction=Horizontal (page: Cards)",
+          "ids": [
+            "2142:11381",
+            "2142:11402",
+            "348:14434",
+            "373:12334",
+            "2142:11395",
+            "348:15216",
+            "6062:10737",
+            "2299:23057",
+            "2299:23639",
+            "2299:23640",
+            "2299:23773",
+            "6062:14705",
+            "348:13770",
+            "348:13764",
+            "6031:7460"
+          ]
+        },
+        {
+          "tokenName": "Space/200",
+          "tokenId": "VariableID:9:11259",
+          "modeName": "Default",
+          "count": 10,
+          "exampleId": "7753:4609",
+          "examplePath": "Navigation Pill List / Direction=Row (page: Navigation)",
+          "ids": [
+            "7753:4609",
+            "6061:2179",
+            "1444:12697",
+            "I348:14987;1444:11852;6062:8683",
+            "1444:13106",
+            "I348:14988;1444:13109;6062:8683",
+            "I348:14989;1444:11852;6062:8683",
+            "6062:7252",
+            "6061:2966",
+            "6031:11124"
+          ]
+        },
+        {
+          "tokenName": "Space/1200",
+          "tokenId": "VariableID:346:10903",
+          "modeName": "Default",
+          "count": 6,
+          "exampleId": "6062:12775",
+          "examplePath": "Card Grid Sections / Card Grid Image / Platform=Desktop / Slot",
+          "ids": [
+            "6062:12775",
+            "2142:12359",
+            "373:12330",
+            "6062:12774",
+            "2236:16540",
+            "189:29643"
+          ]
+        },
+        {
+          "tokenName": "Space/400",
+          "tokenId": "VariableID:9:11261",
+          "modeName": "Default",
+          "count": 5,
+          "exampleId": "7717:4142",
+          "examplePath": "Footer / Footer / Platform=Desktop",
+          "ids": [
+            "7717:4142",
+            "6062:10738",
+            "321:11074",
+            "6031:7224",
+            "4317:11295"
+          ]
+        },
+        {
+          "tokenName": "Space/300",
+          "tokenId": "VariableID:9:11260",
+          "modeName": "Default",
+          "count": 4,
+          "exampleId": "I2143:13150;607:10958;6062:8684",
+          "examplePath": "… / Pricing Card / Top / Text List / Slot",
+          "ids": [
+            "I2143:13150;607:10958;6062:8684",
+            "I2143:13151;1444:13102;6062:8684",
+            "I2143:13152;607:10958;6062:8684",
+            "6062:7253"
+          ]
+        },
+        {
+          "tokenName": "Space/050",
+          "tokenId": "VariableID:364:11161",
+          "modeName": "Default",
+          "count": 1,
+          "exampleId": "2010:15577",
+          "examplePath": "Avatar Block / Info (page: Avatars)",
+          "ids": [
+            "2010:15577"
+          ]
+        },
+        {
+          "tokenName": "Space/100",
+          "tokenId": "VariableID:9:11258",
+          "modeName": "Default",
+          "count": 1,
+          "exampleId": "48:3202",
+          "examplePath": "Slider Field / State=Default / Label (page: Inputs)",
+          "ids": [
+            "48:3202"
+          ]
+        }
+      ],
+      "onRhythmNoToken": 0,
+      "aliasMatched": 0,
+      "boundPassed": 622,
+      "offRhythmTokens": [
+        {
+          "name": "Space/150",
+          "value": 6,
+          "modeName": "Default",
+          "values": 12
+        }
+      ],
+      "rows": [
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Padding top",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Padding right",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Padding bottom",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Padding left",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Gap",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "6062:12601",
+          "path": "Hero Sections / Hero (Slot) / Platform=Desktop / Slot",
+          "group": "Hero (Slot)",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "value": 8,
+            "variableId": "VariableID:9:11259",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "6062:12601"
+          ],
+          "count": 1
+        },
+        {
+          "id": "6062:12602",
+          "path": "Hero Sections / Hero (Slot) / Platform=Mobile / Slot",
+          "group": "Hero (Slot)",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "value": 8,
+            "variableId": "VariableID:9:11259",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "6062:12602"
+          ],
+          "count": 1
+        },
+        {
+          "id": "565:14466",
+          "path": "Checkbox Field / State=Default, Value Type=Checked / Checkbox and Label / Checkbox (page: Inputs) (main component)",
+          "group": "Checkbox Field",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 9 instances",
+          "fix": {
+            "kind": "bind",
+            "value": 8,
+            "variableId": "VariableID:9:11259",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "565:14466"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4317:11278",
+          "path": "AI Sidebar / Block / Block / Block (page: AI Chat) (main component)",
+          "group": "AI Sidebar",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 1 instance",
+          "fix": {
+            "kind": "bind",
+            "value": 8,
+            "variableId": "VariableID:9:11259",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "4317:11278"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4317:10977",
+          "path": "AI -> Conversation / Content / Block (page: AI Chat) (main component)",
+          "group": "AI -> Conversation",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 2 instances",
+          "fix": {
+            "kind": "bind",
+            "value": 8,
+            "variableId": "VariableID:9:11259",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "4317:10977"
+          ],
+          "count": 1
+        }
+      ]
     },
     {
       "scope": 4,
-      "fileKey": null,
+      "fileKey": "RoEqd4VFbADE0s0nZ0n8Yj",
       "page": "Sections",
       "selection": "page",
       "mode": "rhythm",
-      "pending": "awaiting Futuremotion's fresh Simple Design System duplicate"
+      "counts": {
+        "framesMeasured": 844,
+        "hiddenSkipped": 9,
+        "notMeasurable": 4,
+        "byPriority": {
+          "P0": 2,
+          "P1": 3,
+          "P2": 0,
+          "P3": 0
+        }
+      },
+      "tokens": [
+        {
+          "id": "VariableID:9:11258",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11259",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11260",
+          "name": "Space/300",
+          "value": 12,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11261",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11262",
+          "name": "Space/600",
+          "value": 24,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11263",
+          "name": "Space/Negative 100",
+          "value": -4,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11264",
+          "name": "Space/Negative 200",
+          "value": -8,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11265",
+          "name": "Space/Negative 300",
+          "value": -12,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11266",
+          "name": "Space/Negative 400",
+          "value": -16,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:9:11267",
+          "name": "Space/Negative 600",
+          "value": -24,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:107:11150",
+          "name": "Space/1600",
+          "value": 64,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:346:10896",
+          "name": "Space/4000",
+          "value": 160,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:346:10902",
+          "name": "Space/800",
+          "value": 32,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:346:10903",
+          "name": "Space/1200",
+          "value": 48,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:346:10904",
+          "name": "Space/2400",
+          "value": 96,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:364:11151",
+          "name": "Space/0",
+          "value": 0,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:364:11161",
+          "name": "Space/050",
+          "value": 2,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:364:11163",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:9:11257",
+          "modeId": "9:7",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        }
+      ],
+      "libraryTokens": "none",
+      "spacingCollection": {
+        "id": "VariableCollectionId:9:11257",
+        "name": "Size",
+        "defaultModeName": "Default",
+        "min": -24,
+        "max": 160
+      },
+      "matchedCollections": [
+        {
+          "name": "Responsive",
+          "count": 1,
+          "reasons": "1 WIDTH_HEIGHT"
+        }
+      ],
+      "unbound": [],
+      "onRhythmNoToken": 0,
+      "aliasMatched": 0,
+      "boundPassed": 622,
+      "offRhythmTokens": [
+        {
+          "name": "Space/150",
+          "value": 6,
+          "modeName": "Default",
+          "values": 12
+        }
+      ],
+      "rows": [
+        {
+          "id": "6062:12601",
+          "path": "Hero Sections / Hero (Slot) / Platform=Desktop / Slot",
+          "group": "Hero (Slot)",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 8,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "6062:12601"
+          ],
+          "count": 1
+        },
+        {
+          "id": "6062:12602",
+          "path": "Hero Sections / Hero (Slot) / Platform=Mobile / Slot",
+          "group": "Hero (Slot)",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P0",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 8,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "6062:12602"
+          ],
+          "count": 1
+        },
+        {
+          "id": "565:14466",
+          "path": "Checkbox Field / State=Default, Value Type=Checked / Checkbox and Label / Checkbox (page: Inputs) (main component)",
+          "group": "Checkbox Field",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 9 instances",
+          "fix": {
+            "kind": "set",
+            "value": 8,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "565:14466"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4317:11278",
+          "path": "AI Sidebar / Block / Block / Block (page: AI Chat) (main component)",
+          "group": "AI Sidebar",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 1 instance",
+          "fix": {
+            "kind": "set",
+            "value": 8,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "4317:11278"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4317:10977",
+          "path": "AI -> Conversation / Content / Block (page: AI Chat) (main component)",
+          "group": "AI -> Conversation",
+          "property": "Gap",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 2 instances",
+          "fix": {
+            "kind": "set",
+            "value": 8,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "4317:10977"
+          ],
+          "count": 1
+        }
+      ]
     },
     {
       "scope": 5,
