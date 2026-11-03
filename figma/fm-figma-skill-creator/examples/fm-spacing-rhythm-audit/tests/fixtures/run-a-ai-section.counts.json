@@ -1,0 +1,18 @@
+{
+  "source": "Screenshot of the in-app Figma agent output, skill v1.2, 2026-11-02. Selection: the section named AI on the Sections page of the Simple Design System copy. Slash invocation. 47 s.",
+  "framesMeasured": 51,
+  "hiddenSkipped": 0,
+  "notMeasurable": 0,
+  "values": 14,
+  "tableRows": 6,
+  "byPriority": { "P0": 0, "P1": 2, "P2": 12, "P3": 0 },
+  "rows": [
+    { "priority": "P1", "layer": "AI Sidebar / Block / ...", "property": "Gap", "current": 10, "nearest": 8 },
+    { "priority": "P1", "layer": "AI -> Conversation / ...", "property": "Gap", "current": 10, "nearest": 8 },
+    { "priority": "P2", "layer": "AI Sidebar / nested ...", "property": "Padding right", "current": 6, "nearest": 8 },
+    { "priority": "P2", "layer": "AI Sidebar / nested ...", "property": "Padding left", "current": 6, "nearest": 8 },
+    { "priority": "P2", "layer": "AI Chat -> User mes...", "property": "Padding top", "current": 6, "nearest": 8 },
+    { "priority": "P2", "layer": "AI Chat -> User mes...", "property": "Padding bottom", "current": 6, "nearest": 8 }
+  ],
+  "agentNote": "Rows 3-6 require a variable-level decision; I won't overwrite their bindings. The proposed snaps follow the default audit scale, not a confirmed library spacing guideline."
+}
