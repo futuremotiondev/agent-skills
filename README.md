@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="#install"><img alt="Install with npx skills" src="https://img.shields.io/badge/install-npx%20skills%20add-111418?style=for-the-badge&labelColor=111418&color=5e6366"></a>
-  <img alt="26 skills" src="https://img.shields.io/badge/skills-26-111418?style=for-the-badge&labelColor=111418&color=5e6366">
+  <img alt="27 skills" src="https://img.shields.io/badge/skills-27-111418?style=for-the-badge&labelColor=111418&color=5e6366">
   <img alt="Universal and vendor-specific" src="https://img.shields.io/badge/scope-universal%20%2B%20vendor--specific-111418?style=for-the-badge&labelColor=111418&color=5e6366">
   <a href="https://agentskills.io"><img alt="Agent Skills specification" src="https://img.shields.io/badge/spec-agentskills.io-111418?style=for-the-badge&labelColor=111418&color=5e6366"></a>
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-111418?style=for-the-badge&labelColor=111418&color=5e6366"></a>
@@ -125,8 +125,8 @@ Every skill folder is named with the `fm-` prefix and matches its frontmatter `n
 
 <p>
   <img alt="Figma" src=".assets/figma-logos/figma-logos-01.svg" width="28" align="left" style="margin-right:12px">
-  Skills for building on Figma's extensibility surfaces: custom shaders today, with skills for the
-  in-Figma agent and for plugin development next.
+  Skills for building on Figma's extensibility surfaces: custom shaders and skills for Figma's
+  built-in agent today, with design-system and plugin tooling next.
 </p>
 
 <br clear="left">
@@ -134,10 +134,12 @@ Every skill folder is named with the `fm-` prefix and matches its frontmatter `n
 | Skill | What it does | Scope |
 | --- | --- | --- |
 | [`fm-figma-shader-creation`](figma/fm-figma-shader-creation/) | Creates and modifies custom Figma shader effects and fills (`main.ts`, WebGPU/WGSL): runtime contract, controls, factory presets, commenting standard, MCP and in-app workflows, cover artwork and publishing. Ships effect and fill templates and a dependency-free validator. | Universal |
+| [`fm-figma-skill-creator`](figma/fm-figma-skill-creator/) | Creates, converts, reviews, tests, and publishes skills for Figma's built-in AI agent (single-file slash-command skills for Figma Design and Make) and ports them to and from coding-agent SKILL.md skills for the Figma MCP server. Ships six type templates, a 30-rule validator, a three-edition build and flatten script, a publishing kit, and a worked example (`fm-spacing-rhythm-audit`). | Universal |
 | [`fm-figma-design-skill-finder`](figma/fm-figma-design-skill-finder/) | Researches and ranks Figma-specific agent skills across the Figma Community library and the MCP skill ecosystem, producing a verified, scored catalog. | Universal |
 
-Planned additions: `fm-figma-skill-creator` (authoring skills for Figma's built-in agent) and
-`fm-figma-plugin-creator` (the full Figma plugin lifecycle).
+Planned additions: `fm-figma-design-system-creator` (builds a design system over MCP and emits a
+per-system in-app skill through `fm-figma-skill-creator`) and `fm-figma-plugin-creator` (the full
+Figma plugin lifecycle).
 
 ### File management
 
