@@ -57,6 +57,6 @@ Which one should I build first? 1 to 5, or tell me what to change.
 9. Every card has exactly the twenty labelled lines above, in that order and grouping. A line that does not apply says "none"; it never disappears.
 10. The Writes line starts with exactly one of none, after confirmation, or always.
 11. The Landscape line starts with "new" or "better than", and X in "better than X" is a row of `references/skill-landscape.md`.
-12. The Grounded in line names a recon observation, a catalog seed, a landscape gap, or the user's answer. A landscape gap is a cell with a count of 0 or 1 in the gap grid of `references/skill-idea-catalog.md`; a cell with more rows is not a gap, so ground that card in a seed, an observation, or the answer.
+12. The Grounded in line names a recon observation, a catalog seed, a landscape gap, or the user's answer. A landscape gap is a cell with a count of 0 or 1 in the gap grid of `references/skill-idea-catalog.md`; a cell with more rows is not a gap, so ground that card in a seed, an observation, or the answer. "Empty" in rule 2 (count 0) is stricter than "gap" here (count 0 or 1), so a card from an empty cell is always also a gap card, but a gap card from a count-1 cell is not from an empty cell.
 13. The four grouping comments (Identity, Behaviour, Fit, Feasibility) are reading aids for this template only. Omit them from the output; keep the blank lines between groups.
 14. The deck ends with the footer question as plain text, with no Markdown, and nothing after it.
