@@ -3,5 +3,5 @@
 .obsolete/
 .reference/
 
-# Private session transcripts (local reference only)
-docs/conversations/
+# Private working documents: specs, plans, session transcripts (local only)
+docs/
