@@ -24,6 +24,29 @@ This is the first skill built through fm-figma-skill-creator, so its first uploa
 
 ## Entries
 
+### v2.0 oracle, 2026-11-03 UTC
+
+- **Method:** `tests/oracle.use_figma.js` (the collect helper at `a312065`, uncapped) was run over `use_figma` with the selection set by name, and `tests/seed.use_figma.js` built the seed. Results are stored verbatim in `tests/expected.json`. Every Step 4 assertion was checked by hand against them: scope 1 3 of 3, scope 2 14 of 14, scope 5 3 of 3.
+- **Files:** seed `fm-spacing-audit-seed` (`hSEurPqV8Dgzn9yTwPSnnL`) and no-tokens `fm-spacing-audit-notokens` (`idjl35MjLGg4IJtPPH86GA`). The first seed run created 22 items. The second created 0 and returned identical ids. `modesSupported` is true, and `Compact card` padding top reads 10.
+- **Scope 1, seed, SEED_SELECTION, rhythm:** 11 frames measured, 1 hidden skipped, 0 not measurable. P0 1 · P1 6 · P2 5 · P3 4 (16 values in 16 rows). No bind opportunities (rhythm mode). On rhythm, no matching token: 0. Bound values passed: 1. Tokens off the 4/8 rhythm: `legacy/odd-18` (Default) = 18 (4 values) and `Space/300` (Compact) = 10 (1 value). `Compact card` padding top is P2 "bound to Space/300". `Token card` gap 6 passes, because the Default-mode token values count as on-grid.
+- **Scope 2, seed, SEED_SELECTION, tokens:** 11 frames, 1 hidden, 0 not measurable. P0 2 · P1 4 · P2 0 · P3 4 (10 ranked rows). Bind opportunities: 11 values across 4 tokens, listed as 11 more P3 rows: `Space/200` (Default) 7, `Space/400` (Default) 2, `Space/150` (Default) 1, `Space/300` (Compact) 1. On rhythm, no matching token: 4 (the `Hero` paddings). Bound values passed: 6. Tokens off the 4/8 rhythm: the same two as scope 1. The matched-but-not-offered summary reads `Legacy` 1 "not elected". Library tokens: none. `Card` padding left 52 is set to 48 ("no token within 4"). `Card` padding right 19 binds `Space/400` (−3), which proves `legacy/odd-18` is never offered. `Compact card` padding left 10 binds `Space/300` (Compact) as a bind opportunity, which pins Review Focus 3.
+- **Scope 3, Simple Design System copy, Sections, page, tokens:** pending. It waits on Futuremotion's fresh duplicate.
+- **Scope 4, Simple Design System copy, Sections, page, rhythm:** pending, as above.
+- **Scope 5, no-tokens, page, MODE tokens requested:** returned mode rhythm with tokens []. 1 frame measured. P1 4 (`Plain` padding 18 on every side, each → 16). No bind opportunities. On rhythm, no matching token: 0. Bound values passed: 0. No tokens off the rhythm.
+- **Apply and revert proofs (`Token card` padding left, `Space/200`):** apply bound it (previous 8, previous binding none). Revert then returned `reverted: 1` and the layer read 8, unbound. After a hand edit to 12, revert returned `reverted: 0` and skipped the row with `reason: "changed since"`, `actual: 12`, and left the layer at 12. The seed was then restored to 8, unbound.
+- **Real-recon deck:** the Workflow 0 recon on the seed fed a fourth ideation deck ("something to keep our spacing honest"), saved in `examples/ideation-runs.md` under "Deck from a real recon (seed file)". The Observed line is filled from the recon, and four of five cards ground in a recon observation. Every deck assertion passes.
+- **Static:** the build validates every edition with 0 errors and 0 warnings. markdownlint is clean on the example folder with `tests/fixtures/**` excluded; the verbatim fixtures fail lint on purpose.
+
+#### Round 3 plan
+
+Upload `fm-figma-capability-probe` and the 2.0 example. Fill scopes 3 and 4 in `tests/expected.json` from the fresh Simple Design System duplicate before prompt (b). Review Focus 3 (multi-mode tokens) is pinned, because `modesSupported` is true.
+
+- **(a)** In the seed file, select the SEED_SELECTION nodes by name, then run `/fm-spacing-rhythm-audit` and answer 1 to the mode question. Compare against scope 2. Answer 3 and pick the Token card rows, then say "revert the last snaps".
+- **(b)** On the Sections page of the Simple Design System copy, with nothing selected, say "Audit the spacing on this page", then answer 1, then 1 to the mode question. Compare against scope 3, then answer 4.
+- **(c)** Run `/fm-figma-capability-probe` in the seed file, answer 1 to the disclosure, and paste the table back.
+
+Take a screenshot of every question the agent asks in (a), (b), and (c). Whether the gates render as cards with clickable options, as cards with text only, or as plain messages answers the open question on decision-gate UI.
+
 ### 2026-11-02 · v1.2 · scale test in Figma (Simple Design System copy)
 
 - **Edition tested:** paste (v1.2).

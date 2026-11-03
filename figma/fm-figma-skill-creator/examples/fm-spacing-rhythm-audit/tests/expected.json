@@ -1,0 +1,1455 @@
+{
+  "generated": "2026-11-03",
+  "masterCommit": "a312065",
+  "seedFileKey": "hSEurPqV8Dgzn9yTwPSnnL",
+  "notokensFileKey": "idjl35MjLGg4IJtPPH86GA",
+  "modesSupported": true,
+  "scopes": [
+    {
+      "scope": 1,
+      "fileKey": "hSEurPqV8Dgzn9yTwPSnnL",
+      "page": "Seed",
+      "selection": [
+        "Card",
+        "Card / A",
+        "Card / B",
+        "Card / Override",
+        "Hero",
+        "Bound padding",
+        "Fractional",
+        "Hidden scratch",
+        "Token card",
+        "Alias card",
+        "Default card",
+        "Compact card"
+      ],
+      "mode": "rhythm",
+      "counts": {
+        "framesMeasured": 11,
+        "hiddenSkipped": 1,
+        "notMeasurable": 0,
+        "byPriority": {
+          "P0": 1,
+          "P1": 6,
+          "P2": 5,
+          "P3": 4
+        }
+      },
+      "tokens": [
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 12,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 10,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": true,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": true,
+          "candidate": true
+        }
+      ],
+      "libraryTokens": "none",
+      "spacingCollection": {
+        "id": "VariableCollectionId:2:4",
+        "name": "Spacing",
+        "defaultModeName": "Default",
+        "min": 4,
+        "max": 16
+      },
+      "matchedCollections": [
+        {
+          "name": "Legacy",
+          "count": 1,
+          "reasons": "1 not elected"
+        }
+      ],
+      "unbound": [],
+      "onRhythmNoToken": 0,
+      "boundPassed": 1,
+      "offRhythmTokens": [
+        {
+          "name": "legacy/odd-18",
+          "value": 18,
+          "modeName": "Default",
+          "values": 4
+        },
+        {
+          "name": "Space/300",
+          "value": 10,
+          "modeName": "Compact",
+          "values": 1
+        }
+      ],
+      "rows": [
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Padding left",
+          "current": 52,
+          "nearest": 48,
+          "delta": -4,
+          "priority": "P0",
+          "boundId": null,
+          "note": "inherited by 3 instances",
+          "fix": {
+            "kind": "set",
+            "value": 48,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:14",
+          "path": "Hero",
+          "group": "Hero",
+          "property": "Gap",
+          "current": 14,
+          "nearest": 16,
+          "delta": 2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:14"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:20",
+          "path": "Default card",
+          "group": "Default card",
+          "property": "Padding left",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 8,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:20"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:21",
+          "path": "Compact card",
+          "group": "Compact card",
+          "property": "Padding left",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 8,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:21"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Padding right",
+          "current": 19,
+          "nearest": 20,
+          "delta": 1,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 3 instances",
+          "fix": {
+            "kind": "set",
+            "value": 20,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Gap",
+          "current": 13,
+          "nearest": 12,
+          "delta": -1,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 2 instances",
+          "fix": {
+            "kind": "set",
+            "value": 12,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:28",
+          "path": "Card / Override",
+          "group": "Card / Override",
+          "property": "Gap",
+          "current": 15,
+          "nearest": 16,
+          "delta": 1,
+          "priority": "P1",
+          "boundId": null,
+          "note": "instance override; main component uses 13",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:28"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:15",
+          "path": "Bound padding",
+          "group": "Bound padding",
+          "property": "Padding top",
+          "current": 18,
+          "nearest": 16,
+          "delta": -2,
+          "priority": "P2",
+          "boundId": "VariableID:2:3",
+          "note": "bound to legacy/odd-18; change the variable",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:15"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:15",
+          "path": "Bound padding",
+          "group": "Bound padding",
+          "property": "Padding right",
+          "current": 18,
+          "nearest": 16,
+          "delta": -2,
+          "priority": "P2",
+          "boundId": "VariableID:2:3",
+          "note": "bound to legacy/odd-18; change the variable",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:15"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:15",
+          "path": "Bound padding",
+          "group": "Bound padding",
+          "property": "Padding bottom",
+          "current": 18,
+          "nearest": 16,
+          "delta": -2,
+          "priority": "P2",
+          "boundId": "VariableID:2:3",
+          "note": "bound to legacy/odd-18; change the variable",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:15"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:15",
+          "path": "Bound padding",
+          "group": "Bound padding",
+          "property": "Padding left",
+          "current": 18,
+          "nearest": 16,
+          "delta": -2,
+          "priority": "P2",
+          "boundId": "VariableID:2:3",
+          "note": "bound to legacy/odd-18; change the variable",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:15"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:21",
+          "path": "Compact card",
+          "group": "Compact card",
+          "property": "Padding top",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P2",
+          "boundId": "VariableID:2:8",
+          "note": "bound to Space/300; change the variable",
+          "fix": {
+            "kind": "set",
+            "value": 8,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:21"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:16",
+          "path": "Fractional",
+          "group": "Fractional",
+          "property": "Padding top",
+          "current": 15.5,
+          "nearest": 16,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:16"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:16",
+          "path": "Fractional",
+          "group": "Fractional",
+          "property": "Padding right",
+          "current": 15.5,
+          "nearest": 16,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:16"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:16",
+          "path": "Fractional",
+          "group": "Fractional",
+          "property": "Padding bottom",
+          "current": 15.5,
+          "nearest": 16,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:16"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:16",
+          "path": "Fractional",
+          "group": "Fractional",
+          "property": "Padding left",
+          "current": 15.5,
+          "nearest": 16,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "2:16"
+          ],
+          "count": 1
+        }
+      ]
+    },
+    {
+      "scope": 2,
+      "fileKey": "hSEurPqV8Dgzn9yTwPSnnL",
+      "page": "Seed",
+      "selection": [
+        "Card",
+        "Card / A",
+        "Card / B",
+        "Card / Override",
+        "Hero",
+        "Bound padding",
+        "Fractional",
+        "Hidden scratch",
+        "Token card",
+        "Alias card",
+        "Default card",
+        "Compact card"
+      ],
+      "mode": "tokens",
+      "counts": {
+        "framesMeasured": 11,
+        "hiddenSkipped": 1,
+        "notMeasurable": 0,
+        "byPriority": {
+          "P0": 2,
+          "P1": 4,
+          "P2": 0,
+          "P3": 4
+        }
+      },
+      "tokens": [
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 12,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 10,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": true,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": true,
+          "candidate": true
+        }
+      ],
+      "libraryTokens": "none",
+      "spacingCollection": {
+        "id": "VariableCollectionId:2:4",
+        "name": "Spacing",
+        "defaultModeName": "Default",
+        "min": 4,
+        "max": 16
+      },
+      "matchedCollections": [
+        {
+          "name": "Legacy",
+          "count": 1,
+          "reasons": "1 not elected"
+        }
+      ],
+      "unbound": [
+        {
+          "tokenName": "Space/200",
+          "tokenId": "VariableID:2:7",
+          "modeName": "Default",
+          "count": 7,
+          "exampleId": "2:18",
+          "examplePath": "Token card",
+          "ids": [
+            "2:18",
+            "2:19"
+          ]
+        },
+        {
+          "tokenName": "Space/400",
+          "tokenId": "VariableID:2:9",
+          "modeName": "Default",
+          "count": 2,
+          "exampleId": "2:11",
+          "examplePath": "Card",
+          "ids": [
+            "2:11"
+          ]
+        },
+        {
+          "tokenName": "Space/150",
+          "tokenId": "VariableID:2:6",
+          "modeName": "Default",
+          "count": 1,
+          "exampleId": "2:18",
+          "examplePath": "Token card",
+          "ids": [
+            "2:18"
+          ]
+        },
+        {
+          "tokenName": "Space/300",
+          "tokenId": "VariableID:2:8",
+          "modeName": "Compact",
+          "count": 1,
+          "exampleId": "2:21",
+          "examplePath": "Compact card",
+          "ids": [
+            "2:21"
+          ]
+        }
+      ],
+      "onRhythmNoToken": 4,
+      "boundPassed": 6,
+      "offRhythmTokens": [
+        {
+          "name": "legacy/odd-18",
+          "value": 18,
+          "modeName": "Default",
+          "values": 4
+        },
+        {
+          "name": "Space/300",
+          "value": 10,
+          "modeName": "Compact",
+          "values": 1
+        }
+      ],
+      "rows": [
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Padding left",
+          "current": 52,
+          "nearest": 48,
+          "delta": -4,
+          "priority": "P0",
+          "boundId": null,
+          "note": "inherited by 3 instances; no token within 4",
+          "fix": {
+            "kind": "set",
+            "value": 48,
+            "reason": "no token within 4"
+          },
+          "ids": [
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Padding right",
+          "current": 19,
+          "nearest": 16,
+          "delta": -3,
+          "priority": "P0",
+          "boundId": null,
+          "note": "inherited by 3 instances",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:14",
+          "path": "Hero",
+          "group": "Hero",
+          "property": "Gap",
+          "current": 14,
+          "nearest": 12,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:8",
+            "name": "Space/300",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:14"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:20",
+          "path": "Default card",
+          "group": "Default card",
+          "property": "Padding left",
+          "current": 10,
+          "nearest": 8,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:20"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Gap",
+          "current": 13,
+          "nearest": 12,
+          "delta": -1,
+          "priority": "P1",
+          "boundId": null,
+          "note": "inherited by 2 instances",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:8",
+            "name": "Space/300",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:28",
+          "path": "Card / Override",
+          "group": "Card / Override",
+          "property": "Gap",
+          "current": 15,
+          "nearest": 16,
+          "delta": 1,
+          "priority": "P1",
+          "boundId": null,
+          "note": "instance override; main component uses 13",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:28"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:16",
+          "path": "Fractional",
+          "group": "Fractional",
+          "property": "Padding top",
+          "current": 15.5,
+          "nearest": 16,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:16"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:16",
+          "path": "Fractional",
+          "group": "Fractional",
+          "property": "Padding right",
+          "current": 15.5,
+          "nearest": 16,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:16"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:16",
+          "path": "Fractional",
+          "group": "Fractional",
+          "property": "Padding bottom",
+          "current": 15.5,
+          "nearest": 16,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:16"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:16",
+          "path": "Fractional",
+          "group": "Fractional",
+          "property": "Padding left",
+          "current": 15.5,
+          "nearest": 16,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:16"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Padding top",
+          "current": 16,
+          "nearest": 16,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/400",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Padding bottom",
+          "current": 16,
+          "nearest": 16,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/400",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
+          "property": "Padding top",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:18"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
+          "property": "Padding right",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:18"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
+          "property": "Padding bottom",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:18"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
+          "property": "Padding left",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:18"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
+          "property": "Gap",
+          "current": 6,
+          "nearest": 6,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/150",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:6",
+            "name": "Space/150",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:18"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:19",
+          "path": "Alias card",
+          "group": "Alias card",
+          "property": "Padding top",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:19"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:19",
+          "path": "Alias card",
+          "group": "Alias card",
+          "property": "Padding right",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:19"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:19",
+          "path": "Alias card",
+          "group": "Alias card",
+          "property": "Padding bottom",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:19"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:21",
+          "path": "Compact card",
+          "group": "Compact card",
+          "property": "Padding left",
+          "current": 10,
+          "nearest": 10,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/300",
+          "fix": {
+            "kind": "bind",
+            "variableId": "VariableID:2:8",
+            "name": "Space/300",
+            "modeName": "Compact"
+          },
+          "ids": [
+            "2:21"
+          ],
+          "count": 1
+        }
+      ],
+      "proofs": {
+        "fileKey": "hSEurPqV8Dgzn9yTwPSnnL",
+        "node": {
+          "name": "Token card",
+          "id": "2:18",
+          "property": "paddingLeft"
+        },
+        "apply": {
+          "fixes": [
+            {
+              "id": "2:18",
+              "property": "paddingLeft",
+              "value": 8,
+              "variableId": "VariableID:2:7",
+              "override": false
+            }
+          ],
+          "result": {
+            "applied": [
+              {
+                "id": "2:18",
+                "property": "paddingLeft",
+                "previous": 8,
+                "previousVariableId": null,
+                "value": 8,
+                "variableId": "VariableID:2:7"
+              }
+            ],
+            "skipped": []
+          },
+          "readback": {
+            "paddingLeft": 8,
+            "boundLeft": "VariableID:2:7"
+          }
+        },
+        "revertClean": {
+          "changes": [
+            {
+              "id": "2:18",
+              "property": "paddingLeft",
+              "previous": 8,
+              "previousVariableId": null,
+              "value": 8,
+              "variableId": "VariableID:2:7"
+            }
+          ],
+          "result": {
+            "reverted": 1,
+            "skipped": []
+          },
+          "readback": {
+            "paddingLeft": 8,
+            "boundLeft": null
+          }
+        },
+        "revertAfterHandEdit": {
+          "handEdit": {
+            "paddingLeft": 12
+          },
+          "beforeRevert": {
+            "paddingLeft": 12,
+            "boundLeft": null
+          },
+          "changes": [
+            {
+              "id": "2:18",
+              "property": "paddingLeft",
+              "previous": 8,
+              "previousVariableId": null,
+              "value": 8,
+              "variableId": "VariableID:2:7"
+            }
+          ],
+          "result": {
+            "reverted": 0,
+            "skipped": [
+              {
+                "id": "2:18",
+                "property": "paddingLeft",
+                "previous": 8,
+                "previousVariableId": null,
+                "value": 8,
+                "variableId": "VariableID:2:7",
+                "reason": "changed since",
+                "actual": 12,
+                "actualVariableId": null
+              }
+            ]
+          },
+          "afterRevert": {
+            "paddingLeft": 12,
+            "boundLeft": null
+          }
+        },
+        "restored": {
+          "paddingLeft": 8,
+          "boundLeft": null
+        },
+        "runAt": "2026-11-03 UTC",
+        "note": "Apply and revert were run in their MCP form (IIFE stripped, top-level await). The hand edit and the restore were done in the same use_figma call as the second revert, in that order."
+      }
+    },
+    {
+      "scope": 3,
+      "fileKey": null,
+      "page": "Sections",
+      "selection": "page",
+      "mode": "tokens",
+      "pending": "awaiting Futuremotion's fresh Simple Design System duplicate"
+    },
+    {
+      "scope": 4,
+      "fileKey": null,
+      "page": "Sections",
+      "selection": "page",
+      "mode": "rhythm",
+      "pending": "awaiting Futuremotion's fresh Simple Design System duplicate"
+    },
+    {
+      "scope": 5,
+      "fileKey": "idjl35MjLGg4IJtPPH86GA",
+      "page": "Page 1",
+      "selection": "page",
+      "mode": "rhythm",
+      "counts": {
+        "framesMeasured": 1,
+        "hiddenSkipped": 0,
+        "notMeasurable": 0,
+        "byPriority": {
+          "P0": 0,
+          "P1": 4,
+          "P2": 0,
+          "P3": 0
+        }
+      },
+      "tokens": [],
+      "libraryTokens": "none",
+      "spacingCollection": null,
+      "matchedCollections": [],
+      "unbound": [],
+      "onRhythmNoToken": 0,
+      "boundPassed": 0,
+      "offRhythmTokens": [],
+      "rows": [
+        {
+          "id": "1:2",
+          "path": "Plain",
+          "group": "Plain",
+          "property": "Padding top",
+          "current": 18,
+          "nearest": 16,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "1:2"
+          ],
+          "count": 1
+        },
+        {
+          "id": "1:2",
+          "path": "Plain",
+          "group": "Plain",
+          "property": "Padding right",
+          "current": 18,
+          "nearest": 16,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "1:2"
+          ],
+          "count": 1
+        },
+        {
+          "id": "1:2",
+          "path": "Plain",
+          "group": "Plain",
+          "property": "Padding bottom",
+          "current": 18,
+          "nearest": 16,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "1:2"
+          ],
+          "count": 1
+        },
+        {
+          "id": "1:2",
+          "path": "Plain",
+          "group": "Plain",
+          "property": "Padding left",
+          "current": 18,
+          "nearest": 16,
+          "delta": -2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 16,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "1:2"
+          ],
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

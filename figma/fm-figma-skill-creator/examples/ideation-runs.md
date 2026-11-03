@@ -1,6 +1,6 @@
 # Workflow 0 ideation runs
 
-Evidence from the Task 4 proving runs on 2026-11-03 UTC. A recon smoke run of the Workflow 0 script on the empty scratch file comes first. Then come two rounds of three decks, each produced by a fresh sonnet agent that followed Workflow 0 in `SKILL.md` with no file key, so recon was skipped and every card grounds in the catalog, the landscape, or the user's answer. Round 1 ran before the template fix and round 2 after it, with the same prompts and grounding answers. Every deck is pasted verbatim, defects included, and each round ends with its assertion results.
+Evidence from the Task 4 proving runs on 2026-11-03 UTC. A recon smoke run of the Workflow 0 script on the empty scratch file comes first. Then come two rounds of three decks, each produced by a fresh sonnet agent that followed Workflow 0 in `SKILL.md` with no file key, so recon was skipped and every card grounds in the catalog, the landscape, or the user's answer. Round 1 ran before the template fix and round 2 after it, with the same prompts and grounding answers. Every deck is pasted verbatim, defects included, and each round ends with its assertion results. The last section is a fourth deck from Task 7, built from a real recon of the spacing-audit seed file.
 
 ## Recon smoke run (scratch file)
 
@@ -928,3 +928,176 @@ These come from the same script as round 1, run over the three round-2 decks on 
 | Deck ends with the footer question | yes | yes | yes |
 
 The one keyword hit: Run C card 1's Runs in line contains both "supported today" and "prototype". Read in full, "supported today" covers generating in a new frame, library search, and applying variables, and the line ends "prototype links are left to the user". It does not claim prototyping, so the check passes. Every round-1 finding is gone: no Does line warns, and every gap a card names has a count of 0 or 1.
+
+## Deck from a real recon (seed file)
+
+Task 7 ran the Workflow 0 recon script on 2026-11-03 UTC through `use_figma` against `fm-spacing-audit-seed` (key `hSEurPqV8Dgzn9yTwPSnnL`), page Seed. It was one read-only call with no error:
+
+```json
+{"page":"Seed","pages":[{"id":"0:1","name":"Seed"}],"counts":{"componentSets":0,"components":1,"instances":3},"collections":[{"name":"Legacy","modes":["Default"],"variables":1},{"name":"Spacing","modes":["Default","Compact"],"variables":6}],"styles":{"text":0,"paint":0},"namingSample":["Card","Hero","Bound padding","Fractional","Hidden scratch","Token card","Alias card","Default card","Compact card","Card / A"]}
+```
+
+A fresh sonnet agent then followed Workflow 0 in `SKILL.md` with this recon result pasted as Observed. The prompt was "something to keep our spacing honest" and the grounding answer "people eyeball padding and nobody binds tokens". The agent ran the validator on each Does line and rewrote none. The deck follows verbatim inside the fence, because its headings would repeat ones already in this file.
+
+```markdown
+## Concept cards for: "something to keep our spacing honest" (people eyeball padding and nobody binds tokens)
+
+- **Mapping:** variables and layout (padding, gap, spacing tokens); conventions, audit, synthesis, critique, and generator patterns
+- **Observed:** 2 variable collections (Legacy 1 variable, Spacing 6 variables in 2 modes: Default, Compact); 1 component, 3 instances, 0 component sets (page Seed); 0 text styles, 0 paint styles; 1 page named Seed; naming sample of 10 top-level layers (Card, Hero, Bound padding, Fractional, Hidden scratch, Token card, Alias card, Default card, Compact card, Card / A)
+- **From the catalog:** read audit × variables, conventions × variables, synthesis × layout, critique × variables, and generator × documentation first; synthesis × layout and critique × variables are empty cells; audit × layout is already filled by fm-spacing-rhythm-audit, so no card repeats it
+
+### 1. /fm-spacing-token-binder — Bind padding to real tokens
+
+- **Does:** Binds the padding and gap of auto-layout frames to the nearest matching Spacing variable, mode by mode, on a duplicate of the selection, and lists every binding before it applies any. Use whenever the user asks to "bind padding to tokens", "use the spacing variables", "replace hard-coded padding", or "tokenize this screen". Not for snapping off-grid values (use /fm-spacing-rhythm-audit) or building new variables.
+- **Type:** conventions → `templates/type-design-system-conventions.md`
+- **Category:** Design systems
+- **Cell:** conventions × variables
+- **Tier:** A build-ready on a proven pattern
+
+- **Reads:** selection; variables and styles (the Spacing number variables and their Default and Compact values)
+- **Writes:** after confirmation — padding and gap bindings on confirmed rows only, applied to a duplicate of the frames, never the source
+- **Produces:** bindings, plus a chat table of each row with its old value, the matched variable, and the value in each mode
+- **Needs:** a selection of auto-layout frames and a number-variable collection for spacing in the file or a connected library
+- **Try it:** "Bind the padding and gaps on this screen to our spacing variables."
+- **Sample output:** "Card: padding-left 16 -> space/400 (Default 16, Compact 12), exact match; 3 rows have no exact match and are listed for your decision."
+
+- **Fits your moment:** Directly answers "nobody binds tokens": it turns eyeballed padding into bound variables after you approve each row.
+- **Grounded in:** recon observation "6 Spacing variables"
+- **Landscape:** better than spacing-scale-enforcer because it binds padding and gap to the file's own variables instead of snapping raw numbers
+
+- **Runs in:** Figma agent in Design and MCP agents — supported today (using variables and editing layout are Supported in-app); over MCP the bind call was checked for presence only in the 2026-11-03 probe, so the first live run confirms it
+- **Risk:** edits layout properties on a duplicate only; every binding is listed before it applies and the source frames are never touched
+- **Cost:** about 40 credits per run (22 to 24 to collect and match, about 18 per five bindings, from the observed cost model, scaled by the frames selected)
+- **Build effort:** medium — one confirmation table, a bind-before-write helper, and a mode read-back step
+- **Pairs with:** fm-spacing-rhythm-audit (snaps off-grid values first)
+- **Confirm before building:** Bind only on an exact match, or also to the nearest step within 2 px? Which mode should the duplicate show, Default or Compact?
+
+### 2. /fm-spacing-binding-audit — See which spacing is unbound
+
+- **Does:** Audits the selected frames for padding and gap values that are bound to a variable, bound to a legacy or alias variable, or hard-coded, and reports each frame bound share with the unbound rows listed. Use whenever the user asks to "check spacing tokens", "see what is bound", "find hard-coded padding", or "score token coverage". Not for fixing the bindings (use /fm-spacing-token-binder).
+- **Type:** audit → `templates/type-standards-qa-audit.md`
+- **Category:** Design systems
+- **Cell:** audit × variables
+- **Tier:** B plausible
+
+- **Reads:** selection; variables and styles (which collection each bound padding or gap points at, including aliases)
+- **Writes:** none — read-only report
+- **Produces:** chat report with a bound-share percentage per frame and a ranked table of unbound and legacy-bound rows
+- **Needs:** a selection of auto-layout frames; a spacing variable collection to measure against
+- **Try it:** "How much of the spacing on this page is actually bound to our variables?"
+- **Sample output:** "Token card: 4 of 4 bound (100%). Bound padding: 3 of 4 bound (75%), padding-top hard-coded at 16. Alias card: 4 of 4 bound through an alias."
+
+- **Fits your moment:** Gives the team an honest count of how much padding is eyeballed versus bound, in numbers rather than impressions.
+- **Grounded in:** recon observation "10 top-level layers" (Bound padding, Token card, Alias card, Fractional, and Hidden scratch show the bound, aliased, fractional, and hidden cases it must handle)
+- **Landscape:** new
+
+- **Runs in:** both — supported today for reading; the bound-variable read on auto-layout nodes returned missing in the 2026-11-03 MCP probe only because that page held no auto-layout node, so the first live run confirms how aliases read
+- **Risk:** read-only
+- **Cost:** about 23 credits per run (page-scale audit, read-only, from the observed cost model)
+- **Build effort:** small — one read helper, one table, a cap on rows
+- **Pairs with:** fm-spacing-token-binder (fixes what this finds)
+- **Confirm before building:** Should hidden layers be counted or skipped? Is a binding to the Legacy collection a pass, a warning, or a failure?
+
+### 3. /fm-padding-pattern-digest — Find the scale people eyeball
+
+- **Does:** Summarizes the padding and gap values used across the selected frames, clusters them into the scale people actually use with a count for each value, and names the one-offs that match no cluster. Use whenever the user asks "what spacing do we really use", "which padding values repeat", or "what scale are we eyeballing". Not for binding or snapping values (use /fm-spacing-token-binder).
+- **Type:** synthesis → `templates/type-research-synthesis.md`
+- **Category:** Design systems
+- **Cell:** synthesis × layout
+- **Tier:** B plausible
+
+- **Reads:** selection; page
+- **Writes:** none — read-only digest
+- **Produces:** chat report listing each recurring value with its count and example layers, then the outliers
+- **Needs:** a selection or page of frames with auto layout; nothing beyond that
+- **Try it:** "Which padding and gap values do we really use on this page, and how often?"
+- **Sample output:** "16 appears 41 times, 12 appears 17 times, 14 appears 6 times (no matching step), 12.5 appears once on Fractional."
+
+- **Fits your moment:** Shows what the eyeballed scale actually is before anyone decides which tokens it should become.
+- **Grounded in:** landscape gap synthesis × layout (count 0 in the gap grid)
+- **Landscape:** new
+
+- **Runs in:** both — supported today on the current page only (loading all pages is not implemented in-app, so the digest names the page it read)
+- **Risk:** read-only
+- **Cost:** about 23 credits per run (page-scale audit, read-only, from the observed cost model)
+- **Build effort:** small — one collection pass, a frequency table, and an outlier rule
+- **Pairs with:** fm-spacing-token-binder, fm-spacing-scale-critique
+- **Confirm before building:** Cluster values within 1 px of each other, or list every distinct value? Count hidden layers?
+
+### 4. /fm-spacing-scale-critique — Judge the scale itself, honestly
+
+- **Does:** Critiques a spacing variable collection for step ratios, gaps between steps, and whether each mode scales in proportion, checked against the values the selected frames use, with ranked fixes. Use whenever the user asks to "review the spacing scale", "check whether our scale is any good", or "check the Compact mode". Not for binding frames to variables (use /fm-spacing-token-binder).
+- **Type:** critique → `templates/type-critique-review.md`
+- **Category:** Critique
+- **Cell:** critique × variables
+- **Tier:** B plausible
+
+- **Reads:** variables and styles (the Spacing collection and both modes); selection (the values frames use)
+- **Writes:** none — read-only critique
+- **Produces:** chat report with ranked findings, each backed by the step values, the ratios between steps, and the Default versus Compact values
+- **Needs:** a spacing variable collection with at least two steps; a selection of frames to check coverage against
+- **Try it:** "Is our spacing scale any good, and does Compact scale down sensibly?"
+- **Sample output:** "Blocking: Compact keeps two steps at the same value, so two sizes collapse into one. The 8 to 16 jump has no step between, and 14 appears 6 times in your frames."
+
+- **Fits your moment:** Checks whether the six tokens are worth binding to before the team commits every screen to them.
+- **Grounded in:** recon observation "6 Spacing variables in 2 modes"
+- **Landscape:** new
+
+- **Runs in:** both — supported today (variable reads were available in the 2026-11-03 MCP probe); the probe file held no variables, so real modes and aliases are confirmed on the first live run
+- **Risk:** read-only
+- **Cost:** about 23 credits per run (page-scale audit, read-only, from the observed cost model)
+- **Build effort:** small — a ratio table, a mode comparison, and a ranking rule with a cap on findings
+- **Pairs with:** fm-padding-pattern-digest (supplies the usage side)
+- **Confirm before building:** Is a ratio target wanted (for example steps within 1.25 to 2 times the previous one), or only observations? Judge Default only, or every mode?
+
+### 5. /fm-spacing-spec-sheet — Wildcard: a living spacing reference
+
+- **Does:** Builds a spacing reference frame beside the source from the local spacing variables, with a ruler bar, name, and value for every step in every mode. Use whenever the user asks to "document the spacing tokens", "make a spacing cheat sheet", or "show the scale to the team". Not for checking whether frames use the tokens (use /fm-spacing-binding-audit).
+- **Type:** generator → `templates/type-generation-builder.md`
+- **Category:** Design systems
+- **Cell:** generator × documentation
+- **Tier:** B plausible
+
+- **Reads:** variables and styles (the Spacing collection, its modes, and every step value)
+- **Writes:** after confirmation — one new reference frame placed 80 px to the right of the selection, nothing else
+- **Produces:** new frame beside the source with a table of step name, Default value, Compact value, and a proportional ruler bar for each
+- **Needs:** a spacing variable collection in the file; nothing beyond that
+- **Try it:** "Make a spacing cheat sheet from our variables so people stop eyeballing."
+- **Sample output:** "Built a reference frame with 6 rows: space/100 4 px (Compact 4), space/200 8 px (Compact 6), and so on, each with a ruler bar."
+
+- **Fits your moment:** Gives people a one-glance reference to pick a token from instead of guessing a padding value.
+- **Grounded in:** recon observation "2 modes" (Default and Compact in the Spacing collection)
+- **Landscape:** new
+
+- **Runs in:** both — supported today (creating frames and reading variables are Supported); text is sized in the order resize, then auto-resize, then characters, and measured in a later call than the build
+- **Risk:** creates one new frame beside the source; never edits existing layers
+- **Cost:** about 28 credits per run (about 10 to confirm the layout, about 18 to build the frame, from the observed cost model)
+- **Build effort:** medium — a six-pass table build and a read-back check of the frame bounds
+- **Pairs with:** fm-spacing-binding-audit
+- **Confirm before building:** Show both modes side by side or one mode at a time? Should the frame link each row to its variable name only, or also show example usage?
+
+Which one should I build first? 1 to 5, or tell me what to change.
+```
+
+### Real-recon deck assertion results
+
+These come from the same script as rounds 1 and 2, run over this deck on 2026-11-03 UTC.
+
+| Check | Real-recon deck |
+| --- | --- |
+| Exactly twenty labelled lines per card, in order | 5 of 5 |
+| Does line: exit 0 with 0 errors and 0 warnings | 5 of 5 |
+| Name matches `^/fm-[a-z0-9]+(-[a-z0-9]+)*$` | 5 of 5 |
+| Five distinct cells | yes |
+| Plan-only cards (at most one, never card 1) | 0 |
+| Runs in claims "supported today" for prototyping, vectors, slots, asset export, or diagrams | none |
+| Writes is none, after confirmation, or always | 5 of 5 |
+| Grounded in names a seed, gap, observation, or the answer | 5 of 5 |
+| A named gap really is a gap (count 0 or 1) | 1 of 1 |
+| Landscape starts with "new" or "better than", and X is a landscape row | 5 of 5 |
+| Card 5's hook says wildcard | yes |
+| Deck ends with the footer question | yes |
+| Observed line filled from the recon | yes |
+| Cards grounded in a recon observation (at least one) | 4 (cards 1, 2, 4, 5) |
+
+Every check passes. One soft observation, which is not a failed assertion: card 2 cites "10 top-level layers". That number is the size of the recon's naming sample, and the seed page actually holds 12 top-level nodes. The deck's Observed line correctly says "naming sample of 10 top-level layers"; only the card's shorthand drops the word "sample".
