@@ -45,10 +45,11 @@ Ask one question at a time, wait for the answer, then act. Every question offers
    > Apply the snaps listed above? 1. All, 2. P0 and P1 only, 3. Pick by row number, 4. None.
    Wait. If any chosen row is a main component outside the selection or on another page, say so in one line before applying ("Rows 3 to 5 change main components on Inputs and AI Chat, so every instance in the file updates"), then apply. Apply only the chosen rows, only on those layers, by setting the named property to the nearest on-grid value. Never change or remove an existing binding, a layer's structure, constraints, or layout mode, and never set a width or height. Token mode: a binding is added only on confirmed unbound rows; the fix binds the property to the named variable; when the fix is `set`, set the number and state the reason. A hug-sized frame that grows or shrinks because its padding or gap changed is the expected result, not a size change; never revert a confirmed snap for that reason. For rows inside an instance, apply only if the user confirmed that creating an override is acceptable; otherwise point at the main component. If you believe a confirmed row is unsafe to apply, leave it unapplied, say why, and ask; never revert silently.
 7. **Verify.** Re-read every changed property from the canvas and compare it with the target. Report mismatches as not fixed, with the value actually read.
+8. **Revert: on request.** When the user asks to undo or revert the snaps, rebuild the change list from the apply result you returned earlier in this conversation (ids, properties, previous values, previous bindings), not from the table, and run the revert script; if that result is not in this conversation, say so and stop. It re-reads each layer first and restores the previous value or binding only where the current value and binding still equal what you set. Report any layer that changed since as skipped with what it reads now, and every other row not restored with its reason; never drop one silently.
 
 ## Output contract
 
-Use the Figma UI names for properties: Padding top, Padding right, Padding bottom, Padding left, Gap, Row gap. Show deltas signed (−2 means the value comes down by 2). Put Priority second so it stays visible in a narrow panel. Where the surface supports it, make each layer reference a clickable node link. Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, and On rhythm, no matching token; the Bind opportunities table before the main table; and the main table's Fix column after Nearest, reading "bind Space/200" or "set 8".
+Use the Figma UI names for properties: Padding top, Padding right, Padding bottom, Padding left, Gap, Row gap. Show deltas signed (−2 means the value comes down by 2). Put Priority second so it stays visible in a narrow panel. Where the surface supports it, make each layer reference a clickable node link. Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, and On rhythm, no matching token; the Bind opportunities table before the main table; and the main table's Fix column after Nearest, reading "bind Space/200" or "set 8". Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from.
 
 ```markdown
 <One-line answer if the user asked a question.>
@@ -77,6 +78,9 @@ Use the Figma UI names for properties: Padding top, Padding right, Padding botto
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 ## After fixes (only if applied)
+Previous is the human record; the revert list is the apply result.
+| # | Layer | Property | Previous | Now | Fix |
+| --- | --- | --- | --- | --- | --- |
 - Changed: <n> properties on <n> layers · Verified: <n> of <n>
 - Not changed: <rows and reasons: existing binding, override not approved, user excluded>
 - Structure, constraints, layout mode, and explicit sizes: unchanged
@@ -85,11 +89,6 @@ Use the Figma UI names for properties: Padding top, Padding right, Padding botto
 Say "no off-grid values in" followed by the frame count instead of producing an empty table.
 
 ## Do and do not
-
-### Snap, do not nudge
-
-- **Do:** "Padding left 18 → 16 (nearest on-grid). Delta −2."
-- **Do not:** "Padding left 18 → 20 (looks more balanced)."
 
 ### Token mode: bind, do not hard-code
 
@@ -101,11 +100,6 @@ Say "no off-grid values in" followed by the frame count instead of producing an 
 - **Do:** The ranked table, the verbatim fix question, then nothing until the answer arrives.
 - **Do not:** Applying the "obvious" P0 snaps in the same turn as the audit.
 
-### Numbers, not adjectives
-
-- **Do:** "Gap 13 between 'Price' and 'Buy' in Card / Default."
-- **Do not:** "The cards feel a little uneven."
-
 ### Fix at the source
 
 - **Do:** "Card: Gap 13 → 12, inherited by 3 instances. Card / Compact: Gap 15 is an override; fix needs your approval."
@@ -116,18 +110,10 @@ Say "no off-grid values in" followed by the frame count instead of producing an 
 - **Do:** "Hero: Gap 14 → 16 applied; the frame grew from 96 to 98 px because it hugs its content."
 - **Do not:** "Hero remains at 14. Snapping increased its height, so I reverted it."
 
-### Summarise before you list
-
-- **Do:** "AI Sidebar: 8 values (Padding left and right 6 → 8 in four nested Block frames). Checkbox: 1 value, inherited by 9."
-- **Do not:** Thirty rows of "Block / Block / Block" with the rest of the page cut off.
-
 ## Examples
 
 **Request:** "Check the spacing on these cards" with four card instances selected.
 **Result:** A table where inherited values appear once on the main component row and only true overrides get their own row, then the verbatim fix question.
-
-**Request:** "Is this on the 8pt grid?" with nothing selected.
-**Result:** The verbatim scope question in plain text. If the user picks the page, a one-line answer, then the audit.
 
 **Request:** "Audit spacing" with a design-system section of 300 frames selected.
 **Result:** The header counts, a "By component" summary, the top 30 rows, the remaining counts, then the fix question.
@@ -135,25 +121,20 @@ Say "no off-grid values in" followed by the frame count instead of producing an 
 **Request:** "Fix all of them" after the report.
 **Result:** Snaps applied only to the listed rows, each re-read, then the "After fixes" block with verified counts. Hug frames that changed height are reported, not reverted.
 
-**Request:** "Also make these frames auto layout" during the audit.
-**Result:** Say that converting frames is outside this skill and finish the audit; no frames converted.
-
 ## Common edge cases
 
 - **Nothing selected, or no auto-layout frames in the selection.** Say what is selected and ask. Do not invent a target.
-- **In rhythm mode, values bound to variables.** Report the variable name and its resolved value at P2; never overwrite an existing binding. Suggest changing the variable.
-- **Token mode: a bound value passes and is counted on the Bound values line.**
+- **Values bound to variables.** Never overwrite an existing binding. In rhythm mode, report the variable name and its resolved value at P2 and suggest changing the variable. Token mode: a bound value passes and is counted on the Bound values line.
 - **Token mode: alias tokens.** An alias resolves to its final value (at most three hops) for matching but is never offered; bind to the non-alias variable with that value, or snap to the nearest non-alias token.
 - **Token mode: multi-mode collections.** Match against the token values of the mode applied to the node's collection, else the Default mode, and name that mode in the fix: "bind Space/300 (Compact)".
 - **Token mode: library tokens present but not audited.** Say "library tokens present, not audited" once, on the Mode line; never import a library variable to read its value.
 - **Token mode: negative values.** List them with the note "negative value, not snapped" and no priority; never snap or bind them.
 - **Token mode: a value far from every token.** More than 4 from every token, a value on the rhythm passes as "on rhythm, no matching token"; otherwise the fix is the rhythm-nearest number with the reason "no token within 4".
 - **Percentages or mixed values.** Report them in the Note column; do not snap them.
-- **Instances with overrides.** Report the override; the lasting fix is the main component. Apply an override only on explicit confirmation.
-- **Main component outside the selection or on another page.** List it once with the inherited count and name the page; the fix still goes there.
-- **Gap of 2.** Half-step; P3 with a note, unless the user disallows 2.
-- **Fractional values such as 15.5.** Treat as off-grid; nearest on-grid is 16; rank P3 and note the fraction.
+- **Instances with overrides, or a main component outside the selection or on another page.** The lasting fix is the main component: list it once with the inherited count and name its page. Report an override and apply it only on explicit confirmation.
+- **Gap of 2, or fractional values such as 15.5.** Both rank P3 with a note: a gap of 2 is a half-step unless the user disallows 2; a fraction is off-grid and its nearest on-grid value is 16.
 - **Large scope.** Above 2,000 frames, stop collecting, report what was measured, and ask whether to continue by section.
+- **Revert: a layer edited after the snap.** Leave it untouched, list it as skipped "changed since" with the value and binding it reads now, and restore the rest.
 - **Figma Make.** Return the allowed-value list as a checklist and stop.
 
 ## Helper scripts
@@ -458,6 +439,43 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
 })();
 ```
 
+```javascript
+// helper: revert
+// enhancement: revert begin
+// Revert: restore each applied change's previous value or binding, only where the layer still reads what apply set.
+(async () => {
+  const changes = [/* the `applied` list apply returned: { id, property, previous, previousVariableId, value, variableId } */];
+  const get = (id) => figma.getNodeByIdAsync ? figma.getNodeByIdAsync(id) : Promise.resolve(figma.getNodeById(id));
+  const read = (n, p) => ({ actual: n[p], actualVariableId: n.boundVariables?.[p]?.id ?? null });
+  const skipped = [];
+  let reverted = 0;
+  for (const c of changes) {
+    const n = await get(c.id);
+    if (!n || !(c.property in n)) { skipped.push({ ...c, reason: "node or property missing", actual: null, actualVariableId: null }); continue; }
+    const now = read(n, c.property);
+    // Changed since apply: never write; report what the layer reads now.
+    if (now.actual !== c.value || now.actualVariableId !== (c.variableId ?? null)) { skipped.push({ ...c, reason: "changed since", ...now }); continue; }
+    try {
+      if (c.previousVariableId) {
+        const v = await figma.variables.getVariableByIdAsync(c.previousVariableId);
+        if (!v) { skipped.push({ ...c, reason: "previous variable not found", ...now }); continue; }
+        n.setBoundVariable(c.property, v);
+      } else {
+        // Previously unbound: remove the binding apply added, then restore the number.
+        if (now.actualVariableId) n.setBoundVariable(c.property, null);
+        n[c.property] = c.previous;
+      }
+    } catch (e) { skipped.push({ ...c, reason: String(e), ...read(n, c.property) }); continue; }
+    // Re-read: count it only when the layer reads the previous value and binding again.
+    const after = read(n, c.property);
+    if (after.actual === c.previous && after.actualVariableId === (c.previousVariableId ?? null)) reverted++;
+    else skipped.push({ ...c, reason: "could not restore", ...after });
+  }
+  return { reverted, skipped };
+})();
+// enhancement: revert end
+```
+
 ## Final gate: do not finish until every line is true
 
 Check against the canvas, not from memory.
@@ -470,7 +488,8 @@ Check against the canvas, not from memory.
 - [ ] Every applied snap was re-read and equals the Nearest value
 - [ ] No existing binding was changed or removed, and no structure, constraint, layout mode, or explicit size was changed
 - [ ] Token mode: every bind fix names a non-alias spacing-collection candidate within 4 of the value, and every bound value passed
+- [ ] Revert: touched only rows whose current value and binding matched the record
 
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, run the collect, apply, and verify scripts in Helper scripts in that order. Nothing persists between calls, so re-fetch nodes by id every time and keep the apply list to about 25 rows per call. Return values with `return`. If no script tool is available, read the properties with your own canvas tools and apply confirmed fixes one layer at a time, reporting each. Token mode: run the collect script once with MODE set to discover before asking the mode question, then again with the chosen mode. Token mode: if a structured question tool such as `ask_user_question` is available, use it for the mode question and the fix question with the same numbered options as the text; the plain-text wording is the fallback and the record of what was asked.
+If a script-execution tool such as `evaluate_script` is available, run the collect, apply, and verify scripts in Helper scripts in that order. Nothing persists between calls, so re-fetch nodes by id every time and keep the apply list to about 25 rows per call. Return values with `return`. If no script tool is available, read the properties with your own canvas tools and apply confirmed fixes one layer at a time, reporting each. Revert: on request, run the revert script with the `applied` list from the apply result. Token mode: run the collect script once with MODE set to discover before asking the mode question, then again with the chosen mode. Token mode: if a structured question tool such as `ask_user_question` is available, use it for the mode question and the fix question with the same numbered options as the text; the plain-text wording is the fallback and the record of what was asked.
