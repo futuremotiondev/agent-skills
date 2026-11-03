@@ -5,7 +5,11 @@ license: MIT
 compatibility: Scripts need Node 18 or newer. The Figma MCP server is optional and used only for the coding-agent edition.
 metadata:
   version: "1.1"
-  author: Futuremotion
+  author: "Futuremotion Studio"
+  category: "Workflows"
+  tags: "skill authoring, figma agent, templates, validator, publishing, mcp porting"
+  applies-to: "skill files, templates, listings"
+  runtimes: "mcp"
 ---
 
 # Figma skill creator
