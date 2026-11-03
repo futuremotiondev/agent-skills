@@ -90,8 +90,9 @@ block must follow:
   is present but its call is untested (third-party reports say "not implemented"), so feature-check
   and degrade to the current page; wrap per-node inspection in try/catch because malformed remote
   components throw.
-- Returns are truncated, not rejected, somewhere below 50,000 bytes in-app; over MCP, `use_figma`
-  rejects returns over 48,000 bytes. Keep results small in both.
+- In-app, a return carrying a 50,000-character sample did not arrive whole; the same return
+  measured 52,907 bytes over MCP, so the in-app limit is somewhere below that total. Over MCP,
+  `use_figma` rejects returns over 48,000 bytes. Keep results small in both.
 - Keep batches small (a third-party author caps at 25 rows per call) and keep helper code under
   about 150 lines, re-pasted per call because nothing persists.
 - Text sizing order: `resize(width, 16)`, then `textAutoResize = 'HEIGHT'`, then `characters`.
@@ -130,8 +131,8 @@ Seed file `fm-spacing-audit-seed` (key `hSEurPqV8Dgzn9yTwPSnnL`), nothing select
 `fm-figma-capability-probe` 1.0, Futuremotion's paste-back. Runtime line: `Figma Design agent;
 script reports editorType figma, mode unknown, apiVersion 1.0.0`. The disclosure question rendered as
 plain text (1.0 did not name the structured question tool for it); the first card, the
-`ask_user_question` experiment, appeared 1 m 23 s after the answer. Credits were not shown in the
-chat UI.
+`ask_user_question` experiment, appeared 1 m 23 s after the answer. Credits were not recorded in
+Round 3; testing-and-maintenance step 5 says where to read them.
 
 | API | Status | Detail |
 | --- | --- | --- |
@@ -175,9 +176,9 @@ chat UI.
 What this run shows: the in-app script runtime matches MCP on every API row the scratch file could
 test, and the seed file fills the rows MCP missed for lack of content (instance, bound variables,
 variables, collections). `setPluginData` and `clientStorage` error with the same text as over MCP;
-`setSharedPluginData` works; `figma.notify` returns. A 50,000-character return came back truncated
-rather than rejected, so the in-app limit sits below 50,000 bytes and a too-large return fails
-quietly; keep helper results small. `ask_user_question` renders a card with clickable options;
+`setSharedPluginData` works; `figma.notify` returns. The return carrying the 50,000-character
+sample did not arrive whole; the same return measured 52,907 bytes over MCP, so the in-app limit is
+somewhere below that total and a too-large return fails quietly; keep helper results small. `ask_user_question` renders a card with clickable options;
 `show_widget` is missing, so every picker needs its numbered-options text fallback.
 
 Decision-gate UI (Round 3, 2026-11-03, screenshots of every gate): a gate whose skill text names the

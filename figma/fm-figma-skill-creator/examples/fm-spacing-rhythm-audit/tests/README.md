@@ -1,6 +1,6 @@
 # Tests for fm-spacing-rhythm-audit 2.0
 
-These are the oracle fixtures for the 2.0 example. A script run over the Figma MCP server (`use_figma`) produces the exact result the skill should reach, and an in-app or MCP run of the skill is compared against it. The fixtures are throwaway test files, not skill requirements: the skill works in any file.
+These are the oracle fixtures for the 2.0 example. Version 2.1 changed instruction wording only; the helpers and this oracle are unchanged, so they hold for 2.1 too. A script run over the Figma MCP server (`use_figma`) produces the exact result the skill should reach, and an in-app or MCP run of the skill is compared against it. The fixtures are throwaway test files, not skill requirements: the skill works in any file.
 
 ## Files
 

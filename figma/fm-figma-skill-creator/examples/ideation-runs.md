@@ -609,7 +609,7 @@ Prompt: "something for our design system". Grounding answer: "designers keep han
 - **Grounded in:** the user's answer alone
 - **Landscape:** better than legacy-styles-to-variables because it works from a confirmed list in verified batches of five and can resume, instead of migrating in one pass
 
-- **Runs in:** both — supported today (variable binding is Supported; the MCP probe round-tripped shared plugin data, untested in-app, and private plugin data is not used)
+- **Runs in:** both — supported today (variable binding is Supported; shared plugin data round-trips over MCP and in-app (probes, 2026-11-03), and private plugin data is not used)
 - **Risk:** edits bindings on the selected components; each batch needs confirmation and is read back before the next, and the work is done on a duplicate
 - **Cost:** about 18 credits per batch of five bindings, plus about 10 credits to confirm each batch (observed cost model)
 - **Build effort:** large — staged instructions, a resume record, per-batch read-back, and the most questions to ask

@@ -27,7 +27,7 @@ This is the first skill built through fm-figma-skill-creator, so its first uploa
 ### Round 3 in-app, v2.0 (fixed in 2.1), 2026-11-03
 
 - **Edition tested:** upload, v2.0, Figma Design agent. Every gate was screenshotted.
-- **Credits:** not shown in the chat UI in any of the runs below.
+- **Credits:** not recorded in Round 3; see testing-and-maintenance step 5 for where to read them.
 
 #### Prompt (a): seed file, SEED_SELECTION (12 nodes), `/fm-spacing-rhythm-audit`, then 1
 

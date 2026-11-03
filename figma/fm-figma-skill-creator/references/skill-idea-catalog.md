@@ -221,7 +221,7 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
   - description: Collects every animated layer's durations and easings on the current page and clusters them into the file's de facto motion language, naming each cluster and listing the outliers as a draft motion spec. Use whenever the user asks what motion the file uses, wants to document existing animation, or asks for a motion inventory. Not for flagging inconsistent transitions (use animation-consistency-check).
   - tags: motion, documentation; synthesis; consistency, handoff, onboarding
   - fits when: A team has animated a product for months and needs to write down the motion system it actually uses.
-  - feasibility: plan-only for the coding-agent edition, where the motion API is not listed for MCP. Adding motion is Supported in-app and Figma-authored skills call the motion API, but no in-app probe table exists yet, so this waits on one.
+  - feasibility: plan-only for the coding-agent edition, where the motion API is not listed for MCP. Adding motion is Supported in-app and Figma-authored skills call the motion API, but the in-app probe table (2026-11-03) has no `figma.motion` row, so this waits on a probe row for it.
   - credits: 22 to 24 credits per page [page-scale audit, read-only]
   - differs from: animation-consistency-check, which flags transitions out of step; motion-spec-generator, which documents intended motion; this derives the language bottom-up from what is already animated.
 
@@ -265,7 +265,7 @@ Each seed is a bullet block with fixed lowercase keys: `tier`, `description`, `t
   - description: Runs a confirmed accessibility fix list on the selected frames in batches of five, applying each fix, reading the canvas back, and recording progress on the frames so a later run resumes where this one stopped. Use whenever the user asks to fix accessibility issues, work through an accessibility audit, or apply contrast and target-size fixes. Not for finding issues in the first place (use accessibility-audit).
   - tags: accessibility; workflow; accessibility, review, cost
   - fits when: An audit returned forty accessibility findings and the designer wants them fixed in safe, resumable batches.
-  - feasibility: supported. Progress is written with shared plugin data, which the MCP probe round-tripped; private plugin data and client storage both errored there and are not used. Shared plugin data is untested in-app, so the in-app edition rests on that MCP evidence until an in-app probe table is pasted back.
+  - feasibility: supported. Progress is written with shared plugin data, which the MCP probe round-tripped; private plugin data and client storage both errored there and are not used. Shared plugin data also round-trips in-app (probe, 2026-11-03), so both editions rest on observed evidence.
   - credits: about 18 credits per batch of five fixes [five-fix model]; about 10 credits to confirm each batch [ask]
   - differs from: accessibility-audit, which reports issues; this applies a confirmed list in verified batches and can resume.
 
