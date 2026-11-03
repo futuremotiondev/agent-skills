@@ -1,5 +1,4 @@
-// Apply: set only the confirmed properties to their target values. Fill `fixes` from the confirmed rows (add
-// `variableId` for a bind fix); set `override: true` only when the user approved creating an instance override.
+// Apply: set only confirmed properties; fill `fixes` from confirmed rows (`variableId` for a bind fix); `override: true` only when the user approved an instance override.
 (async () => {
   const fixes = [/* { id: "12:34", property: "paddingLeft", value: 16, variableId: "VariableID:1:2", override: false } */];
   const get = (id) => figma.getNodeByIdAsync ? figma.getNodeByIdAsync(id) : Promise.resolve(figma.getNodeById(id));

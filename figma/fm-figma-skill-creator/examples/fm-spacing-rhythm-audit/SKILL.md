@@ -52,7 +52,7 @@ Ask one question at a time, wait for the answer, then act. Every question offers
    > Apply the snaps listed above? 1. All, 2. P0 and P1 only, 3. Pick by row number, 4. None.
    Wait. If any chosen row is a main component outside the selection or on another page, say so in one line before applying ("Rows 3 to 5 change main components on Inputs and AI Chat, so every instance in the file updates"), then apply. Apply only the chosen rows, only on those layers, by setting the named property to the nearest on-grid value. Never change or remove an existing binding, a layer's structure, constraints, or layout mode, and never set a width or height. Token mode: a binding is added only on confirmed unbound rows; the fix binds the property to the named variable; when the fix is `set`, set the number and state the reason. A hug-sized frame that grows or shrinks because its padding or gap changed is the expected result, not a size change; never revert a confirmed snap for that reason. For rows inside an instance, apply only if the user confirmed that creating an override is acceptable; otherwise point at the main component. If you believe a confirmed row is unsafe to apply, leave it unapplied, say why, and ask; never revert silently.
 7. **Verify.** Re-read every changed property from the canvas and compare it with the target. Report mismatches as not fixed, with the value actually read.
-8. **Revert: on request.** When the user asks to undo or revert the snaps, rebuild the change list from the apply result you returned earlier in this conversation (ids, properties, previous values, previous bindings), not from the table, and run the revert script; if that result is not in this conversation, say so and stop. It re-reads each layer first and restores the previous value or binding only where the current value and binding still equal what you set. Report any layer that changed since as skipped with what it reads now, and every other row not restored with its reason; never drop one silently.
+8. **Revert: on request.** When the user asks to undo or revert the snaps, rebuild the change list from the apply result you returned earlier in this conversation (ids, properties, previous values, previous bindings; when apply ran in batches, concatenate every result's applied list), not from the table, and run the revert script in the same batches; if that result is not in this conversation, say so and stop. It re-reads each layer first and restores the previous value or binding only where the current value and binding still equal what you set. Report any layer that changed since as skipped with what it reads now, and every other row not restored with its reason; never drop one silently.
 
 ## Output contract
 
@@ -139,7 +139,7 @@ Say "no off-grid values in" followed by the frame count instead of producing an 
 - **Token mode: a value far from every token.** More than 4 from every token, a value on the rhythm passes as "on rhythm, no matching token"; otherwise the fix is the rhythm-nearest number with the reason "no token within 4".
 - **Percentages or mixed values.** Report them in the Note column; do not snap them.
 - **Instances with overrides, or a main component outside the selection or on another page.** The lasting fix is the main component: list it once with the inherited count and name its page. Report an override and apply it only on explicit confirmation.
-- **Gap of 2, or fractional values such as 15.5.** Both rank P3 with a note: a gap of 2 is a half-step unless the user disallows 2; a fraction is off-grid and its nearest on-grid value is 16.
+- **Gap of 2, or fractional values such as 15.5.** Both rank P3 with a note: a gap of 2 is a half-step unless the user disallows 2; 15.5's nearest on-grid value is 16.
 - **Large scope.** Above 2,000 frames, stop collecting, report what was measured, and ask whether to continue by section.
 - **Revert: a layer edited after the snap.** Leave it untouched, list it as skipped "changed since" with the value and binding it reads now, and restore the rest.
 - **Figma Make.** Return the allowed-value list as a checklist and stop.
@@ -151,8 +151,7 @@ The scripts below run through whichever script path the runtime offers; each is 
 ```javascript
 // helper: collect
 let MODE = "discover"; // discover | tokens | rhythm // without the token-conformance pack this reads: let MODE = "rhythm"
-// Collect: read auto-layout padding and gaps in the selection, fold inherited instance values into
-// their main component, rank every off-grid value, and group rows by component. Read-only.
+// Collect: read auto-layout padding and gaps, fold inherited instance values into the main component, rank off-grid values, group by component. Read-only.
 (async () => {
   const MAX_FRAMES = 2000, MAX_ROWS = 60;
   let onGrid = (v) => v === 0 || (v < 48 ? v % 4 === 0 : v % 8 === 0);
@@ -164,8 +163,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
     return hi % 8 === 0 && lo % 8 !== 0 ? hi : lo;
   };
   // enhancement: token-conformance begin
-  // Discovery: candidates are local FLOAT variables scoped to GAP, or named space or spacing but not letter-spacing,
-  // line-height, line-spacing, or paragraph-spacing; WIDTH_HEIGHT-only and type-spacing names are matched, never offered.
+  // Discovery: candidates are local FLOATs scoped to GAP or named space/spacing (not letter, line-height, line-spacing, paragraph); WIDTH_HEIGHT-only and type-spacing names are matched, never offered.
   if (MODE !== "discover" && MODE !== "tokens") MODE = "rhythm";
   const V = figma.variables, cols = new Map(), varCache = new Map();
   const getVar = (id) => { if (!varCache.has(id)) varCache.set(id, V.getVariableByIdAsync(id)); return varCache.get(id); };
@@ -336,8 +334,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
     if (!varNames.has(r.boundId)) { const v = await figma.variables.getVariableByIdAsync(r.boundId); varNames.set(r.boundId, v ? v.name : r.boundId); }
     r.note = "bound to " + varNames.get(r.boundId) + "; change the variable" + (r.note ? "; " + r.note : "");
   }
-  // Merge rows that read identically (same group, path, property, value): distinct nested frames with
-  // the same names become one row with every id, so the table stays short and the fix still hits all.
+  // Merge rows that read identically (same group, path, property, value) into one row with every id; the fix still hits all.
   const merged = new Map();
   for (const r of rows.values()) {
     const key = [r.group, r.path, r.property, r.current, r.fix.modeName].join("|");
@@ -358,8 +355,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
   const boundValues = list.filter((r) => r.boundId).reduce((s, r) => s + r.count, 0);
   const out = { framesMeasured: frames, hiddenSkipped: hidden, notMeasurable: absolute, truncated, values: rows.size, tableRows: list.length, byPriority, byGroup, boundValues, boundTokens: [...new Set(varNames.values())], rows: list.slice(0, MAX_ROWS) };
   // enhancement: token-conformance begin
-  // Settle bind targets (bound in the same top-level frame, then shortest name), summarise bind
-  // opportunities per token, and list bound tokens whose value sits off the 4/8 rhythm.
+  // Settle bind targets (same top-level frame, then shortest name), summarise bind opportunities per token, list bound tokens off the 4/8 rhythm.
   const inTop = (top, id) => (boundTop.get(top) && boundTop.get(top).has(id) ? 1 : 0);
   const pick = (opts, top) => opts.slice().sort((a, b) => inTop(top, b.id) - inTop(top, a.id) || a.name.length - b.name.length)[0];
   const also = (note, opts, t) => { const alts = opts.filter((x) => x !== t).map((x) => x.name); return alts.length ? (note ? note + "; " : "") + "also " + alts.join(", ") : note; };
@@ -393,8 +389,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
 
 ```javascript
 // helper: apply
-// Apply: set only the confirmed properties to their target values. Fill `fixes` from the confirmed rows (add
-// `variableId` for a bind fix); set `override: true` only when the user approved creating an instance override.
+// Apply: set only confirmed properties; fill `fixes` from confirmed rows (`variableId` for a bind fix); `override: true` only when the user approved an instance override.
 (async () => {
   const fixes = [/* { id: "12:34", property: "paddingLeft", value: 16, variableId: "VariableID:1:2", override: false } */];
   const get = (id) => figma.getNodeByIdAsync ? figma.getNodeByIdAsync(id) : Promise.resolve(figma.getNodeById(id));
@@ -457,12 +452,14 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
   const skipped = [];
   let reverted = 0;
   for (const c of changes) {
-    const n = await get(c.id);
-    if (!n || !(c.property in n)) { skipped.push({ ...c, reason: "node or property missing", actual: null, actualVariableId: null }); continue; }
-    const now = read(n, c.property);
-    // Changed since apply: never write; report what the layer reads now.
-    if (now.actual !== c.value || now.actualVariableId !== (c.variableId ?? null)) { skipped.push({ ...c, reason: "changed since", ...now }); continue; }
+    let n = null, now = { actual: null, actualVariableId: null };
     try {
+      n = await get(c.id);
+      if (!n || n.removed || !(c.property in n)) { skipped.push({ ...c, reason: "node or property missing", ...now }); continue; }
+      now = read(n, c.property);
+      // Changed since apply, or no number to restore: never write; report what the layer reads now.
+      if (now.actual !== c.value || now.actualVariableId !== (c.variableId ?? null)) { skipped.push({ ...c, reason: "changed since", ...now }); continue; }
+      if (typeof c.previous !== "number" || !Number.isFinite(c.previous)) { skipped.push({ ...c, reason: "previous not a number", ...now }); continue; }
       if (c.previousVariableId) {
         const v = await figma.variables.getVariableByIdAsync(c.previousVariableId);
         if (!v) { skipped.push({ ...c, reason: "previous variable not found", ...now }); continue; }
@@ -472,11 +469,11 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
         if (now.actualVariableId) n.setBoundVariable(c.property, null);
         n[c.property] = c.previous;
       }
-    } catch (e) { skipped.push({ ...c, reason: String(e), ...read(n, c.property) }); continue; }
-    // Re-read: count it only when the layer reads the previous value and binding again.
-    const after = read(n, c.property);
-    if (after.actual === c.previous && after.actualVariableId === (c.previousVariableId ?? null)) reverted++;
-    else skipped.push({ ...c, reason: "could not restore", ...after });
+      // Re-read: count it only when the layer reads the previous value and binding again.
+      const after = read(n, c.property);
+      if (after.actual === c.previous && after.actualVariableId === (c.previousVariableId ?? null)) reverted++;
+      else skipped.push({ ...c, reason: "could not restore", ...after });
+    } catch (e) { let r = now; try { r = read(n, c.property); } catch (e2) { /* unreadable: keep the last reading */ } skipped.push({ ...c, reason: String(e), ...r }); }
   }
   return { reverted, skipped };
 })();
@@ -500,11 +497,11 @@ Check against the canvas, not from memory.
 <!-- target:figma-app -->
 ## In-app execution (Figma agent)
 
-If a script-execution tool such as `evaluate_script` is available, run the collect, apply, and verify scripts in Helper scripts in that order. Nothing persists between calls, so re-fetch nodes by id every time and keep the apply list to about 25 rows per call. Return values with `return`. If no script tool is available, read the properties with your own canvas tools and apply confirmed fixes one layer at a time, reporting each. Revert: on request, run the revert script with the `applied` list from the apply result. Token mode: run the collect script once with MODE set to discover before asking the mode question, then again with the chosen mode. Token mode: if a structured question tool such as `ask_user_question` is available, use it for the mode question and the fix question with the same numbered options as the text; the plain-text wording is the fallback and the record of what was asked.
+If a script-execution tool such as `evaluate_script` is available, run the collect, apply, and verify scripts in Helper scripts in that order. Nothing persists between calls, so re-fetch nodes by id every time and keep the apply list to about 25 rows per call. Return values with `return`. If no script tool is available, read the properties with your own canvas tools and apply confirmed fixes one layer at a time, reporting each. Revert: on request, run the revert script with the `applied` list from the apply result; when apply ran in batches, concatenate every batch's list and revert in the same batches. Token mode: run the collect script once with MODE set to discover before asking the mode question, then again with the chosen mode. Token mode: if a structured question tool such as `ask_user_question` is available, use it for the mode question and the fix question with the same numbered options as the text; the plain-text wording is the fallback and the record of what was asked.
 <!-- /target -->
 
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file key. Run the collect, apply, and verify scripts in Helper scripts through `use_figma` (pass `skillNames: "fm-spacing-rhythm-audit"`): collect first, then present the table; after the user answers the fix question, apply in a second `use_figma` call with the confirmed rows, then verify in a third. Revert: on request, run revert, the fourth script, in its own `use_figma` call with the `applied` list from apply. Token mode: run collect in discover mode first, then with the chosen mode. `use_figma` runs top-level `await` and takes the result from `return`, so send each script without its wrapper (drop the `(async () => {` line and the closing `})();` line, or send the body as-is if a script has none), and set the `let MODE` line of the collect script before each run. On any `use_figma` error, stop, read the partial state with `get_metadata`, and report before retrying once.
+Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file key. Run the collect, apply, and verify scripts in Helper scripts through `use_figma` (pass `skillNames: "fm-spacing-rhythm-audit"`): collect first, then present the table; after the user answers the fix question, apply in a second `use_figma` call with the confirmed rows, then verify in a third. Revert: on request, run revert, the fourth script, in its own `use_figma` call with the `applied` list from apply; when apply ran in batches, concatenate every batch's list and revert in the same batches. Token mode: run collect in discover mode first, then with the chosen mode. `use_figma` runs top-level `await` and takes the result from `return`, so send each script without its wrapper (drop the `(async () => {` line and the closing `})();` line, or send the body as-is if a script has none), and set the `let MODE` line of the collect script before each run. On any `use_figma` error, stop, read the partial state with `get_metadata`, and report before retrying once.
 <!-- /target -->

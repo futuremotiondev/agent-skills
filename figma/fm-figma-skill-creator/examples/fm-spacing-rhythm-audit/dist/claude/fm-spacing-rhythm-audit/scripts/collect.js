@@ -1,6 +1,5 @@
 let MODE = "discover"; // discover | tokens | rhythm // without the token-conformance pack this reads: let MODE = "rhythm"
-// Collect: read auto-layout padding and gaps in the selection, fold inherited instance values into
-// their main component, rank every off-grid value, and group rows by component. Read-only.
+// Collect: read auto-layout padding and gaps, fold inherited instance values into the main component, rank off-grid values, group by component. Read-only.
 (async () => {
   const MAX_FRAMES = 2000, MAX_ROWS = 60;
   let onGrid = (v) => v === 0 || (v < 48 ? v % 4 === 0 : v % 8 === 0);
@@ -12,8 +11,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
     return hi % 8 === 0 && lo % 8 !== 0 ? hi : lo;
   };
   // enhancement: token-conformance begin
-  // Discovery: candidates are local FLOAT variables scoped to GAP, or named space or spacing but not letter-spacing,
-  // line-height, line-spacing, or paragraph-spacing; WIDTH_HEIGHT-only and type-spacing names are matched, never offered.
+  // Discovery: candidates are local FLOATs scoped to GAP or named space/spacing (not letter, line-height, line-spacing, paragraph); WIDTH_HEIGHT-only and type-spacing names are matched, never offered.
   if (MODE !== "discover" && MODE !== "tokens") MODE = "rhythm";
   const V = figma.variables, cols = new Map(), varCache = new Map();
   const getVar = (id) => { if (!varCache.has(id)) varCache.set(id, V.getVariableByIdAsync(id)); return varCache.get(id); };
@@ -184,8 +182,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
     if (!varNames.has(r.boundId)) { const v = await figma.variables.getVariableByIdAsync(r.boundId); varNames.set(r.boundId, v ? v.name : r.boundId); }
     r.note = "bound to " + varNames.get(r.boundId) + "; change the variable" + (r.note ? "; " + r.note : "");
   }
-  // Merge rows that read identically (same group, path, property, value): distinct nested frames with
-  // the same names become one row with every id, so the table stays short and the fix still hits all.
+  // Merge rows that read identically (same group, path, property, value) into one row with every id; the fix still hits all.
   const merged = new Map();
   for (const r of rows.values()) {
     const key = [r.group, r.path, r.property, r.current, r.fix.modeName].join("|");
@@ -206,8 +203,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
   const boundValues = list.filter((r) => r.boundId).reduce((s, r) => s + r.count, 0);
   const out = { framesMeasured: frames, hiddenSkipped: hidden, notMeasurable: absolute, truncated, values: rows.size, tableRows: list.length, byPriority, byGroup, boundValues, boundTokens: [...new Set(varNames.values())], rows: list.slice(0, MAX_ROWS) };
   // enhancement: token-conformance begin
-  // Settle bind targets (bound in the same top-level frame, then shortest name), summarise bind
-  // opportunities per token, and list bound tokens whose value sits off the 4/8 rhythm.
+  // Settle bind targets (same top-level frame, then shortest name), summarise bind opportunities per token, list bound tokens off the 4/8 rhythm.
   const inTop = (top, id) => (boundTop.get(top) && boundTop.get(top).has(id) ? 1 : 0);
   const pick = (opts, top) => opts.slice().sort((a, b) => inTop(top, b.id) - inTop(top, a.id) || a.name.length - b.name.length)[0];
   const also = (note, opts, t) => { const alts = opts.filter((x) => x !== t).map((x) => x.name); return alts.length ? (note ? note + "; " : "") + "also " + alts.join(", ") : note; };
