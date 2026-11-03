@@ -81,7 +81,6 @@ install would copy Claude-only skills into Gemini's folder and so on. Install th
 - **Through the vendor's own channel** where one exists. A Claude Code plugin marketplace for the
   `specifics/claude/` skills is planned, with Codex's plugin system to follow.
 
-
 ## Repository layout
 
 ```text
