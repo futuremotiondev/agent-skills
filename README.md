@@ -90,6 +90,7 @@ install would copy Claude-only skills into Gemini's folder and so on. Install th
 ├── den4b-renamer/   Presets for the ReNamer batch-renaming tool
 ├── figma/           Figma shaders, Figma skill research (more below)
 ├── skill-meta/      Finding and ranking skills across every agent ecosystem
+├── workflow/        Planning and process skills that extend an agent's working method
 ├── specifics/       Skills that only work with one vendor's agent
 │   ├── claude/          Claude Code
 │   ├── chatgpt-codex/   OpenAI Codex
@@ -168,6 +169,12 @@ Figma plugin lifecycle).
 | Skill | What it does | Scope |
 | --- | --- | --- |
 | [`fm-universal-agent-skill-finder`](skill-meta/fm-universal-agent-skill-finder/) | Researches and ranks skills, plugins, extensions, and marketplaces across every AI coding agent for a topic, with a scored report and catalog. | Universal |
+
+### Workflow
+
+| Skill | What it does | Scope |
+| --- | --- | --- |
+| [`fm-write-a-plan`](workflow/fm-write-a-plan/) | Wraps `superpowers:writing-plans`: writes the implementation plan, then adds a summary of each part, a roadmap, Mermaid diagrams, and a glossary in a fixed layout (glossary first) that the superpowers executors still parse. | Needs the superpowers plugin |
 
 ### Vendor-specific
 

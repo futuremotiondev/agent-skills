@@ -5,6 +5,7 @@
     "./design",
     "./den4b-renamer",
     "./figma",
-    "./skill-meta"
+    "./skill-meta",
+    "./workflow"
   ]
 }
