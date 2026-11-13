@@ -170,15 +170,15 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 
 ## Workflow F: test and iterate
 
-**Quick check (the default).** Upload the skill, run the three hand-over prompts once each in a fresh chat on a duplicate file, and write one `EVAL-LOG.md` entry. When all three trigger and each output matches the Examples section, stop here; the steps below are for when it does not, or for a skill a person cannot check by eye.
+**Quick check (the default).** Upload the skill, run the three hand-over prompts once each in a fresh chat on a duplicate file, and write one `EVAL-LOG.md` entry. When all three trigger and each output matches the Examples section, stop here; steps 1 to 4 are for when it does not, or for a skill a person cannot check by eye, and step 5 for a pasted probe table.
 
 1. **Trigger eval.** Only when a quick-check prompt did not trigger, or a prompt the skill should ignore did. Run the tune set three times each in a fresh chat on a duplicate file; a prompt passes at a trigger rate of 0.5 or better; a negative that triggers fails. Rewrite the description with the missed phrases and a sharper "Not for" clause, up to five rounds, then confirm on the holdout.
 2. **Behaviour eval.** Only when the skill reads or writes the canvas in a way a person cannot judge by eye, or a quick-check output broke a Final gate line. Run the Examples section prompts and check each line of the Final gate against the canvas. Any source edit, silent scope expansion, or unverified number is a defect.
 3. **Live test log.** One entry per session in `EVAL-LOG.md`: prompt, selection, what the agent did, what it should have done, the change made. Bump `metadata.version` on every description or instruction change and re-upload; Figma keeps no version history.
-4. **Settle open questions.** The first upload of any skill should record whether extra frontmatter keys survive, whether size limits exist, whether tables and images render, and whether `node.query` and `node.set` work under `evaluate_script`. Write the answers into `references/troubleshooting.md`.
+4. **Settle open questions.** When the quick check failed or could not judge the skill, the first upload of any skill should record whether extra frontmatter keys survive, whether size limits exist, whether tables and images render, and whether `node.query` and `node.set` work under `evaluate_script`. Write the answers into `references/troubleshooting.md`.
 5. **Probe paste-back.** When the user pastes a probe table, add it to `references/agent-capabilities-and-tools.md` under 'Observed in-app (probe results)' as a dated table for that runtime, replacing an older table for the same runtime; then revisit every `target:figma-app` section that relies on an API now marked `missing` or `error`. When a pasted probe table changes a row, add an Observed row to `references/figma-changelog.md` and update its review block.
 
-For proof against ground truth, Workflow G is the third tier: optional, and never a condition of the Final gate.
+Workflow G is the optional third tier, for proof against ground truth.
 
 ## Workflow G: seed, oracle, run, compare
 
@@ -186,9 +186,9 @@ Use this when the skill reports measurable canvas facts (counts, lists, bindings
 
 Skip this when the skill drafts text, renames, or arranges by taste; Workflow F is its test path.
 
-A sibling of Workflow F, never a stage after it and never required for a produced skill. `examples/fm-spacing-rhythm-audit/tests/` is the worked example; its `README.md` documents every file. Steps 2 and 4 run over MCP: load `figma-use`, call `create_session` with the test file's key, and pass its `sessionId` on every later `use_figma` call. Write every script as a helper, with top-level `await`, a final `return`, and no function wrapper, and keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded.
+A sibling of Workflow F, never a stage after it and never required for a produced skill. `examples/fm-spacing-rhythm-audit/tests/` is the worked example. Steps 2 and 4 run over MCP: load `figma-use`, call `create_session` with the test file's key, and pass its `sessionId` on every later `use_figma` call. Write every script as a helper, with top-level `await`, a final `return`, and no function wrapper, and keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded.
 
-1. **Plan the seed.** Copy `templates/seed-plan.md` to the skill's `tests/seed-plan.md`: one table row per planted case with the exact value and the expected row, the scopes in the Modes block, and the Proofs block for a skill that writes.
+1. **Plan the seed.** Copy `templates/seed-plan.md` to the skill's `tests/seed-plan.md`: one table row per planted case with the exact value and the expected row, then the header counts, modes, and proofs.
 2. **Build the seed** (MCP; it changes the canvas, so also load `figma-generate-design` and name it beside `figma-use` in `skillNames`). Write `tests/seed.use_figma.js` idempotent by name: it finds each node, variable, and collection by name and creates only what is missing. Run it twice; the second run creates nothing and returns the same ids.
 3. **Write the oracle.** `tests/oracle.use_figma.js` is the skill's collect helper as written plus the declared hunks only (a header naming the master's `metadata.version`, a preamble that selects the scope by name, the per-scope preset, lifted row caps, and anything restored for comparison). List the hunks in `tests/README.md` so a `diff` against the fence shows them and nothing else.
 4. **Run the oracle** (MCP; read-only, so `figma-use` alone, except the proofs, which change the canvas as in step 2). Send the oracle once per scope through `use_figma` and write `tests/expected.json` with `masterVersion` (the master's `metadata.version`) and one `scopes[]` entry per run. Record the proofs under their scope's `proofs`, then restore the seed.

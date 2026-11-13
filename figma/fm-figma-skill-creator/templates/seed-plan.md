@@ -13,15 +13,28 @@ Every name in `SELECTION` is unique among the page's top-level nodes. The seed f
 
 ## Planted cases
 
-One row per planted case. The planted value is exact (no "about"), and the expected columns are what the report should print for that row.
+A case is one planted node, property, and value that exercises one rule of the skill. Number it for order and name it after the rule it proves, in a few words (`1 tie-break to 8`), and give the node a name that says the same (`Hero`, `Fractional`). The planted value is exact (no "about").
+
+The columns below are the spacing audit's, kept as the worked example. Case, Node, Planted value, and Pins hold for every skill. Replace Property, Binding, Expected priority, and Expected fix with whatever your skill's report prints per row, one column each: for a naming check that could be Current name and Expected name; for a contrast check, Foreground, Background, and Expected ratio.
 
 | Case | Node | Property | Planted value | Binding | Expected priority | Expected fix | Pins |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 (example) | `Hero` | Gap | 14 | none | P1 | bind `Space/400` (16) | the tie-break toward the multiple of 8 |
-| 2 (example) | `Fractional` | Padding right | 15.5 | none | P3 | bind `Space/400` (16) | the fractional note |
-| 3 | `<node name>` | `<property>` | `<exact value>` | `<variable name or none>` | `<P0 to P3, or none>` | `<fix as the report prints it>` | `<the rule or edge case this row proves>` |
+| 1 tie-break to 8 (example) | `Hero` | Gap | 14 | none | P1 | bind `Space/400` (16) | the tie-break toward the multiple of 8 |
+| 2 fractional (example) | `Fractional` | Padding right | 15.5 | none | P3 | bind `Space/400` (16) | the fractional note |
+| `<n> <rule>` | `<node name>` | `<report column>` | `<exact value>` | `<report column>` | `<report column>` | `<report column, as the report prints it>` | `<the rule or edge case this row proves>` |
 
-A case that should produce no row (a value already on the grid, a bound value that passes) still gets a line here, with "no row" under Expected priority, so the counts it feeds are checked.
+A case that should produce no row (a value already on the grid, a bound value that passes) still gets a line here, with "no row" in the first expected column, so the counts it feeds are checked.
+
+## Expected header counts
+
+One line per count the report prints above its table, per scope. These are the header lines the compare schema maps to fields.
+
+| Header line, as the report prints it | Scope | Expected |
+| --- | --- | --- |
+| Frames measured (example, scope 2) | 2 | 11 |
+| Hidden skipped (example, scope 2) | 2 | 1 |
+| Bound values (example, scope 2) | 2 | 6 |
+| `<label>` | `<scope>` | `<number>` |
 
 ## Modes
 

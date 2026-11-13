@@ -106,7 +106,7 @@ silently.
 - The agent reached general availability on 2026-10-06 and consumes AI credits. Monthly seat pools:
   Starter 500 (150 per day cap), Professional Full 3,000, Organization Full 3,500, Enterprise Full
   4,250. Sample costs: a font change about 30, a canvas summary about 100, a five-screen flow about
-  300. Hover the AI credits icon under a completed prompt to see what it cost.
+  300. Hover or click the AI credits icon under a completed prompt to see what it cost.
 - A whole-file audit can burn a Starter day in one run. Scope every skill to the selection by
   default, and say so in the skill text.
 - Agent chats are visible to file collaborators by default since 2026-06-23. Keep secrets out of
