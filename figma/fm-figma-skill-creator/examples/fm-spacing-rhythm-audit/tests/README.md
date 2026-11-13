@@ -8,9 +8,10 @@ These are the oracle fixtures for the 2.2 example. They were first written for 2
 | --- | --- |
 | `seed.use_figma.js` | Builds the seed on the page named "Seed": the `Card` component and three instances, eight test frames, and the `Legacy` and `Spacing` variable collections. It is idempotent by name, so a second run creates nothing and returns the same ids. Top-level `await`, no wrapper. |
 | `oracle.use_figma.js` | The master's collect helper at `metadata.version` 2.2, which is already in the top-level form `use_figma` runs (no wrapper). The oracle differs from the fence in `SKILL.md` by exactly the hunks listed under "Oracle hunks" below; nothing else differs. |
-| `expected.json` | Expected results per scope, in the shape Plan 2's compare script reads, described field by field under "Collect result fields" below. Rows are uncapped. `tokens` and `unbound[].ids` come from the oracle's restore block; the skill's own collect returns `tokenCount` and no ids, which keeps it under the 48,000-byte `use_figma` limit. The apply and revert proofs sit under `scopes[1].proofs`. `masterVersion` is the master's `metadata.version` the oracle mirrors (`"2.2"`); it replaces Plan 1's `masterCommit`, and nothing in the file is read from git. |
+| `expected.json` | Expected results per scope, in the shape the compare script (`scripts/oracle-compare.mjs`, see "Compare" below) reads, described field by field under "Collect result fields" below. Rows are uncapped. `tokens` and `unbound[].ids` come from the oracle's restore block; the skill's own collect returns `tokenCount` and no ids, which keeps it under the 48,000-byte `use_figma` limit. The apply and revert proofs sit under `scopes[1].proofs`. `masterVersion` is the master's `metadata.version` the oracle mirrors (`"2.2"`); it replaces Plan 1's `masterCommit`, and nothing in the file is read from git. |
 | `collect.harness.mjs` | Runs the master's collect fence under Node against a mock `figma` object, fourteen cases. Run `node examples/fm-spacing-rhythm-audit/tests/collect.harness.mjs` from `figma/fm-figma-skill-creator`; it prints `14 cases, 0 failed` and exits 1 on any failure. A mock proves logic only, never a live number. |
-| `fixtures/` | Verbatim in-app outputs and counts from the v1.2 scale test (2026-11-02), kept as history. See the caveats below. |
+| `schema.spacing.json` | The compare schema for this skill's report: key columns, the main-table header names, the header-line labels and the fields they map to, the priority line, the optional header lines, and how a `fix` object prints. See "Compare" below. |
+| `fixtures/` | Verbatim in-app outputs and counts from the v1.2 scale test (2026-11-02), kept as history, and two synthetic 2.2 reports for the compare: `report-scope2.md` and its altered twin `report-scope2-altered.md`. See the caveats below. |
 
 ## File keys
 
@@ -129,11 +130,30 @@ The helper also returns `truncated`, `values`, `tableRows`, `byGroup`, `boundVal
 
 ## Fixture caveats
 
-- The four files in `fixtures/` were captured at v1.2 on 2026-11-02 from the first Simple Design System copy (`MvJFAtAswCm20cI7hEtc0v`). The node ids inside them will not match a fresh duplicate.
+- The four `run-*` files in `fixtures/` were captured at v1.2 on 2026-11-02 from the first Simple Design System copy (`MvJFAtAswCm20cI7hEtc0v`). The node ids inside them will not match a fresh duplicate.
 - That copy was later edited: run B2 snapped five gaps. A fresh copy starts from the Community original, so its results differ wherever those gaps were.
 - 2.0 classifies values differently from v1.2. In rhythm mode the spacing collection's Default-mode values count as on-grid, so the twelve `Space/150` values now pass. In token mode, bind opportunities and token snaps replace number snaps. Read the fixtures as history, not as expected output.
-- The `.md` fixtures are verbatim agent output. They fail markdownlint on purpose (inline HTML node links, no top-level heading) and stay unedited. Lint the example folder with `tests/fixtures/**` excluded.
+- The `run-*.md` fixtures are verbatim agent output. They fail markdownlint on purpose (inline HTML node links, no top-level heading) and stay unedited. Lint the example folder with `tests/fixtures/**` excluded.
+- The two `report-scope2*.md` fixtures are synthetic, not captures. They were generated from scope 2 of `expected.json` in the master's Output contract layout (token mode, signed deltas with the minus sign), with the in-app agent's decoration injected: bold around three layer names and the header labels, an en-dash in two negative deltas, every main-table layer wrapped in `<figma-node-link node-id="…">`, a leading "… / " on one path, `bind Space/300 (Compact)` naming the mode, and no "Matches an alias" line. The altered twin changes the `Hero` gap row's Nearest and Fix (16 and `bind Space/400` to 12 and `bind Space/300`) and deletes the `Fractional` padding right row. Regenerate them, rather than editing them, if scope 2 changes.
 
-## Plan 2
+## Compare
 
-Plan 2 adds `scripts/oracle-compare.mjs`, which reads `expected.json` and a pasted report.
+`scripts/oracle-compare.mjs` compares a report pasted from the in-app agent, or an oracle-shaped `use_figma` return, with one scope of `expected.json`, driven by `schema.spacing.json`. It prints the header counts (expected, observed, delta), the priority counts, the rows missing from the report, the rows extra in it, the per-row mismatches in priority, nearest, fix, and delta keyed by layer path, property, and current value, a result line, and an EVAL-LOG entry stub built from the entry template in `templates/EVAL-LOG.md`. Run from `figma/fm-figma-skill-creator`:
+
+```bash
+node scripts/oracle-compare.mjs --expected examples/fm-spacing-rhythm-audit/tests/expected.json --scope 2 --schema examples/fm-spacing-rhythm-audit/tests/schema.spacing.json --report examples/fm-spacing-rhythm-audit/tests/fixtures/report-scope2.md
+node scripts/oracle-compare.mjs --expected examples/fm-spacing-rhythm-audit/tests/expected.json --scope 2 --schema examples/fm-spacing-rhythm-audit/tests/schema.spacing.json --report examples/fm-spacing-rhythm-audit/tests/fixtures/report-scope2-altered.md
+node scripts/oracle-compare.mjs --expected examples/fm-spacing-rhythm-audit/tests/expected.json --scope 3 --schema examples/fm-spacing-rhythm-audit/tests/schema.spacing.json --run <a saved use_figma return for scope 3>
+```
+
+The first prints `0 missing, 0 extra, 0 mismatched` with every count delta 0 and exits 0. The second exits 1 with `Fractional · Padding right · 15.5` missing and `Hero · Gap · 14: nearest 16 vs 12; fix bind Space/400 vs bind Space/300` mismatched. The third exits 0 on the raw return scope 3 was assembled from; `--run` reads counts from the return's top-level fields and compares the same counts and rows.
+
+Exit codes:
+
+| Exit | Meaning |
+| --- | --- |
+| 0 | Nothing missing, extra, or mismatched, and every count within tolerance |
+| 1 | Any count outside tolerance, or any missing, extra, or mismatched row, or a compared column missing from the report table |
+| 2 | An input could not be read or parsed: a bad argument, unreadable JSON, no such scope, no "Off-grid values" line, or no table holding the key columns while the scope has rows |
+
+`--frame-tolerance <n>` (default 0) lets `framesMeasured` and `boundPassed` drift by up to n, because the in-app agent can count a few frames differently from the oracle. Every other count, the priority counts included, must match exactly. An omitted optional header line ("Matches an alias") reads as 0; any other missing header line is a difference. Before reading, the parser removes the agent's decoration: `**` bold, en and em dashes and the minus sign become a hyphen, node-link markup becomes its text, a leading "… / " on a path is dropped, "→" reads as "->", and thousands separators are ignored. Notes are not compared. A Fix cell may name the token's mode after the token ("bind Space/300 (Compact)"), but only the mode the oracle recorded. Expected rows follow the master's print rule: on more than 50 frames the token-mode bind-opportunity rows (P3, delta 0) are left out.

@@ -1,0 +1,25 @@
+{
+  "keyColumns": ["path", "property", "current"],
+  "columns": {
+    "#": null,
+    "Priority": "priority",
+    "Layer (path)": "path",
+    "Property": "property",
+    "Current": "current",
+    "Nearest": "nearest",
+    "Fix": "fix",
+    "Delta": "delta",
+    "Note": "note"
+  },
+  "headerLines": {
+    "Frames measured": "counts.framesMeasured",
+    "Hidden skipped": "counts.hiddenSkipped",
+    "Not measurable (absolute children)": "counts.notMeasurable",
+    "Bound values": "boundPassed",
+    "On rhythm, no matching token": "onRhythmNoToken",
+    "Matches an alias": "aliasMatched"
+  },
+  "priorityLine": "Off-grid values",
+  "optionalHeaderLines": ["Matches an alias", "Matched but not offered", "Tokens off the 4/8 rhythm"],
+  "fixFormat": { "bind": "bind {name}", "set": "set {value}" }
+}
