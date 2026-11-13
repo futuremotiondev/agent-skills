@@ -37,6 +37,8 @@
 // dashes and the minus sign (U+2212) become "-", `<figma-node-link …>x</figma-node-link>` (and the
 // group-link form) becomes x, a leading "… / " on a path is dropped, "→" reads as "->", and
 // thousands separators in numbers are ignored. The same cleaning is applied to expected strings.
+// A numeric cell must be a number as a whole and compares exactly; a row that ends before a compared
+// column reads as absent there. Both count as mismatches.
 //
 // Dependency-free, Node 18+.
 
@@ -145,12 +147,22 @@ function text(value) {
 /** A header label or column name as matched: normalised like a cell, case ignored. */
 const labelKey = (value) => text(value).toLowerCase()
 
-/** The first number in a value ("−3", "+0.5", "1,937", "6 passed"), or null. */
+/** The first number in a header-line value ("1,937", "6 passed", "0 (not offered)"), or null. */
 function num(value) {
   if (typeof value === "number") return value
   if (value === null || value === undefined) return null
   const m = clean(value).replace(/(\d),(?=\d{3}\b)/g, "$1").match(/[-+]?\d+(?:\.\d+)?/)
   return m ? Number(m[0]) : null
+}
+
+/**
+ * A numeric table cell as compared: a number only when the whole cleaned cell is one ("−3", "+0.5",
+ * "1,024"); otherwise the cleaned text itself ("16 or 12", "+2 pt", ""), which never equals a number.
+ */
+function cellNum(value) {
+  if (typeof value === "number") return value
+  const t = text(value).replace(/(\d),(?=\d{3}\b)/g, "$1")
+  return /^[-+]?\d+(?:\.\d+)?$/.test(t) ? Number(t) : t
 }
 
 /** A fix cell or object as compared; "" for none. */
@@ -193,15 +205,21 @@ function numericFields(rows, schema) {
   return fields
 }
 
-/** A row as compared: { key, label, values: { field -> comparable } }. */
+/**
+ * A row as compared: { key, label, values: { field -> comparable } }. A field the source does not
+ * carry at all is left out; a field it carries as undefined (a report row that ends before that
+ * column) becomes null, shown as "absent", which never equals an expected value.
+ */
 function rowOf(source, schema, numeric) {
   const values = {}
   for (const f of schema.fields) {
     if (!(f in source)) continue
     const v = source[f]
-    if (f === "fix") values[f] = fixText(v, schema.fixFormat)
+    if (v === undefined) values[f] = null
+    else if (f === "fix") values[f] = fixText(v, schema.fixFormat)
+    else if (v === null) values[f] = ""
     else if (f === "priority") values[f] = text(v).toUpperCase()
-    else if (numeric.has(f)) values[f] = num(v)
+    else if (numeric.has(f)) values[f] = cellNum(v)
     else values[f] = text(v)
   }
   const keyParts = schema.keyColumns.map((k) => (values[k] === null || values[k] === undefined ? "?" : String(values[k])))
@@ -323,7 +341,8 @@ function fromReport(reportText, schema, numeric, expectedRowCount) {
     for (const r of main.rows) {
       if (r.every((c) => c === "")) continue
       const source = {}
-      fieldAt.forEach((f, i) => { if (f && r[i] !== undefined) source[f] = r[i] })
+      // Every column in the header is carried, so a row that ends early reads as absent there.
+      fieldAt.forEach((f, i) => { if (f) source[f] = r[i] })
       rows.push(rowOf(source, schema, numeric))
     }
   }
@@ -334,7 +353,8 @@ function fromReport(reportText, schema, numeric, expectedRowCount) {
 // Compare
 // ---------------------------------------------------------------------------
 
-const same = (a, b) => (typeof a === "number" && typeof b === "number" ? Math.abs(a - b) < 0.005 : a === b)
+// Exact: the helper rounds every number to two decimals and the report prints that same number.
+const same = (a, b) => a === b
 const show = (v) => (v === null || v === undefined ? "absent" : v === "" ? "none" : String(v))
 
 function compare(exp, obs, schema, tolerance) {
