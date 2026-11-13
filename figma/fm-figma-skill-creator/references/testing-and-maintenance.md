@@ -84,3 +84,14 @@ Record each run in the skill's `EVAL-LOG.md` (date, edition, query, triggered, o
 - Review capability gates on every Figma release: each "Coming soon" row that becomes "Supported"
   makes a plan-only branch obsolete.
 - Re-run the trigger eval after any description change and after Figma model updates.
+
+## Keeping the changelog current
+
+`references/figma-changelog.md` records each change to Figma, the MCP server, the official skills
+and the Plugin API that bears on how a skill is written, and its review block says when it was last
+checked. Review it when the Figma plugin updates, when a probe row changes, or when the Last reviewed
+date is more than 60 days old: read the Figma release notes, the `figma/plugin-typings` releases and
+the `figma/mcp-server-guide` commits since that date, add one row per change that matters, newest
+first, with its Basis, then update the review block. Never edit or delete an old row; add a row that
+corrects it. A pasted probe table that changes a row adds an Observed row naming its run record.
+Workflow 0 flags a stale changelog in one line and offers the refresh; it never blocks on it.

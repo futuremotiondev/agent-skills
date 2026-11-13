@@ -63,7 +63,7 @@ For a user who knows the moment that hurts but not the skill that would fix it. 
    - **Mapping:** map the grounding answer to surfaces and patterns through the seeds' `tags` and `fits when` lines in `references/skill-idea-catalog.md`.
    - **Card sourcing:** take at least two cards from matched cells, at least one from an empty cell, and one wildcard.
    - **Landscape check:** check `references/skill-landscape.md` so each card says "new" or "better than X".
-   - **Feasibility check:** check feasibility against `references/agent-capabilities-and-tools.md`.
+   - **Feasibility check:** check feasibility against `references/agent-capabilities-and-tools.md` and, for anything Figma shipped in the last year, `references/figma-changelog.md`; when its Last reviewed date is more than 60 days old, say so in one line and offer to refresh it from Figma's release notes, never as a stop.
    - **Cost model:** cost with the observed model (about 10 credits to ask, 22 to 24 per page-scale audit, 18 per five fixes) scaled by scope.
    - **Ranking and wildcard:** rank by value to the user's stated moment; card 5 is the wildcard.
    - **Plan-only rule:** unsupported ideas are reshaped into plan-only form or dropped; at most one plan-only card.
@@ -173,7 +173,7 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 2. **Behaviour eval.** Run the Examples section prompts and check each line of the Final gate against the canvas. Any source edit, silent scope expansion, or unverified number is a defect.
 3. **Live test log.** One entry per session in `EVAL-LOG.md`: prompt, selection, what the agent did, what it should have done, the change made. Bump `metadata.version` on every description or instruction change and re-upload; Figma keeps no version history.
 4. **Settle open questions.** The first upload of any skill should record whether extra frontmatter keys survive, whether size limits exist, whether tables and images render, and whether `node.query` and `node.set` work under `evaluate_script`. Write the answers into `references/troubleshooting.md`.
-5. **Probe paste-back.** When the user pastes a probe table, add it to `references/agent-capabilities-and-tools.md` under 'Observed in-app (probe results)' as a dated table for that runtime, replacing an older table for the same runtime; then revisit every `target:figma-app` section that relies on an API now marked `missing` or `error`.
+5. **Probe paste-back.** When the user pastes a probe table, add it to `references/agent-capabilities-and-tools.md` under 'Observed in-app (probe results)' as a dated table for that runtime, replacing an older table for the same runtime; then revisit every `target:figma-app` section that relies on an API now marked `missing` or `error`. When a pasted probe table changes a row, add an Observed row to `references/figma-changelog.md` and update its review block.
 
 ## House style in one table
 
@@ -216,6 +216,7 @@ Both scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The 
 | --- | --- |
 | `references/format-and-frontmatter.md` | you need the exact field rules, the three entry routes, naming, lifecycle, access and cost |
 | `references/agent-capabilities-and-tools.md` | you are deciding what the in-app agent can do and which tool names belong where |
+| `references/figma-changelog.md` | you need to know when a Figma feature, MCP tool, official skill or Plugin API member arrived or changed, or whether these references are out of date |
 | `references/authoring-styles.md` | you are writing or reviewing a body: idioms, two authoring styles, the hybrid, anti-patterns |
 | `references/skeleton-guide.md` | you want section-by-section guidance for the skeleton |
 | `references/testing-and-maintenance.md` | you are running evals, a live test, or versioning |
