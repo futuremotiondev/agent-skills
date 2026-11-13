@@ -83,6 +83,14 @@ function runOf(scopeNumber, edit = (x) => x) {
   return variant(`run-scope${scopeNumber}-${Math.random().toString(36).slice(2)}.json`, JSON.stringify(edit(run)))
 }
 
+// The schema's token-only header lines (modes ["tokens"]) and their fields, in schema order.
+const TOKEN_ONLY = Object.entries(JSON.parse(readFileSync(SCHEMA, "utf8")).headerLines)
+  .filter(([, v]) => v && typeof v === "object" && Array.isArray(v.modes) && !v.modes.includes("rhythm"))
+const TOKEN_ONLY_LINES = TOKEN_ONLY.map(([label]) => label)
+if (TOKEN_ONLY_LINES.length !== 3) throw new Error(`expected three token-only header lines in the schema, found ${TOKEN_ONLY_LINES.length}`)
+/** A run edit that drops the token-only count fields, as a helper without the token-conformance pack returns. */
+const withoutTokenCounts = (r) => { for (const [, v] of TOKEN_ONLY) delete r[v.field.split(".").pop()]; return r }
+
 // ---------------------------------------------------------------------------
 // Cases: each returns the failed messages
 // ---------------------------------------------------------------------------
@@ -116,6 +124,22 @@ const cases = {
   "--run with one changed fix is flagged": () =>
     expectResult(compare(["--scope", "3", "--run", runOf(3, (r) => { r.rows[5].fix.name = "Space/600"; return r })]), {
       exit: 1, missing: 0, extra: 0, mismatched: 1, contains: ["fix bind Space/400 vs bind Space/600"],
+    }),
+
+  // Token-only counts in --run: a rhythm-mode run that does not carry them (a helper with the
+  // token-conformance pack stripped) sets them aside; any other absence, or a present wrong value, differs.
+  "--run in rhythm mode without the token-only counts compares clean": () =>
+    expectResult(compare(["--scope", "5", "--run", runOf(5, withoutTokenCounts)]), {
+      exit: 0, missing: 0, extra: 0, mismatched: 0,
+      contains: [`not compared: ${TOKEN_ONLY_LINES.join(", ")}`, "every count within tolerance"],
+    }),
+  "--run in tokens mode without the token-only counts is flagged": () =>
+    expectResult(compare(["--scope", "2", "--run", runOf(2, withoutTokenCounts)]), {
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["3 counts outside tolerance"],
+    }),
+  "--run in rhythm mode with a wrong token-only count is flagged": () =>
+    expectResult(compare(["--scope", "5", "--run", runOf(5, (r) => { r = withoutTokenCounts(r); r.aliasMatched = 2; return r })]), {
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["1 counts outside tolerance", `not compared: ${TOKEN_ONLY_LINES.filter((l) => l !== "Matches an alias").join(", ")}`],
     }),
 
   // Rows and cells.

@@ -98,7 +98,14 @@ A prose line whose text, after its indentation, list marker (including a task bo
    Wait for the answer, then collect again in the chosen mode. Default to 1 when the user says "just audit". ...
 ```
 
-The phrase is written with its colon. Its words without the colon also tag a unit when they open a line or a sentence, so a unit can read naturally: `Token mode adds these lines: ...` and `Revert adds: ...` in the Output contract are units. Anywhere else the bare words are ordinary prose.
+The phrase is written with its colon. Its words without the colon (the phrase's words) also tag a unit, but only where they open a line or a sentence and are followed by a space or a colon, so a unit can read naturally. Anywhere else the bare words are ordinary prose, including inside a longer word ("Token modes") or a code span. The audit master has two such units, both sentence units in the Output contract paragraph:
+
+```markdown
+Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), ...; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4.
+Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from.
+```
+
+The first belongs to `token-conformance` (phrase `Token mode:`), the second to `revert` (phrase `Revert:`).
 
 ### (c) Heading blocks
 
