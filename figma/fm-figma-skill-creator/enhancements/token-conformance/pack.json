@@ -1,0 +1,35 @@
+{
+  "name": "token-conformance",
+  "phrase": "Token mode:",
+  "codeRegion": "token-conformance",
+  "templateLines": [
+    "- Mode: tokens (<spacingCollection.name>) | rhythm",
+    "- Bound values: <n> passed",
+    "- Tokens off the 4/8 rhythm: Space/150 = 6 (12 values); a scale decision, not a defect",
+    "- Bind opportunities: <n> values across <n> tokens (table below when any)",
+    "- On rhythm, no matching token: <n>",
+    "- Matches an alias: <n> (not offered)",
+    "- Matched but not offered: <collection> (<n> <reason>), one entry per collection",
+    "## Bind opportunities (token mode, when any)",
+    "| Token (mode) | Values | Example layer |",
+    "| --- | --- | --- |"
+  ],
+  "lineRewrites": [
+    {
+      "from": "let MODE = \"discover\"; // discover | tokens | rhythm // without the token-conformance pack this reads: let MODE = \"rhythm\"",
+      "to": "let MODE = \"rhythm\";"
+    }
+  ],
+  "descriptionSentences": [
+    "With spacing tokens in the file it audits against those tokens and binds values to the matching variable."
+  ],
+  "tags": ["tokens", "variables"],
+  "requires": [],
+  "conflicts": [],
+  "cost": "one extra collect call (discover) when the file has tokens; about 22 to 24 credits per page audit either way",
+  "seedCase": {
+    "file": "fm-spacing-audit-seed",
+    "nodes": ["Token card", "Alias card", "Default card", "Compact card", "Bound padding"],
+    "expectedScope": 2
+  }
+}

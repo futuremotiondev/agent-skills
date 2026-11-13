@@ -100,7 +100,7 @@ The table holds every entry in `checks`, then the two in-app experiment rows, om
 
 The probe helper is self-contained and returns one result object. Every check is wrapped so a throw records `error` with the first 120 characters of the error text; every temporary layer and the `fm-probe` client-storage key are removed in a `finally` block. Rows added in 1.2 call the API they name, because a member can be a function and still throw when called. The helper is written with top-level `await` and a final `return`, with no function wrapper: both script tools take the result from `return`, and a wrapped function that is never returned gives back nothing.
 
-Run `scripts/probe.js` (in this folder) through your script path.
+The probe helper is `scripts/probe.js` in this folder.
 
 ## MCP execution (Claude Code, Cursor, Codex)
 

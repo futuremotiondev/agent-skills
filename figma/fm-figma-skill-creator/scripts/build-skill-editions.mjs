@@ -34,6 +34,7 @@ import { fileURLToPath } from "node:url"
 import {
   normalize, parseFrontmatter, parseYamlSubset, getField, scanRegions, selectTarget,
   serializeFrontmatter, mergeFields, collapseBlankRuns, wordCount, scanFences,
+  HELPER_FENCE_LANG, HELPER_MARKER,
 } from "./lib/skill-md.mjs"
 
 // ---------------------------------------------------------------------------
@@ -78,12 +79,12 @@ function emit(path, lines) {
 // ---------------------------------------------------------------------------
 
 const HELPER_HEADING = /^##\s+Helper scripts\s*$/i
-const HELPER_MARKER = /^\/\/ helper: ([a-z][a-z0-9-]*)$/
-const helperPointer = (name) => `Run \`scripts/${name}.js\` (in this folder) through your script path.`
+const helperPointer = (name) => `The ${name} helper is \`scripts/${name}.js\` in this folder.`
 
 /**
- * Inside the core `## Helper scripts` section only, replace each ```javascript fence whose first
- * body line is `// helper: <name>` with a one-line pointer. Fences without the marker stay inline.
+ * Inside the core `## Helper scripts` section only, replace each javascript fence (``` or ~~~,
+ * info string `javascript` or `js`, as the validator accepts) whose first body line is
+ * `// helper: <name>` with a one-line pointer. Fences without the marker stay inline.
  * Returns { lines, helpers: [{ name, code }] } where code is the fence body minus the marker line.
  */
 function extractHelpers(body) {
@@ -96,20 +97,25 @@ function extractHelpers(body) {
     const line = body[i]
     // Section bounds: the core heading opens it; the next H1 or H2 outside a fence closes it.
     if (!fence[i] && /^#{1,2}\s/.test(line)) inSection = HELPER_HEADING.test(line) && regionAt(i) === "core"
-    const open = inSection && regionAt(i) === "core" ? /^\s*(`{3,})\s*javascript\s*$/.exec(line) : null
+    const f = inSection && regionAt(i) === "core" ? /^\s*(`{3,}|~{3,})\s*(\S+)\s*$/.exec(line) : null
+    const open = f && HELPER_FENCE_LANG.test(f[2]) ? f : null
     const marker = open && i + 1 < body.length ? HELPER_MARKER.exec(body[i + 1]) : null
     // Near miss: starts like a marker but fails the strict form; warn and keep the fence inline.
     if (open && !marker && i + 1 < body.length && body[i + 1].startsWith("// helper:")) {
       console.warn(`build warning: body line ${i + 2}: "${body[i + 1]}" is not a valid helper marker (// helper: <lowercase-name>); fence left inline`)
     }
     if (!marker) { out.push(line); continue }
+    // The closing fence uses the opening character, at least as many of it, and nothing else.
+    const closeRe = new RegExp(`^\\s*${open[1][0]}{${open[1].length},}\\s*$`)
     let close = i + 1
-    while (close < body.length && !new RegExp(`^\\s*\`{${open[1].length},}\\s*$`).test(body[close])) close++
+    while (close < body.length && !closeRe.test(body[close])) close++
     if (close >= body.length) fail(`helper fence "${marker[1]}" at body line ${i + 1} is never closed`)
     if (helpers.some((h) => h.name === marker[1])) fail(`duplicate helper name "${marker[1]}" at body line ${i + 2}`)
     const code = body.slice(i + 2, close)
     if (!code.some((l) => l.trim() !== "")) fail(`helper "${marker[1]}" has no code`)
-    // Parse check (never run): the IIFE form parses as a plain function body; a top-level-await body parses as an async one.
+    // Parse check (never run). The top-level form (top-level `await`, a final `return`, no wrapper) is
+    // canonical and parses as an async function body; the old wrapped form is only tolerated, and it
+    // parses as a plain function body. A clean parse proves syntax, not the form.
     const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
     try { new Function(code.join("\n")) } catch (e1) {
       try { new AsyncFunction(code.join("\n")) } catch (e2) { fail(`helper "${marker[1]}" does not parse: ${e2.message}`) }

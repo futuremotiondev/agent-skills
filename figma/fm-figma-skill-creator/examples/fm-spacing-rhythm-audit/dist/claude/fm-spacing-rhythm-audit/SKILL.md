@@ -149,13 +149,13 @@ Previous is the human record; the revert list is the apply result.
 
 The scripts below run through whichever script path the runtime offers; each is self-contained and returns a plain object.
 
-Run `scripts/collect.js` (in this folder) through your script path.
+The collect helper is `scripts/collect.js` in this folder.
 
-Run `scripts/apply.js` (in this folder) through your script path.
+The apply helper is `scripts/apply.js` in this folder.
 
-Run `scripts/verify.js` (in this folder) through your script path.
+The verify helper is `scripts/verify.js` in this folder.
 
-Run `scripts/revert.js` (in this folder) through your script path.
+The revert helper is `scripts/revert.js` in this folder.
 
 ## Final gate: do not finish until every line is true, checked against the canvas, not from memory
 

@@ -171,6 +171,27 @@ export function scanFences(lines) {
   return inFence
 }
 
+/**
+ * Fenced blocks with their delimiter lines, by the same open and close rule as scanFences.
+ * Returns [{ open, close, char, length, lang }] (0-based; close is -1 when the fence never closes).
+ */
+export function fenceBlocks(lines) {
+  const blocks = []
+  let cur = null
+  for (let i = 0; i < lines.length; i++) {
+    const m = /^\s*(`{3,}|~{3,})\s*(\S*)/.exec(lines[i])
+    if (!m) continue
+    if (!cur) { cur = { open: i, close: -1, char: m[1][0], length: m[1].length, lang: m[2] }; blocks.push(cur); continue }
+    if (m[1][0] === cur.char && m[1].length >= cur.length) { cur.close = i; cur = null }
+  }
+  return blocks
+}
+
+// Helper fences: a javascript fence (``` or ~~~, `javascript` or `js`) whose first body line is the
+// marker. The builder extracts these; the validator and the enhancement tools recognise the same set.
+export const HELPER_FENCE_LANG = /^(javascript|js)$/i
+export const HELPER_MARKER = /^\/\/ helper: ([a-z][a-z0-9-]*)$/
+
 // ---------------------------------------------------------------------------
 // Target regions
 // ---------------------------------------------------------------------------
