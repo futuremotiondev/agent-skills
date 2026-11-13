@@ -51,7 +51,7 @@ The description is the only field every runtime routes on. Test it before testin
    several candidates, missing library or connector, unsupported feature).
 3. Check the output contract line by line: counts, names, positions, "source unchanged".
 4. Repeat one run three times and note the variance; tighten numeric rules where it varies.
-5. Hover the AI credits icon under each completed prompt and record the cost (step 8 of the
+5. Hover or click the AI credits icon under each completed prompt and record the cost (step 8 of the
    live-test protocol below says how to read it); scope or cap steps that are expensive.
 6. In Make, test in a fresh prompt (never the first prompt after a model switch).
 7. Figma's own failure signal: if you edit the output more than doing the work would take, or
@@ -74,9 +74,9 @@ path for a skill whose quick check failed.
 6. Export the skill from Manage skills and diff it against the upload edition to learn the
    export shape (it is undocumented).
 7. Feed findings back into the master; rebuild; re-upload with "Publish changes" if published.
-8. Read the credits. Every in-app turn costs Figma AI credits. The AI credits icon is the "View AI
-   credit usage" control beside each agent response, and it shows "Used N AI credits". It shows
-   once, after the first click, so read it once, in order, right after each response, and write
+8. Read the credits. Every in-app turn costs Figma AI credits. Hover or click the AI credits icon,
+   the "View AI credit usage" control beside each agent response, and it shows "Used N AI
+   credits". It shows only once, so read it once, in order, right after each response, and write
    each number in `EVAL-LOG.md`; for a turn you did not read, write "not recorded", never an
    estimate. For scale, recorded on 2026-11-13: a full probe run was about 110 credits over three
    turns, single turns ran from about 8 to 58, and Figma's own examples put generation prompts at

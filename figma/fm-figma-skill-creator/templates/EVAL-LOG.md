@@ -25,7 +25,7 @@ Tick and record the answer the first time the upload edition goes through Figma'
 - **What it should have done:** <only where different>
 - **Output contract met:** <yes | no: which part>
 - **Source changed:** <no | yes: what>
-- **Credits consumed (if visible):** <n: hover the AI credits icon under the response; write not recorded if you did not>
+- **Credits consumed (if visible):** <n: hover or click the AI credits icon under the response; write not recorded if you did not>
 - **Defects:** <numbered; each with symptom and the instruction line that should have prevented it>
 - **Change made:** <the edit to SKILL.md, or "none">
 - **Re-test needed:** <yes | no>

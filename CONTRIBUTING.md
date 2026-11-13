@@ -63,7 +63,7 @@ The repo's plans run through the subagent-driven-development process: one implem
 - **A delta closing review is a trade.** Reviewing only the commits since the last whole-branch review costs a missed cross-task interaction; the ledger records when that trade was taken.
 - **Assertion scripts need a human read.** Keyword checks flagged a correct card and missed a sample count cited as a population. Judge each flagged line in full and record soft observations without editing the artifact.
 - **A safety classifier can stop a response mid-stream** while doing nothing more sensitive than comparing tables. Redo the step in the next turn; the records on disk are intact.
-- **Credits in the Figma chat are invisible until the credits icon is hovered.** Record them per prompt during a live round, or write "not recorded"; never estimate.
+- **Credits in the Figma chat are invisible until the credits icon is hovered or clicked.** Record them per prompt during a live round, or write "not recorded"; never estimate.
 
 ## Where the records are
 
