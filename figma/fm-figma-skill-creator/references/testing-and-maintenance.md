@@ -51,8 +51,8 @@ The description is the only field every runtime routes on. Test it before testin
    several candidates, missing library or connector, unsupported feature).
 3. Check the output contract line by line: counts, names, positions, "source unchanged".
 4. Repeat one run three times and note the variance; tighten numeric rules where it varies.
-5. Hover the AI credits icon under each completed prompt and record the cost; scope or cap steps
-   that are expensive.
+5. Hover the AI credits icon under each completed prompt and record the cost (step 8 of the
+   live-test protocol below says how to read it); scope or cap steps that are expensive.
 6. In Make, test in a fresh prompt (never the first prompt after a model switch).
 7. Figma's own failure signal: if you edit the output more than doing the work would take, or
    ignore it, the skill is too generic. Add named rules and Do/Do-not examples, not adjectives.
@@ -62,6 +62,10 @@ Record each run in the skill's `EVAL-LOG.md` (date, edition, query, triggered, o
 
 ## Live-test protocol for a new skill
 
+The quick check is the default test (Workflow F in `SKILL.md`: the three hand-over prompts once each
+in a fresh chat on a duplicate file, and one `EVAL-LOG.md` entry), and the protocol below is the
+path for a skill whose quick check failed.
+
 1. Build editions, validate all three.
 2. Upload `dist/<name>.figma.md`; confirm the review screen filled name and description.
 3. Open a duplicate test file with a representative selection.
@@ -70,6 +74,22 @@ Record each run in the skill's `EVAL-LOG.md` (date, edition, query, triggered, o
 6. Export the skill from Manage skills and diff it against the upload edition to learn the
    export shape (it is undocumented).
 7. Feed findings back into the master; rebuild; re-upload with "Publish changes" if published.
+8. Read the credits. Every in-app turn costs Figma AI credits. The AI credits icon is the "View AI
+   credit usage" control beside each agent response, and it shows "Used N AI credits". It shows
+   once, after the first click, so read it once, in order, right after each response, and write
+   each number in `EVAL-LOG.md`; for a turn you did not read, write "not recorded", never an
+   estimate. For scale, recorded on 2026-11-13: a full probe run was about 110 credits over three
+   turns, single turns ran from about 8 to 58, and Figma's own examples put generation prompts at
+   100 to 300 or more.
+
+Workflow G (seed, oracle, run, compare) is an optional sibling path to this protocol, never a step
+after it and never a condition of the creator's Final gate.
+Use this when the skill reports measurable canvas facts (counts, lists, bindings) or writes and promises a clean revert, and you want proof a human cannot get by reading the canvas.
+Skip this when the skill drafts text, renames, or arranges by taste; Workflow F is its test path.
+It plans the seed in `templates/seed-plan.md`, builds the seed and runs the oracle over MCP into
+the skill's `tests/expected.json`, hands the in-app run to a human, and compares the pasted report
+with `scripts/oracle-compare.mjs`. `examples/fm-spacing-rhythm-audit/tests/README.md` is the
+worked example.
 
 ## Maintenance
 

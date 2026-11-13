@@ -49,9 +49,10 @@ These are facts about the runtime, not preferences. Violating one produces a ski
 | Check, lint, or improve a Figma skill | D. Review | `scripts/validate-figma-skill.mjs` then the authoring rubric |
 | Write the Community or team listing, pick artwork, publish | E. Listing and publish | `templates/listing-copy.md` |
 | Test triggering and behaviour, iterate after a live run | F. Test and iterate | `templates/eval-queries.md`, `templates/EVAL-LOG.md` |
+| Prove a skill against ground truth before or after a live run | G. Seed, oracle, run, compare | `templates/seed-plan.md`, then the skill's `tests/` folder |
 | Emit a design-system-specific skill from another skill (for example fm-figma-design-system-creator) | A with `type-design-system-conventions.md` | fill the token, component, and naming tables from the system |
 
-Before starting Workflows A to F, confirm three things with the user if they are not already stated: what the skill does in one sentence, whether it runs in Figma only or in Figma and coding agents (default: both), and whether it changes the canvas or only reports. Ask once, together, then proceed. Workflow 0 asks one grounding question instead and pre-fills these three from the chosen card.
+Before starting Workflows A to G, confirm three things with the user if they are not already stated: what the skill does in one sentence, whether it runs in Figma only or in Figma and coding agents (default: both), and whether it changes the canvas or only reports. Ask once, together, then proceed. Workflow 0 asks one grounding question instead and pre-fills these three from the chosen card.
 
 ## Workflow 0: a vague idea
 
@@ -169,11 +170,30 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 
 ## Workflow F: test and iterate
 
-1. **Trigger eval.** Run the tune set three times each in a fresh chat on a duplicate file; a prompt passes at a trigger rate of 0.5 or better; a negative that triggers fails. Rewrite the description with the missed phrases and a sharper "Not for" clause, up to five rounds, then confirm on the holdout.
-2. **Behaviour eval.** Run the Examples section prompts and check each line of the Final gate against the canvas. Any source edit, silent scope expansion, or unverified number is a defect.
+**Quick check (the default).** Upload the skill, run the three hand-over prompts once each in a fresh chat on a duplicate file, and write one `EVAL-LOG.md` entry. When all three trigger and each output matches the Examples section, stop here; the steps below are for when it does not, or for a skill a person cannot check by eye.
+
+1. **Trigger eval.** Only when a quick-check prompt did not trigger, or a prompt the skill should ignore did. Run the tune set three times each in a fresh chat on a duplicate file; a prompt passes at a trigger rate of 0.5 or better; a negative that triggers fails. Rewrite the description with the missed phrases and a sharper "Not for" clause, up to five rounds, then confirm on the holdout.
+2. **Behaviour eval.** Only when the skill reads or writes the canvas in a way a person cannot judge by eye, or a quick-check output broke a Final gate line. Run the Examples section prompts and check each line of the Final gate against the canvas. Any source edit, silent scope expansion, or unverified number is a defect.
 3. **Live test log.** One entry per session in `EVAL-LOG.md`: prompt, selection, what the agent did, what it should have done, the change made. Bump `metadata.version` on every description or instruction change and re-upload; Figma keeps no version history.
 4. **Settle open questions.** The first upload of any skill should record whether extra frontmatter keys survive, whether size limits exist, whether tables and images render, and whether `node.query` and `node.set` work under `evaluate_script`. Write the answers into `references/troubleshooting.md`.
 5. **Probe paste-back.** When the user pastes a probe table, add it to `references/agent-capabilities-and-tools.md` under 'Observed in-app (probe results)' as a dated table for that runtime, replacing an older table for the same runtime; then revisit every `target:figma-app` section that relies on an API now marked `missing` or `error`. When a pasted probe table changes a row, add an Observed row to `references/figma-changelog.md` and update its review block.
+
+For proof against ground truth, Workflow G is the third tier: optional, and never a condition of the Final gate.
+
+## Workflow G: seed, oracle, run, compare
+
+Use this when the skill reports measurable canvas facts (counts, lists, bindings) or writes and promises a clean revert, and you want proof a human cannot get by reading the canvas.
+
+Skip this when the skill drafts text, renames, or arranges by taste; Workflow F is its test path.
+
+A sibling of Workflow F, never a stage after it and never required for a produced skill. `examples/fm-spacing-rhythm-audit/tests/` is the worked example; its `README.md` documents every file. Steps 2 and 4 run over MCP: load `figma-use`, call `create_session` with the test file's key, and pass its `sessionId` on every later `use_figma` call. Write every script as a helper, with top-level `await`, a final `return`, and no function wrapper, and keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded.
+
+1. **Plan the seed.** Copy `templates/seed-plan.md` to the skill's `tests/seed-plan.md`: one table row per planted case with the exact value and the expected row, the scopes in the Modes block, and the Proofs block for a skill that writes.
+2. **Build the seed** (MCP; it changes the canvas, so also load `figma-generate-design` and name it beside `figma-use` in `skillNames`). Write `tests/seed.use_figma.js` idempotent by name: it finds each node, variable, and collection by name and creates only what is missing. Run it twice; the second run creates nothing and returns the same ids.
+3. **Write the oracle.** `tests/oracle.use_figma.js` is the skill's collect helper as written plus the declared hunks only (a header naming the master's `metadata.version`, a preamble that selects the scope by name, the per-scope preset, lifted row caps, and anything restored for comparison). List the hunks in `tests/README.md` so a `diff` against the fence shows them and nothing else.
+4. **Run the oracle** (MCP; read-only, so `figma-use` alone, except the proofs, which change the canvas as in step 2). Send the oracle once per scope through `use_figma` and write `tests/expected.json` with `masterVersion` (the master's `metadata.version`) and one `scopes[]` entry per run. Record the proofs under their scope's `proofs`, then restore the seed.
+5. **Hand the in-app run to the human.** Give them the upload path `dist/<name>.figma.md`, the test file link and the `SELECTION` names to select, the prompts in order, the exact answer to give at each question, and the instruction "hover the AI credits icon under each response and note the number". Ask for the full report pasted back.
+6. **Compare.** Write `tests/schema.<name>.json` the way `schema.spacing.json` maps report labels and columns to fields, then run `node scripts/oracle-compare.mjs --expected <skill>/tests/expected.json --scope <n> --schema <skill>/tests/schema.<name>.json --report <pasted report>`. Exit 0 is a clean match, 1 lists the missing, extra, and mismatched rows, 2 means an input could not be read. Paste the EVAL-LOG entry stub it prints into `EVAL-LOG.md` with the credit readings, and fix the skill, or the oracle when the oracle was wrong, before the next run.
 
 ## House style in one table
 
@@ -206,9 +226,10 @@ node scripts/validate-figma-skill.mjs --rules                                   
 node scripts/validate-figma-skill.mjs <file> --edition master|upload|paste|coding-agent [--strict] [--json] [--allow-placeholders]
 node scripts/build-skill-editions.mjs <SKILL.md> --out <dir> [--overlay overlay.claude.yaml] [--validate] [--dry-run]
 node scripts/build-skill-editions.mjs --flatten <skill-dir> --out <dir> [--dry-run]
+node scripts/oracle-compare.mjs --expected <expected.json> --scope <n> --schema <schema.json> (--report <pasted.md> | --run <run.json>) [--frame-tolerance <n>]
 ```
 
-Both scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The validator exits 1 on any error. `--allow-placeholders` exists for validating the templates themselves; never use it on a skill you are shipping.
+All three scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The validator exits 1 on any error; the compare exits 0 on a clean match, 1 on any difference, and 2 when an input cannot be read. `--allow-placeholders` exists for validating the templates themselves; never use it on a skill you are shipping.
 
 ## Files in this skill
 
@@ -228,13 +249,15 @@ Both scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The 
 | `templates/skill-master.md` and `templates/type-*.md` | starting any new skill |
 | `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md` | the companion files every skill folder gets |
 | `templates/concept-cards.md` | you are pitching ideas in Workflow 0: the deck header, the twenty-line card, the footer question, and the deck rules |
+| `templates/seed-plan.md` | you are planning a Workflow G seed: the header, one row per planted case, the modes, and the proofs |
+| `scripts/oracle-compare.mjs` | you are comparing a pasted in-app report, or a raw `use_figma` return, with a skill's `tests/expected.json` in Workflow G |
 | `examples/fm-spacing-rhythm-audit/` | a complete worked example with its built `dist/` editions |
 | `examples/fm-figma-capability-probe/` | you need fresh evidence of which Plugin APIs a runtime exposes; optional, for skill authors, and its pasted-back table feeds Workflow F step 5 |
 | `examples/ideation-runs.md` | you want to see Workflow 0 decks for three vague prompts and a recon smoke run |
 
 ## Final gate: do not finish until every line is true
 
-- [ ] The user confirmed the one-sentence purpose, the target runtimes, and whether the skill changes the canvas
+- [ ] The user confirmed the one-sentence purpose, the target runtimes, and whether the skill changes the canvas, or, on the Workflow 0 path, the chosen card's Does, Runs in, and Writes lines stood in for those three answers
 - [ ] `name` is `fm-` prefixed, spec-valid, and equals the folder name
 - [ ] The description follows the formula, phrases triggers as requirements, and ends with a "Not for" clause
 - [ ] The core names no tool; target sections carry the tool-specific text and a fallback sentence
