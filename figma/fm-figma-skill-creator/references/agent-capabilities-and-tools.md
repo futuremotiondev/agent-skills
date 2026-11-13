@@ -114,90 +114,29 @@ block must follow:
 These tables come from running `examples/fm-figma-capability-probe/` and are observed, not
 reconstructed: each row is what one run of the probe helper returned in one runtime on the stated
 date. They take precedence over the reconstructed rules above for the same runtime and date. Keep
-one dated table per runtime (Figma Design agent, Figma Make agent, MCP); a newer paste-back for a
-runtime replaces its older table (Workflow F step 5). After replacing one, revisit every
-`target:figma-app` section that relies on an API now marked `missing` or `error`.
+one dated table per runtime (Figma Design agent, Figma Make agent, MCP), and one more for a runtime
+run in a Spec file; a newer paste-back for a runtime replaces its older table (Workflow F step 5).
+After replacing one, revisit every `target:figma-app` section that relies on an API now marked
+`missing` or `error`.
 
 Format: three columns, `| API | Status | Detail |`. Status is `available`, `missing`, or
 `error`; Detail is the probe's own text (the first 120 characters of an error), or `—` when there
 is nothing to say, and `presence only` marks rows that were checked for existence but not called.
 The in-app tables end with the two experiment rows (`ask_user_question` and `show_widget`), and
-every table is followed by the four scalar lines: payload bytes returned, walk time, nodes
-walked, and style counts.
+every table is followed by the four scalar lines: payload bytes (sent and received, from probe
+1.2), walk time, nodes walked, and style counts.
 
-### Figma Design agent (evaluate_script), 2026-11-03
+### Figma Design agent (evaluate_script), 2026-11-13
 
-Seed file `fm-spacing-audit-seed` (key `hSEurPqV8Dgzn9yTwPSnnL`), nothing selected, upload of
-`fm-figma-capability-probe` 1.0, Futuremotion's paste-back. Runtime line: `Figma Design agent;
-script reports editorType figma, mode unknown, apiVersion 1.0.0`. The disclosure question rendered as
-plain text (1.0 did not name the structured question tool for it); the first card, the
-`ask_user_question` experiment, appeared 1 m 23 s after the answer. Credits were not recorded in
-Round 3; testing-and-maintenance step 5 says where to read them.
-
-| API | Status | Detail |
-| --- | --- | --- |
-| figma.getNodeByIdAsync | available | resolved the current page |
-| figma.currentPage.selection | available | 0 selected |
-| node.getMainComponentAsync | available | main component Card |
-| node.boundVariables | available | 0 bound properties on Card |
-| figma.variables.getVariableByIdAsync | available | resolved legacy/odd-18 |
-| figma.variables.getLocalVariablesAsync | available | 7 variables |
-| figma.variables.getLocalVariableCollectionsAsync | available | 2 collections |
-| figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
-| figma.variables.importVariableByKeyAsync | available | presence only |
-| node.setBoundVariable | available | presence only |
-| figma.getLocalTextStylesAsync | available | 0 styles |
-| figma.getLocalPaintStylesAsync | available | 0 styles |
-| figma.getLocalEffectStylesAsync | available | 0 styles |
-| figma.getLocalGridStylesAsync | available | 0 styles |
-| figma.getStyleByIdAsync | missing | no local style in file |
-| node.setFillStyleIdAsync | available | presence only |
-| node.setTextStyleIdAsync | available | presence only |
-| figma.getImageByHash + image.getBytesAsync | missing | no image on page |
-| figma.createImage | available | presence only |
-| node.setPluginData / getPluginData | error | Error: in setPluginData: figma.setPluginData is not supported in this host runtime (only private plugins on web can use |
-| node.setSharedPluginData / getSharedPluginData | available | round trip ok |
-| figma.clientStorage.setAsync / getAsync | error | Error: in setAsync: "setAsync" is not a supported API |
-| node.query | available | presence only |
-| node.set | available | presence only |
-| figma.createAutoLayout | available | created and removed; layoutMode HORIZONTAL |
-| figma.loadAllPagesAsync | available | presence only |
-| figma.ui | available | presence only |
-| text sizing: resize, textAutoResize, characters | available | height 15 at width 200 |
-| figma.notify | available | called; handler returned |
-| ask_user_question | available | Yes |
-| show_widget | missing | — |
-
-- Payload bytes returned: 50000 truncated
-- Walk time: 3 ms
-- Nodes walked: 20
-- Style counts: text 0 · paint 0 · effect 0 · grid 0
-
-What this run shows: the in-app script runtime matches MCP on every API row the scratch file could
-test, and the seed file fills the rows MCP missed for lack of content (instance, bound variables,
-variables, collections). `setPluginData` and `clientStorage` error with the same text as over MCP;
-`setSharedPluginData` works; `figma.notify` returns. The return carrying the 50,000-character sample
-did not arrive whole; the same return measured 52,907 bytes over MCP, so the in-app limit is
-somewhere below that total and a too-large return fails quietly; keep helper results small.
-`ask_user_question` renders a card with clickable options; `show_widget` is missing, so every picker
-needs its numbered-options text fallback.
-
-Decision-gate UI (Round 3, 2026-11-03, screenshots of every gate): a gate whose skill text names the
-structured question tool renders as a card with lettered clickable options (A, B, ...) plus "Add a
-custom response"; a gate that does not name it renders as plain text, answered by typing. The
-audit's mode and fix questions rendered as cards; its scope question and the probe's disclosure
-rendered as plain text. A free-text follow-up shows as a card reading "Awaiting custom response",
-and there the agent added presets the skill never defined. House rule since then: every gate names
-the tool, with the plain-text wording as the fallback, and free-text follow-ups say "no preset
-options".
-
-### MCP (use_figma), 2026-11-03 UTC
-
-Scratch file `fm-probe-scratch` (key `kXhDI9zBD5rbh00c3Lzt9i`), empty design file, nothing
-selected. Runtime line: `editorType figma, mode unknown, apiVersion 1.0.0` (`figma.mode` read as
-unknown: undefined or threw). A 50,000-character payload was rejected before any result returned
-(`Return value exceeds the 48000-byte limit (52907 bytes). Canvas edits from this run were not
-committed.`), so this table is from the rerun with `PAYLOAD = 30000`.
+Scratch file `fm-probe-scratch` (key `kXhDI9zBD5rbh00c3Lzt9i`), empty page, nothing selected,
+`fm-figma-capability-probe` 1.2. This is the second in-app run of the day; the first, still in the
+1.1 helper form, returned no result (below). Runtime line: `editorType figma, mode default,
+apiVersion 1.0.0`; `figma.mode` now reads `default` where it read unknown on 2026-11-03. The
+disclosure question rendered as a card with lettered options (`A` "1. Yes", `B` "2. No", `C` "Add a
+custom response"). Credits: three turns, read as 52, 52 and 10, 114 in total, one reading each. The
+MCP run in the same file returned the same status and detail on all 43 rows (next table). The Detail
+column here and in the two tables that follow is copied from the run record of the day, which
+abridges some of the helper's strings: error texts are shortened and a few details are summarised.
 
 | API | Status | Detail |
 | --- | --- | --- |
@@ -205,7 +144,7 @@ committed.`), so this table is from the rerun with `PAYLOAD = 30000`.
 | figma.currentPage.selection | available | 0 selected |
 | node.getMainComponentAsync | missing | no instance on page |
 | node.boundVariables | missing | no auto-layout node on page |
-| figma.variables.getVariableByIdAsync | available | no variable in file; null for a dummy id |
+| figma.variables.getVariableByIdAsync | available | null for a dummy id |
 | figma.variables.getLocalVariablesAsync | available | 0 variables |
 | figma.variables.getLocalVariableCollectionsAsync | available | 0 collections |
 | figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
@@ -220,9 +159,9 @@ committed.`), so this table is from the rerun with `PAYLOAD = 30000`.
 | node.setTextStyleIdAsync | available | presence only |
 | figma.getImageByHash + image.getBytesAsync | missing | no image on page |
 | figma.createImage | available | presence only |
-| node.setPluginData / getPluginData | error | Error: in setPluginData: figma.setPluginData is not supported in this host runtime (only private plugins on web can use |
+| node.setPluginData / getPluginData | error | not supported in this host runtime |
 | node.setSharedPluginData / getSharedPluginData | available | round trip ok |
-| figma.clientStorage.setAsync / getAsync | error | Error: in setAsync: "setAsync" is not a supported API |
+| figma.clientStorage.setAsync / getAsync | error | "setAsync" is not a supported API |
 | node.query | available | presence only |
 | node.set | available | presence only |
 | figma.createAutoLayout | available | created and removed; layoutMode HORIZONTAL |
@@ -230,25 +169,204 @@ committed.`), so this table is from the rerun with `PAYLOAD = 30000`.
 | figma.ui | available | presence only |
 | text sizing: resize, textAutoResize, characters | available | height 15 at width 200 |
 | figma.notify | available | called; handler returned |
+| figma.root.name | available | read "Document"; set: Setting the document name is currently not supported |
+| figma.motion | available | presence only |
+| figma.commitUndo | error | "commitUndo" is not a supported API |
+| figma.saveVersionHistoryAsync | error | "saveVersionHistoryAsync" is not a supported API |
+| node.annotations | available | 1 annotation read back |
+| figma.annotations.getAnnotationCategoriesAsync | available | 4 categories |
+| node.exportAsync PNG | available | 372 bytes |
+| node.screenshot | available | presence only |
+| node.transform3d / scene3d / transformOrigin | available | all three present |
+| figma.teamLibrary.getVariablesInLibraryCollectionAsync + importVariableByKeyAsync | available | presence only; no library collection enabled |
+| figma.variables.setBoundVariableForPaint | available | presence only; no local colour variable |
+| figma.spec members | available | 8 of 8 are functions |
+| figma.spec.getContent | missing | no Spec on this page |
+| figma.spec.createOnCanvasAsync | available | created and removed; 850 x 1100 |
+| ask_user_question | available | 1. Yes |
+| show_widget | missing | — |
+
+- Payload bytes: 50000 sent, 50000 received
+- Walk time: 1 ms
+- Nodes walked: 0
+- Style counts: text 0 · paint 0 · effect 0 · grid 0
+
+What this run shows: a helper must be written with top-level `await` and a final `return`, with no
+function wrapper. The first in-app run of 1.2 sent the 1.1 form, an async function wrapped and
+invoked on its last line, exactly as written; the script tool answered `Plugin executed
+successfully` with no result object, and the agent confirmed afterwards that it had added no outer
+`return` or `await`. Earlier runs worked only because the agent quietly added a `return`. The
+top-level form returned all 43 rows. The return of about 55,000 bytes (the 50,000-character payload
+plus 43 rows) arrived whole, where about 53,000 bytes did not on 2026-11-03, so the in-app limit is
+now above the 48,000 bytes `use_figma` accepts and MCP is the stricter runtime. `commitUndo` and
+`saveVersionHistoryAsync` are functions that throw when called, so a checkpoint needs a duplicated
+page or frame, never version history. Annotations, PNG export, the three 3D transform members and
+`figma.motion` are available, and an embedded Spec can be created on the Design canvas and removed
+again; `figma.spec` is present in a Design file, so its presence never identifies a Spec file.
+`setPluginData` and `clientStorage` still error and `setSharedPluginData` still round-trips, as on
+2026-11-03. The library rows and the paint-binding row stay presence only because the scratch file
+has no enabled library and no local colour variable; they need a seeded file. The `ask_user_question`
+experiment rendered as a card; once a card is answered, the chat prints a tool-result block that
+shows the tool's full name, `mcp__plugin_conversation_ask_user_question__ask_user_question`, and the
+answering user's id, which is never copied into a record. `show_widget` is still missing, so every
+picker needs its numbered-options text fallback.
+
+Decision-gate UI (Round 3, 2026-11-03, screenshots of every gate): a gate whose skill text names the
+structured question tool renders as a card with lettered clickable options (A, B, ...) plus "Add a
+custom response"; a gate that does not name it renders as plain text, answered by typing. The
+audit's mode and fix questions rendered as cards; its scope question and the probe's disclosure
+rendered as plain text. A free-text follow-up shows as a card reading "Awaiting custom response",
+and there the agent added presets the skill never defined. House rule since then: every gate names
+the tool, with the plain-text wording as the fallback, and free-text follow-ups say "no preset
+options".
+
+### MCP (use_figma), 2026-11-13
+
+Scratch file `fm-probe-scratch` (key `kXhDI9zBD5rbh00c3Lzt9i`), the same empty page as the in-app
+run, nothing selected, `fm-figma-capability-probe` 1.2 sent through `use_figma` as written. Runtime
+line: `editorType figma, mode default, apiVersion 1.0.0`. Every row has the same status and detail
+as the in-app table above.
+
+| API | Status | Detail |
+| --- | --- | --- |
+| figma.getNodeByIdAsync | available | resolved the current page |
+| figma.currentPage.selection | available | 0 selected |
+| node.getMainComponentAsync | missing | no instance on page |
+| node.boundVariables | missing | no auto-layout node on page |
+| figma.variables.getVariableByIdAsync | available | null for a dummy id |
+| figma.variables.getLocalVariablesAsync | available | 0 variables |
+| figma.variables.getLocalVariableCollectionsAsync | available | 0 collections |
+| figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
+| figma.variables.importVariableByKeyAsync | available | presence only |
+| node.setBoundVariable | available | presence only |
+| figma.getLocalTextStylesAsync | available | 0 styles |
+| figma.getLocalPaintStylesAsync | available | 0 styles |
+| figma.getLocalEffectStylesAsync | available | 0 styles |
+| figma.getLocalGridStylesAsync | available | 0 styles |
+| figma.getStyleByIdAsync | missing | no local style in file |
+| node.setFillStyleIdAsync | available | presence only |
+| node.setTextStyleIdAsync | available | presence only |
+| figma.getImageByHash + image.getBytesAsync | missing | no image on page |
+| figma.createImage | available | presence only |
+| node.setPluginData / getPluginData | error | not supported in this host runtime |
+| node.setSharedPluginData / getSharedPluginData | available | round trip ok |
+| figma.clientStorage.setAsync / getAsync | error | "setAsync" is not a supported API |
+| node.query | available | presence only |
+| node.set | available | presence only |
+| figma.createAutoLayout | available | created and removed; layoutMode HORIZONTAL |
+| figma.loadAllPagesAsync | available | presence only |
+| figma.ui | available | presence only |
+| text sizing: resize, textAutoResize, characters | available | height 15 at width 200 |
+| figma.notify | available | called; handler returned |
+| figma.root.name | available | read "Document"; set: Setting the document name is currently not supported |
+| figma.motion | available | presence only |
+| figma.commitUndo | error | "commitUndo" is not a supported API |
+| figma.saveVersionHistoryAsync | error | "saveVersionHistoryAsync" is not a supported API |
+| node.annotations | available | 1 annotation read back |
+| figma.annotations.getAnnotationCategoriesAsync | available | 4 categories |
+| node.exportAsync PNG | available | 372 bytes |
+| node.screenshot | available | presence only |
+| node.transform3d / scene3d / transformOrigin | available | all three present |
+| figma.teamLibrary.getVariablesInLibraryCollectionAsync + importVariableByKeyAsync | available | presence only; no library collection enabled |
+| figma.variables.setBoundVariableForPaint | available | presence only; no local colour variable |
+| figma.spec members | available | 8 of 8 are functions |
+| figma.spec.getContent | missing | no Spec on this page |
+| figma.spec.createOnCanvasAsync | available | created and removed; 850 x 1100 |
 
 The two in-app experiment rows are omitted over MCP.
 
-- Payload bytes returned: 30000 (a 50,000-character sample is rejected: the bridge limits the whole return to 48,000 bytes)
-- Walk time: 1 ms
-- Nodes walked: 0
-- Style counts: text 0, paint 0, effect 0, grid 0
+- Payload bytes: not measured by this run: it used `PAYLOAD` 1000 and returned its result packaged as strings, a maintainer deviation to save context; the 48,000-byte limit was measured directly the same day
+- Walk time: 1 to 2 ms (the run record gives one range for this run and the Spec run)
+- Nodes walked: not stated in the run record; the page was empty
+- Style counts: text 0 · paint 0 · effect 0 · grid 0
 
-What this run shows: `setPluginData` errors and `setSharedPluginData` works; `clientStorage`
-is unsupported; `figma.notify` did not throw over MCP, although the figma-use guidance says it
-does; and `use_figma` rejects any return over 48,000 bytes and discards the run's canvas edits.
-The rows that miss for lack of content (instance, auto layout, style, image) need a seeded file
-to test.
+What this run shows: the top-level helper form runs unchanged over `use_figma`, and the two
+runtimes agree on every row an empty Design page can test, including the fourteen rows added in
+1.2. `use_figma` still refuses a return over 48,000 bytes and discards that call's canvas edits
+(measured the same day, outside the probe), so MCP is now the stricter runtime and the probe's MCP
+section keeps `PAYLOAD` at 30000. Nothing was left behind in the file. The rows that miss for lack
+of content (instance, auto layout, style, image, a Spec on the page) and the presence-only library
+and paint-binding rows need a seeded file to test.
 
 Added 2026-11-03 UTC, outside the probe: over `use_figma`, `figma.root.name` reads back as
 "Document" whatever the file is called in Figma, and `figma.root.name = "..."` throws `Error: in
 set_name: Setting the document name is currently not supported`. The root name identifies nothing;
-use the file key. `create_new_file` does apply the `fileName` it is given. Plan 2 adds this check
-to the probe.
+use the file key. `create_new_file` does apply the `fileName` it is given. Probe 1.2 tests it: see
+the `figma.root.name` row of the 2026-11-13 tables, where assigning the root name throws in-app as
+well.
+
+### MCP (use_figma) in a Spec file, 2026-11-13
+
+Spec file `fm-spec-scratch` (key `CLZvom3IjzGswGa8yuuUrV`), `fm-figma-capability-probe` 1.2 sent
+through `use_figma` as written. Runtime line: `editorType figspec, mode default, apiVersion 1.0.0`.
+The helper's Spec guard skipped the twenty rows that need a canvas or a write; they print as
+`missing | skipped in a Spec file`. The two rows whose detail reads `no such property` were recorded
+as `error` in this run; the helper was changed afterwards to record that text as `missing`, which
+is how they are shown.
+
+| API | Status | Detail |
+| --- | --- | --- |
+| figma.getNodeByIdAsync | available | resolved the current page |
+| figma.currentPage.selection | available | 0 selected |
+| node.getMainComponentAsync | missing | skipped in a Spec file |
+| node.boundVariables | missing | skipped in a Spec file |
+| figma.variables.getVariableByIdAsync | available | null for a dummy id |
+| figma.variables.getLocalVariablesAsync | available | 0 variables |
+| figma.variables.getLocalVariableCollectionsAsync | available | 0 collections |
+| figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
+| figma.variables.importVariableByKeyAsync | available | presence only |
+| node.setBoundVariable | missing | skipped in a Spec file |
+| figma.getLocalTextStylesAsync | available | 0 styles |
+| figma.getLocalPaintStylesAsync | available | 0 styles |
+| figma.getLocalEffectStylesAsync | available | 0 styles |
+| figma.getLocalGridStylesAsync | available | 0 styles |
+| figma.getStyleByIdAsync | missing | no local style in file |
+| node.setFillStyleIdAsync | missing | skipped in a Spec file |
+| node.setTextStyleIdAsync | missing | skipped in a Spec file |
+| figma.getImageByHash + image.getBytesAsync | missing | no image on page |
+| figma.createImage | available | presence only |
+| node.setPluginData / getPluginData | missing | skipped in a Spec file |
+| node.setSharedPluginData / getSharedPluginData | missing | skipped in a Spec file |
+| figma.clientStorage.setAsync / getAsync | missing | skipped in a Spec file |
+| node.query | missing | skipped in a Spec file |
+| node.set | missing | skipped in a Spec file |
+| figma.createAutoLayout | missing | skipped in a Spec file |
+| figma.loadAllPagesAsync | available | presence only |
+| figma.ui | available | presence only |
+| text sizing: resize, textAutoResize, characters | missing | skipped in a Spec file |
+| figma.notify | missing | skipped in a Spec file |
+| figma.root.name | available | read "Document"; set skipped |
+| figma.motion | missing | no such property on the figma global |
+| figma.commitUndo | missing | skipped in a Spec file |
+| figma.saveVersionHistoryAsync | missing | skipped in a Spec file |
+| node.annotations | missing | skipped in a Spec file |
+| figma.annotations.getAnnotationCategoriesAsync | missing | no such property on the figma global |
+| node.exportAsync PNG | missing | skipped in a Spec file |
+| node.screenshot | missing | skipped in a Spec file |
+| node.transform3d / scene3d / transformOrigin | missing | skipped in a Spec file |
+| figma.teamLibrary.getVariablesInLibraryCollectionAsync + importVariableByKeyAsync | available | presence only; no library collection enabled |
+| figma.variables.setBoundVariableForPaint | available | presence only; no local colour variable |
+| figma.spec members | available | 8 of 8 are functions |
+| figma.spec.getContent | available | totalLines 26, hasMore true |
+| figma.spec.createOnCanvasAsync | missing | skipped in a Spec file |
+
+The two in-app experiment rows are omitted over MCP.
+
+- Payload bytes: not measured by this run: `PAYLOAD` 1000 and the result packaged as strings, the same maintainer deviation as the MCP Design run
+- Walk time: 1 to 2 ms (the run record gives one range for this run and the MCP Design run)
+- Nodes walked: 1, the `SPEC_BLOCK`
+- Style counts: text 0 · paint 0 · effect 0 · grid 0
+
+What this run shows: a standalone Spec file has no canvas API. `figma.motion` and
+`figma.annotations` are absent (reading either throws `no such property`), and the guard keeps
+every canvas and write row from running, so the probe changes nothing there. The reads a Spec skill
+needs work: `getNodeByIdAsync` resolves the page, the variable, style and library reads return empty
+lists, all eight `figma.spec` members are functions, `figma.spec.getContent` read the document
+(`totalLines 26, hasMore true`), and `figma.root.name` reads "Document" as in a Design file. The
+guard detects the Spec by `figma.editorType === "figspec"`, because `figma.spec` is present in a
+Design file too. Nothing was left behind in the file. The in-app run in a Spec file was not
+started, to save credits; it would add the Spec disclosure and the question card in the Specs
+agent.
 
 ## Credits-aware instructions
 

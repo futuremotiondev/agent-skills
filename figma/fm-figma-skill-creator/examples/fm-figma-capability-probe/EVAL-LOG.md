@@ -10,7 +10,7 @@ Tick and record the answer the first time the upload edition goes through Figma'
 - [ ] Name or description length limit hit: yes / no (lengths tried: ____)
 - [ ] Body size limit hit: yes / no (lines / bytes tried: ____)
 - [ ] Markdown images or links render in the instructions view: yes / no
-- [ ] `node.query` / `node.set` work under `evaluate_script`: present (presence only, 2026-11-03); calls not tried
+- [ ] `node.query` / `node.set` work under `evaluate_script`: present (presence only, 2026-11-03 and 2026-11-13); calls not tried
 - [ ] Export produces: ____ (format, whether frontmatter round-trips)
 
 ## Entry template
@@ -82,6 +82,41 @@ Observed versus the plan's expectation: `setPluginData` reported `error` as expe
 Changes made in response (still v1.0, before any upload): `PAYLOAD` constant with an MCP instruction to set it to 30000; `figma.notify` became a call check; the runtime probe reads each property separately.
 
 ## Entries
+
+### 2026-11-13 · v1.2 · Figma Design agent, two runs
+
+- **Edition tested:** the 1.2 body in the probe installed in Figma; the run record does not name the edition, and its finding 8 describes replacing an installed skill's instructions in place through Manage skills, Edit, at no credit cost.
+- **File and selection:** `fm-probe-scratch` (`kXhDI9zBD5rbh00c3Lzt9i`), empty page; nothing selected.
+- **Prompt:** not recorded in the run record.
+- **Triggered:** not recorded in the run record.
+- **What the agent did, first run:** sent the helper exactly as written, still in the 1.1 form (an async function wrapped and invoked on its last line). The script tool answered `Plugin executed successfully` with no result object, and the agent reported that the results were not returned. Asked afterwards, it confirmed it had added no outer `return` or `await`. In the same run a small `probe-tla` helper, written with top-level `await` and `return`, came back whole.
+- **What the agent did, second run (helper rewritten in top-level form):** asked the disclosure as a card with lettered options (`A` "1. Yes", `B` "2. No", `C` "Add a custom response"); after the answer, ran the helper once and got all 43 rows back; asked the question-card experiment and recorded `ask_user_question | available | 1. Yes`; recorded `show_widget | missing | —`; reported the payload as 50,000 sent and 50,000 received.
+- **What it should have done:** the second run is the intended behaviour. The first run shows what a wrapped helper does in-app: nothing comes back.
+- **Output contract met:** second run yes for what the run record holds: 45 rows (43 helper rows and the two experiment rows), the runtime line `editorType figma, mode default, apiVersion 1.0.0`, and the four scalars; the paste-back line is not recorded. First run no: no table, because the helper returned nothing.
+- **Source changed:** no. Nothing was left behind in the file.
+- **Credits consumed:** second run three turns, read as 52, 52 and 10, 114 in total, one reading each (the readouts could not be shown again to confirm). First run four turns including the follow-up question, not read; about 100 to 120 by the same pattern.
+- **Result:** the second run's table is merged into `references/agent-capabilities-and-tools.md` as "Figma Design agent (evaluate_script), 2026-11-13", replacing the 2026-11-03 table. Against the MCP run in the same file: the same status and detail on all 43 rows. New in 1.2: `commitUndo` and `saveVersionHistoryAsync` throw "not a supported API" when called; annotations (1 read back, 4 categories), PNG export (372 bytes), the three 3D transform members and `figma.motion` are available; an embedded Spec was created (850 x 1100) and removed; `figma.root.name` reads "Document" and assigning it throws; the library rows and the paint-binding row stay presence only for lack of an enabled library and a local colour variable.
+- **Scalars:** payload 50,000 sent and 50,000 received, so a return of about 55,000 bytes arrived whole in-app, where about 53,000 bytes did not on 2026-11-03; walk 1 ms; 0 nodes walked; style counts 0 / 0 / 0 / 0.
+- **Defects:** 1. The 1.1 helper form, a wrapped async function that is never returned, gives back nothing in-app; earlier runs worked only because the agent added a `return` on its own.
+- **Change made (1.2, before the second run):** the helper is written with top-level `await` and a final `return`, with no function wrapper, and the helper paragraph says why. The `probe-tla` helper used to test the form was removed again once the main helper took its form.
+- **Re-test needed:** the in-app run in a Spec file, not started to save credits; it would add the Spec disclosure and the question card in the Specs agent.
+
+### 2026-11-13 · v1.2 · Claude Code over MCP, Design and Spec files
+
+- **Edition tested:** the 1.2 helper, sent through `use_figma` in its top-level form; the run record does not name the edition file.
+- **File and selection:** `fm-probe-scratch` (`kXhDI9zBD5rbh00c3Lzt9i`), empty page, and `fm-spec-scratch` (`CLZvom3IjzGswGa8yuuUrV`), a standalone Spec file; nothing selected in either.
+- **Prompt:** not recorded; the maintainer ran the helper directly.
+- **Triggered:** not applicable.
+- **What the agent did:** one helper run per file. Runtime lines `editorType figma, mode default, apiVersion 1.0.0` (Design) and `editorType figspec, mode default, apiVersion 1.0.0` (Spec). In the Spec file the guard skipped the twenty rows that need a canvas or a write.
+- **What it should have done:** run with `PAYLOAD` at 30000 and print the payload lengths. Both runs used `PAYLOAD` 1000 and packaged the return as strings, a maintainer deviation to save context; the 48,000-byte limit was measured directly the same day instead.
+- **Output contract met:** yes for the rows, 43 per file in the helper's order without the two in-app experiment rows; the payload line is not a measurement because of the deviation above.
+- **Source changed:** no. Nothing was left behind in either file.
+- **Credits consumed:** not recorded.
+- **Result:** merged into `references/agent-capabilities-and-tools.md` as "MCP (use_figma), 2026-11-13", replacing the 2026-11-03 table, and the new "MCP (use_figma) in a Spec file, 2026-11-13". The Design rows match the in-app run row for row. In the Spec file `figma.motion` and `figma.annotations` are absent, the variable, style and library reads return empty lists, all eight `figma.spec` members are functions, and `figma.spec.getContent` read `totalLines 26, hasMore true`.
+- **Scalars:** walk 1 to 2 ms; the Spec walk counted 1 node, the `SPEC_BLOCK`; style counts 0 / 0 / 0 / 0 in both files.
+- **Defects:** 1. In the Spec file the two rows that read `figma.motion` and `figma.annotations` were recorded as `error`, although reading a member the surface does not have is a missing API, not a failed call.
+- **Change made:** the helper records an error whose text contains `no such property` as `missing`; the reference table shows those two rows as `missing`.
+- **Re-test needed:** library import and paint binding against a seeded file with an enabled library and a local colour variable.
 
 ### 2026-11-03 · v1.0 (fixed in 1.1) · Figma Design (Round 3, prompt c)
 

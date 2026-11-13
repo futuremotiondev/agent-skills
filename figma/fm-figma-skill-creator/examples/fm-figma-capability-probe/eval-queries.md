@@ -1,6 +1,6 @@
 # Trigger eval queries: fm-figma-capability-probe
 
-Twenty prompts. Ten should trigger the skill (positive), ten should not (negative). The holdout set is 8 prompts (4 positive, 4 negative) and is never used to tune the description. Pass threshold on the holdout: 0.5 or better, with no negative false-trigger on a prompt that names another skill's job.
+Twenty-two prompts. Eleven should trigger the skill (positive), eleven should not (negative). The holdout set is 9 prompts (4 positive, 5 negative) and is never used to tune the description. Pass threshold on the holdout: 0.5 or better, with no negative false-trigger on a prompt that names another skill's job.
 
 How to run: in a scratch Figma Design file with the skill added, paste each prompt without the slash command and record whether the skill ran (the agent asks the disclosure question). In a coding agent, ask "which skill would you use for:" followed by the prompt and record the answer.
 
@@ -18,6 +18,7 @@ How to run: in a scratch Figma Design file with the skill added, paste each prom
 | P8 | I need the table of supported and missing APIs for the capability reference | holdout | trigger | |
 | P9 | Check which APIs your scripts can call in this Make file | holdout | trigger | |
 | P10 | run the capabilty probe | holdout | trigger | |
+| P11 | Probe which APIs your scripts can call in this Spec file | tune | trigger | |
 
 ## Negative (should not trigger)
 
@@ -33,9 +34,11 @@ How to run: in a scratch Figma Design file with the skill added, paste each prom
 | N8 | Test this prototype flow for usability issues | holdout | no trigger | |
 | N9 | Check the copy on these screens for tone | holdout | no trigger | |
 | N10 | Write the TypeScript for a Figma plugin that reads variables | holdout | no trigger | |
+| N11 | Which form does the helper run in? | holdout | no trigger | |
 
 ## Scoring
 
 | Description version | Tune pass | Holdout pass | Notes |
 | --- | --- | --- | --- |
 | 1.0 | /12 | /8 | |
+| 1.2 | /13 | /9 | Description unchanged from 1.0; P11 and N11 added 2026-11-13 |
