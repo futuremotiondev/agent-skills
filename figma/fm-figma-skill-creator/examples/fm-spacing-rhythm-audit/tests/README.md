@@ -42,7 +42,7 @@ The names are distinct. The oracle resolves each one to exactly one top-level no
    - `PAGE`: `null` keeps the current page. `use_figma` starts every call on the file's first page, so set a page name (for example `"Sections"`) to audit any other page.
    - `MODE`: `"tokens"` or `"rhythm"`. Without spacing tokens the helper falls back to rhythm by itself, which is what scope 5 checks.
 4. Compare the returned object with the matching `scopes[]` entry: `counts`, then `rows`, `unbound`, `onRhythmNoToken`, `aliasMatched`, `boundPassed`, `offRhythmTokens`, and the token fields. A run of the skill's own collect has `tokenCount` where the oracle has `tokens`, and no `unbound[].ids`; compare those two fields only against an oracle run.
-5. Proofs (scope 2): run the apply helper on `Token card` padding left with the `Space/200` variable id, then the revert helper with the returned `applied` list as its `changes` array (expect `reverted: 1`). Set the padding to 12 by hand and run revert again with the same list: expect `skipped` with `reason: "changed since"` and `actual: 12`. Afterwards restore the seed: padding left 8, unbound. The proofs in `expected.json` are the 2026-11-03 run. The 2026-11-13 regeneration ran only the five read-only oracle scopes and did not rerun them, because the apply and revert helpers in 2.2 are identical to that run's MCP form apart from the dropped wrapper.
+5. Proofs (scope 2): run the apply helper on `Token card` padding left with the `Space/200` variable id, then the revert helper with the returned `applied` list as its `changes` array (expect `reverted: 1`). Set the padding to 12 by hand and run revert again with the same list: expect `skipped` with `reason: "changed since"` and `actual: 12`. Afterwards restore the seed: padding left 8, unbound. The proofs in `expected.json` are the 2026-11-13 run of the 2.2 apply, verify, and revert helpers as written (top-level form), one `use_figma` call per step; `proofs.verify` holds the verify helper's return and `proofs.before` the reading before apply. Every value matched the 2026-11-03 run. After the restore, scopes 1 and 2 were rerun and returned results byte-identical to the runs before the proofs, so the seed ended as it started.
 
 | Scope | File | Page | Selection | MODE sent | Mode returned |
 | --- | --- | --- | --- | --- | --- |
@@ -104,7 +104,7 @@ One table for the producer (the collect helper and this oracle) and every consum
 | `boundPassed` | number: every bound value in tokens mode; bound values on the grid in rhythm mode | Both | shipped helper and oracle |
 | `offRhythmTokens` | array of `{ name, value, modeName, values }` | Both | shipped helper and oracle |
 | `rows` | array of row objects, below; capped at 60 by the shipped helper, uncapped by the oracle | Both | shipped helper and oracle |
-| `proofs` | apply and revert proof record | scope 2 only | `expected.json` only |
+| `proofs` | apply, verify, and revert proof record: `fileKey`, `node`, `before`, `apply { fixes, result, verify, readback }`, `revertClean`, `revertAfterHandEdit`, `restored`, `runAt`, `note` | scope 2 only | `expected.json` only |
 | `rows[].id` | string, the node the row names (the main component for an inherited value) | Both | shipped helper and oracle |
 | `rows[].path` | string, last four named segments, with the page and "(main component)" when they apply | Both | shipped helper and oracle |
 | `rows[].group` | string, outermost component ancestor or top-level frame | Both | shipped helper and oracle |
