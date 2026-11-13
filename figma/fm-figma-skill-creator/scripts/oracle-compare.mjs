@@ -21,11 +21,17 @@
 //
 // The schema names the report's labels and maps them to collect result fields:
 //   keyColumns           fields that identify a row (here path, property, current)
-//   columns              main-table header text -> field (null to ignore the column)
-//   headerLines          header label -> field path in the scope object ("counts.framesMeasured")
+//   columns              main-table header text -> field (null to ignore the column), or
+//                        { "field", "aliases": [other header spellings] }
+//   headerLines          header label -> field path in the scope object ("counts.framesMeasured"), or
+//                        { "field", "aliases": [other labels], "modes": [modes that print the line] };
+//                        in a --report compare, a line whose modes leave out the scope's mode is not
+//                        read or compared (a --run carries every field and compares them all)
 //   priorityLine         label of the "P0 <n> · P1 <n> · P2 <n> · P3 <n>" line
 //   optionalHeaderLines  labels a report may omit; an omitted counted line reads as 0
 //   fixFormat            how an expected `fix` object prints ("bind {name}", "set {value}")
+// Labels and header names match after the same cleaning as cells, ignoring case. When no table holds
+// every key column, the exit-2 message lists the header rows the report does have.
 //
 // The report parser removes the agent's decoration before reading anything: `**` bold, en and em
 // dashes and the minus sign (U+2212) become "-", `<figma-node-link …>x</figma-node-link>` (and the
@@ -83,13 +89,33 @@ function readJson(path, what) {
   try { return JSON.parse(text) } catch (e) { return fail(`${what} is not valid JSON (${path}): ${e.message}`) }
 }
 
-function loadSchema(path) {
+/**
+ * One `columns` or `headerLines` entry: a field string, null, or { field, aliases, modes }.
+ * Returns { name, field, spellings (canonical name first), modes (null for every mode) }.
+ */
+function schemaEntry(name, value, where) {
+  if (value === null || typeof value === "string") return { name, field: value, spellings: [name], modes: null }
+  const ok = value && typeof value === "object" && (value.field === null || typeof value.field === "string") &&
+    (value.aliases === undefined || (Array.isArray(value.aliases) && value.aliases.every((a) => typeof a === "string"))) &&
+    (value.modes === undefined || (Array.isArray(value.modes) && value.modes.every((m) => typeof m === "string")))
+  if (!ok) fail(`schema ${where} entry "${name}" must be a field name, null, or { "field", "aliases", "modes" }`)
+  return { name, field: value.field, spellings: [name, ...(value.aliases || [])], modes: value.modes || null }
+}
+
+/** Read the schema and resolve it for one mode: header lines marked for other modes are set aside. */
+function loadSchema(path, mode) {
   const schema = readJson(path, "schema")
   for (const key of ["keyColumns", "columns", "headerLines", "priorityLine"]) {
     if (schema[key] === undefined) fail(`schema has no "${key}": ${path}`)
   }
-  const mapped = new Set(Object.values(schema.columns).filter(Boolean))
-  for (const k of schema.keyColumns) if (!mapped.has(k)) fail(`schema key column "${k}" is not mapped in "columns"`)
+  schema.columnList = Object.entries(schema.columns).map(([n, v]) => schemaEntry(n, v, "columns"))
+  schema.fields = [...new Set(schema.columnList.map((c) => c.field).filter(Boolean))]
+  for (const k of schema.keyColumns) if (!schema.fields.includes(k)) fail(`schema key column "${k}" is not mapped in "columns"`)
+  const lines = Object.entries(schema.headerLines).map(([n, v]) => schemaEntry(n, v, "headerLines"))
+  for (const l of lines) if (!l.field) fail(`schema headerLines entry "${l.name}" has no field`)
+  const applies = (l) => !l.modes || !mode || l.modes.includes(mode)
+  schema.lines = lines.filter(applies)
+  schema.linesNotInMode = lines.filter((l) => !applies(l)).map((l) => l.name)
   schema.optionalHeaderLines = schema.optionalHeaderLines || []
   schema.fixFormat = schema.fixFormat || {}
   return schema
@@ -115,6 +141,9 @@ function text(value) {
     .replace(/\s+/g, " ")
     .trim()
 }
+
+/** A header label or column name as matched: normalised like a cell, case ignored. */
+const labelKey = (value) => text(value).toLowerCase()
 
 /** The first number in a value ("−3", "+0.5", "1,937", "6 passed"), or null. */
 function num(value) {
@@ -157,7 +186,7 @@ function printedRows(rows, framesMeasured) {
 /** Which row fields are numeric, read from the expected rows (a field is numeric where they hold numbers). */
 function numericFields(rows, schema) {
   const fields = new Set()
-  for (const f of Object.values(schema.columns).filter(Boolean)) {
+  for (const f of schema.fields) {
     const sample = rows.find((r) => r[f] !== undefined && r[f] !== null)
     if (sample && typeof sample[f] === "number") fields.add(f)
   }
@@ -167,7 +196,7 @@ function numericFields(rows, schema) {
 /** A row as compared: { key, label, values: { field -> comparable } }. */
 function rowOf(source, schema, numeric) {
   const values = {}
-  for (const f of new Set(Object.values(schema.columns).filter(Boolean))) {
+  for (const f of schema.fields) {
     if (!(f in source)) continue
     const v = source[f]
     if (f === "fix") values[f] = fixText(v, schema.fixFormat)
@@ -183,9 +212,9 @@ function rowOf(source, schema, numeric) {
 function fromOracle(obj, schema, numeric) {
   if (!Array.isArray(obj.rows)) fail("the oracle object has no rows array")
   const counts = new Map()
-  for (const [label, path] of Object.entries(schema.headerLines)) {
-    const v = getPath(obj, path)
-    counts.set(label, typeof v === "number" ? v : null)
+  for (const line of schema.lines) {
+    const v = getPath(obj, line.field)
+    counts.set(line.name, typeof v === "number" ? v : null)
   }
   const byPriority = getPath(obj, "counts.byPriority") || {}
   const priority = Object.fromEntries(PRIORITY_LEVELS.map((p) => [p, typeof byPriority[p] === "number" ? byPriority[p] : null]))
@@ -223,19 +252,19 @@ function tables(lines) {
 function headerParts(lines, schema) {
   const inFence = scanFences(lines)
   const parts = new Map()
-  const priorityLabel = schema.priorityLine.toLowerCase()
+  const priorityLabel = labelKey(schema.priorityLine)
   const add = (part) => {
     const colon = part.indexOf(":")
     if (colon < 0) return
-    const label = part.slice(0, colon).replace(/\s+/g, " ").trim().toLowerCase()
-    if (!parts.has(label)) parts.set(label, part.slice(colon + 1))
+    const key = labelKey(part.slice(0, colon))
+    if (!parts.has(key)) parts.set(key, part.slice(colon + 1))
   }
   for (let i = 0; i < lines.length; i++) {
     if (inFence[i] || lines[i].trim().startsWith("|")) continue
     const line = clean(lines[i]).trim().replace(/^[-*+]\s+/, "")
     const colon = line.indexOf(":")
     // The priority line holds " · " itself, so it is read whole before any split.
-    if (colon >= 0 && line.slice(0, colon).trim().toLowerCase() === priorityLabel) { add(line); continue }
+    if (colon >= 0 && labelKey(line.slice(0, colon)) === priorityLabel) { add(line); continue }
     for (const part of line.split(/\s+\u00b7\s+/)) add(part)
   }
   return parts
@@ -249,14 +278,15 @@ function fromReport(reportText, schema, numeric, expectedRowCount) {
   const counts = new Map()
   const omitted = new Set()
   const optional = new Set(schema.optionalHeaderLines.map((l) => l.toLowerCase()))
-  for (const label of Object.keys(schema.headerLines)) {
-    const rest = parts.get(label.toLowerCase())
-    if (rest !== undefined) counts.set(label, num(rest))
-    else if (optional.has(label.toLowerCase())) { counts.set(label, 0); omitted.add(label) }
-    else counts.set(label, null)
+  for (const line of schema.lines) {
+    // The first spelling the report uses wins: the canonical label, then each alias.
+    const spelling = line.spellings.find((s) => parts.has(labelKey(s)))
+    if (spelling !== undefined) counts.set(line.name, num(parts.get(labelKey(spelling))))
+    else if (optional.has(line.name.toLowerCase())) { counts.set(line.name, 0); omitted.add(line.name) }
+    else counts.set(line.name, null)
   }
 
-  const priorityRest = parts.get(schema.priorityLine.toLowerCase())
+  const priorityRest = parts.get(labelKey(schema.priorityLine))
   if (priorityRest === undefined) fail(`no "${schema.priorityLine}:" line in the report`)
   const priority = {}
   for (const p of PRIORITY_LEVELS) {
@@ -264,21 +294,30 @@ function fromReport(reportText, schema, numeric, expectedRowCount) {
     priority[p] = m ? num(m[1]) : null
   }
 
-  // The main table is the first table whose header holds every key column.
-  const columnNames = new Map(Object.entries(schema.columns).map(([name, field]) => [text(name).toLowerCase(), field]))
+  // The main table is the first table whose header holds every key column, under any of its spellings.
+  const columnNames = new Map()
+  for (const c of schema.columnList) for (const s of c.spellings) if (!columnNames.has(labelKey(s))) columnNames.set(labelKey(s), c.field)
   let main = null
   let fieldAt = null
-  for (const t of tables(lines)) {
+  const found = tables(lines)
+  for (const t of found) {
     const fields = t.header.map((h) => columnNames.get(h.toLowerCase()) ?? null)
     if (schema.keyColumns.every((k) => fields.includes(k))) { main = t; fieldAt = fields; break }
   }
   // "No off-grid values in N frames" replaces an empty table, so no table is only an error when rows are expected.
-  if (!main && expectedRowCount > 0) fail(`no table in the report has every key column (${schema.keyColumns.join(", ")})`)
+  if (!main && expectedRowCount > 0) {
+    const headers = found.length
+      ? found.map((t, i) => `  ${i + 1}. | ${t.header.join(" | ")} |`).join("\n")
+      : "  (no Markdown tables found)"
+    fail(`no table in the report has every key column (${schema.keyColumns.join(", ")}).\n` +
+      `Header rows found in the report:\n${headers}\n` +
+      `If one of them is the main table, add its spelling of the missing column to that column's "aliases" in the schema.`)
+  }
 
   const rows = []
   const columnsMissing = []
   if (main) {
-    for (const f of new Set(Object.values(schema.columns).filter(Boolean))) {
+    for (const f of schema.fields) {
       if (!fieldAt.includes(f) && !schema.keyColumns.includes(f) && !UNCOMPARED_FIELDS.has(f)) columnsMissing.push(f)
     }
     for (const r of main.rows) {
@@ -300,10 +339,10 @@ const show = (v) => (v === null || v === undefined ? "absent" : v === "" ? "none
 
 function compare(exp, obs, schema, tolerance) {
   const counts = []
-  for (const [label, path] of Object.entries(schema.headerLines)) {
+  for (const { name: label, field } of schema.lines) {
     const e = exp.counts.get(label)
     const o = obs.counts.get(label)
-    const tol = TOLERANT_FIELDS.has(path.split(".").pop()) ? tolerance : 0
+    const tol = TOLERANT_FIELDS.has(field.split(".").pop()) ? tolerance : 0
     const delta = e !== null && o !== null ? o - e : null
     counts.push({ label, e, o, delta, ok: delta !== null && Math.abs(delta) <= tol, omitted: obs.omitted.has(label) })
   }
@@ -322,8 +361,7 @@ function compare(exp, obs, schema, tolerance) {
   }
   const extra = []
   const mismatched = []
-  const compared = [...new Set(Object.values(schema.columns).filter(Boolean))]
-    .filter((f) => !schema.keyColumns.includes(f) && !UNCOMPARED_FIELDS.has(f))
+  const compared = schema.fields.filter((f) => !schema.keyColumns.includes(f) && !UNCOMPARED_FIELDS.has(f))
   for (const o of obs.rows) {
     const e = pending.get(o.key)?.shift()
     if (!e) { extra.push(o); continue }
@@ -416,7 +454,8 @@ function main() {
   const expected = readJson(opts.expected, "expected file")
   const scope = (expected.scopes || []).find((s) => String(s.scope) === String(opts.scope))
   if (!scope) fail(`no scope ${opts.scope} in ${opts.expected}`)
-  const schema = loadSchema(opts.schema)
+  // Mode-only header lines are a report matter; a run carries every field, so it compares them all.
+  const schema = loadSchema(opts.schema, opts.report ? scope.mode : null)
   const numeric = numericFields(scope.rows || [], schema)
 
   const exp = fromOracle(scope, schema, numeric)
@@ -431,6 +470,7 @@ function main() {
   out.push(`oracle-compare: scope ${scope.scope} (${scope.mode || "mode not recorded"}), ${mode} ${opts[mode]}, frame tolerance ${opts.tolerance}`)
   out.push("")
   out.push(...countTable("Counts", result.counts))
+  if (schema.linesNotInMode.length) out.push(`  Not printed in ${scope.mode} mode, not compared: ${schema.linesNotInMode.join(", ")}`)
   out.push("")
   out.push(...countTable(`Priority counts, ${schema.priorityLine}`, result.priority))
   out.push("")

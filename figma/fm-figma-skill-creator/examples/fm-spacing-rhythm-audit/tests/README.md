@@ -10,8 +10,8 @@ These are the oracle fixtures for the 2.2 example. They were first written for 2
 | `oracle.use_figma.js` | The master's collect helper at `metadata.version` 2.2, which is already in the top-level form `use_figma` runs (no wrapper). The oracle differs from the fence in `SKILL.md` by exactly the hunks listed under "Oracle hunks" below; nothing else differs. |
 | `expected.json` | Expected results per scope, in the shape the compare script (`scripts/oracle-compare.mjs`, see "Compare" below) reads, described field by field under "Collect result fields" below. Rows are uncapped. `tokens` and `unbound[].ids` come from the oracle's restore block; the skill's own collect returns `tokenCount` and no ids, which keeps it under the 48,000-byte `use_figma` limit. The apply and revert proofs sit under `scopes[1].proofs`. `masterVersion` is the master's `metadata.version` the oracle mirrors (`"2.2"`); it replaces Plan 1's `masterCommit`, and nothing in the file is read from git. |
 | `collect.harness.mjs` | Runs the master's collect fence under Node against a mock `figma` object, fourteen cases. Run `node examples/fm-spacing-rhythm-audit/tests/collect.harness.mjs` from `figma/fm-figma-skill-creator`; it prints `14 cases, 0 failed` and exits 1 on any failure. A mock proves logic only, never a live number. |
-| `schema.spacing.json` | The compare schema for this skill's report: key columns, the main-table header names, the header-line labels and the fields they map to, the priority line, the optional header lines, and how a `fix` object prints. See "Compare" below. |
-| `fixtures/` | Verbatim in-app outputs and counts from the v1.2 scale test (2026-11-02), kept as history, and two synthetic 2.2 reports for the compare: `report-scope2.md` and its altered twin `report-scope2-altered.md`. See the caveats below. |
+| `schema.spacing.json` | The compare schema for this skill's report: key columns, the main-table header names with their alternative spellings, the header-line labels with their alternatives and the modes that print them, the fields they map to, the priority line, the optional header lines, and how a `fix` object prints. See "Compare" below. |
+| `fixtures/` | Verbatim in-app outputs and counts from the v1.2 scale test (2026-11-02), kept as history, and six synthetic 2.2 reports for the compare: `report-scope2.md` (token mode) and `report-scope1.md` (rhythm mode) with their altered twins, `report-scope2-alt-headers.md`, and `report-scope2-unknown-header.md`. See the caveats below. |
 
 ## File keys
 
@@ -135,6 +135,8 @@ The helper also returns `truncated`, `values`, `tableRows`, `byGroup`, `boundVal
 - 2.0 classifies values differently from v1.2. In rhythm mode the spacing collection's Default-mode values count as on-grid, so the twelve `Space/150` values now pass. In token mode, bind opportunities and token snaps replace number snaps. Read the fixtures as history, not as expected output.
 - The `run-*.md` fixtures are verbatim agent output. They fail markdownlint on purpose (inline HTML node links, no top-level heading) and stay unedited. Lint the example folder with `tests/fixtures/**` excluded.
 - The two `report-scope2*.md` fixtures are synthetic, not captures. They were generated from scope 2 of `expected.json` in the master's Output contract layout (token mode, signed deltas with the minus sign), with the in-app agent's decoration injected: bold around three layer names and the header labels, an en-dash in two negative deltas, every main-table layer wrapped in `<figma-node-link node-id="…">`, a leading "… / " on one path, `bind Space/300 (Compact)` naming the mode, and no "Matches an alias" line. The altered twin changes the `Hero` gap row's Nearest and Fix (16 and `bind Space/400` to 12 and `bind Space/300`) and deletes the `Fractional` padding right row. Regenerate them, rather than editing them, if scope 2 changes.
+- `report-scope1.md` and `report-scope1-altered.md` are the rhythm-mode pair, generated the same way from scope 1: a "Mode: rhythm" line, "Bound to variables" in place of the token-mode lines, `set` fixes, the same kinds of decoration. The altered twin changes the `Card` padding right row's Nearest and Fix (20 and `set 20` to 16 and `set 16`) and deletes the `Bound padding` padding left row.
+- `report-scope2-alt-headers.md` is `report-scope2.md` with the spellings of the v1.2 capture `run-b1-sections-audit.md`: "Absolute-positioned children excluded" for the not-measurable label and "Layer / path" for the layer column. `report-scope2-unknown-header.md` names the layer column "Node", a spelling the schema does not know, to pin the exit-2 message.
 
 ## Compare
 
@@ -148,12 +150,27 @@ node scripts/oracle-compare.mjs --expected examples/fm-spacing-rhythm-audit/test
 
 The first prints `0 missing, 0 extra, 0 mismatched` with every count delta 0 and exits 0. The second exits 1 with `Fractional · Padding right · 15.5` missing and `Hero · Gap · 14: nearest 16 vs 12; fix bind Space/400 vs bind Space/300` mismatched. The third exits 0 on the raw return scope 3 was assembled from; `--run` reads counts from the return's top-level fields and compares the same counts and rows.
 
+The other synthetic reports, with the same `--expected` and `--schema`:
+
+| `--scope` | `--report fixtures/…` | Exit | What it shows |
+| --- | --- | --- | --- |
+| 1 | `report-scope1.md` | 0 | A rhythm-mode report compares clean; the token-mode lines are listed as not printed in rhythm mode |
+| 1 | `report-scope1-altered.md` | 1 | `Bound padding · Padding left · 18` missing; `Card · Padding right · 19: nearest 20 vs 16; fix set 20 vs set 16` |
+| 2 | `report-scope2-alt-headers.md` | 0 | The captured spellings "Layer / path" and "Absolute-positioned children excluded" are read |
+| 2 | `report-scope2-unknown-header.md` | 2 | The message lists every header row the report has, so the missing spelling can be added to the schema |
+
 Exit codes:
 
 | Exit | Meaning |
 | --- | --- |
 | 0 | Nothing missing, extra, or mismatched, and every count within tolerance |
 | 1 | Any count outside tolerance, or any missing, extra, or mismatched row, or a compared column missing from the report table |
-| 2 | An input could not be read or parsed: a bad argument, unreadable JSON, no such scope, no "Off-grid values" line, or no table holding the key columns while the scope has rows |
+| 2 | An input could not be read or parsed: a bad argument, unreadable JSON, no such scope, no "Off-grid values" line, or no table holding the key columns while the scope has rows (the message lists the header rows found) |
+
+Schema entries in `columns` and `headerLines` are either a field name or an object `{ "field", "aliases", "modes" }`. The key is the canonical spelling, from the master's Output contract; `aliases` are other spellings with evidence behind them, here the ones in the v1.2 captures under `fixtures/` ("Layer / path", "Layer", "Absolute-positioned children excluded"). Labels and column names match after the same cleaning as cells, ignoring case. `modes` lists the modes whose report prints the line, following the Output contract: "Bound values", "On rhythm, no matching token", and "Matches an alias" are token mode only, so a rhythm-mode report is neither expected to print them nor flagged for leaving them out. The mode comes from the oracle scope. A `--run` compare ignores `modes` and compares every field, because a raw return carries them all.
+
+Rhythm mode's own `Bound to variables: <n> values` line is not compared. Its number is the helper's `boundValues` (bound values in the table, 5 in scope 1), not `boundPassed` (1 in scope 1), and `expected.json` does not store `boundValues`, so it is not an alias of "Bound values".
 
 `--frame-tolerance <n>` (default 0) lets `framesMeasured` and `boundPassed` drift by up to n, because the in-app agent can count a few frames differently from the oracle. Every other count, the priority counts included, must match exactly. An omitted optional header line ("Matches an alias") reads as 0; any other missing header line is a difference. Before reading, the parser removes the agent's decoration: `**` bold, en and em dashes and the minus sign become a hyphen, node-link markup becomes its text, a leading "… / " on a path is dropped, "→" reads as "->", and thousands separators are ignored. Notes are not compared. A Fix cell may name the token's mode after the token ("bind Space/300 (Compact)"), but only the mode the oracle recorded. Expected rows follow the master's print rule: on more than 50 frames the token-mode bind-opportunity rows (P3, delta 0) are left out.
+
+Known limitation: a report of more than 30 rows. The Output contract tells the agent to show a "By component" summary, the top 30 rows, and then the remaining count per priority, but it prescribes no sentence that states the table is partial, so the compare has nothing reliable to key on. Every row beyond the 30 shown is listed as missing. No scope in `expected.json` has more than 21 printed rows.

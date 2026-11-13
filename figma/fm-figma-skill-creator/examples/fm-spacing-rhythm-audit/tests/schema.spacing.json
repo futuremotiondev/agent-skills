@@ -3,7 +3,7 @@
   "columns": {
     "#": null,
     "Priority": "priority",
-    "Layer (path)": "path",
+    "Layer (path)": { "field": "path", "aliases": ["Layer / path", "Layer"] },
     "Property": "property",
     "Current": "current",
     "Nearest": "nearest",
@@ -14,10 +14,10 @@
   "headerLines": {
     "Frames measured": "counts.framesMeasured",
     "Hidden skipped": "counts.hiddenSkipped",
-    "Not measurable (absolute children)": "counts.notMeasurable",
-    "Bound values": "boundPassed",
-    "On rhythm, no matching token": "onRhythmNoToken",
-    "Matches an alias": "aliasMatched"
+    "Not measurable (absolute children)": { "field": "counts.notMeasurable", "aliases": ["Absolute-positioned children excluded"] },
+    "Bound values": { "field": "boundPassed", "modes": ["tokens"] },
+    "On rhythm, no matching token": { "field": "onRhythmNoToken", "modes": ["tokens"] },
+    "Matches an alias": { "field": "aliasMatched", "modes": ["tokens"] }
   },
   "priorityLine": "Off-grid values",
   "optionalHeaderLines": ["Matches an alias", "Matched but not offered", "Tokens off the 4/8 rhythm"],
