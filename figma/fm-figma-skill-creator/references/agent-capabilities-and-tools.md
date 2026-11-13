@@ -134,9 +134,7 @@ Scratch file `fm-probe-scratch` (key `kXhDI9zBD5rbh00c3Lzt9i`), empty page, noth
 apiVersion 1.0.0`; `figma.mode` now reads `default` where it read unknown on 2026-11-03. The
 disclosure question rendered as a card with lettered options (`A` "1. Yes", `B` "2. No", `C` "Add a
 custom response"). Credits: three turns, read as 52, 52 and 10, 114 in total, one reading each. The
-MCP run in the same file returned the same status and detail on all 43 rows (next table). The Detail
-column here and in the two tables that follow is copied from the run record of the day, which
-abridges some of the helper's strings: error texts are shortened and a few details are summarised.
+MCP run in the same file returned the same status and detail on all 43 rows (next table).
 
 | API | Status | Detail |
 | --- | --- | --- |
@@ -144,7 +142,7 @@ abridges some of the helper's strings: error texts are shortened and a few detai
 | figma.currentPage.selection | available | 0 selected |
 | node.getMainComponentAsync | missing | no instance on page |
 | node.boundVariables | missing | no auto-layout node on page |
-| figma.variables.getVariableByIdAsync | available | null for a dummy id |
+| figma.variables.getVariableByIdAsync | available | no variable in file; null for a dummy id |
 | figma.variables.getLocalVariablesAsync | available | 0 variables |
 | figma.variables.getLocalVariableCollectionsAsync | available | 0 collections |
 | figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
@@ -159,9 +157,9 @@ abridges some of the helper's strings: error texts are shortened and a few detai
 | node.setTextStyleIdAsync | available | presence only |
 | figma.getImageByHash + image.getBytesAsync | missing | no image on page |
 | figma.createImage | available | presence only |
-| node.setPluginData / getPluginData | error | not supported in this host runtime |
+| node.setPluginData / getPluginData | error | Error: in setPluginData: figma.setPluginData is not supported in this host runtime (only private plugins on web can use |
 | node.setSharedPluginData / getSharedPluginData | available | round trip ok |
-| figma.clientStorage.setAsync / getAsync | error | "setAsync" is not a supported API |
+| figma.clientStorage.setAsync / getAsync | error | Error: in setAsync: "setAsync" is not a supported API |
 | node.query | available | presence only |
 | node.set | available | presence only |
 | figma.createAutoLayout | available | created and removed; layoutMode HORIZONTAL |
@@ -169,15 +167,15 @@ abridges some of the helper's strings: error texts are shortened and a few detai
 | figma.ui | available | presence only |
 | text sizing: resize, textAutoResize, characters | available | height 15 at width 200 |
 | figma.notify | available | called; handler returned |
-| figma.root.name | available | read "Document"; set: Setting the document name is currently not supported |
+| figma.root.name | available | read "Document"; set: Error: in set_name: Setting the document name is currently not supported |
 | figma.motion | available | presence only |
-| figma.commitUndo | error | "commitUndo" is not a supported API |
-| figma.saveVersionHistoryAsync | error | "saveVersionHistoryAsync" is not a supported API |
+| figma.commitUndo | error | Error: in commitUndo: "commitUndo" is not a supported API |
+| figma.saveVersionHistoryAsync | error | Error: in saveVersionHistoryAsync: "saveVersionHistoryAsync" is not a supported API |
 | node.annotations | available | 1 annotation read back |
 | figma.annotations.getAnnotationCategoriesAsync | available | 4 categories |
 | node.exportAsync PNG | available | 372 bytes |
 | node.screenshot | available | presence only |
-| node.transform3d / scene3d / transformOrigin | available | all three present |
+| node.transform3d / scene3d / transformOrigin | available | present: transform3d, scene3d, transformOrigin |
 | figma.teamLibrary.getVariablesInLibraryCollectionAsync + importVariableByKeyAsync | available | presence only; no library collection enabled |
 | figma.variables.setBoundVariableForPaint | available | presence only; no local colour variable |
 | figma.spec members | available | 8 of 8 are functions |
@@ -233,7 +231,7 @@ as the in-app table above.
 | figma.currentPage.selection | available | 0 selected |
 | node.getMainComponentAsync | missing | no instance on page |
 | node.boundVariables | missing | no auto-layout node on page |
-| figma.variables.getVariableByIdAsync | available | null for a dummy id |
+| figma.variables.getVariableByIdAsync | available | no variable in file; null for a dummy id |
 | figma.variables.getLocalVariablesAsync | available | 0 variables |
 | figma.variables.getLocalVariableCollectionsAsync | available | 0 collections |
 | figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
@@ -248,9 +246,9 @@ as the in-app table above.
 | node.setTextStyleIdAsync | available | presence only |
 | figma.getImageByHash + image.getBytesAsync | missing | no image on page |
 | figma.createImage | available | presence only |
-| node.setPluginData / getPluginData | error | not supported in this host runtime |
+| node.setPluginData / getPluginData | error | Error: in setPluginData: figma.setPluginData is not supported in this host runtime (only private plugins on web can use |
 | node.setSharedPluginData / getSharedPluginData | available | round trip ok |
-| figma.clientStorage.setAsync / getAsync | error | "setAsync" is not a supported API |
+| figma.clientStorage.setAsync / getAsync | error | Error: in setAsync: "setAsync" is not a supported API |
 | node.query | available | presence only |
 | node.set | available | presence only |
 | figma.createAutoLayout | available | created and removed; layoutMode HORIZONTAL |
@@ -258,15 +256,15 @@ as the in-app table above.
 | figma.ui | available | presence only |
 | text sizing: resize, textAutoResize, characters | available | height 15 at width 200 |
 | figma.notify | available | called; handler returned |
-| figma.root.name | available | read "Document"; set: Setting the document name is currently not supported |
+| figma.root.name | available | read "Document"; set: Error: in set_name: Setting the document name is currently not supported |
 | figma.motion | available | presence only |
-| figma.commitUndo | error | "commitUndo" is not a supported API |
-| figma.saveVersionHistoryAsync | error | "saveVersionHistoryAsync" is not a supported API |
+| figma.commitUndo | error | Error: in commitUndo: "commitUndo" is not a supported API |
+| figma.saveVersionHistoryAsync | error | Error: in saveVersionHistoryAsync: "saveVersionHistoryAsync" is not a supported API |
 | node.annotations | available | 1 annotation read back |
 | figma.annotations.getAnnotationCategoriesAsync | available | 4 categories |
 | node.exportAsync PNG | available | 372 bytes |
 | node.screenshot | available | presence only |
-| node.transform3d / scene3d / transformOrigin | available | all three present |
+| node.transform3d / scene3d / transformOrigin | available | present: transform3d, scene3d, transformOrigin |
 | figma.teamLibrary.getVariablesInLibraryCollectionAsync + importVariableByKeyAsync | available | presence only; no library collection enabled |
 | figma.variables.setBoundVariableForPaint | available | presence only; no local colour variable |
 | figma.spec members | available | 8 of 8 are functions |
@@ -310,7 +308,7 @@ is how they are shown.
 | figma.currentPage.selection | available | 0 selected |
 | node.getMainComponentAsync | missing | skipped in a Spec file |
 | node.boundVariables | missing | skipped in a Spec file |
-| figma.variables.getVariableByIdAsync | available | null for a dummy id |
+| figma.variables.getVariableByIdAsync | available | no variable in file; null for a dummy id |
 | figma.variables.getLocalVariablesAsync | available | 0 variables |
 | figma.variables.getLocalVariableCollectionsAsync | available | 0 collections |
 | figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync | available | 0 library collections |
@@ -335,12 +333,12 @@ is how they are shown.
 | figma.ui | available | presence only |
 | text sizing: resize, textAutoResize, characters | missing | skipped in a Spec file |
 | figma.notify | missing | skipped in a Spec file |
-| figma.root.name | available | read "Document"; set skipped |
-| figma.motion | missing | no such property on the figma global |
+| figma.root.name | available | read "Document"; set skipped in a Spec file |
+| figma.motion | missing | TypeError: figma.motion: no such property 'motion' on the figma global object |
 | figma.commitUndo | missing | skipped in a Spec file |
 | figma.saveVersionHistoryAsync | missing | skipped in a Spec file |
 | node.annotations | missing | skipped in a Spec file |
-| figma.annotations.getAnnotationCategoriesAsync | missing | no such property on the figma global |
+| figma.annotations.getAnnotationCategoriesAsync | missing | TypeError: figma.annotations: no such property 'annotations' on the figma global object |
 | node.exportAsync PNG | missing | skipped in a Spec file |
 | node.screenshot | missing | skipped in a Spec file |
 | node.transform3d / scene3d / transformOrigin | missing | skipped in a Spec file |
