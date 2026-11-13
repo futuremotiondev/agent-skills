@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-03",
-  "masterCommit": "da17b9e+final-fix",
+  "generated": "2026-11-13",
+  "masterVersion": "2.2",
   "seedFileKey": "hSEurPqV8Dgzn9yTwPSnnL",
   "notokensFileKey": "idjl35MjLGg4IJtPPH86GA",
   "simpleDesignSystemFileKey": "RoEqd4VFbADE0s0nZ0n8Yj",
@@ -164,7 +164,9 @@
         "name": "Spacing",
         "defaultModeName": "Default",
         "min": 4,
-        "max": 16
+        "max": 16,
+        "minPositive": 4,
+        "minNegative": null
       },
       "matchedCollections": [
         {
@@ -688,7 +690,9 @@
         "name": "Spacing",
         "defaultModeName": "Default",
         "min": 4,
-        "max": 16
+        "max": 16,
+        "minPositive": 4,
+        "minNegative": null
       },
       "matchedCollections": [
         {
@@ -812,16 +816,16 @@
           "group": "Hero",
           "property": "Gap",
           "current": 14,
-          "nearest": 12,
-          "delta": -2,
+          "nearest": 16,
+          "delta": 2,
           "priority": "P1",
           "boundId": null,
           "note": "",
           "fix": {
             "kind": "bind",
-            "value": 12,
-            "variableId": "VariableID:2:8",
-            "name": "Space/300",
+            "value": 16,
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
             "modeName": "Default"
           },
           "ids": [
@@ -991,56 +995,10 @@
           "count": 1
         },
         {
-          "id": "2:11",
-          "path": "Card",
-          "group": "Card",
-          "property": "Padding top",
-          "current": 16,
-          "nearest": 16,
-          "delta": 0,
-          "priority": "P3",
-          "boundId": null,
-          "note": "unbound; bind to Space/400",
-          "fix": {
-            "kind": "bind",
-            "value": 16,
-            "variableId": "VariableID:2:9",
-            "name": "Space/400",
-            "modeName": "Default"
-          },
-          "ids": [
-            "2:11"
-          ],
-          "count": 1
-        },
-        {
-          "id": "2:11",
-          "path": "Card",
-          "group": "Card",
+          "id": "2:19",
+          "path": "Alias card",
+          "group": "Alias card",
           "property": "Padding bottom",
-          "current": 16,
-          "nearest": 16,
-          "delta": 0,
-          "priority": "P3",
-          "boundId": null,
-          "note": "unbound; bind to Space/400",
-          "fix": {
-            "kind": "bind",
-            "value": 16,
-            "variableId": "VariableID:2:9",
-            "name": "Space/400",
-            "modeName": "Default"
-          },
-          "ids": [
-            "2:11"
-          ],
-          "count": 1
-        },
-        {
-          "id": "2:18",
-          "path": "Token card",
-          "group": "Token card",
-          "property": "Padding top",
           "current": 8,
           "nearest": 8,
           "delta": 0,
@@ -1055,14 +1013,14 @@
             "modeName": "Default"
           },
           "ids": [
-            "2:18"
+            "2:19"
           ],
           "count": 1
         },
         {
-          "id": "2:18",
-          "path": "Token card",
-          "group": "Token card",
+          "id": "2:19",
+          "path": "Alias card",
+          "group": "Alias card",
           "property": "Padding right",
           "current": 8,
           "nearest": 8,
@@ -1078,53 +1036,99 @@
             "modeName": "Default"
           },
           "ids": [
-            "2:18"
+            "2:19"
           ],
           "count": 1
         },
         {
-          "id": "2:18",
-          "path": "Token card",
-          "group": "Token card",
+          "id": "2:19",
+          "path": "Alias card",
+          "group": "Alias card",
+          "property": "Padding top",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "value": 8,
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:19"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
           "property": "Padding bottom",
-          "current": 8,
-          "nearest": 8,
+          "current": 16,
+          "nearest": 16,
           "delta": 0,
           "priority": "P3",
           "boundId": null,
-          "note": "unbound; bind to Space/200",
+          "note": "unbound; bind to Space/400; inherited by 3 instances",
           "fix": {
             "kind": "bind",
-            "value": 8,
-            "variableId": "VariableID:2:7",
-            "name": "Space/200",
+            "value": 16,
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
             "modeName": "Default"
           },
           "ids": [
-            "2:18"
+            "2:11"
           ],
           "count": 1
         },
         {
-          "id": "2:18",
-          "path": "Token card",
-          "group": "Token card",
-          "property": "Padding left",
-          "current": 8,
-          "nearest": 8,
+          "id": "2:11",
+          "path": "Card",
+          "group": "Card",
+          "property": "Padding top",
+          "current": 16,
+          "nearest": 16,
           "delta": 0,
           "priority": "P3",
           "boundId": null,
-          "note": "unbound; bind to Space/200",
+          "note": "unbound; bind to Space/400; inherited by 3 instances",
           "fix": {
             "kind": "bind",
-            "value": 8,
-            "variableId": "VariableID:2:7",
-            "name": "Space/200",
+            "value": 16,
+            "variableId": "VariableID:2:9",
+            "name": "Space/400",
             "modeName": "Default"
           },
           "ids": [
-            "2:18"
+            "2:11"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:21",
+          "path": "Compact card",
+          "group": "Compact card",
+          "property": "Padding left",
+          "current": 10,
+          "nearest": 10,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/300",
+          "fix": {
+            "kind": "bind",
+            "value": 10,
+            "variableId": "VariableID:2:8",
+            "name": "Space/300",
+            "modeName": "Compact"
+          },
+          "ids": [
+            "2:21"
           ],
           "count": 1
         },
@@ -1152,55 +1156,9 @@
           "count": 1
         },
         {
-          "id": "2:19",
-          "path": "Alias card",
-          "group": "Alias card",
-          "property": "Padding top",
-          "current": 8,
-          "nearest": 8,
-          "delta": 0,
-          "priority": "P3",
-          "boundId": null,
-          "note": "unbound; bind to Space/200",
-          "fix": {
-            "kind": "bind",
-            "value": 8,
-            "variableId": "VariableID:2:7",
-            "name": "Space/200",
-            "modeName": "Default"
-          },
-          "ids": [
-            "2:19"
-          ],
-          "count": 1
-        },
-        {
-          "id": "2:19",
-          "path": "Alias card",
-          "group": "Alias card",
-          "property": "Padding right",
-          "current": 8,
-          "nearest": 8,
-          "delta": 0,
-          "priority": "P3",
-          "boundId": null,
-          "note": "unbound; bind to Space/200",
-          "fix": {
-            "kind": "bind",
-            "value": 8,
-            "variableId": "VariableID:2:7",
-            "name": "Space/200",
-            "modeName": "Default"
-          },
-          "ids": [
-            "2:19"
-          ],
-          "count": 1
-        },
-        {
-          "id": "2:19",
-          "path": "Alias card",
-          "group": "Alias card",
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
           "property": "Padding bottom",
           "current": 8,
           "nearest": 8,
@@ -1216,30 +1174,76 @@
             "modeName": "Default"
           },
           "ids": [
-            "2:19"
+            "2:18"
           ],
           "count": 1
         },
         {
-          "id": "2:21",
-          "path": "Compact card",
-          "group": "Compact card",
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
           "property": "Padding left",
-          "current": 10,
-          "nearest": 10,
+          "current": 8,
+          "nearest": 8,
           "delta": 0,
           "priority": "P3",
           "boundId": null,
-          "note": "unbound; bind to Space/300",
+          "note": "unbound; bind to Space/200",
           "fix": {
             "kind": "bind",
-            "value": 10,
-            "variableId": "VariableID:2:8",
-            "name": "Space/300",
-            "modeName": "Compact"
+            "value": 8,
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
           },
           "ids": [
-            "2:21"
+            "2:18"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
+          "property": "Padding right",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "value": 8,
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:18"
+          ],
+          "count": 1
+        },
+        {
+          "id": "2:18",
+          "path": "Token card",
+          "group": "Token card",
+          "property": "Padding top",
+          "current": 8,
+          "nearest": 8,
+          "delta": 0,
+          "priority": "P3",
+          "boundId": null,
+          "note": "unbound; bind to Space/200",
+          "fix": {
+            "kind": "bind",
+            "value": 8,
+            "variableId": "VariableID:2:7",
+            "name": "Space/200",
+            "modeName": "Default"
+          },
+          "ids": [
+            "2:18"
           ],
           "count": 1
         }
@@ -1357,10 +1361,10 @@
         "hiddenSkipped": 9,
         "notMeasurable": 4,
         "byPriority": {
-          "P0": 7,
+          "P0": 2,
           "P1": 3,
           "P2": 0,
-          "P3": 0
+          "P3": 5
         }
       },
       "tokens": [
@@ -1551,7 +1555,9 @@
         "name": "Size",
         "defaultModeName": "Default",
         "min": -24,
-        "max": 160
+        "max": 160,
+        "minPositive": 2,
+        "minNegative": -24
       },
       "matchedCollections": [
         {
@@ -1687,121 +1693,6 @@
       ],
       "rows": [
         {
-          "id": "4331:7191",
-          "path": "AI / AI Chatbot",
-          "group": "AI Chatbot",
-          "property": "Padding top",
-          "current": 20,
-          "nearest": 16,
-          "delta": -4,
-          "priority": "P0",
-          "boundId": null,
-          "note": "",
-          "fix": {
-            "kind": "bind",
-            "value": 16,
-            "variableId": "VariableID:9:11261",
-            "name": "Space/400",
-            "modeName": "Default"
-          },
-          "ids": [
-            "4331:7191"
-          ],
-          "count": 1
-        },
-        {
-          "id": "4331:7191",
-          "path": "AI / AI Chatbot",
-          "group": "AI Chatbot",
-          "property": "Padding right",
-          "current": 20,
-          "nearest": 16,
-          "delta": -4,
-          "priority": "P0",
-          "boundId": null,
-          "note": "",
-          "fix": {
-            "kind": "bind",
-            "value": 16,
-            "variableId": "VariableID:9:11261",
-            "name": "Space/400",
-            "modeName": "Default"
-          },
-          "ids": [
-            "4331:7191"
-          ],
-          "count": 1
-        },
-        {
-          "id": "4331:7191",
-          "path": "AI / AI Chatbot",
-          "group": "AI Chatbot",
-          "property": "Padding bottom",
-          "current": 20,
-          "nearest": 16,
-          "delta": -4,
-          "priority": "P0",
-          "boundId": null,
-          "note": "",
-          "fix": {
-            "kind": "bind",
-            "value": 16,
-            "variableId": "VariableID:9:11261",
-            "name": "Space/400",
-            "modeName": "Default"
-          },
-          "ids": [
-            "4331:7191"
-          ],
-          "count": 1
-        },
-        {
-          "id": "4331:7191",
-          "path": "AI / AI Chatbot",
-          "group": "AI Chatbot",
-          "property": "Padding left",
-          "current": 20,
-          "nearest": 16,
-          "delta": -4,
-          "priority": "P0",
-          "boundId": null,
-          "note": "",
-          "fix": {
-            "kind": "bind",
-            "value": 16,
-            "variableId": "VariableID:9:11261",
-            "name": "Space/400",
-            "modeName": "Default"
-          },
-          "ids": [
-            "4331:7191"
-          ],
-          "count": 1
-        },
-        {
-          "id": "4331:7191",
-          "path": "AI / AI Chatbot",
-          "group": "AI Chatbot",
-          "property": "Gap",
-          "current": 20,
-          "nearest": 16,
-          "delta": -4,
-          "priority": "P0",
-          "boundId": null,
-          "note": "",
-          "fix": {
-            "kind": "bind",
-            "value": 16,
-            "variableId": "VariableID:9:11261",
-            "name": "Space/400",
-            "modeName": "Default"
-          },
-          "ids": [
-            "4331:7191"
-          ],
-          "count": 1
-        },
-        {
           "id": "6062:12601",
           "path": "Hero Sections / Hero (Slot) / Platform=Desktop / Slot",
           "group": "Hero (Slot)",
@@ -1913,6 +1804,156 @@
           },
           "ids": [
             "4317:10977"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Padding top",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P3",
+          "boundId": null,
+          "note": "tie: Space/400 (16) or Space/600 (24)",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default",
+            "nearMiss": true,
+            "alternatives": [
+              {
+                "name": "Space/600",
+                "value": 24
+              }
+            ]
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Padding right",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P3",
+          "boundId": null,
+          "note": "tie: Space/400 (16) or Space/600 (24)",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default",
+            "nearMiss": true,
+            "alternatives": [
+              {
+                "name": "Space/600",
+                "value": 24
+              }
+            ]
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Padding bottom",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P3",
+          "boundId": null,
+          "note": "tie: Space/400 (16) or Space/600 (24)",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default",
+            "nearMiss": true,
+            "alternatives": [
+              {
+                "name": "Space/600",
+                "value": 24
+              }
+            ]
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Padding left",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P3",
+          "boundId": null,
+          "note": "tie: Space/400 (16) or Space/600 (24)",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default",
+            "nearMiss": true,
+            "alternatives": [
+              {
+                "name": "Space/600",
+                "value": 24
+              }
+            ]
+          },
+          "ids": [
+            "4331:7191"
+          ],
+          "count": 1
+        },
+        {
+          "id": "4331:7191",
+          "path": "AI / AI Chatbot",
+          "group": "AI Chatbot",
+          "property": "Gap",
+          "current": 20,
+          "nearest": 16,
+          "delta": -4,
+          "priority": "P3",
+          "boundId": null,
+          "note": "tie: Space/400 (16) or Space/600 (24)",
+          "fix": {
+            "kind": "bind",
+            "value": 16,
+            "variableId": "VariableID:9:11261",
+            "name": "Space/400",
+            "modeName": "Default",
+            "nearMiss": true,
+            "alternatives": [
+              {
+                "name": "Space/600",
+                "value": 24
+              }
+            ]
+          },
+          "ids": [
+            "4331:7191"
           ],
           "count": 1
         }
@@ -2123,7 +2164,9 @@
         "name": "Size",
         "defaultModeName": "Default",
         "min": -24,
-        "max": 160
+        "max": 160,
+        "minPositive": 2,
+        "minNegative": -24
       },
       "matchedCollections": [
         {
