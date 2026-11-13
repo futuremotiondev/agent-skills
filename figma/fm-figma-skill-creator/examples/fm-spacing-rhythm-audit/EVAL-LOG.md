@@ -24,6 +24,13 @@ This is the first skill built through fm-figma-skill-creator, so its first uploa
 
 ## Entries
 
+### Static (2.2), 2026-11-13
+
+- **Change made:** `metadata.version` 2.1 → 2.2. An on-rhythm unbound value with no equal token but a token within 4 is a near miss: the row ranks P3 as a bind opportunity (`fix.nearMiss: true`), names the nearest token ("on rhythm, no token; nearest Space/400 (16)") or both on a tie ("tie: Space/400 (16) or Space/600 (24)"), and stays out of "P0 and P1 only". Token ties go to the multiple of 8, else the lower. The election skips collections with no non-alias Default-mode candidate (tallied "alias only") and breaks a count tie toward a collection with a candidate above 0. `spacingCollection` gains `minPositive` and `minNegative`, and the mode question shows the positive span plus a negatives clause. Discover with no spacing tokens returns the rhythm audit. Opportunity rows sort by path then property and carry "inherited by N instances". All four helpers are in the top-level form (no wrapper), and the MCP section, the surface check, and the overlay's `compatibility` line follow the creator's 2026-11-13 wording.
+- **Harness:** `tests/collect.harness.mjs` runs the collect fence as written under Node against a mock `figma` object. Before the helper change it printed `14 cases, 11 failed` (cases 3, 4, and 6b passed); after it, `14 cases, 0 failed`. A mock proves logic only.
+- **Static:** the master validates with 0 errors and 0 warnings at 490 body lines (2.1: 497) and about 8,745 tokens. The build printed `helpers: 4 scripts`, and the upload, paste, and coding-agent editions each validate with 0 errors and 0 warnings (482, 481, and 161 body lines; about 8,478, 8,478, and 4,996 tokens). "Token mode" appears 17 times and `enhancement: token-conformance` 12 times (six code regions). markdownlint is clean on the touched files.
+- **Stale until regenerated over MCP:** `tests/oracle.use_figma.js` and `tests/expected.json` still mirror the 2.1 helper. In scope 3, for example, the five `AI Chatbot` 20s that bound `Space/400` at P0 become P3 near misses. Plan 2 Task 2 regenerates both.
+
 ### Round 3 in-app, v2.0 (fixed in 2.1), 2026-11-03
 
 - **Edition tested:** upload, v2.0, Figma Design agent. Every gate was screenshotted.

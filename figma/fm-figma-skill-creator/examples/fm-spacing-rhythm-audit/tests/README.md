@@ -1,6 +1,6 @@
 # Tests for fm-spacing-rhythm-audit 2.0
 
-These are the oracle fixtures for the 2.0 example. Version 2.1 changed instruction wording only; the helpers and this oracle are unchanged, so they hold for 2.1 too. A script run over the Figma MCP server (`use_figma`) produces the exact result the skill should reach, and an in-app or MCP run of the skill is compared against it. The fixtures are throwaway test files, not skill requirements: the skill works in any file.
+These are the oracle fixtures for the 2.0 example. Version 2.1 changed instruction wording only, so they held for 2.1 too. Version 2.2 changed the collect helper (near misses rank P3, the tie-break, the election, the discover fallback, opportunity-row order and notes), so `oracle.use_figma.js` and `expected.json` are stale until they are regenerated over MCP; `collect.harness.mjs` pins the 2.2 logic meanwhile. A script run over the Figma MCP server (`use_figma`) produces the exact result the skill should reach, and an in-app or MCP run of the skill is compared against it. The fixtures are throwaway test files, not skill requirements: the skill works in any file.
 
 ## Files
 
@@ -9,6 +9,7 @@ These are the oracle fixtures for the 2.0 example. Version 2.1 changed instructi
 | `seed.use_figma.js` | Builds the seed on the page named "Seed": the `Card` component and three instances, eight test frames, and the `Legacy` and `Spacing` variable collections. It is idempotent by name, so a second run creates nothing and returns the same ids. Top-level `await`, no wrapper. |
 | `oracle.use_figma.js` | The master's collect helper as of the Plan 1 fix round (parent `da17b9e`), unwrapped for `use_figma`. It adds a preamble (`SELECTION`, `PAGE`, `MODE`), lifts `MAX_ROWS` to `Infinity`, clears the selection after the walk, and adds a block before the return that restores the two fields the helper no longer returns: the full `tokens` list and each `unbound[]` entry's node `ids`. Nothing else differs from the fence in `SKILL.md`. |
 | `expected.json` | Expected results per scope, in the shape Plan 2's compare script reads. Rows are uncapped. `tokens` and `unbound[].ids` come from the oracle's restore block; the skill's own collect returns `tokenCount` and no ids, which keeps it under the 48,000-byte `use_figma` limit. The apply and revert proofs sit under `scopes[1].proofs`. `masterCommit` reads `da17b9e+final-fix` because a file cannot name the commit that contains it; Plan 2 pins the real hash. |
+| `collect.harness.mjs` | Runs the master's collect fence under Node against a mock `figma` object, fourteen cases. Run `node examples/fm-spacing-rhythm-audit/tests/collect.harness.mjs` from `figma/fm-figma-skill-creator`; it prints `14 cases, 0 failed` and exits 1 on any failure. A mock proves logic only, never a live number. |
 | `fixtures/` | Verbatim in-app outputs and counts from the v1.2 scale test (2026-11-02), kept as history. See the caveats below. |
 
 ## File keys
@@ -34,7 +35,7 @@ The names are distinct. The oracle resolves each one to exactly one top-level no
 
 ## Rerun over MCP
 
-1. Load the `figma-use` skill and call `create_session` with the file key.
+1. Load the `figma-use` skill, call `create_session` with the file key, and pass the returned `sessionId` on every later `use_figma` call.
 2. Seed: send `seed.use_figma.js` through `use_figma` as-is. The result is `{ ids, variableIds, collectionIds, modesSupported, created, skipped }`, and a rerun returns `created: []` with the same ids.
 3. Oracle: edit the three preamble lines, then send the file as-is.
    - `SELECTION`: `"page"` selects every top-level node on the page, which is how this suite defines a page scope. The master helper itself only walks the current selection. Otherwise use an array of top-level names, for example the twelve above.
