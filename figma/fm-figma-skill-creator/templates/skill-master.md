@@ -23,7 +23,7 @@ metadata:
 
 ## Before you start
 
-1. **Check the surface.** In a Figma Design file, work on canvas layers. In a Figma Make file, <edit project code / return a spec> instead. If the request needs prototyping, vector editing, slots, asset export, or diagrams, produce a plan only and say so; those are not available to the agent today.
+1. **Check the surface.** In a Figma Design file, work on canvas layers. In a Figma Make file, <edit project code / return a spec> instead. If the request needs prototyping, vector editing, slots, asset export, or diagrams, produce a plan only and say so; those are not available to the agent today. In a Figma Spec file, which is a document with no canvas, say this skill needs a Design file and stop.
 2. **Resolve the scope.** Use the current selection. If nothing is selected, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
    > Nothing's selected. 1. <Option, e.g. Audit the current page>, or 2. select the layers you want first?
    Wait for the answer. Do not expand to the whole page or file without asking.
@@ -79,17 +79,15 @@ Cap the output at <N> findings, ordered by impact. Say "no supported findings" r
 
 ## Helper scripts
 
-<Keep this section only when the skill runs code; delete it otherwise.> One fenced `javascript` block per helper, with `// helper: <name>` as its first line (lowercase and hyphenated, such as `collect` or `apply-fixes`). Each helper is self-contained and returns a plain object; nothing persists between calls. Both target sections below run the helpers by name; the build inlines them in the Figma editions and moves each to `scripts/<name>.js` in the coding-agent edition.
+<Keep this section only when the skill runs code; delete it otherwise.> One fenced `javascript` block per helper, with `// helper: <name>` as its first line (lowercase and hyphenated, such as `collect` or `apply-fixes`). Each helper is self-contained and returns a plain object; nothing persists between calls. Write each helper with top-level `await` and a final `return`, with no function wrapper. Both script tools take the result from `return`; a wrapped function that is never returned gives back nothing in-app. Both target sections below run the helpers by name; the build inlines them in the Figma editions and moves each to `scripts/<name>.js` in the coding-agent edition.
 
 ```javascript
 // helper: collect
 // Collect: <one line on what it reads or builds>. Self-contained; nothing persists between calls.
-(async () => {
-  const sel = figma.currentPage.selection;
-  if (sel.length === 0) return { error: "nothing selected" };
-  // ...
-  return { ok: true };
-})();
+const sel = figma.currentPage.selection;
+if (sel.length === 0) return { error: "nothing selected" };
+// ...
+return { ok: true };
 ```
 
 ## Final gate: do not finish until every line is true
@@ -110,5 +108,5 @@ If a structured question tool such as `ask_user_question` is available, ask ever
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file key, read with `get_design_context` or `get_screenshot`, and write with `use_figma`, passing `skillNames: "fm-<verb>-<object>"`. Run the collect helper in Helper scripts through `use_figma` without its wrapper: drop the `(async () => {` line and the closing `})();` line. On any `use_figma` error: stop, inspect partial state with `get_metadata`, remove partial output, fix the root cause, then retry once.
+Load the `figma-use` skill before any `use_figma` call. Call `create_session` for the file key and pass the returned `sessionId` on every later call. Before the first call that changes the canvas, also load `figma-generate-design` (or `figma-generate-library` when the deliverable is a reusable component, variable collection or style) and name it beside `figma-use` in `skillNames` on every changing call, as `skillNames: "figma-use,figma-generate-design,fm-<verb>-<object>"`; read-only calls need neither and pass `skillNames: "figma-use,fm-<verb>-<object>"`. Keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded. Read with `get_design_context` or `get_screenshot`, and write with `use_figma`. Run the collect helper in Helper scripts through `use_figma` as written. On any `use_figma` error: stop, inspect partial state with `get_metadata`, remove partial output, fix the root cause, then retry once.
 <!-- /target -->

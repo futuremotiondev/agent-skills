@@ -24,7 +24,7 @@ Run this as a series of prompts: S1 → checkpoint → S2 → checkpoint → S3 
 
 ## Before you start
 
-1. **Check the surface.** Figma Design file with edit access. In Make, run the stages that apply to code and skip canvas stages, saying which were skipped.
+1. **Check the surface.** Figma Design file with edit access. In Make, run the stages that apply to code and skip canvas stages, saying which were skipped. In a Figma Spec file, which is a document with no canvas, say this skill needs a Design file and stop.
 2. **Resolve scope.** The selected page or frames. If nothing is selected, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
    > Nothing's selected. 1. Run the workflow on the current page, or 2. select the frames first?
 3. **Confirm inputs.** <Owner, target date, audience, library version, naming rules>. Ask for anything missing before S1; do not assume.
@@ -119,5 +119,5 @@ If a structured question tool such as `ask_user_question` is available, ask ever
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call. Use `create_session` once, then one `use_figma` call per stage action (pass `skillNames: "fm-<process>-workflow"`), reading back with `get_metadata` for the done-check. On any error: stop, inspect partial state, remove partial output, fix, retry once.
+Load the `figma-use` skill before any `use_figma` call. Call `create_session` once for the file key and pass the returned `sessionId` on every later call. Before the first call that changes the canvas, also load `figma-generate-design` (or `figma-generate-library` when the deliverable is a reusable component, variable collection or style) and name it beside `figma-use` in `skillNames` on every changing call, as `skillNames: "figma-use,figma-generate-design,fm-<process>-workflow"`; read-only calls need neither and pass `skillNames: "figma-use,fm-<process>-workflow"`. Keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded. Make one `use_figma` call per stage action, reading back with `get_metadata` for the done-check. On any error: stop, inspect partial state, remove partial output, fix, retry once.
 <!-- /target -->

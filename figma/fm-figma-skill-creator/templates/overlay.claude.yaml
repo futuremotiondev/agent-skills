@@ -10,8 +10,8 @@
 license: MIT
 
 # Optional. Free-text environment requirements. Spec: `compatibility`.
-# Name the MCP server and the skill this edition depends on.
-compatibility: Requires the Figma MCP server (use_figma, create_session, get_design_context) and the figma-use skill.
+# Name the MCP server and the skills this edition depends on.
+compatibility: Requires the Figma MCP server (use_figma, create_session, get_design_context) and the figma-use skill; skills that change the canvas also need figma-generate-design, or figma-generate-library for library assets.
 
 # Optional. Space-separated tool pre-approvals. Spec: `allowed-tools` (experimental; support varies by agent).
 # allowed-tools: mcp__figma__use_figma mcp__figma__create_session mcp__figma__get_design_context mcp__figma__get_screenshot

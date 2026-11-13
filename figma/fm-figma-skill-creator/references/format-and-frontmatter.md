@@ -119,5 +119,7 @@ silently.
   backend, publish to web); instructions about frames and variables mean nothing there, so a
   cross-product skill must branch on the surface up front.
 - **FigJam and Slides** agents are in closed beta (free while in beta); on 2026-10-07 Figma staff
-  said the agent "is currently only available in Figma Design files". Gate FigJam and Slides
-  instructions behind a surface check and fall back to a plan.
+  said the agent "is currently only available in Figma Design files". Figma's AI credits help page
+  announces general availability in FigJam and Slides from 2026-11-19, with AI credits applying
+  (read 2026-11-13). Gate FigJam and Slides instructions behind a surface check and fall back to a
+  plan until a run shows the agent there.

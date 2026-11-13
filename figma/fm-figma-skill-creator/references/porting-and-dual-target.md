@@ -59,7 +59,7 @@ build removes them and the validator rejects any that remain.
 | 4 | Inline every `references/*.md` the agent always needs; shrink sometimes-needed reference to a table or checklist | to Figma | No folders in Figma |
 | 5 | Convert `assets/` templates to fenced blocks or tables; drop binaries | to Figma | No folders; image rendering unverified |
 | 6 | Replace `scripts/` with ordered natural-language steps, or a fence in the core `## Helper scripts` section (first line `// helper: <name>`) that both target sections run, behind a feature check in-app | to Figma | No shell in-app; the build extracts helpers only from that section |
-| 7 | Move `use_figma` code, `create_session`, `get_design_context`, `skillNames`, and `figma-use` prerequisites into `target:mcp` | to Figma | MCP-only tools |
+| 7 | Move `use_figma` code, `create_session` and its `sessionId`, `get_design_context`, `skillNames`, and the `figma-use` prerequisite with its companion skills (`figma-generate-design`, `figma-generate-library`, `figma-spec`) into `target:mcp` | to Figma | MCP-only tools and skills |
 | 8 | Move `evaluate_script`, `show_widget`/`sendPrompt`/`read_me`, `get_comments`, shader tools into `target:figma-app` with a prose fallback | to MCP | In-app-only tools |
 | 9 | Delete relative links; refer to sibling skills only as "Not for X (use /y)" | to Figma | Single file; only the first skill runs |
 | 10 | Re-check size after inlining; split into two named skills rather than exceed about 500 lines | to Figma | Spec recommendation |
@@ -92,4 +92,8 @@ build removes them and the validator rejects any that remain.
 - Give every marked section a fallback sentence ("If it is not available, perform the step with
   your own canvas tools and say which path you took").
 - Keep the in-app helper code under about 150 lines and self-contained per call.
-- Branch by surface at the top (Design file, Make file, other) so the same file is valid in Make.
+- Branch by surface at the top (Design file, Make file, Spec file, other) so the same file is valid
+  in Make and stops cleanly in a Spec file, which has no canvas.
+- Write each helper with top-level `await` and a final `return`, with no function wrapper. Both
+  script tools take the result from `return`; a wrapped function that is never returned gives back
+  nothing in-app. The same fence then runs unchanged in both target sections.

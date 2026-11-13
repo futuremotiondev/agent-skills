@@ -111,5 +111,5 @@ If a structured question tool such as `ask_user_question` is available, ask ever
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call; for FigJam use `get_figjam` to read the board and load `figma-use-figjam` before writing. Use `create_session`, collect text with `use_figma` (pass `skillNames: "fm-<topic>-synthesis"`), and build the optional summary frame in a second call.
+Load the `figma-use` skill before any `use_figma` call; for FigJam use `get_figjam` to read the board and load `figma-use-figjam` before writing. Call `create_session` for the file key and pass the returned `sessionId` on every later call. Before the first call that changes the canvas, also load `figma-generate-design` (or `figma-generate-library` when the deliverable is a reusable component, variable collection or style) and name it beside `figma-use` in `skillNames` on every changing call, as `skillNames: "figma-use,figma-generate-design,fm-<topic>-synthesis"`; read-only calls need neither and pass `skillNames: "figma-use,fm-<topic>-synthesis"`. Keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded. Collect text with `use_figma` (a read-only call), and build the optional summary frame in a second call (a changing call).
 <!-- /target -->

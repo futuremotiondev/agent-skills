@@ -6,15 +6,21 @@ Design agent's own "Currently supported features" table is the authority. Suppor
 to instruct. "Coming soon" and unsupported rows must be written as plan-only output or handed back
 to the user.
 
-## Design agent capability table (Documented, 2026-11-02)
+## Design agent capability table (Documented, 2026-11-13)
+
+Re-read on 2026-11-13 against the agent's help page, the release notes, and
+`references/figma-changelog.md` (Last reviewed 2026-11-13). A status that changed since the
+2026-11-02 table cites the changelog row by date, or the Figma page it came from when the changelog
+has no row for it.
 
 | Capability | Status | What a skill can safely instruct |
 | --- | --- | --- |
-| Use skills; use MCP connectors; attach files to prompts | Supported | Reference connectors and attachments with a fallback when absent |
+| Use skills; use MCP connectors; attach files to prompts | Supported. Text files are the strong attachment type with the Design agent today and images the weak one (documented: Figma's attachments help page, read 2026-11-13) | Reference connectors and attachments with a fallback when absent; prefer a text or token file to a reference image, and say a result from an image is best-effort |
 | Search the web | Supported on paid plans with edit access | Make web lookups optional |
 | Create code layers | Supported (open beta from 2026-10-15) | Code-layer builds |
 | Create shaders and advanced visual effects; generate plugins | Supported | Say "build a plugin" or "shader" explicitly; building costs credits, running does not |
 | Add motion and animation | Supported | Figma Motion keyframes and easing |
+| Compose 3D transforms (depth, perspective, tilt) | Supported (documented: release notes, changelog 2026-11-12) | Feature-check first: `transform3d` reads undefined when 3D is not enabled in the session |
 | 0-to-1 generation; bulk content generation and edits | Supported | Generate inside a new frame |
 | Edit layout (auto layout, spacing, alignment, convert across sizes, restructure sections) | Supported | Layout edits on the selection |
 | Edit component instances (properties, variants, overrides of text, images, size, visibility, layout) | Supported | Swaps and overrides |
@@ -23,7 +29,8 @@ to the user.
 | Create and edit images; convert images to vectors | Supported | AI image generation and image edits |
 | Rename layers; search libraries; search files; select objects on the canvas | Supported | Selection commands such as "select all primary buttons" |
 | Review comments; provide design feedback; file actions (add comments, file metadata) | Supported | Comment synthesis, annotations |
-| Vector editing and Draw tools; create icons; use slots; prototyping and interactions | **Coming soon** | Plan or spec only; ask the user to do it |
+| Generate vector icons and illustrations, with reference illustrations as a style source | Documented as available, not tested by us (documented: release note and vectors help page, changelog 2026-11-05 as corrected by the Product row of 2026-11-13). Figma's pages disagree: the agent's feature table still lists "Create icons" as coming soon | Ask for generated icons or illustrations in a new frame, then check stroke, fill, and layer conformance against the style; say the result is best-effort |
+| Vector editing and Draw tools (editing existing vector paths and points); use slots; prototyping and interactions | **Coming soon** | Plan or spec only; ask the user to do it |
 | Export assets | **Not supported** | Ask the user to export |
 | Create diagrams and data visualizations | **Not supported** (FigJam AI) | Route elsewhere |
 
@@ -31,7 +38,18 @@ Boundaries that matter as much as the table:
 
 - **Make is a different action surface.** Design edits canvas layers; Make edits project code and
   publishes apps. One skill can serve both only if it checks the surface first and branches.
-- **FigJam and Slides** are closed beta; the agent does not appear in those files today.
+  Figma's pages disagree on attachments per Make prompt: the attachments help page says up to 10
+  files, the Make troubleshooting page says up to 3 (both documented, read 2026-11-13). Plan for 3
+  until a run settles it.
+- **A Spec file has no canvas.** A standalone Spec is a Markdown document: there is no canvas API,
+  so frames, text layers, annotations, and motion are absent (observed over MCP, 2026-11-13). The
+  Specs agent opens from "Ask anything" and lists uploaded skills in its slash menu, where they fire
+  (observed in-app, Browser run 2026-11-13). A skill without a Spec branch says it needs a Design
+  file and stops; see "Figma Specs (observed 2026-11-13)" below.
+- **FigJam and Slides** are closed beta today; the agent does not appear in those files. Figma's
+  AI credits help page announces general availability in FigJam and Slides from 2026-11-19, with
+  AI credits applying (documented, read 2026-11-13). Keep FigJam and Slides steps plan-only until a
+  run shows the agent there.
 - **Generative plugins and shaders need explicit trigger words**; otherwise the agent places layers.
 - **Connectors are conditional**: verified partners (Asana, Atlassian, GitHub, Linear, Notion,
   Slack, zeroheight), custom connectors on paid plans, write tools off by default. Always say what
@@ -44,7 +62,13 @@ Boundaries that matter as much as the table:
 - **Four context layers** (Figma, 2026-10-22): library guidelines hold standing rules, examples
   pages hold reference components, attached context covers the task, and skills hold repeatable
   process. Token names and component lists change too often and belong in the library; process
-  belongs in the skill.
+  belongs in the skill. Guidelines have limits (documented: Figma's guidelines help page, read
+  2026-11-13): three to eight files with a combined size under 100 KB are advised, the combined size
+  has a hard cap of 200 KB, and they need Professional and up and are in open beta. A library holds
+  at most 200 examples (Figma's teach-the-agent help page). Figma also says guidelines work best
+  when the agent creates designs from scratch and are applied less consistently when it edits
+  existing designs (Figma blog, 2026-10-22), so a skill that modifies existing work restates its few
+  hard rules at the point of editing and verifies afterwards.
 
 ## Tool vocabulary a skill body may name
 
@@ -59,10 +83,15 @@ each by evidence and always pair an in-app tool with a prose fallback.
 | `list_shader_fills`, `get_shader_fill` | Figma-co-authored `shader-starter` | Lists and reads shader fills ("Do not guess a type string") | In-app only |
 | "Figma's AI image creation tool" | Figma help-center example | Generates an image used as a fill | Yes, by capability name |
 | Library search (`use-design-system`, `select-design-libraries`) | Figma Advocates `update-components` | Runtime skills, not tools; returns component sets with `componentSetKey` | Describe as "search the connected library" |
-| `ask_user_question` | Figma-co-authored `catch-me-up` (per search); **available** in the Figma Design agent probe of 2026-11-03 | Structured multiple choice; renders a card with lettered clickable options plus an "Add a custom response" option; the card does not render Markdown | Name it in `target:figma-app` for every gate, with the plain-text question as the fallback |
+| `ask_user_question` | Figma-co-authored `catch-me-up` (per search); **available** in the Figma Design agent probe of 2026-11-03 | Structured multiple choice; renders a card with lettered clickable options plus an "Add a custom response" option; the card does not render Markdown. Note: once a card is answered, the chat shows the tool's full name, `mcp__plugin_conversation_ask_user_question__ask_user_question` (observed 2026-11-13); skills keep naming it `ask_user_question` | Name it in `target:figma-app` for every gate, with the plain-text question as the fallback |
 | `create_design` | Figma-co-authored `feedback-map` (per search) | Declarative design creation | Unverified; avoid |
 | Web search, connectors | Documented capabilities | No tool names in any skill | Describe in prose; handle absence |
 | `use_figma`, `create_session`, `get_design_context`, `get_screenshot`, `download_assets`, `skillNames` | Official **MCP** tools for external agents | Absent from every in-app body; a Figma-authored skill states the in-app agent "cannot... there is no MCP tool available to it" | MCP section only |
+| `sessionId` | `figma-use` at plugin 2.2.208 | `create_session` returns it; pass it on every later call for the task, including calls to other files | MCP section only |
+| `figma-generate-design`, `figma-generate-library` skills | `figma-use` at plugin 2.2.208 | A call that changes the canvas loads one beside `figma-use` and names both in `skillNames`: `figma-generate-library` when the deliverable is a reusable component, variable collection, or style, `figma-generate-design` otherwise; read-only calls need neither. Over MCP `skillNames` is a logging parameter; no call was rejected for it (observed 2026-11-13) | MCP section only |
+| `figma-spec` skill | Official skill, added 2026-10-15 | Load before any step that reads or writes a Spec; edit with `editContent`, verify with `getContent`, never with screenshots | MCP section only |
+| `create_new_file` with `editorType: "figspec"`, `whoami` | Official MCP tools, named by `figma-spec` | `whoami` reports the plan and whether Specs and code layers are enabled (observed 2026-11-13: `specs_enabled`, `code_layers_enabled`); `create_new_file` with `editorType: "figspec"` and the plan key makes a standalone Spec file; load `figma-create-new-file` first | MCP section only |
+| `get_libraries` | Official MCP tool | A file tool that reads the libraries available to the file; call `create_session` first, as for `search_design_system` | MCP section only |
 | `set_hyperlink` | Not a tool: an error-message prefix (`in set_hyperlink: ...`) | Same `in set_<property>:` format as `use_figma` errors | Never name as a tool |
 
 Tension to design around: the Figma Advocates skill `update-components` says "Do not assume
@@ -77,6 +106,10 @@ core.
 strong inference is one runtime with the in-app host missing some features. Rules an in-app script
 block must follow:
 
+- Write each helper with top-level `await` and a final `return`, with no function wrapper. Both
+  script tools take the result from `return`; a wrapped function that is never returned gives back
+  nothing in-app (probe 1.2, 2026-11-13: the wrapped 1.1 form answered `Plugin executed
+  successfully` with no result, and the top-level form returned every row in both runtimes).
 - Send results back with `return`; `console.log` is not returned. `figma.notify()` was called
   and returned a handler in both probe runs (2026-11-03), although the figma-use guidance says it
   throws; a skill should still not depend on a toast.
@@ -90,9 +123,11 @@ block must follow:
   is present but its call is untested (third-party reports say "not implemented"), so feature-check
   and degrade to the current page; wrap per-node inspection in try/catch because malformed remote
   components throw.
-- In-app, a return carrying a 50,000-character sample did not arrive whole; the same return
-  measured 52,907 bytes over MCP, so the in-app limit is somewhere below that total. Over MCP,
-  `use_figma` rejects returns over 48,000 bytes. Keep results small in both.
+- Return limits. Over MCP, `use_figma` refuses a return over 48,000 bytes and discards that call's
+  canvas edits (measured 2026-11-03 and again 2026-11-13). In-app, a return of about 55,000 bytes
+  arrived whole on 2026-11-13, where about 53,000 bytes did not on 2026-11-03, so the in-app limit
+  is now above 55,000 bytes. MCP is the stricter runtime: size every return for 48,000 bytes, and
+  never write to the canvas and return a large report in the same call.
 - Keep batches small (a third-party author caps at 25 rows per call) and keep helper code under
   about 150 lines, re-pasted per call because nothing persists.
 - Text sizing order: `resize(width, 16)`, then `textAutoResize = 'HEIGHT'`, then `characters`.
@@ -365,6 +400,73 @@ guard detects the Spec by `figma.editorType === "figspec"`, because `figma.spec`
 Design file too. Nothing was left behind in the file. The in-app run in a Spec file was not
 started, to save credits; it would add the Spec disclosure and the question card in the Specs
 agent.
+
+## Figma Specs (observed 2026-11-13)
+
+Observed over `use_figma`, one run each, on 2026-11-13 (run record "MCP probe 2026-11-13" in
+`references/figma-changelog.md`): the standalone Spec file `fm-spec-scratch` and an embedded Spec in
+the Design file `fm-probe-scratch`. The comment objects the API returns carry the author's user id
+and display name; never copy them into a record.
+
+### Standalone Spec file over MCP
+
+| Check | Result |
+| --- | --- |
+| figma.editorType | `figspec` |
+| Feature detection | `Object.keys(figma.spec)` is empty; every method is still callable. Test members by name. |
+| Canvas API in a Spec | `createFrame`, `createText`, `createPage`, `figma.annotations`, `figma.motion` absent; `createAutoLayout` present but untested |
+| Structure | one page, one `SPEC_BLOCK`, `specBlockType` `DOCUMENT`; `figma.root.name` reads `Document` |
+| getContent | keys `specNodeId, markdown, title, totalLines, linesReturned, offset, hasMore` |
+| getContent paging | default call returned all 1,803 lines (26,911 characters) with `hasMore` false; `offset: 1000, maxLines: 5` returned 5 lines with `hasMore` true |
+| setContent | works on an empty document and as a whole-document replace; returns `undefined` |
+| editContent, unique match | works; returns `undefined`; two edits in one call both applied |
+| editContent, zero matches | error: `edit 1 failed — text not found in the current document. ... Re-read with figma.spec.getContent() and retry.` |
+| editContent, two matches | error: `edit 1 failed — found 2 matches for the provided oldText. Include more surrounding context to make the match unique.` |
+| Formatting round trip | bold, italic, code, `<ins>`, to-do items, quote, table, fenced code and rule all survive |
+| Normalisation on readback | the table separator row comes back in a shorter form (three hyphens per cell); two extra blank lines appear after the title H1; the trailing newline is dropped |
+| comments.create | works with `anchorText` alone, with `anchorText` plus `contextText`, and without `specNodeId` (single-Spec file) |
+| comments.create on text written in the same call | error: HTTP 400 `Bad request` from the comments endpoint, twice out of two attempts |
+| comments.create on older text, after an edit in the same call | works |
+| comments.reply, comments.getThread | work; `getThread` given a reply id returns the whole thread from its root |
+| Comment markers | each thread appears in the Markdown as `[comment:<uuid>]text[/comment:<uuid>]` |
+| Edit inside a marked span, markers kept | works; the thread and its reply survive |
+| comments list, resolve, delete | absent: only `create`, `getThread` and `reply` exist |
+| getBlockContent | `typeof` is `function`; calling it over MCP throws `"getBlockContent" is not a supported API` |
+
+### Embedded Spec on a Design canvas over MCP
+
+One mutating call in `fm-probe-scratch`, cleaned up in the same call.
+
+| Check | Result |
+| --- | --- |
+| `findAllWithCriteria({ types: ["SPEC_BLOCK"] })` with no Spec in the file | returns 0, no error |
+| `figma.spec.getContent({})` with no Spec in the file | error: `no Spec was found in this file. Pass a valid specNodeId.` |
+| `figma.spec.createOnCanvasAsync({ title, content })` | returns `{ specNodeId }`; the node is a `SPEC_BLOCK`, `specBlockType` `DOCUMENT`, child of the page |
+| Size and position | 850 x 1100, placed at 0, 0: a skill must move it clear of existing content |
+| Name and title | the node name is the `title` passed; `getContent` reports `title` as `Document` |
+| `getContent` on the new Spec | returns the Markdown written, 3 lines |
+| `node.remove()` | works; the page was empty again afterwards |
+
+### Rules for skill authors
+
+1. **Detect the surface with `figma.editorType`, not with `figma.spec`.** `figma.spec` exists in
+   Design files too. `figspec` means a standalone Spec, where there is no canvas API: no frames,
+   no text nodes, no annotations.
+2. **Test by calling, not by `typeof`.** `saveVersionHistoryAsync`, `commitUndo` and
+   `getBlockContent` are functions that throw when called. A presence-only probe row reports them
+   as available and is wrong.
+3. **A comment cannot anchor on text the same call just wrote.** Write or edit content in one
+   call, comment in the next. Anchoring on text that was already there is fine.
+4. **Keep the whole return under 48,000 bytes, and treat an oversized return as a lost write.**
+   The bridge discards the canvas edits of the failed call. A script that writes and then returns
+   a large report loses both. Measure the serialized size before returning.
+5. **Compare Spec content after normalising.** A byte-for-byte compare between what was written
+   and what `getContent` returns fails on the table separator, the blank lines after the title and
+   the trailing newline. Verify with `includes` on the sentences that matter, as the official
+   `figma-spec` skill does.
+6. **Read a Spec in one call when it is small, in pages when it is not.** A 27,000-character
+   document came back whole. A long Spec plus other returned fields can pass 48,000 bytes; page
+   with `offset` and `maxLines` and return counts, not the text.
 
 ## Credits-aware instructions
 

@@ -106,8 +106,12 @@ deterministic plugins for workflows that should run the same way every time").
 rule, ordered steps written as design actions, Do/Do-not rules, output contract, edge cases, and
 final gate. Execution detail lives in two marked optional sections: an in-app section that
 feature-detects `evaluate_script` or `show_widget` and keeps helper code short, and an MCP section
-that loads `figma-use` and names `use_figma`. The build step keeps one section per target. The core
-never depends on either section existing.
+that loads `figma-use`, opens a session with `create_session` and passes its `sessionId` on every
+later call, loads `figma-generate-design` (or `figma-generate-library` for library assets) before
+any call that changes the canvas, keeps each return under 48,000 bytes, and names `use_figma`. Both
+sections run the same core helpers, written with top-level `await` and a final `return` and no
+function wrapper. The build step keeps one section per target. The core never depends on either
+section existing.
 
 ## Descriptions that route
 

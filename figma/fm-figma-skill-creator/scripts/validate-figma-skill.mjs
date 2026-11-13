@@ -77,7 +77,7 @@ const RULES = [
   { id: "frontmatter-keys", editions: WITH_FM, severity: "warn", basis: "Figma: extra keys unverified on upload; spec: name, description, license, compatibility, metadata, allowed-tools" },
   { id: "metadata-strings", editions: ALL, severity: "error", basis: "spec: metadata is a string-to-string map; `version: 1.0` is a float, quote it" },
   { id: "relative-links", editions: ["master", ...FIGMA], severity: "error", basis: "Figma: single file, no folders; references/, scripts/, assets/ are dead in-app" },
-  { id: "mcp-tools", editions: ["master", ...FIGMA], severity: "error", basis: "use_figma, create_session, get_design_context, skillNames, download_assets exist only on the MCP server" },
+  { id: "mcp-tools", editions: ["master", ...FIGMA], severity: "error", basis: "use_figma, create_session, sessionId, get_design_context, skillNames, download_assets, whoami exist only on the MCP server, and the figma-use, figma-generate-design, figma-generate-library and figma-spec skills are loaded only there" },
   { id: "inapp-tools", editions: ["master", "coding-agent"], severity: "error", basis: "evaluate_script, show_widget, sendPrompt, read_me, get_comments, list_shader_fills exist only in-app" },
   { id: "markers-balanced", editions: ["master"], severity: "error", basis: "build convention: every <!-- target:x --> has a <!-- /target -->" },
   { id: "markers-leaked", editions: ["upload", "paste", "coding-agent"], severity: "error", basis: "markers are build-time only; Figma shows HTML comments as text" },
@@ -326,7 +326,7 @@ if (isFigmaEdition) {
 // Tool vocabulary and links by region
 // ---------------------------------------------------------------------------
 
-const MCP_TOOLS = /\b(use_figma|create_session|get_design_context|get_screenshot|get_metadata|download_assets|upload_assets|search_design_system|get_variable_defs|get_figjam|generate_image|generate_diagram|skillNames|figma-use)\b/g
+const MCP_TOOLS = /\b(use_figma|create_session|get_design_context|get_screenshot|get_metadata|download_assets|upload_assets|search_design_system|get_variable_defs|get_figjam|generate_image|generate_diagram|skillNames|sessionId|create_new_file|get_libraries|whoami|figma-use|figma-generate-design|figma-generate-library|figma-spec)\b/g
 const INAPP_TOOLS = /\b(evaluate_script|show_widget|sendPrompt|read_me|get_comments|list_shader_fills|get_shader_fill|ask_user_question)\b/g
 const REL_LINKS = /\]\(\.\.?\/|(?<![\w/.-])(references|scripts|assets)\/[\w.-]+/g
 

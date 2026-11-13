@@ -24,7 +24,7 @@ Three principles matter more than the template: every finding carries visible ev
 
 ## Before you start
 
-1. **Check the surface.** Figma Design: critique the selected layers. Figma Make: critique the current screen's navigation, states, and feedback paths. A screenshot or reference with no editable context: critique what is visible and say so.
+1. **Check the surface.** Figma Design: critique the selected layers. Figma Make: critique the current screen's navigation, states, and feedback paths. A screenshot or reference with no editable context: critique what is visible and say so. In a Figma Spec file, which is a document with no canvas, say this skill needs a Design file and stop.
 2. **Resolve the target.** Use the selection. If nothing is selected, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
    > Nothing's selected. 1. Review the current page, or 2. select the frames you want reviewed?
    If the target is too broad (a whole product, brand, and system at once), narrow to one surface and state the boundary.
@@ -104,3 +104,9 @@ Report only this. No canvas changes. Confirm at the end that no layer was modifi
 - [ ] At most five findings, each with one concrete change
 - [ ] Severity reflects user impact, not taste
 - [ ] No layer was modified
+
+<!-- target:figma-app -->
+## In-app execution (Figma agent)
+
+If a structured question tool such as `ask_user_question` is available, ask the scope question through it with the same numbered options; the plain-text wording is the fallback and the record of what was asked.
+<!-- /target -->

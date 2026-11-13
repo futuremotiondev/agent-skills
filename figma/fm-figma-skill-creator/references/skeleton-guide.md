@@ -32,6 +32,9 @@ metadata:
 - `metadata` holds six quoted strings: `version`, `author`, `category`, `tags`, `applies-to`, and
   `runtimes`, which a later manifest generator reads. They stay in the master and the coding-agent
   edition; the build strips them from the upload edition, which keeps only name and description.
+- `runtimes` lists where the skill runs, from the documented values `figma-design`, `figma-make`,
+  `figma-spec`, and `mcp`. Add `figma-spec` only to a skill that has a Spec branch; a skill whose
+  surface check stops in a Spec file leaves it out.
 
 ## Title and lede
 
@@ -51,7 +54,11 @@ skill does not do and the skill that does.
 The scope gate. Always three checks:
 
 1. **Surface.** Design file: canvas layers. Make file: project code or a spec. FigJam or Slides, or
-   a request that needs prototyping, vectors, slots, exports, or diagrams: plan only, say so.
+   a request that needs prototyping, vectors, slots, exports, or diagrams: plan only, say so. In a
+   Figma Spec file, which is a document with no canvas, say this skill needs a Design file and stop.
+   A skill written to read or write a Spec replaces that sentence with its Spec branch, and its
+   helper detects the surface with `figma.editorType === "figspec"`, never with the presence of
+   `figma.spec`, which exists in Design files too. The Specs plan adds the template for such skills.
 2. **Scope.** Use the current selection. If nothing is selected, ask a verbatim question with
    numbered options (through a structured question tool when the runtime has one) and stop. Never
    expand to the page or file without asking.
@@ -109,7 +116,10 @@ Each case says what to do when the ideal path fails, and why the rule exists:
 A core section after Common edge cases and before the Final gate. It holds one fenced `javascript`
 block per helper whose first body line is `// helper: <name>`, with the name matching
 `^[a-z][a-z0-9-]*$` (lowercase, hyphenated). Each helper is self-contained and returns a plain
-object; nothing persists between calls. Both target sections run the helpers by name. The build
+object; nothing persists between calls. Write each helper with top-level `await` and a final
+`return`, with no function wrapper. Both script tools take the result from `return`; a wrapped
+function that is never returned gives back nothing in-app. Both target sections run the helpers by
+name, as written. The build
 inlines every helper in the Figma editions and moves each to `scripts/<name>.js` in the
 coding-agent edition, leaving a one-line pointer. A helper fence inside a target section ships to
 one runtime only, so the validator warns about it (`helper-placement`), and a `// helper:` marker
@@ -118,11 +128,9 @@ anywhere else is not extracted.
 ```javascript
 // helper: collect
 // Collect: what it reads or builds, in one line.
-(async () => {
-  const sel = figma.currentPage.selection;
-  if (sel.length === 0) return { error: "nothing selected" };
-  return { ok: true };
-})();
+const sel = figma.currentPage.selection;
+if (sel.length === 0) return { error: "nothing selected" };
+return { ok: true };
 ```
 
 ## Final gate
@@ -144,11 +152,20 @@ steps with your own canvas tools and say which path you took.
 
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
-Load the `figma-use` skill before any `use_figma` call. Start with `create_session` for the file
-key, read with `get_design_context` or `get_screenshot`, and write with `use_figma`. Run the collect
-helper in Helper scripts through `use_figma` without its `(async () => {` and `})();` wrapper lines.
+Load the `figma-use` skill before any `use_figma` call. Call `create_session` for the file key and
+pass the returned `sessionId` on every later call. Before the first call that changes the canvas,
+also load `figma-generate-design` (or `figma-generate-library` when the deliverable is a reusable
+component, variable collection or style) and name it beside `figma-use` in `skillNames` on every
+changing call; read-only calls need neither. Keep each return under 48,000 bytes, because a larger
+one is refused and the call's canvas edits are discarded. Read with `get_design_context` or
+`get_screenshot`, write with `use_figma`, and run the collect helper in Helper scripts through
+`use_figma` as written.
 <!-- /target -->
 ```
+
+Every MCP section states those four things in that order: `figma-use` first, then the session and
+its `sessionId`, then the companion skill for calls that change the canvas, then the return limit.
+A skill that never writes to the canvas leaves out the companion-skill sentence.
 
 Neither runtime reads the markers, and Figma keeps HTML comments as visible text, so markers must
 never ship. `scripts/build-skill-editions.mjs` strips them.

@@ -24,7 +24,7 @@ Run this as a series of prompts: P1 → P2 → A1 → P3 → A2 → A3. Ask one 
 
 ## Before you start
 
-1. **Check the surface.** Figma Design: build on canvas. Figma Make: return the artifact spec as structured text instead of layers.
+1. **Check the surface.** Figma Design: build on canvas. Figma Make: return the artifact spec as structured text instead of layers. In a Figma Spec file, which is a document with no canvas, say this skill needs a Design file and stop.
 2. **Resolve the input (P1).**
 
    | Selection | Do this |
@@ -50,6 +50,7 @@ From the input and the answers, compute every dimension: <e.g. padding = 18 perc
 
 ### P3: Confirm placement
 
+Ask, verbatim, with numbered options (through a structured question tool when the runtime has one; plain text otherwise):
 > Build it as a new frame 1. to the right of the source or 2. on a new page named "<artifact>"?
 Wait.
 
@@ -118,5 +119,5 @@ If a structured question tool such as `ask_user_question` is available, ask ever
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call. Use `create_session`, read the source with `get_design_context`, build with `use_figma` (pass `skillNames: "fm-make-<artifact>"`), verify with `get_screenshot` and a read-back script. For generated backgrounds use `generate_image` and `upload_assets`.
+Load the `figma-use` skill before any `use_figma` call. Call `create_session` for the file key and pass the returned `sessionId` on every later call. Before the first call that changes the canvas, also load `figma-generate-design` (or `figma-generate-library` when the deliverable is a reusable component, variable collection or style) and name it beside `figma-use` in `skillNames` on every changing call, as `skillNames: "figma-use,figma-generate-design,fm-make-<artifact>"`; read-only calls need neither and pass `skillNames: "figma-use,fm-make-<artifact>"`. Keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded. Read the source with `get_design_context`, build with `use_figma`, verify with `get_screenshot` and a read-back script. For generated backgrounds use `generate_image` and `upload_assets`.
 <!-- /target -->

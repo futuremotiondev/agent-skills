@@ -22,7 +22,7 @@ Measures the selection against a numeric standard and reports violations as a ra
 
 ## Before you start
 
-1. **Check the surface.** Figma Design only. In Make, return the standard as a checklist for the code instead.
+1. **Check the surface.** Figma Design only. In Make, return the standard as a checklist for the code instead. In a Figma Spec file, which is a document with no canvas, say this skill needs a Design file and stop.
 2. **Resolve the scope.** Use the selection. If nothing is selected, ask, verbatim (through a structured question tool when the runtime has one; plain text otherwise):
    > Nothing's selected. 1. Audit the current page (this can be slow and costly on large pages), or 2. select the frames you want audited?
 3. **Confirm the standard.** Allowed values: <e.g. 0, 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96>. Tolerance: <e.g. none; 1 px rounding counts as a violation>. If the file has a documented scale in its library guidelines, use that instead and say so.
@@ -88,29 +88,27 @@ Measures the selection against a numeric standard and reports violations as a ra
 
 ## Helper scripts
 
-Each helper is self-contained and returns a plain object; nothing persists between calls. Both target sections below run it by name.
+Each helper is self-contained and returns a plain object; nothing persists between calls. Write each helper with top-level `await` and a final `return`, with no function wrapper. Both script tools take the result from `return`; a wrapped function that is never returned gives back nothing in-app. Both target sections below run it by name.
 
 ```javascript
 // helper: collect
 // Collect auto-layout spacing for the selection (read-only).
-(async () => {
-  const allowed = [0, 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96];
-  const nearest = (v) => allowed.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
-  const rows = [];
-  const walk = (n, path) => {
-    if (n.visible === false) return;
-    const p = path ? path + " / " + n.name : n.name;
-    if ("layoutMode" in n && n.layoutMode !== "NONE") {
-      for (const k of ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "itemSpacing", "counterAxisSpacing"]) {
-        const v = n[k];
-        if (typeof v === "number" && !allowed.includes(v)) rows.push({ id: n.id, path: p, property: k, current: v, nearest: nearest(v), delta: Math.abs(nearest(v) - v) });
-      }
+const allowed = [0, 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96];
+const nearest = (v) => allowed.reduce((a, b) => Math.abs(b - v) < Math.abs(a - v) ? b : a);
+const rows = [];
+const walk = (n, path) => {
+  if (n.visible === false) return;
+  const p = path ? path + " / " + n.name : n.name;
+  if ("layoutMode" in n && n.layoutMode !== "NONE") {
+    for (const k of ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "itemSpacing", "counterAxisSpacing"]) {
+      const v = n[k];
+      if (typeof v === "number" && !allowed.includes(v)) rows.push({ id: n.id, path: p, property: k, current: v, nearest: nearest(v), delta: Math.abs(nearest(v) - v) });
     }
-    if ("children" in n) for (const c of n.children) walk(c, p);
-  };
-  for (const n of figma.currentPage.selection) walk(n, "");
-  return { count: rows.length, rows: rows.slice(0, 200) };
-})();
+  }
+  if ("children" in n) for (const c of n.children) walk(c, p);
+};
+for (const n of figma.currentPage.selection) walk(n, "");
+return { count: rows.length, rows: rows.slice(0, 200) };
 ```
 
 ## Final gate: do not finish until every line is true
@@ -129,5 +127,5 @@ If a structured question tool such as `ask_user_question` is available, ask ever
 <!-- target:mcp -->
 ## MCP execution (Claude Code, Cursor, Codex)
 
-Load the `figma-use` skill before any `use_figma` call. Use `create_session` for the file key, run the collect helper in Helper scripts through `use_figma` without its `(async () => {` and `})();` wrapper lines (pass `skillNames: "fm-<standard>-audit"`), present the table, and apply confirmed snaps in a second `use_figma` call that sets only the named properties by node id, then re-reads them.
+Load the `figma-use` skill before any `use_figma` call. Call `create_session` for the file key and pass the returned `sessionId` on every later call. Before the first call that changes the canvas, also load `figma-generate-design` (or `figma-generate-library` when the deliverable is a reusable component, variable collection or style) and name it beside `figma-use` in `skillNames` on every changing call, as `skillNames: "figma-use,figma-generate-design,fm-<standard>-audit"`; read-only calls need neither and pass `skillNames: "figma-use,fm-<standard>-audit"`. Keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded. Run the collect helper in Helper scripts through `use_figma` as written (a read-only call), present the table, and apply confirmed snaps in a second `use_figma` call (a changing call) that sets only the named properties by node id, then re-reads them.
 <!-- /target -->
