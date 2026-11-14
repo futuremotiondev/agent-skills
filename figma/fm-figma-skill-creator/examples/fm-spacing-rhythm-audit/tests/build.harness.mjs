@@ -23,6 +23,10 @@ const BUILDER = join(creator, "scripts", "build-skill-editions.mjs")
 const VALIDATOR = join(creator, "scripts", "validate-figma-skill.mjs")
 const tmp = mkdtempSync(join(tmpdir(), "build-harness-"))
 
+// The audit master's metadata.version, and its successor (minor plus one), so a version bump needs no edit here.
+const VERSION = metadataOf(AUDIT).version
+const NEXT_VERSION = VERSION.replace(/\d+$/, (minor) => String(Number(minor) + 1))
+
 // The manifest's keys, in the order the Manifest table of references/format-and-frontmatter.md lists them.
 const KEYS = ["schemaVersion", "type", "name", "description", "version", "author", "category", "tags", "appliesTo", "runtimes", "editions", "enhancements", "cost", "evalStatus", "source"]
 
@@ -167,7 +171,7 @@ const cases = {
     return check([
       [m.schemaVersion === "1" && m.type === "skill", `schemaVersion ${show(m.schemaVersion)}, type ${show(m.type)}`],
       [m.name === name && m.description === meta.description, "name or description differs from the master"],
-      [m.version === "2.2" && m.version === meta.version, `version ${show(m.version)}`],
+      [m.version === VERSION && m.version === meta.version, `version ${show(m.version)}`],
       [m.author === meta.author && m.category === meta.category, `author ${show(m.author)}, category ${show(m.category)}`],
       [same(m.tags, meta.tags) && same(m.appliesTo, meta.appliesTo) && same(m.runtimes, meta.runtimes), `tags ${show(m.tags)}, appliesTo ${show(m.appliesTo)}, runtimes ${show(m.runtimes)}`],
       [same(m.enhancements, ["revert", "token-conformance"]), `enhancements ${show(m.enhancements)}`],
@@ -230,18 +234,18 @@ const cases = {
       [Object.keys(dist1).some((k) => k.endsWith(".manifest.json")), "the first build wrote no manifest"],
       [sameTree(dist1, dist2), "dist differs after the second build"],
       [sameTree(hist1, hist2), "history differs after the second build"],
-      [same(list(join(dir, "history")), ["2.2"]), `history holds ${show(list(join(dir, "history")))}`],
+      [same(list(join(dir, "history")), [VERSION]), `history holds ${show(list(join(dir, "history")))}`],
     ])
   },
-  "(d) history/2.2 holds byte copies of the master and the overlay, and nothing from dist": () => {
+  [`(d) history/${VERSION} holds byte copies of the master and the overlay, and nothing from dist`]: () => {
     const { dir, run } = auditBuild()
-    const h = join(dir, "history", "2.2")
+    const h = join(dir, "history", VERSION)
     return check([
       [run.status === 0, `exit ${run.status}`],
-      [sameBytes(join(dir, "SKILL.md"), join(h, "SKILL.md")), "history/2.2/SKILL.md is not a byte copy of the master"],
-      [sameBytes(join(dir, "overlay.claude.yaml"), join(h, "overlay.claude.yaml")), "history/2.2/overlay.claude.yaml is not a byte copy of the overlay"],
-      [same(list(h), ["SKILL.md", "overlay.claude.yaml"]), `history/2.2 holds ${show(list(h))}`],
-      [same(list(join(dir, "history")), ["2.2"]), `history holds ${show(list(join(dir, "history")))}`],
+      [sameBytes(join(dir, "SKILL.md"), join(h, "SKILL.md")), `history/${VERSION}/SKILL.md is not a byte copy of the master`],
+      [sameBytes(join(dir, "overlay.claude.yaml"), join(h, "overlay.claude.yaml")), `history/${VERSION}/overlay.claude.yaml is not a byte copy of the overlay`],
+      [same(list(h), ["SKILL.md", "overlay.claude.yaml"]), `history/${VERSION} holds ${show(list(h))}`],
+      [same(list(join(dir, "history")), [VERSION]), `history holds ${show(list(join(dir, "history")))}`],
     ])
   },
   "(d) a version bump keeps the old snapshot byte-identical and adds the new one": () => {
@@ -249,17 +253,17 @@ const cases = {
     const before = readFileSync(join(dir, "SKILL.md"))
     const r1 = build(dir)
     const text = before.toString("utf8")
-    if (!text.includes('  version: "2.2"\n')) return ['the master has no `  version: "2.2"` line to bump']
-    writeFileSync(join(dir, "SKILL.md"), text.replace('  version: "2.2"\n', '  version: "2.3"\n'))
+    if (!text.includes(`  version: "${VERSION}"\n`)) return [`the master has no \`  version: "${VERSION}"\` line to bump`]
+    writeFileSync(join(dir, "SKILL.md"), text.replace(`  version: "${VERSION}"\n`, `  version: "${NEXT_VERSION}"\n`))
     const r2 = build(dir)
     const h = join(dir, "history")
     return check([
       [r1.status === 0 && r2.status === 0, `exits ${r1.status}, ${r2.status}`],
-      [same(list(h), ["2.2", "2.3"]), `history holds ${show(list(h))}`],
-      [existsSync(join(h, "2.2", "SKILL.md")) && readFileSync(join(h, "2.2", "SKILL.md")).equals(before), "history/2.2/SKILL.md is not the pre-bump master"],
-      [sameBytes(join(dir, "SKILL.md"), join(h, "2.3", "SKILL.md")), "history/2.3/SKILL.md is not the bumped master"],
-      [sameBytes(join(dir, "overlay.claude.yaml"), join(h, "2.3", "overlay.claude.yaml")), "history/2.3 has no overlay copy"],
-      [manifestOf(dir)?.version === "2.3", `manifest version ${show(manifestOf(dir)?.version)}`],
+      [same(list(h), [VERSION, NEXT_VERSION]), `history holds ${show(list(h))}`],
+      [existsSync(join(h, VERSION, "SKILL.md")) && readFileSync(join(h, VERSION, "SKILL.md")).equals(before), `history/${VERSION}/SKILL.md is not the pre-bump master`],
+      [sameBytes(join(dir, "SKILL.md"), join(h, NEXT_VERSION, "SKILL.md")), `history/${NEXT_VERSION}/SKILL.md is not the bumped master`],
+      [sameBytes(join(dir, "overlay.claude.yaml"), join(h, NEXT_VERSION, "overlay.claude.yaml")), `history/${NEXT_VERSION} has no overlay copy`],
+      [manifestOf(dir)?.version === NEXT_VERSION, `manifest version ${show(manifestOf(dir)?.version)}`],
     ])
   },
   "a rebuild at an unchanged version overwrites that version's snapshot": () => {
@@ -269,8 +273,8 @@ const cases = {
     const r2 = build(dir)
     return check([
       [r1.status === 0 && r2.status === 0, `exits ${r1.status}, ${r2.status}`],
-      [sameBytes(join(dir, "SKILL.md"), join(dir, "history", "2.2", "SKILL.md")), "history/2.2/SKILL.md still holds the earlier master"],
-      [same(list(join(dir, "history")), ["2.2"]), `history holds ${show(list(join(dir, "history")))}`],
+      [sameBytes(join(dir, "SKILL.md"), join(dir, "history", VERSION, "SKILL.md")), `history/${VERSION}/SKILL.md still holds the earlier master`],
+      [same(list(join(dir, "history")), [VERSION]), `history holds ${show(list(join(dir, "history")))}`],
     ])
   },
   "(b) the probe with no EVAL-LOG.md beside it builds at exit 0, empty stderr, evalStatus nulls, no packs": () => {
@@ -324,7 +328,7 @@ const cases = {
       [readFileSync(errFile, "utf8") === "", `stderr file: ${show(readFileSync(errFile, "utf8"))}`],
       [m !== null, "no manifest"],
       [same(m?.source, { master: "../SKILL.md" }), `source ${show(m?.source)}`],
-      [existsSync(join(dir, "history", "2.2", "SKILL.md")), "no history snapshot"],
+      [existsSync(join(dir, "history", VERSION, "SKILL.md")), "no history snapshot"],
     ])
   },
   "a dry run writes no manifest and no history folder": () => {
@@ -382,7 +386,7 @@ const cases = {
       [!/\bgit\b|\.git\b/.test(src), "the builder source names git or .git"],
       [r.status === 0 && r.stderr === "", `exit ${r.status}: ${r.stderr.trim()}`],
       [existsSync(manifestPath(dir)) && readFileSync(manifestPath(dir)).equals(readFileSync(manifestPath(reference.dir))), "the manifest is missing or differs from an ordinary build's"],
-      [sameBytes(join(dir, "SKILL.md"), join(dir, "history", "2.2", "SKILL.md")) && sameBytes(join(dir, "overlay.claude.yaml"), join(dir, "history", "2.2", "overlay.claude.yaml")), "the history snapshot is missing or wrong"],
+      [sameBytes(join(dir, "SKILL.md"), join(dir, "history", VERSION, "SKILL.md")) && sameBytes(join(dir, "overlay.claude.yaml"), join(dir, "history", VERSION, "overlay.claude.yaml")), "the history snapshot is missing or wrong"],
     ])
   },
   "enhancements lists regions in core helpers only, from the pack library's region scan": () => {

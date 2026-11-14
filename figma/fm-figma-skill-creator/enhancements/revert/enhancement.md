@@ -38,7 +38,7 @@ Text:
 
 ### Unit 2: prose-sentence in Output contract
 
-Master line 59, column 1192. Anchor:
+Master line 59, column 1497. Anchor:
 
 ```json
 {
@@ -65,7 +65,7 @@ Master line 90. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "## After fixes (only if applied)",
+  "after": "## After fixes",
   "afterHelper": null,
   "key": null,
   "offset": null
@@ -80,13 +80,13 @@ Previous is the human record; the revert list is the apply result.
 
 ### Unit 4: block in Common edge cases
 
-Master line 142. Anchor:
+Master line 141. Anchor:
 
 ```json
 {
   "section": "Common edge cases",
   "helper": null,
-  "after": "- **Gap of 2, or fractional values such as 15.5.** Both rank P3 with a note: a gap of 2 is a half-step unless the user disallows 2; 15.5's nearest on-grid value is 16.",
+  "after": "- **Instances with overrides, or a main component outside the selection or on another page.** The lasting fix is the main component: list it once with the inherited count and name its page. Report an override and apply it only on explicit confirmation.",
   "afterHelper": null,
   "key": null,
   "offset": null
@@ -101,7 +101,7 @@ Text:
 
 ### Unit 5: fence in Helper scripts
 
-Master lines 441 to 476. Anchor:
+Master lines 439 to 474. Anchor:
 
 ````json
 {
@@ -157,7 +157,7 @@ return { reverted, skipped };
 
 ### Unit 6: block in Final gate: do not finish until every line is true, checked against the canvas, not from memory
 
-Master line 488. Anchor:
+Master line 486. Anchor:
 
 ```json
 {
@@ -178,7 +178,7 @@ Text:
 
 ### Unit 7: sentence in In-app execution (Figma agent)
 
-Master line 493, column 433. Anchor:
+Master line 491, column 433. Anchor:
 
 ```json
 {
@@ -199,7 +199,7 @@ Revert: on request, run the revert script with the `applied` list from the apply
 
 ### Unit 8: sentence in MCP execution (Claude Code, Cursor, Codex)
 
-Master line 499, column 870. Anchor:
+Master line 497, column 870. Anchor:
 
 ```json
 {

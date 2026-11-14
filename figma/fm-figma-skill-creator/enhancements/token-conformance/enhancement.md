@@ -142,7 +142,7 @@ Master line 44. Anchor:
 {
   "section": "Instructions",
   "helper": null,
-  "after": "3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48. Under a 4 pt grid the largest possible delta below 48 is 2, so severity keys on 2 versus 1.",
+  "after": "3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48, 2 becomes 4. A positive value never snaps to 0: below 4 its nearest is 4. Otherwise the largest delta below 48 is 2, so severity keys on 2 versus 1.",
   "afterHelper": null,
   "key": null,
   "offset": null
@@ -199,7 +199,7 @@ Token mode: a binding is added only on confirmed unbound rows; the fix binds the
 
 ### Unit 10: prose-sentence in Output contract
 
-Master line 59, column 497. Anchor:
+Master line 59, column 781. Anchor:
 
 ```json
 {
@@ -215,18 +215,18 @@ Master line 59, column 497. Anchor:
 Text:
 
 ```markdown
-Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table before the main table; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4.
+Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table, when there are any, before the main table; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4.
 ```
 
 ### Unit 11: sentence in Output contract
 
-Master line 59, column 1027. Anchor:
+Master line 59, column 1332. Anchor:
 
 ```json
 {
   "section": "Output contract",
   "helper": null,
-  "after": "Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table before the main table; and the Fix column's bind form, \"bind Space/200\", beside \"set 8\" for a value with no token within 4.",
+  "after": "Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table, when there are any, before the main table; and the Fix column's bind form, \"bind Space/200\", beside \"set 8\" for a value with no token within 4.",
   "afterHelper": null,
   "key": null,
   "offset": null
@@ -257,7 +257,7 @@ Master line 65. Anchor:
 Text:
 
 ```markdown
-- Mode: tokens (<spacingCollection.name>) | rhythm
+- Mode: <tokens (collection name), or rhythm>
 ```
 
 ### Unit 13: template-line in Output contract
@@ -299,7 +299,7 @@ Master line 71. Anchor:
 Text:
 
 ```markdown
-- Tokens off the 4/8 rhythm: Space/150 = 6 (12 values); a scale decision, not a defect
+- Tokens off the 4/8 rhythm: <token> = <value> (<n> values); a scale decision, not a defect
 ```
 
 ### Unit 15: template-line in Output contract
@@ -310,7 +310,7 @@ Master line 72. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- Tokens off the 4/8 rhythm: Space/150 = 6 (12 values); a scale decision, not a defect",
+  "after": "- Tokens off the 4/8 rhythm: <token> = <value> (<n> values); a scale decision, not a defect",
   "afterHelper": null,
   "key": null,
   "offset": null
@@ -320,7 +320,7 @@ Master line 72. Anchor:
 Text:
 
 ```markdown
-- Bind opportunities: <n> values across <n> tokens (table below when any)
+- Bind opportunities: <n> values across <n> tokens
 ```
 
 ### Unit 16: template-line in Output contract
@@ -331,7 +331,7 @@ Master line 73. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- Bind opportunities: <n> values across <n> tokens (table below when any)",
+  "after": "- Bind opportunities: <n> values across <n> tokens",
   "afterHelper": null,
   "key": null,
   "offset": null
@@ -383,7 +383,7 @@ Master line 75. Anchor:
 Text:
 
 ```markdown
-- Matched but not offered: <collection> (<n> <reason>), one entry per collection
+- Matched but not offered: <collection> (<n> <reason>)
 ```
 
 ### Unit 19: template-line in Output contract
@@ -404,7 +404,7 @@ Master line 78. Anchor:
 Text:
 
 ```markdown
-## Bind opportunities (token mode, when any)
+## Bind opportunities
 ```
 
 ### Unit 20: template-line in Output contract
@@ -415,7 +415,7 @@ Master line 79. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "## Bind opportunities (token mode, when any)",
+  "after": "## Bind opportunities",
   "afterHelper": null,
   "key": null,
   "offset": null
@@ -601,7 +601,7 @@ Token mode: a negative value carries the note "negative value, not snapped" and 
 
 ### Unit 29: line-rewrite in Helper scripts
 
-Master line 151. Anchor:
+Master line 149. Anchor:
 
 ```json
 {
@@ -628,7 +628,7 @@ let MODE = "rhythm";
 
 ### Unit 30: code-region in Helper scripts
 
-Master lines 162 to 238. Anchor:
+Master lines 160 to 236. Anchor:
 
 ```json
 {
@@ -725,7 +725,7 @@ const tokenCheck = (own, k, v, isBound) => {
 
 ### Unit 31: code-region in Helper scripts
 
-Master lines 277 to 282. Anchor:
+Master lines 275 to 280. Anchor:
 
 ```json
 {
@@ -751,7 +751,7 @@ Text:
 
 ### Unit 32: code-region in Helper scripts
 
-Master lines 338 to 340. Anchor:
+Master lines 336 to 338. Anchor:
 
 ```json
 {
@@ -774,7 +774,7 @@ Text:
 
 ### Unit 33: code-region in Helper scripts
 
-Master lines 357 to 387. Anchor:
+Master lines 355 to 385. Anchor:
 
 ```json
 {
@@ -825,7 +825,7 @@ out.rows = list.concat(frames <= 50 ? oppRows : [], negRows).slice(0, MAX_ROWS);
 
 ### Unit 34: code-region in Helper scripts
 
-Master lines 408 to 415. Anchor:
+Master lines 406 to 413. Anchor:
 
 ```json
 {
@@ -853,7 +853,7 @@ Text:
 
 ### Unit 35: code-region in Helper scripts
 
-Master lines 433 to 435. Anchor:
+Master lines 431 to 433. Anchor:
 
 ```json
 {
@@ -876,7 +876,7 @@ Text:
 
 ### Unit 36: block in Final gate: do not finish until every line is true, checked against the canvas, not from memory
 
-Master line 487. Anchor:
+Master line 485. Anchor:
 
 ```json
 {
@@ -897,7 +897,7 @@ Text:
 
 ### Unit 37: sentence in In-app execution (Figma agent)
 
-Master line 493, column 612. Anchor:
+Master line 491, column 612. Anchor:
 
 ```json
 {
@@ -918,7 +918,7 @@ Token mode: run the collect script once with MODE set to discover before asking 
 
 ### Unit 38: sentence in In-app execution (Figma agent)
 
-Master line 493, column 1051. Anchor:
+Master line 491, column 1051. Anchor:
 
 ```json
 {
@@ -939,7 +939,7 @@ Token mode: use the tool for the mode question too, with the same numbered optio
 
 ### Unit 39: sentence in MCP execution (Claude Code, Cursor, Codex)
 
-Master line 499, column 987. Anchor:
+Master line 497, column 987. Anchor:
 
 ```json
 {

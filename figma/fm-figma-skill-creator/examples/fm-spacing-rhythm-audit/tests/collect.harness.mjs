@@ -365,6 +365,52 @@ const cases = {
       ]),
     }
   },
+
+  "14 a positive value below 4 snaps to 4, never to 0 (rhythm mode)"() {
+    const f = node("Tiny", "FRAME", { paddingTop: 1, paddingRight: 2, paddingBottom: 3, paddingLeft: 0.5, itemSpacing: 2 })
+    const set4 = { kind: "set", value: 4, reason: "nearest on-grid" }
+    // [priority, property, current, nearest, delta, note], in the order the rows must come back.
+    const want = [
+      ["P1", "Padding left", 0.5, 4, 3.5, "fractional"],
+      ["P1", "Padding top", 1, 4, 3, ""],
+      ["P1", "Padding right", 2, 4, 2, ""],
+      ["P2", "Padding bottom", 3, 4, 1, ""],
+      ["P3", "Gap", 2, 4, 2, "2 px half-step"],
+    ]
+    return {
+      figma: mockFigma({ top: [f] }), mode: "rhythm",
+      assert: (r) => {
+        const got = r.rows.map((x) => [x.priority, x.property, x.current, x.nearest, x.delta, x.note])
+        return check([
+          [show(got) === show(want), "rows " + show(want) + ", got " + show(got)],
+          [r.rows.every((x) => show(x.fix) === show(set4)), "every fix " + show(set4) + ", got " + show(r.rows.map((x) => x.fix))],
+          [show(r.byPriority) === show({ P0: 0, P1: 3, P2: 1, P3: 1 }), "byPriority P0 0, P1 3, P2 1, P3 1, got " + show(r.byPriority)],
+          [!r.rows.some((x) => x.nearest === 0), "nearest 0 on " + show(r.rows.filter((x) => x.nearest === 0).map((x) => x.property))],
+          [!r.rows.some((x) => x.fix && x.fix.value === 0), "fix.value 0 on " + show(r.rows.filter((x) => x.fix && x.fix.value === 0).map((x) => x.property))],
+        ])
+      },
+    }
+  },
+
+  "15 token mode: no token within 4 of a value below 4 sets 4"() {
+    const col = collection("VC:spacing", "Spacing")
+    const vars = [variable("V:s200", "Space/200", col, [8]), variable("V:s400", "Space/400", col, [16])]
+    const f = node("Plain", "FRAME", { itemSpacing: 2 })
+    return {
+      figma: mockFigma({ top: [f], collections: [col], variables: vars }), mode: "tokens",
+      assert: (r) => {
+        const row = r.rows[0] || {}
+        return check([
+          [r.rows.length === 1, "one row, got " + r.rows.length],
+          [row.property === "Gap" && row.current === 2, "Gap 2, got " + show([row.property, row.current])],
+          [row.nearest === 4 && row.delta === 2, "nearest 4, delta 2, got " + show([row.nearest, row.delta])],
+          [row.priority === "P1", "priority P1, got " + row.priority],
+          [show(row.fix) === show({ kind: "set", value: 4, reason: "no token within 4" }), "fix.value 4 with reason no token within 4, got " + show(row.fix)],
+          [String(row.note).includes("no token within 4"), "note names no token within 4, got " + show(row.note)],
+        ])
+      },
+    }
+  },
 }
 
 // A case may instead return { files() }: a check on the committed files, run without the mock.
@@ -398,6 +444,33 @@ cases["13 the oracle mirrors the collect fence except its declared hunks, and ex
       [version !== null && expected.masterVersion === version, `expected.json masterVersion ${show(expected.masterVersion)}, master metadata.version ${show(version)}`],
       [header.some((l) => l.includes(`metadata.version "${version}"`)), `the oracle header does not name metadata.version "${version}"`],
     ])]
+  },
+})
+
+// The Output contract's template is printed verbatim, so it may hold only printable text and `<…>` placeholders.
+cases["16 the report template is literal"] = () => ({
+  files() {
+    const lines = normalize(readFileSync(master, "utf8")).split("\n")
+    const inFence = scanFences(lines)
+    const heading = lines.findIndex((l, i) => !inFence[i] && /^## Output contract\s*$/.test(l))
+    if (heading < 0) return ["no `## Output contract` heading in the master"]
+    const open = lines.findIndex((l, i) => i > heading && /^\s*```/.test(l))
+    if (open < 0) return ["no fenced block after `## Output contract`"]
+    let close = open + 1
+    while (close < lines.length && !/^\s*```/.test(lines[close])) close++
+    const block = lines.slice(open + 1, close)
+    const notes = ["(only ", "(token mode", "(table below", "(or the", "one entry per"]
+    const required = [
+      "## Spacing rhythm audit: <scope name>",
+      "- Off-grid values: P0 <n> · P1 <n> · P2 <n> · P3 <n> (<n> values in <n> rows)",
+      "- Changed: <n> properties on <n> layers · Verified: <n> of <n>",
+    ]
+    return [
+      ...notes.flatMap((s) => block.filter((l) => l.includes(s)).map((l) => `a line holds ${show(s)}: ${show(l)}`)),
+      ...block.filter((l) => !l.startsWith("|") && l.includes(" | ")).map((l) => `a line outside a table holds " | ": ${show(l)}`),
+      ...block.filter((l) => l.includes("Space/150")).map((l) => `a line holds "Space/150": ${show(l)}`),
+      ...required.filter((r) => !block.includes(r)).map((r) => `the block has no line ${show(r)}`),
+    ]
   },
 })
 

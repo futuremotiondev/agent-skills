@@ -2,7 +2,7 @@
 name: fm-spacing-rhythm-audit
 description: Audits the selected frames against a 4/8 pt spacing rhythm and lists every off-grid padding and gap with the exact value, the nearest on-grid value, and a severity from P0 to P3; it snaps values only after the user confirms. With spacing tokens in the file it audits against those tokens and binds values to the matching variable. Use whenever the user asks to check the spacing, audit spacing, find off-grid padding or gaps, clean up the spacing, or asks whether a layout follows the 8 pt grid or the spacing scale. Not for restructuring layouts or converting frames to auto layout; it measures and snaps auto-layout padding and gaps only.
 metadata:
-  version: "2.2"
+  version: "2.3"
   author: Futuremotion Studio
   category: "Design systems"
   tags: "spacing, audit, 8pt, padding, auto layout, tokens, variables"
@@ -10,7 +10,7 @@ metadata:
   runtimes: "figma-design, figma-make, mcp"
   target: mcp
 license: MIT
-compatibility: Requires the Figma MCP server (use_figma, create_session, get_metadata) and the figma-use skill; calls that change the canvas also need figma-generate-design.
+compatibility: Requires the Figma MCP server (use_figma, create_session) and the figma-use skill; calls that change the canvas also need figma-generate-design.
 ---
 
 # Spacing rhythm audit
@@ -42,7 +42,7 @@ Ask one question at a time, wait for the answer, then act. Every question offers
 
 1. **Collect.** For every visible node in scope that has auto layout (frames, components, variants, instances, and slots all count as frames here), read padding top, right, bottom, left, and gap; read the row gap only when the frame wraps. Skip hidden layers and count them. Do not measure absolute-positioned children; count them as not measurable. Stop at 2,000 frames, say the scope was truncated, and ask whether to continue by section.
 2. **Fold inherited values and merge twins.** An instance whose value equals its main component's value is inheriting it. Report that value once, on the main component's row, with a note "inherited by N instances". If the main component sits outside the selection or on another page, still list it once and say where it is. Only a value that differs from the main component gets its own row, marked as an override. Distinct frames that read identically (same component, path, property, and value, such as four nested "Block" frames) merge into one row noted "in N frames"; a fix on that row applies to all of them.
-3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48. Under a 4 pt grid the largest possible delta below 48 is 2, so severity keys on 2 versus 1.
+3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48, 2 becomes 4. A positive value never snaps to 0: below 4 its nearest is 4. Otherwise the largest delta below 48 is 2, so severity keys on 2 versus 1.
 
    Token mode: (a) a bound value passes, in any collection, and is counted in `boundPassed`; tokens whose value is off the 4/8 rhythm are listed once each in the "Tokens off the 4/8 rhythm" header line with how many bound values use them. (b) 0 passes and is never a bind suggestion. (c) An unbound value equal to a spacing-collection candidate's value (in the mode applied to the node's collection, else the Default mode) is a bind opportunity, not a defect: it is counted per token in a "Bind opportunities" table (token, count, one example layer), excluded from the priority counts and the "Off-grid values" line, and listed as an individual P3 row "unbound; bind to Space/200" only when `framesMeasured` is 50 or fewer; on larger selections the fix question's "All" covers listed rows only, and the report says "to bind these, select 50 frames or fewer and run again". (d) An unbound value that no non-alias token equals passes when an alias candidate in that mode resolves to it: it is counted in `aliasMatched` and on the "Matches an alias" line, and is never snapped or offered. Any other unbound value with no equal token snaps to the nearest token value when that value is within 4 of it, delta measured to the token, severity by the existing depth and delta rules, fix is a binding carrying the mode name; when that value is on the rhythm, the row ranks P3 as a bind opportunity with the nearest token named and a tie disclosed; it is excluded from the "P0 and P1 only" answer; beyond 4, if the value is on the rhythm it passes and is counted as "on rhythm, no matching token", otherwise the fix is the rhythm-nearest number with the reason "no token within 4"; ties go to the token that is a multiple of 8, else the lower. (e) Never offer an alias. When several non-alias variables share the value, prefer one already bound in the same top-level frame, then the shortest name, and list the alternatives in the note. (f) The 2 px half-step rule applies in rhythm mode only. (g) A negative value is left unclassified with the note "negative value, not snapped" and is never part of a fix.
 4. **Rank.** Assign a priority from the location and the delta. Inside a component, depth counts: the component itself or its direct child frames are what designers see; deeper frames are internals.
@@ -50,7 +50,7 @@ Ask one question at a time, wait for the answer, then act. Every question offers
    - **P1**: delta of 2 or more deeper inside a component, or on any plain frame; delta of 1 anywhere inside a component; or any override inside an instance, because the lasting fix belongs in the main component.
    - **P2**: delta of 1 on a plain frame; or any value bound to a variable, on the layer itself or on the main component it inherits from (change the variable, not the layer). Name the token. When bound values reveal a token outside the rhythm, such as a 6 pt step, say so in the report: that is a scale decision for the system owner, not a defect to snap.
    - **P3**: fractional deltas below 1, gaps of exactly 2, and anything on a page named Scratch, Archive, or Playground. Token mode: also on-rhythm values whose nearest token is within 4 (`fix.nearMiss`), before any other rule.
-5. **Report** using the output contract. If the user asked a yes-or-no question, answer it in one line first ("Not entirely. I found 10 off-grid values. Nothing was changed."). Rows are sorted by priority, then by largest delta. When there are more than 30 rows, show the group summary first (one line per component or top-level frame with its row counts by priority), then the top 30 rows, then the remaining count per priority.
+5. **Report** by printing the Output contract template verbatim, filling only its `<…>` parts. If the user asked a yes-or-no question, answer it in one line first ("Not entirely. I found 10 off-grid values. Nothing was changed."). Rows are sorted by priority, then by largest delta. When there are more than 30 rows, show the group summary first (one line per component or top-level frame with its row counts by priority), then the top 30 rows, then the remaining count per priority.
 6. **Offer the fix.** Ask, verbatim and as plain text (through a structured question tool when the runtime has one):
    > Apply the snaps listed above? 1. All, 2. P0 and P1 only, 3. Pick by row number, 4. None.
    Wait. On 3, ask "Which row numbers?" as a free-text question with no preset options or ranges, and apply exactly the rows named. If any chosen row is a main component outside the selection or on another page, say so in one line before applying ("Rows 3 to 5 change main components on Inputs and AI Chat, so every instance in the file updates"), then apply. Apply only the chosen rows, only on those layers, by setting the named property to the nearest on-grid value. Never change or remove an existing binding, a layer's structure, constraints, or layout mode, and never set a width or height. Token mode: a binding is added only on confirmed unbound rows; the fix binds the property to the named variable; when the fix is `set`, set the number and state the reason. A hug-sized frame that grows or shrinks because its padding or gap changed is the expected result, not a size change; never revert a confirmed snap for that reason. For rows inside an instance, apply only if the user confirmed that creating an override is acceptable; otherwise point at the main component. If you believe a confirmed row is unsafe to apply, leave it unapplied, say why, and ask; never revert silently.
@@ -59,37 +59,37 @@ Ask one question at a time, wait for the answer, then act. Every question offers
 
 ## Output contract
 
-Use the Figma UI names for properties: Padding top, Padding right, Padding bottom, Padding left, Gap, Row gap. Show deltas signed (−2 means the value comes down by 2). Put Priority second so it stays visible in a narrow panel. Where the surface supports it, make each layer reference a clickable node link. The main table's Fix column follows Nearest in every mode and reads "set 16" for a rhythm snap. Say "no off-grid values in" followed by the frame count instead of producing an empty table. Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table before the main table; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4. Token mode: a near-miss row's Note reads "on rhythm, no token; nearest Space/400 (16)", or "tie: Space/400 (16) or Space/600 (24)" when two tokens are equally near. Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from.
+The block below is the report, verbatim: print its headings, line labels, column names, and their order exactly as written, and replace only the `<…>` parts. Each Layer (path) and Note cell is the helper row's `path` and `note`, unchanged. A section prints only when it applies: By component above 30 rows, After fixes once fixes are applied. Use the Figma UI names for properties: Padding top, Padding right, Padding bottom, Padding left, Gap, Row gap. Show deltas signed (−2 means the value comes down by 2). Where the surface supports it, make each layer reference a clickable node link. The main table's Fix column follows Nearest in every mode and reads "set 16" for a rhythm snap. Say "no off-grid values in" followed by the frame count instead of producing an empty table. Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table, when there are any, before the main table; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4. Token mode: a near-miss row's Note reads "on rhythm, no token; nearest Space/400 (16)", or "tie: Space/400 (16) or Space/600 (24)" when two tokens are equally near. Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from.
 
 ```markdown
 <One-line answer if the user asked a question.>
 
 ## Spacing rhythm audit: <scope name>
-- Mode: tokens (<spacingCollection.name>) | rhythm
-- Scale: 4 pt below 48, 8 pt from 48 (or the stated scale)
+- Mode: <tokens (collection name), or rhythm>
+- Scale: <4 pt below 48, 8 pt from 48, or the stated scale>
 - Frames measured: <n> · Hidden skipped: <n> · Not measurable (absolute children): <n>
 - Off-grid values: P0 <n> · P1 <n> · P2 <n> · P3 <n> (<n> values in <n> rows)
 - Bound to variables: <n> values using <token names>; left to a variable-level decision
 - Bound values: <n> passed
-- Tokens off the 4/8 rhythm: Space/150 = 6 (12 values); a scale decision, not a defect
-- Bind opportunities: <n> values across <n> tokens (table below when any)
+- Tokens off the 4/8 rhythm: <token> = <value> (<n> values); a scale decision, not a defect
+- Bind opportunities: <n> values across <n> tokens
 - On rhythm, no matching token: <n>
 - Matches an alias: <n> (not offered)
-- Matched but not offered: <collection> (<n> <reason>), one entry per collection
+- Matched but not offered: <collection> (<n> <reason>)
 - No changes applied.
 
-## Bind opportunities (token mode, when any)
+## Bind opportunities
 | Token (mode) | Values | Example layer |
 | --- | --- | --- |
 
-## By component (only when more than 30 rows)
+## By component
 | Component or frame | Rows | P0 | P1 | P2 | P3 |
 | --- | --- | --- | --- | --- | --- |
 
 | # | Priority | Layer (path) | Property | Current | Nearest | Fix | Delta | Note |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
-## After fixes (only if applied)
+## After fixes
 Previous is the human record; the revert list is the apply result.
 | # | Layer | Property | Previous | Now | Fix |
 | --- | --- | --- | --- | --- | --- |
@@ -141,9 +141,7 @@ Previous is the human record; the revert list is the apply result.
 - **Token mode: a value with no equal token.** Within 4 of a token, an on-rhythm value is a P3 near miss that names the nearest token (both on a tie) and stays out of "P0 and P1 only". More than 4 from every token, a value on the rhythm passes as "on rhythm, no matching token"; otherwise the fix is the rhythm-nearest number with the reason "no token within 4".
 - **Percentages, mixed values, or negative values.** Report them in the Note column; do not snap them. Token mode: a negative value carries the note "negative value, not snapped" and no priority, and is never bound.
 - **Instances with overrides, or a main component outside the selection or on another page.** The lasting fix is the main component: list it once with the inherited count and name its page. Report an override and apply it only on explicit confirmation.
-- **Gap of 2, or fractional values such as 15.5.** Both rank P3 with a note: a gap of 2 is a half-step unless the user disallows 2; 15.5's nearest on-grid value is 16.
 - **Revert: a layer edited after the snap.** Leave it untouched, list it as skipped "changed since" with the value and binding it reads now, and restore the rest.
-- **Figma Make.** Return the allowed-value list as a checklist and stop.
 
 ## Helper scripts
 

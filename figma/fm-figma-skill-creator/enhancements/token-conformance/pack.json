@@ -4,14 +4,14 @@
   "codeRegion": "token-conformance",
   "fits": "a spacing audit built on the fm-spacing-rhythm-audit collect, apply and verify helpers: its code regions extend those helpers, and its prose is about auto-layout padding, gaps and spacing tokens",
   "templateLines": [
-    "- Mode: tokens (<spacingCollection.name>) | rhythm",
+    "- Mode: <tokens (collection name), or rhythm>",
     "- Bound values: <n> passed",
-    "- Tokens off the 4/8 rhythm: Space/150 = 6 (12 values); a scale decision, not a defect",
-    "- Bind opportunities: <n> values across <n> tokens (table below when any)",
+    "- Tokens off the 4/8 rhythm: <token> = <value> (<n> values); a scale decision, not a defect",
+    "- Bind opportunities: <n> values across <n> tokens",
     "- On rhythm, no matching token: <n>",
     "- Matches an alias: <n> (not offered)",
-    "- Matched but not offered: <collection> (<n> <reason>), one entry per collection",
-    "## Bind opportunities (token mode, when any)",
+    "- Matched but not offered: <collection> (<n> <reason>)",
+    "## Bind opportunities",
     "| Token (mode) | Values | Example layer |",
     "| --- | --- | --- |"
   ],
@@ -22,7 +22,7 @@
     }
   ],
   "proseSentences": [
-    "Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table before the main table; and the Fix column's bind form, \"bind Space/200\", beside \"set 8\" for a value with no token within 4."
+    "Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table, when there are any, before the main table; and the Fix column's bind form, \"bind Space/200\", beside \"set 8\" for a value with no token within 4."
   ],
   "descriptionSentences": [
     "With spacing tokens in the file it audits against those tokens and binds values to the matching variable."

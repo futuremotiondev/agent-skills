@@ -1,6 +1,6 @@
 # Merged into dist/claude/fm-spacing-rhythm-audit/SKILL.md only. The Figma editions never see these keys.
 license: MIT
-compatibility: Requires the Figma MCP server (use_figma, create_session, get_metadata) and the figma-use skill; calls that change the canvas also need figma-generate-design.
+compatibility: Requires the Figma MCP server (use_figma, create_session) and the figma-use skill; calls that change the canvas also need figma-generate-design.
 metadata:
   author: Futuremotion Studio
   target: mcp

@@ -6,7 +6,7 @@ const nearest = (v) => {
   if (onGrid(v)) return v;
   const step = v < 48 ? 4 : 8;
   const lo = Math.floor(v / step) * step, hi = lo + step;
-  if (v - lo !== hi - v) return v - lo < hi - v ? lo : hi;
+  if (lo === 0 || v - lo !== hi - v) return lo !== 0 && v - lo < hi - v ? lo : hi; // A positive value never snaps to 0.
   return hi % 8 === 0 && lo % 8 !== 0 ? hi : lo;
 };
 // enhancement: token-conformance begin

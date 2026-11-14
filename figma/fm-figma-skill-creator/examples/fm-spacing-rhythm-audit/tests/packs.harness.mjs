@@ -582,9 +582,9 @@ const cases = {
     const twice = run("twice-verify", insertAfterLine(noRevert, "## Instructions", ["", verifyLine]), "revert")
     const at = (r, re) => r.lines.findIndex((l) => re.test(l))
     return check([
-      [renamed.r.status === 0 && renamed.warns.length === 1 && /fence \(master lines 441 to \d+\).*helper "verify"/.test(renamed.warns[0]), `renamed: ${JSON.stringify(renamed.warns)}`],
+      [renamed.r.status === 0 && renamed.warns.length === 1 && /fence \(master lines 439 to \d+\).*helper "verify"/.test(renamed.warns[0]), `renamed: ${JSON.stringify(renamed.warns)}`],
       [at(renamed, /^\/\/ helper: revert$/) > at(renamed, /^\/\/ helper: check$/), "renamed: the revert fence is not after the renamed helper"],
-      [decoy.r.status === 0 && decoy.warns.length === 1 && /code-region \(master lines 162 to 238\)/.test(decoy.warns[0]), `decoy: ${JSON.stringify(decoy.warns)}`],
+      [decoy.r.status === 0 && decoy.warns.length === 1 && /code-region \(master lines 160 to 236\)/.test(decoy.warns[0]), `decoy: ${JSON.stringify(decoy.warns)}`],
       [at(decoy, /^\/\/ Discovery: /) > at(decoy, /^\/\/ token-conformance regions for collect: place by hand$/) && at(decoy, /regions for collect/) > 0, "decoy: the Discovery region is not in the orphan fence"],
       [twice.r.status === 0 && twice.warns.length === 1 && /block \(master line 55\).*2 lines/.test(twice.warns[0]), `twice: ${JSON.stringify(twice.warns)}`],
     ])

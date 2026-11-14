@@ -1,5 +1,5 @@
-// mirrors examples/fm-spacing-rhythm-audit/SKILL.md collect helper, master 2.2 (metadata.version "2.2")
-// Oracle for fm-spacing-rhythm-audit 2.2, run through use_figma (top-level await, result from return).
+// mirrors examples/fm-spacing-rhythm-audit/SKILL.md collect helper, master 2.3 (metadata.version "2.3")
+// Oracle for fm-spacing-rhythm-audit 2.3, run through use_figma (top-level await, result from return).
 // Changes from the master fence: this header and preamble, MODE preset, MAX_ROWS lifted to Infinity, one line after the walk
 // that clears the selection, and a block before the return that restores `tokens` and `unbound[].ids`. Edit SELECTION, PAGE, and MODE per scope.
 const SELECTION = "page"; // "page" (every top-level node on the page) or an array of top-level node names
@@ -27,7 +27,7 @@ const nearest = (v) => {
   if (onGrid(v)) return v;
   const step = v < 48 ? 4 : 8;
   const lo = Math.floor(v / step) * step, hi = lo + step;
-  if (v - lo !== hi - v) return v - lo < hi - v ? lo : hi;
+  if (lo === 0 || v - lo !== hi - v) return lo !== 0 && v - lo < hi - v ? lo : hi; // A positive value never snaps to 0.
   return hi % 8 === 0 && lo % 8 !== 0 ? hi : lo;
 };
 // enhancement: token-conformance begin
