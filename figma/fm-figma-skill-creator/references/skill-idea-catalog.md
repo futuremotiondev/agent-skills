@@ -11,7 +11,7 @@ Counts of landscape rows per pattern and surface, computed from the `Pattern` an
 | audit | 6 | 1 | 0 | 2 | 6 | 2 | 1 | 2 | 3 | 0 |
 | generator | 2 | 1 | 2 | 1 | 7 | 1 | 0 | 2 | 3 | 4 |
 | critique | 0 | 0 | 0 | 0 | 6 | 2 | 0 | 1 | 0 | 1 |
-| synthesis | 0 | 0 | 0 | 0 | 0 | 8 | 0 | 0 | 1 | 5 |
+| synthesis | 0 | 0 | 0 | 0 | 0 | 7 | 0 | 0 | 1 | 6 |
 | workflow | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 2 | 4 | 7 |
 | conventions | 1 | 3 | 0 | 2 | 1 | 2 | 1 | 3 | 3 | 0 |
 

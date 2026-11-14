@@ -251,7 +251,7 @@ All five scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`; 
 | `references/skill-landscape.md` | you need to know whether a skill idea already exists, or a concept card must say "new" or "better than X" |
 | `references/skill-idea-catalog.md` | you are mapping a vague wish to gap cells and seeds in Workflow 0, or promoting a chosen card |
 | `templates/skill-master.md` and `templates/type-*.md` | starting any new skill |
-| `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md`, `.markdownlint.jsonc` | the companion files every skill folder gets, and its markdownlint config |
+| `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md`, `.markdownlint.jsonc` | companion files every skill folder gets; markdownlint config template |
 | `templates/concept-cards.md` | you are pitching ideas in Workflow 0: the deck header, the twenty-line card, the footer question, and the deck rules |
 | `templates/seed-plan.md` | you are planning a Workflow G seed: the header, one row per planted case, the expected header counts, the modes, and the proofs |
 | `scripts/oracle-compare.mjs` | you are comparing a pasted in-app report, or a raw `use_figma` return, with a skill's `tests/expected.json` in Workflow G |
