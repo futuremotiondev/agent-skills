@@ -22,6 +22,18 @@ This is the first skill built through fm-figma-skill-creator, so its first uploa
 - Paste edition: see build log
 - Coding-agent edition: see build log
 
+## Round 5 plan
+
+The one in-app session of the audit's 2.3 plan, prepared on 2026-11-14. It is a plan, not a result, so it sits outside Entries; the results go in as a new entry. The orchestrator runs it through an automated browser, as in Round 4. Every expected value below comes from scope 3 of `tests/expected.json`, whose live oracle was rerun on 2.3 and is unchanged (844 frames, 622 bound values).
+
+- **Edition:** 2.3, the paste edition `dist/fm-spacing-rhythm-audit.paste.md`, installed through Manage skills, Edit, Save (0 credits). The Ruling 31 diagnostic (closed in Round 4) and the capability probe are not part of this session.
+- **File and page:** the Simple Design System duplicate `RoEqd4VFbADE0s0nZ0n8Yj`, Sections page, nothing selected (oracle scope 3).
+- **Prompts:** "Audit the spacing on this page", then 1 (scope), 1 (mode), 3 at the fix question, "1, 2" at the follow-up, then "revert the last snaps" in the same chat.
+- **Expected report:** the 2.3 Output contract template printed verbatim, filling only its `<…>` parts, with the priority line "Off-grid values: P0 2 · P1 3 · P2 0 · P3 5 (10 values in 10 rows)". Rows 1 and 2 are the two `Hero (Slot)` slot gaps, 10 to 8, bind `Space/200`. In-app the page has read 842 frames and 618 bound values in Rounds 3 and 4 against the oracle's 844 and 622, so the compare runs with `--frame-tolerance 4`: `node scripts/oracle-compare.mjs --expected examples/fm-spacing-rhythm-audit/tests/expected.json --scope 3 --schema examples/fm-spacing-rhythm-audit/tests/schema.spacing.json --report <the capture> --frame-tolerance 4`, hoped-for result exit 0.
+- **Expected After fixes:** "Changed: 2 properties on 2 layers · Verified: 2 of 2". After "revert the last snaps", the two `Hero (Slot)` slot gaps must read 10 and unbound again, so the duplicate still matches scope 3.
+- **Credits:** about 150, from Round 4's six matching responses (60, 14, 36, 6, 22, 12); stop at 200. Credits are read after every response, from the AI credits icon under it.
+- **Micro-test (Task 4):** wording micro-test, 2026-11-14, no credits: five single-shot agents per edition were given the paste edition and scope 3's collect result and asked for the report. Scored with `oracle-compare` at tolerance 0, the 2.3 edition compared clean 5 of 5 and the 2.2 control 4 of 5 (its one failure appended node ids to the layer paths). The control already follows the template closely, so this shows that 2.3 does no harm and narrows the spread between runs; it does not reproduce the in-app rewrite of Round 4.
+
 ## Round 4 plan
 
 The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-13. It is a plan, not a result, so it sits outside Entries; the results go in as a new entry. Futuremotion runs it by hand from a local checklist that is not committed. Every expected value below comes from scope 3 of `tests/expected.json` or from the Round 3 entry.
