@@ -6,13 +6,13 @@
 //   findUnits(lines, pack, { warn })       every unit of one pack in a master, in line order
 //   stripUnits(lines, units)               the master without those units, blank runs collapsed
 //   readUnits(text)                        the units an enhancement.md records, and its source master
-//   insertUnits(lines, units, { warn, skill }) the reverse of stripUnits: each unit after its anchor,
+//   insertUnits(lines, units, { warn })    the reverse of stripUnits: each unit at its verified anchor,
 //                                          with the rule (h) fallbacks passed to `warn`
 //
-// A unit is { kind, start, end, col, text, anchor: { section, helper, after } } with 0-based lines;
-// a line-rewrite unit also carries `to`, and a unit read from an enhancement.md may carry `pack` and
-// `source` (the skill it was extracted from). Contract errors (nested regions, an unpartnered marker,
-// an ambiguous declared line or prose sentence, the phrase in a table row) throw; a declared item the
+// A unit is { kind, start, end, col, text, anchor: { section, helper, after, afterHelper, key, offset } }
+// with 0-based lines; a line-rewrite unit also carries `to`, and a unit read from an enhancement.md may
+// carry `pack`. Contract errors (nested regions, an unpartnered marker, and, in a master that carries
+// the pack, an ambiguous declared line or prose sentence or the phrase in a table row) throw; a declared item the
 // master does not contain is passed to `warn`. A master that does not carry the pack (carriesPack:
 // no phrase unit, no code region) has no units at all, and `warn` gets one not-present line instead.
 //
@@ -81,6 +81,10 @@ const isBlank = (l) => l.trim() === ""
 const isMarker = (l) => OPEN_MARKER.test(l) || CLOSE_MARKER.test(l)
 
 const isTableRow = (l) => /^\s*\|/.test(l)
+/** A table separator row: only pipes, dashes, colons, and spaces. */
+const isSeparator = (l) => /^[\s|:-]+$/.test(l) && l.includes("|") && l.includes("-")
+/** A line with no letter or digit (`};`, a bare fence): too common to anchor a unit on its own (rule h). */
+const weak = (l) => l === null || l === undefined || !/[\p{L}\p{N}]/u.test(l)
 
 /**
  * Index of the last character of the sentence starting at `pos` (rule d): the first `.`, `?`, or `!`
@@ -136,15 +140,38 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
 
   // Section per line: the nearest level-two heading above it, outside fences; "frontmatter" before the body.
   const sectionOf = new Array(lines.length).fill("")
-  let section = ""
+  const sectionStartOf = new Array(lines.length).fill(bodyStart)
+  let section = "", sectionStart = bodyStart
   for (let i = 0; i < lines.length; i++) {
     if (i < bodyStart) { sectionOf[i] = "frontmatter"; continue }
     const h = !inFence[i] && /^##\s+(.*?)\s*$/.exec(lines[i])
-    if (h) section = h[1]
+    if (h) { section = h[1]; sectionStart = i }
     sectionOf[i] = section
+    sectionStartOf[i] = sectionStart
   }
-  const prevNonBlank = (i) => { for (let k = i - 1; k >= 0; k--) if (!isBlank(lines[k])) return lines[k]; return null }
-  const anchorFor = (i, after) => ({ section: sectionOf[i], helper: fenceAt(i)?.helper ?? null, after: after === undefined ? prevNonBlank(i) : after })
+  const prevNonBlankIndex = (i) => { for (let k = i - 1; k >= 0; k--) if (!isBlank(lines[k])) return k; return -1 }
+
+  /**
+   * The anchor of a unit starting at line i: its section and helper, and `after`, the nearest non-blank
+   * line before it (or the sentence, tag, or description sentence before it, passed in). A line unit
+   * after a helper fence's closing line records that helper's name in `afterHelper`; one whose `after`
+   * has no letter or digit records `key`, the nearest line above `after` (in the same fence, or else the
+   * same section) that has one, and `offset`, the lines from `key` down to `after` (rule h).
+   */
+  const anchorFor = (i, after) => {
+    const base = { section: sectionOf[i], helper: fenceAt(i)?.helper ?? null }
+    if (after !== undefined) return { ...base, after, afterHelper: null, key: null, offset: null }
+    const j = prevNonBlankIndex(i)
+    if (j === -1) return { ...base, after: null, afterHelper: null, key: null, offset: null }
+    const f = fenceAt(j)
+    const afterHelper = f && f.helper && f.close === j ? f.helper : null
+    let key = null, offset = null
+    if (!afterHelper && weak(lines[j])) {
+      const floor = f ? f.open : sectionStartOf[j]
+      for (let k = j - 1; k >= floor; k--) if (!weak(lines[k])) { key = lines[k]; offset = j - k; break }
+    }
+    return { ...base, after: lines[j], afterHelper, key, offset }
+  }
 
   const units = []
   const add = (kind, start, end, col, text, anchor, extra = {}) => units.push({ kind, start, end, col, text, anchor, ...extra })
@@ -179,13 +206,15 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
 
   // (b, c, d) Prose units: body lines outside fences and target markers.
   const claimed = new Set()
+  let tableRowError = null
   for (let i = bodyStart; i < lines.length; i++) {
     if (inFence[i] || isMarker(lines[i]) || claimed.has(i)) continue
     const line = lines[i]
-    // (d) A unit cannot sit in a table row: cutting it would break the table.
+    // (d) A unit cannot sit in a table row: cutting it would break the table. This is an error only in a
+    // master that carries the pack (checked below); elsewhere the row is the master's own text.
     if (isTableRow(line)) {
-      for (let p = line.indexOf(pack.phrase); p !== -1; p = line.indexOf(pack.phrase, p + 1)) {
-        if (!inCodeSpan(line, p)) throw new Error(`line ${i + 1}: the phrase "${pack.phrase}" is inside a table row; move the sentence out of the table`)
+      for (let p = line.indexOf(pack.phrase); p !== -1 && !tableRowError; p = line.indexOf(pack.phrase, p + 1)) {
+        if (!inCodeSpan(line, p)) tableRowError = `line ${i + 1}: the phrase "${pack.phrase}" is inside a table row; move the sentence out of the table`
       }
       continue
     }
@@ -247,6 +276,7 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
     warn(`${pack.name}: not present in this master (no "${pack.phrase}" phrase unit and no "${pack.codeRegion}" code region); its declared lines, sentences, and tags are left alone`)
     return []
   }
+  if (tableRowError) throw new Error(tableRowError)
 
   // (f) Declared prose sentences: exact text in body prose. Missing is a warning, like the other declared
   // items (a master without the pack passes through strip); more than one match is an error.
@@ -265,13 +295,16 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
     add("prose-sentence", i, i, p, s, anchorFor(i, lastSentence(lines[i].slice(0, p))))
   }
 
-  // (e) Template lines: exact lines inside the body's non-helper fences.
+  // (e) Template lines: exact lines inside the body's non-helper fences. A separator-only line (pipes,
+  // dashes, colons, spaces) has no identity of its own: it matches only directly below another of the
+  // pack's declared template lines.
+  const declared = new Set(pack.templateLines.filter((t) => !isSeparator(t)))
   for (const t of pack.templateLines) {
     const hits = []
     for (const f of fences) {
       if (f.helper || f.open < bodyStart) continue
       const last = f.close === -1 ? lines.length - 1 : f.close - 1
-      for (let k = f.open + 1; k <= last; k++) if (lines[k] === t) hits.push(k)
+      for (let k = f.open + 1; k <= last; k++) if (lines[k] === t && (!isSeparator(t) || declared.has(lines[k - 1]))) hits.push(k)
     }
     if (hits.length > 1) throw new Error(`template line matches ${hits.length} lines (${hits.map((k) => k + 1).join(", ")}); a declared line must match exactly one: ${t}`)
     if (hits.length === 0) { warn(`${pack.name}: template line not found: ${t}`); continue }
@@ -416,9 +449,8 @@ const LINE_KINDS = ["code-region", "fence", "block", "heading-block", "template-
 const isListItem = (l) => !!LIST_LEAD.exec(l)[2]
 /** Two lines sit together with no blank line between them: a list item after a list item or its indented continuation. */
 const tight = (x, y) => !isBlank(x) && isListItem(y) && (isListItem(x) || indentOf(x) > 0)
-/** An anchor with no letter or digit (`};`, a bare fence) places a unit only in the master it was found in. */
-const weak = (after) => after === null || after === undefined || !/[\p{L}\p{N}]/u.test(after)
 const sectionKey = (name) => name.split(":")[0].trim().toLowerCase()
+const quote = (s) => JSON.stringify(s.length > 60 ? s.slice(0, 57) + "..." : s)
 
 /** The body's level-two sections, each { name, start, end } (heading line to the line before the next H2 or target marker); "" is the preamble. */
 function sectionsOf(lines, inFence, bodyStart) {
@@ -438,23 +470,31 @@ function sectionsOf(lines, inFence, bodyStart) {
 }
 
 /**
- * Insert `units` into the master `lines` (rule h), returning the new lines. Each unit goes after its
- * anchor: code regions after the `after` line inside the named helper, sentence units after the `after`
- * sentence on its line, blocks, heading blocks, and template lines after the `after` line, rewrites
- * reversed, description sentences and tags restored. Units are taken in recorded order (line, then
- * column), because a unit's anchor can be the unit before it; adjacent line units of the same kind go
- * in as one piece. When an anchor line occurs more than once in its scope, the occurrence nearest the
- * unit's recorded line wins. Blank lines at a seam follow Markdown: a list item after a list item or
- * its continuation joins it, anything else is set apart by one blank line.
+ * Insert `units` into the master `lines` (rule h), returning the new lines. A unit goes in only where
+ * its place can be verified, and otherwise takes the rule (h) fallback with one message to `warn`:
  *
- * Without an anchor, prose units go at the end of their section (template lines at the end of the
- * section's report fence), and the orphan code regions of each helper go into one new `javascript`
- * fence with no helper marker, opened by `// <pack> regions for <helper>: place by hand`. Each fallback
- * is passed to `warn`. Options: `warn(message)`, and `skill`, the master's name: a unit that carries a
- * `source` skill other than `skill` (it came from another master's enhancement.md) is not placed by an
- * anchor with no letter or digit, which says nothing about where it belongs in a different skill.
+ *   - `afterHelper`: after the closing line of the one helper fence of that name in the unit's section.
+ *   - `key` and `offset` (an `after` line with no letter or digit): the one line reading `key` in the
+ *     unit's scope, provided the line `offset` below it reads `after`.
+ *   - otherwise after the one line reading `after` in the unit's scope: the helper fence for a code
+ *     region, the section's report fences for a template line, the section's prose (or a fence's
+ *     closing line) for a block, heading block, or whole fence; for a sentence unit, after the one
+ *     occurrence of the `after` sentence in the section's prose.
+ *
+ * No anchor, or an anchor found more than once, is a fallback; line numbers never choose between
+ * candidates. Units go in recorded order (line, then column), because a unit's anchor can be the unit
+ * before it; adjacent line units of one kind go in as one piece; units whose anchor is another
+ * pack's unit wait for it (passes until nothing more goes in). Blank lines at a seam follow Markdown:
+ * a list item after a list item or its continuation joins it, anything else is set apart by one
+ * blank line, and where the text has no blank line at the seam none is added.
+ *
+ * Fallbacks: prose goes at the end of its section, a template line at the end of the section's report
+ * fence, a sentence unit on its own line; a missing section means the end of the last core section,
+ * before the first target block. The orphan code regions of each helper go into one new `javascript`
+ * fence with no helper marker, opened by `// <pack> regions for <helper>: place by hand`, after that
+ * helper's fence when there is one. Options: `warn(message)`.
  */
-export function insertUnits(lines, units, { warn = () => {}, skill = null } = {}) {
+export function insertUnits(lines, units, { warn = () => {} } = {}) {
   const out = lines.slice()
   const label = (u) => `${u.pack ? u.pack + ": " : ""}${u.kind} (master ${u.start === u.end ? "line " + (u.start + 1) : "lines " + (u.start + 1) + " to " + (u.end + 1)})`
 
@@ -470,8 +510,6 @@ export function insertUnits(lines, units, { warn = () => {}, skill = null } = {}
     }
     items.push({ ...u, lines: u.text.split("\n"), units: [u] })
   }
-  const height = (it) => (LINE_KINDS.includes(it.kind) ? it.lines.length + (it.kind === "fence" ? 1 : 0) : 0)
-  const usable = (it) => !(weak(it.anchor.after) && it.source !== undefined && it.source !== skill)
 
   // The state of `out`, recomputed after each insertion.
   const scan = () => {
@@ -485,15 +523,12 @@ export function insertUnits(lines, units, { warn = () => {}, skill = null } = {}
     return { fm, bodyStart, inFence, fences, sections: sectionsOf(out, inFence, bodyStart) }
   }
   const findSection = (s, name) => s.sections.find((x) => x.name === name) || (name ? s.sections.find((x) => x.name && sectionKey(x.name) === sectionKey(name)) : null) || null
+  const fenceAt = (s, k) => s.fences.find((x) => k >= x.open && (x.close === -1 || k <= x.close)) || null
   const prevNonBlankAt = (i) => { for (let k = i - 1; k >= 0; k--) if (!isBlank(out[k])) return out[k]; return null }
-
-  // Choose among candidate lines: the one nearest where the unit's anchor should be, given the units still to come.
-  const pending = new Set(items)
-  const nearest = (it, cands, target) => {
-    const shift = [...pending].filter((p) => p !== it && p.start < it.start).reduce((s, p) => s + height(p), 0)
-    const want = target - shift
-    return cands.slice().sort((a, b) => Math.abs((a.line ?? a) - want) - Math.abs((b.line ?? b) - want) || Math.abs((a.col ?? 0) - it.col) - Math.abs((b.col ?? 0) - it.col))[0]
-  }
+  const ok = (line) => ({ line })
+  const fail = (reason) => ({ reason })
+  /** Exactly one candidate, or the reason there is not. */
+  const one = (cands, what, where) => (cands.length === 1 ? ok(cands[0]) : fail(cands.length ? `${what} matches ${cands.length} lines in ${where}` : `no line reads ${what} in ${where}`))
 
   /** Put `body` after line `a`, setting it apart by blank lines per the seam rule. */
   const place = (a, body, { kind, forceRule = false, inCode = false }) => {
@@ -510,67 +545,81 @@ export function insertUnits(lines, units, { warn = () => {}, skill = null } = {}
     }
     out.splice(a + 1, b, ...(before ? [""] : []), ...body, ...(after ? [""] : []))
   }
-  /** After the last non-blank line of a section, or of the body when the section is missing. */
+  /** After the last non-blank line of the section, or, when the section is missing, of the last core section before the first target block. */
   const sectionEnd = (s, name) => {
     const sec = findSection(s, name)
-    let k = sec ? sec.end : out.length - 1
-    const floor = sec ? sec.start : s.bodyStart
+    let k, floor
+    if (sec) { k = sec.end; floor = sec.start }
+    else {
+      const marker = s.sections.length ? out.findIndex((l, i) => i >= s.bodyStart && !s.inFence[i] && OPEN_MARKER.test(l)) : -1
+      k = marker === -1 ? out.length - 1 : marker - 1
+      floor = s.bodyStart
+    }
     while (k > floor && isBlank(out[k])) k--
     return { at: k, found: !!sec }
   }
 
-  // --- one attempt per item; true when it went in at its anchor -------------------------------
-  const tryLine = (it, s) => {
-    const { section, helper, after } = it.anchor
-    let cands = []
-    if (it.kind === "code-region") {
-      // A region in a helper is anchored in that helper; one in an unmarked fence (an orphan fence), in its section's unmarked javascript fences.
-      const sec = helper ? null : findSection(s, section)
-      const hosts = helper ? s.fences.filter((x) => x.helper === helper) : sec ? s.fences.filter((x) => !x.helper && HELPER_FENCE_LANG.test(x.lang) && x.open >= sec.start && x.open <= sec.end) : []
-      for (const f of hosts) for (let k = f.open + 1; k < f.close; k++) if (out[k] === after) cands.push(k)
+  // --- where each kind of unit goes; { line } when verified, else { reason } ----------------------
+  const locateLine = (it, s) => {
+    const { section, helper, after, afterHelper, key, offset } = it.anchor
+    const sec = findSection(s, section)
+    // The scope: the helper fence for a code region, else the unit's section.
+    let ranges
+    if (it.kind === "code-region" && helper) {
+      const hosts = s.fences.filter((x) => x.helper === helper && x.close !== -1)
+      if (hosts.length !== 1) return fail(hosts.length ? `${hosts.length} helpers are named "${helper}"` : `no helper "${helper}"`)
+      ranges = [[hosts[0].open, hosts[0].close]]
     } else {
-      const sec = findSection(s, section)
-      if (!sec) return false
-      for (let k = sec.start; k <= sec.end; k++) {
-        if (out[k] !== after) continue
-        const f = s.fences.find((x) => k >= x.open && (x.close === -1 || k <= x.close))
-        if (it.kind === "template-line" ? f && !f.helper && k < f.close : !f || k === f.close) cands.push(k)
-      }
+      if (!sec) return fail(`section "${section}" not found`)
+      if (it.kind === "code-region") ranges = s.fences.filter((x) => !x.helper && HELPER_FENCE_LANG.test(x.lang) && x.open >= sec.start && x.open <= sec.end).map((x) => [x.open, x.close])
+      else ranges = [[sec.start, sec.end]]
     }
-    if (!cands.length) return false
-    const a = nearest(it, cands, it.start - 1)
-    place(a, it.lines, { kind: it.kind, inCode: it.kind === "code-region" })
-    return true
+    const where = it.kind === "code-region" && helper ? `helper "${helper}"` : `section "${section}"`
+    const inScope = (pred) => { const c = []; for (const [a, b] of ranges) for (let k = a; k <= b; k++) if (pred(k)) c.push(k); return c }
+    // A line may anchor this kind of unit: inside a report fence for a template line, inside the fence for
+    // a code region, and in prose or on a fence's closing line for anything else.
+    const fits = (k) => {
+      const f = fenceAt(s, k)
+      if (it.kind === "template-line") return !!f && !f.helper && k < f.close
+      if (it.kind === "code-region") return !!f && k > f.open && k < f.close
+      return !f || k === f.close
+    }
+    if (afterHelper) {
+      const hosts = s.fences.filter((x) => x.helper === afterHelper && x.close !== -1 && sec && x.open >= sec.start && x.close <= sec.end)
+      if (hosts.length !== 1) return fail(hosts.length ? `${hosts.length} helpers are named "${afterHelper}" in ${where}` : `no helper "${afterHelper}" in ${where}`)
+      return ok(hosts[0].close)
+    }
+    if (weak(after)) {
+      if (key === null || key === undefined) return fail(`its anchor ${quote(String(after))} has no letter or digit and no line above it to locate it by`)
+      const keys = one(inScope((k) => out[k] === key), `the line above its anchor, ${quote(key)},`, where)
+      if (keys.reason) return keys
+      const a = keys.line + offset
+      return out[a] === after && fits(a) ? ok(a) : fail(`its anchor ${quote(after)} is not ${offset} line${offset === 1 ? "" : "s"} below ${quote(key)} in ${where}`)
+    }
+    return one(inScope((k) => out[k] === after && fits(k)), `its anchor ${quote(after)}`, where)
   }
-  const tryInline = (it, s) => {
+  const locateInline = (it, s) => {
     const { section, after } = it.anchor
     const sec = findSection(s, section)
-    if (!sec || after === null) return false
+    if (!sec) return fail(`section "${section}" not found`)
+    if (after === null) return fail(`it has no sentence before it to follow`)
     const cands = []
     for (let k = sec.start; k <= sec.end; k++) {
       if (s.inFence[k] || isMarker(out[k]) || isTableRow(out[k])) continue
-      for (let p = out[k].indexOf(after); p !== -1; p = out[k].indexOf(after, p + 1)) cands.push({ line: k, col: p + after.length })
+      for (let p = out[k].indexOf(after); p !== -1; p = out[k].indexOf(after, p + 1)) cands.push({ k, col: p + after.length })
     }
-    if (!cands.length) return false
-    const { line, col } = nearest(it, cands, it.start)
-    const l = out[line]
-    const glued = /[([{"'“‘]$/.test(after)
-    const ins = glued ? it.text + (col < l.length && !/[\s)\]}]/.test(l[col]) ? " " : "") : " " + it.text
-    out[line] = l.slice(0, col) + ins + l.slice(col)
-    return true
+    return cands.length === 1 ? ok(cands[0]) : fail(cands.length ? `its anchor ${quote(after)} occurs ${cands.length} times in section "${section}"` : `no sentence reads ${quote(after)} in section "${section}"`)
   }
-  const tryRewrite = (it, s) => {
+  const locateRewrite = (it, s) => {
     const { section, helper, after } = it.anchor
-    const f = helper ? s.fences.find((x) => x.helper === helper) : null
-    const sec = f ? { start: f.open + 1, end: f.close - 1 } : findSection(s, section)
-    if (!sec) return false
+    const f = helper ? s.fences.filter((x) => x.helper === helper && x.close !== -1) : []
+    if (helper && f.length !== 1) return fail(f.length ? `${f.length} helpers are named "${helper}"` : `no helper "${helper}"`)
+    const sec = helper ? { start: f[0].open + 1, end: f[0].close - 1 } : findSection(s, section)
+    if (!sec) return fail(`section "${section}" not found`)
     let cands = []
     for (let k = sec.start; k <= sec.end; k++) if (out[k] === it.to) cands.push(k)
-    const exact = cands.filter((k) => prevNonBlankAt(k) === after)
-    if (exact.length) cands = exact
-    if (!cands.length) return false
-    out[nearest(it, cands, it.start)] = it.text
-    return true
+    if (cands.length > 1) cands = cands.filter((k) => prevNonBlankAt(k) === after)
+    return one(cands, quote(it.to), helper ? `helper "${helper}"` : `section "${section}"`)
   }
   const descriptionLines = (s) => {
     const desc = s.fm.present ? getField(s.fm.fields, "description") : null
@@ -580,24 +629,6 @@ export function insertUnits(lines, units, { warn = () => {}, skill = null } = {}
     if (desc.block) while (last + 1 < s.fm.closeLine && (isBlank(out[last + 1]) || /^\s+/.test(out[last + 1]))) last++
     return { first, last }
   }
-  const tryDescription = (it, s) => {
-    const d = descriptionLines(s)
-    if (!d) return false
-    if (it.anchor.after === null) {
-      const m = /^(description:\s*["']?)/.exec(out[d.first])
-      if (!m || d.first !== d.last) return false
-      out[d.first] = m[1] + it.text + " " + out[d.first].slice(m[1].length)
-      return true
-    }
-    for (let k = d.first; k <= d.last; k++) {
-      const p = out[k].indexOf(it.anchor.after)
-      if (p === -1) continue
-      const col = p + it.anchor.after.length
-      out[k] = out[k].slice(0, col) + " " + it.text + out[k].slice(col)
-      return true
-    }
-    return false
-  }
   const tagLine = (s) => {
     const meta = s.fm.present ? getField(s.fm.fields, "metadata") : null
     const f = meta?.children?.find((c) => c.key === "tags")
@@ -605,76 +636,115 @@ export function insertUnits(lines, units, { warn = () => {}, skill = null } = {}
     const m = k >= 0 ? /^(\s*tags:\s*)(["']?)(.*?)\2\s*$/.exec(out[k]) : null
     return m ? { k, m, items: m[3].split(",").map((t) => t.trim()).filter(Boolean) } : null
   }
-  const tryTag = (it, s) => {
-    const t = tagLine(s)
-    if (!t) return false
-    if (t.items.includes(it.text)) return true
-    const at = it.anchor.after === null ? 0 : t.items.indexOf(it.anchor.after) + 1
-    if (at === 0 && it.anchor.after !== null) return false
-    t.items.splice(at, 0, it.text)
-    out[t.k] = t.m[1] + t.m[2] + t.items.join(", ") + t.m[2]
-    return true
-  }
+
+  /** Insert the item at its verified place; returns null when it went in, else the reason it could not. */
   const attempt = (it) => {
-    if (!usable(it)) return false
     const s = scan()
-    if (LINE_KINDS.includes(it.kind)) return tryLine(it, s)
-    if (it.kind === "sentence" || it.kind === "prose-sentence") return tryInline(it, s)
-    if (it.kind === "line-rewrite") return tryRewrite(it, s)
-    if (it.kind === "description-sentence") return tryDescription(it, s)
-    if (it.kind === "tag") return tryTag(it, s)
-    return false
+    if (LINE_KINDS.includes(it.kind)) {
+      const r = locateLine(it, s)
+      if (r.reason) return r.reason
+      place(r.line, it.lines, { kind: it.kind, inCode: it.kind === "code-region" })
+      return null
+    }
+    if (it.kind === "sentence" || it.kind === "prose-sentence") {
+      const r = locateInline(it, s)
+      if (r.reason) return r.reason
+      const { k, col } = r.line, l = out[k]
+      const glued = /[([{"'“‘]$/.test(it.anchor.after)
+      out[k] = l.slice(0, col) + (glued ? it.text + (col < l.length && !/[\s)\]}]/.test(l[col]) ? " " : "") : " " + it.text) + l.slice(col)
+      return null
+    }
+    if (it.kind === "line-rewrite") {
+      const r = locateRewrite(it, s)
+      if (r.reason) return r.reason
+      out[r.line] = it.text
+      return null
+    }
+    if (it.kind === "description-sentence") {
+      const d = descriptionLines(s)
+      if (!d) return "the master has no description"
+      if (it.anchor.after === null) {
+        const m = /^(description:\s*["']?)/.exec(out[d.first])
+        if (!m || d.first !== d.last) return "the description is not one line"
+        out[d.first] = m[1] + it.text + " " + out[d.first].slice(m[1].length)
+        return null
+      }
+      const hits = []
+      for (let k = d.first; k <= d.last; k++) for (let p = out[k].indexOf(it.anchor.after); p !== -1; p = out[k].indexOf(it.anchor.after, p + 1)) hits.push({ k, p })
+      if (hits.length !== 1) return hits.length ? `its anchor occurs ${hits.length} times in the description` : "no anchor in the description"
+      const { k, p } = hits[0], col = p + it.anchor.after.length
+      out[k] = out[k].slice(0, col) + " " + it.text + out[k].slice(col)
+      return null
+    }
+    if (it.kind === "tag") {
+      const t = tagLine(s)
+      if (!t) return "the master has no one-line metadata.tags"
+      if (t.items.includes(it.text)) return null
+      const at = it.anchor.after === null ? 0 : t.items.indexOf(it.anchor.after) + 1
+      if (at === 0 && it.anchor.after !== null) return `tag "${it.anchor.after}" not in metadata.tags`
+      t.items.splice(at, 0, it.text)
+      out[t.k] = t.m[1] + t.m[2] + t.items.join(", ") + t.m[2]
+      return null
+    }
+    return `unknown kind ${it.kind}`
   }
 
-  // Passes in recorded order until nothing more goes in at an anchor: a unit whose anchor is another
-  // pack's unit waits for that unit.
+  // Passes in recorded order until nothing more goes in at a verified place: a unit whose anchor is
+  // another pack's unit waits for that unit.
+  const pending = new Map(items.map((it) => [it, ""]))
   for (let progress = true; progress && pending.size;) {
     progress = false
-    for (const it of items) if (pending.has(it) && attempt(it)) { pending.delete(it); progress = true }
+    for (const it of items) {
+      if (!pending.has(it)) continue
+      const reason = attempt(it)
+      if (reason === null) { pending.delete(it); progress = true } else pending.set(it, reason)
+    }
   }
 
-  // Fallbacks (rule h), in recorded order.
+  // Fallbacks (rule h), in recorded order, each with its reason.
   const orphans = new Map()
   for (const it of items) {
     if (!pending.has(it)) continue
+    const reason = pending.get(it)
     pending.delete(it)
     const s = scan()
     if (it.kind === "code-region") {
       const key = `${it.pack ?? "pack"}\u0000${it.anchor.helper}`
       if (!orphans.has(key)) orphans.set(key, { pack: it.pack ?? "pack", helper: it.anchor.helper, section: it.anchor.section, regions: [] })
       orphans.get(key).regions.push(it.lines)
-      warn(`${label(it)} has no anchor in helper "${it.anchor.helper}"; put in the fence "// ${it.pack ?? "pack"} regions for ${it.anchor.helper}: place by hand"`)
+      warn(`${label(it)} has no anchor in helper "${it.anchor.helper}" (${reason}); put in the fence "// ${it.pack ?? "pack"} regions for ${it.anchor.helper}: place by hand"`)
     } else if (it.kind === "line-rewrite") {
-      warn(`${label(it)}: no line reads ${JSON.stringify(it.to)} in ${it.anchor.helper ? `helper "${it.anchor.helper}"` : `section "${it.anchor.section}"`}; not applied`)
+      warn(`${label(it)}: ${reason}; not applied`)
     } else if (it.kind === "description-sentence") {
       const d = descriptionLines(s)
-      if (!d) { warn(`${label(it)}: the master has no description; not restored`); continue }
+      if (!d) { warn(`${label(it)}: ${reason}; not restored`); continue }
       const l = out[d.last], q = /["']$/.test(l) && d.first === d.last ? 1 : 0
       out[d.last] = l.slice(0, l.length - q) + " " + it.text + l.slice(l.length - q)
-      warn(`${label(it)} has no anchor in the description; appended to its end`)
+      warn(`${label(it)}: ${reason}; appended to the end of the description`)
     } else if (it.kind === "tag") {
       const t = tagLine(s)
-      if (!t) { warn(`${label(it)}: the master has no one-line metadata.tags; "${it.text}" not restored`); continue }
+      if (!t) { warn(`${label(it)}: ${reason}; "${it.text}" not restored`); continue }
       t.items.push(it.text)
       out[t.k] = t.m[1] + t.m[2] + t.items.join(", ") + t.m[2]
-      warn(`${label(it)}: tag "${it.anchor.after}" not in metadata.tags; "${it.text}" appended to the list`)
+      warn(`${label(it)}: ${reason}; "${it.text}" appended to the list`)
     } else if (it.kind === "template-line") {
       const sec = findSection(s, it.anchor.section)
       const f = sec && s.fences.filter((x) => !x.helper && x.close !== -1 && x.open >= sec.start && x.close <= sec.end).pop()
+      let where = "the end of its section's report fence"
       if (f) out.splice(f.close, 0, ...it.lines)
-      else { const e = sectionEnd(s, it.anchor.section); place(e.at, it.lines, { kind: it.kind, forceRule: true }) }
-      warn(`${label(it)} has no anchor in section "${it.anchor.section}"; put at the end of ${f ? "its report fence" : "the section"}`)
+      else { const e = sectionEnd(s, it.anchor.section); place(e.at, it.lines, { kind: it.kind, forceRule: true }); where = e.found ? "the end of the section" : "the end of the last core section" }
+      warn(`${label(it)}: ${reason}; put at ${where}`)
     } else {
       const e = sectionEnd(s, it.anchor.section)
       place(e.at, it.lines, { kind: it.kind === "fence" ? "fence" : "block", forceRule: true })
-      warn(`${label(it)} has no anchor in section "${it.anchor.section}"; put at the end of ${e.found ? "the section" : "the body (no such section)"}`)
+      warn(`${label(it)}: ${reason}; put at the end of ${e.found ? "the section" : "the last core section"}`)
     }
   }
   for (const o of orphans.values()) {
     const body = ["```javascript", `// ${o.pack} regions for ${o.helper}: place by hand`, ...o.regions.flatMap((r, i) => (i ? ["", ...r] : r)), "```"]
     const s = scan()
-    const host = s.fences.find((x) => x.helper === o.helper && x.close !== -1)
-    place(host ? host.close : sectionEnd(s, o.section).at, body, { kind: "fence", forceRule: true })
+    const hosts = s.fences.filter((x) => x.helper === o.helper && x.close !== -1)
+    place(hosts.length === 1 ? hosts[0].close : sectionEnd(s, o.section).at, body, { kind: "fence", forceRule: true })
   }
   return out
 }

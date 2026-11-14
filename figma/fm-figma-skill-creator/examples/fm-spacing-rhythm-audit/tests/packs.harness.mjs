@@ -9,7 +9,7 @@
 // folder and removed at the end. The master and the committed packs are only read. It exports
 // nothing and exits 1 when any case fails.
 
-import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, copyFileSync, rmSync, readdirSync } from "node:fs"
+import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, copyFileSync, rmSync, readdirSync, existsSync } from "node:fs"
 import { spawnSync } from "node:child_process"
 import { tmpdir } from "node:os"
 import { dirname, join, basename } from "node:path"
@@ -140,6 +140,20 @@ const tail = (out) => out.trim().split("\n").pop()
 const notPresentOnly = (out, name) => {
   const warns = out.split("\n").filter((l) => l.startsWith("warning:"))
   return warns.length === 1 && warns[0].includes(`${name}: not present in this master`)
+}
+
+/** Lines with `extra` inserted after the first line equal to `at`. */
+function insertAfterLine(lines, at, extra) {
+  const i = lines.indexOf(at)
+  if (i === -1) throw new Error(`no line reads ${JSON.stringify(at)}`)
+  return [...lines.slice(0, i + 1), ...extra, ...lines.slice(i + 1)]
+}
+
+/** The reviewer's edits that touch no anchor: prose under When to use, code at the top of collect, and a decoy `};`. */
+const EDITS = {
+  "prose-15": (l) => insertAfterLine(l, "## When to use", ["", ...Array.from({ length: 15 }, (_, i) => `Extra line ${i}.`)]),
+  "code-30": (l) => insertAfterLine(l, "// helper: collect", Array.from({ length: 30 }, (_, i) => `const extra${i} = ${i};`)),
+  "arrow-6": (l) => insertAfterLine(l, "// helper: collect", ["const decoyA = () => {", "  return 1;", "};", "const decoyB = () => {", "  return 2;", "};"]),
 }
 
 /** The four pack selections the round trip is proven on: each pack, and both in either order. */
@@ -443,6 +457,130 @@ const cases = {
     const covered = findingsFor("v-surf-ok.md", packMaster("audit", "figma-design, figma-make, mcp", ...region()), "enhancement-surfaces")
     return check([[bare.length === 1 && bare[0].severity === "warn" && /figma-spec/.test(bare[0].message), `bare: ${JSON.stringify(bare)}`],
       [guarded.length === 0, `guarded: ${JSON.stringify(guarded)}`], [covered.length === 0, `covered: ${JSON.stringify(covered)}`]])
+  },
+
+  // Fix round 1, ruling 1: expand places a unit only where it can verify the place.
+  "expand commutes with edits that touch no anchor, for each pack and both": () => {
+    const problems = []
+    for (const sel of [[TOKENS], [REVERT], [TOKENS, REVERT]]) {
+      const names = sel.map((p) => p.name)
+      const stripped = stripAll(masterLines, sel).lines
+      for (const [label, edit] of Object.entries(EDITS)) {
+        const input = writeMaster(`commute-${names.join("-")}-${label}.md`, edit(stripped))
+        const out = join(tmp, `commute-${names.join("-")}-${label}-back.md`)
+        const r = cli("expand", input, ...names.flatMap((n) => ["--pack", n]), "--out", out)
+        const want = edit(masterLines.slice(0, -1)).join("\n") + "\n"
+        const got = r.status === 0 ? readFileSync(out, "utf8") : ""
+        const at = want.split("\n").findIndex((l, i) => l !== got.split("\n")[i])
+        problems.push(...check([[r.status === 0, `${names} ${label}: exit ${r.status}: ${tail(r.out)}`], [!r.out.includes("expand warning"), `${names} ${label}: warned: ${r.out.split("\n").find((l) => l.startsWith("expand warning"))}`],
+          [r.status !== 0 || got === want, `${names} ${label}: differs at line ${at + 1}: ${JSON.stringify(got.split("\n")[at] ?? "").slice(0, 80)}`]]))
+      }
+    }
+    return problems
+  },
+  "expand warns and falls back when an anchor is missing or ambiguous, and places nothing silently": () => {
+    const run = (name, lines, pack) => {
+      const out = join(tmp, `${name}-back.md`)
+      const r = cli("expand", writeMaster(`${name}.md`, lines), "--pack", pack, "--out", out)
+      return { r, warns: r.out.split("\n").filter((l) => l.startsWith("expand warning:")), lines: r.status === 0 ? normalize(readFileSync(out, "utf8")).split("\n") : [] }
+    }
+    // The revert helper fence anchors on the helper before it, by name: renamed, it falls back.
+    const noRevert = stripAll(masterLines, [REVERT]).lines
+    const renamed = run("renamed-verify", noRevert.map((l) => (l === "// helper: verify" ? "// helper: check" : l)), "revert")
+    // The Discovery region's anchor `};` is located by the line above it; a second copy of that line makes it ambiguous.
+    const noTokens = stripAll(masterLines, [TOKENS]).lines
+    const keyLine = "  return hi % 8 === 0 && lo % 8 !== 0 ? hi : lo;"
+    const decoy = run("decoy-key", insertAfterLine(noTokens, "// helper: collect", ["const decoy = (lo, hi) => {", keyLine, "};"]), "token-conformance")
+    // A prose anchor that occurs twice in its section is ambiguous.
+    const verifyLine = noRevert.find((l) => l.startsWith("7. **Verify.**"))
+    const twice = run("twice-verify", insertAfterLine(noRevert, "## Instructions", ["", verifyLine]), "revert")
+    const at = (r, re) => r.lines.findIndex((l) => re.test(l))
+    return check([
+      [renamed.r.status === 0 && renamed.warns.length === 1 && /fence \(master lines 441 to \d+\).*helper "verify"/.test(renamed.warns[0]), `renamed: ${JSON.stringify(renamed.warns)}`],
+      [at(renamed, /^\/\/ helper: revert$/) > at(renamed, /^\/\/ helper: check$/), "renamed: the revert fence is not after the renamed helper"],
+      [decoy.r.status === 0 && decoy.warns.length === 1 && /code-region \(master lines 162 to 238\)/.test(decoy.warns[0]), `decoy: ${JSON.stringify(decoy.warns)}`],
+      [at(decoy, /^\/\/ Discovery: /) > at(decoy, /^\/\/ token-conformance regions for collect: place by hand$/) && at(decoy, /regions for collect/) > 0, "decoy: the Discovery region is not in the orphan fence"],
+      [twice.r.status === 0 && twice.warns.length === 1 && /block \(master line 55\).*2 lines/.test(twice.warns[0]), `twice: ${JSON.stringify(twice.warns)}`],
+    ])
+  },
+  "a skill that takes the flagship's name still gets the Discovery region as an orphan": () => {
+    const qa = normalize(readFileSync(join(creator, "templates", "type-standards-qa-audit.md"), "utf8")).replace(/\n$/, "").split("\n").map((l) => (l.startsWith("name: ") ? "name: fm-spacing-rhythm-audit" : l))
+    const r = cli("expand", writeMaster("qa-as-audit.md", qa), "--pack", "token-conformance", "--out", join(tmp, "qa-as-audit-back.md"))
+    const regions = r.out.split("\n").filter((l) => /^expand warning: .*code-region .* has no anchor in helper/.test(l)).length
+    return check([[r.status === 0 && regions === 6, `exit ${r.status}, ${regions} code-region warnings`]])
+  },
+
+  // Ruling 2: a separator has no identity of its own; library errors reach the validator; expand checks its result.
+  "a separator-only template line matches only below another declared template line": () => {
+    const lines = masterWith("```markdown\n| A | B | C |\n| --- | --- | --- |\n```")
+    let units
+    try { units = findUnits(lines, TOKENS) } catch (e) { return [`threw: ${e.message}`] }
+    const out = stripAll(lines, [TOKENS]).lines
+    const k = out.indexOf("| A | B | C |")
+    return check([[units.filter((u) => u.kind === "template-line").length === 10, "template-line count changed"], [k !== -1 && out[k + 1] === "| --- | --- | --- |", "the other table lost its separator"]])
+  },
+  "expand into the probe writes a master the tools accept, and the validator sees the uncovered surface": () => {
+    const out = join(tmp, "probe-tok.md")
+    const e = cli("expand", join(creator, "examples", "fm-figma-capability-probe", "SKILL.md"), "--pack", "token-conformance", "--out", out)
+    if (e.status !== 0) return [`expand exit ${e.status}: ${tail(e.out)}`]
+    const s = cli("strip", out, "--pack", "token-conformance", "--out", join(tmp, "probe-tok-stripped.md"))
+    const surfaces = findingsFor("probe-tok-check.md", normalize(readFileSync(out, "utf8")).replace(/\n$/, "").split("\n"), "enhancement-surfaces")
+    return check([[s.status === 0, `strip exit ${s.status}: ${tail(s.out)}`], [surfaces.length === 1, `surfaces: ${JSON.stringify(surfaces)}`]])
+  },
+  "the validator reports a pack library error under enhancement-regions": () => {
+    const gone = "- Bound values: <n> passed"
+    const lines = masterLines.slice(0, -1).flatMap((l) => (l === gone ? [l, l] : [l]))
+    const f = findingsFor("lib-error.md", lines, "enhancement-regions")
+    return check([[f.length === 1 && f[0].severity === "error" && /matches 2 lines/.test(f[0].message) && f[0].line, `findings: ${JSON.stringify(f)}`]])
+  },
+  "expand writes nothing and exits 1 when the pack tools would refuse its result": () => {
+    const qa = normalize(readFileSync(join(creator, "templates", "type-standards-qa-audit.md"), "utf8")).replace(/\n$/, "").split("\n")
+    const out = join(tmp, "refused.md")
+    const r = cli("expand", writeMaster("qa-own-bound.md", insertAfterLine(qa, "- Violations: P0 <n> · P1 <n> · P2 <n> · P3 <n>", ["- Bound values: <n> passed"])), "--pack", "token-conformance", "--out", out)
+    return check([[r.status === 1, `exit ${r.status}`], [!existsSync(out), "a file was written"], [/matches 2 lines \(\d+, \d+\)/.test(r.out), `output: ${tail(r.out)}`]])
+  },
+
+  // Rulings 4 to 8.
+  "enhancement-surfaces: a guard anywhere in the helper counts, and no overlap says so": () => {
+    const region = ["// enhancement: token-conformance begin", "const t = 1;", "// enhancement: token-conformance end"]
+    const guarded = findingsFor("v-surf-helper-guard.md", packMaster("audit", "figma-design, figma-spec, mcp",
+      ...helper('if (figma.editorType === "figspec") return { skipped: "skipped in a Spec file" };', ...region, "return 1")), "enhancement-surfaces")
+    const none = findingsFor("v-surf-none.md", packMaster("audit", "figma-spec, mcp", ...helper(...region, "return 1")), "enhancement-surfaces")
+    return check([[guarded.length === 0, `guarded in helper: ${JSON.stringify(guarded)}`],
+      [none.length === 1 && /none of the skill's surfaces/.test(none[0].message) && /remove/.test(none[0].message), `no overlap: ${JSON.stringify(none)}`]])
+  },
+  "a pack phrase in a table row of a pack-free master is ordinary text for strip and the validator": () => {
+    const lines = packMaster("audit", "figma-design", "| Row | Note |", "| --- | --- |", "| R | Revert: undo the last snap |", "", ...helper("return 1"))
+    const path = writeMaster("table-row-free.md", lines), out = join(tmp, "table-row-free-stripped.md")
+    const r = cli("strip", path, "--pack", "revert", "--out", out)
+    const all = findingsFor("table-row-free-check.md", lines, null)
+    return check([[r.status === 0 && readFileSync(out).equals(readFileSync(path)), `strip exit ${r.status}: ${tail(r.out)}`],
+      [!all.some((f) => f.severity === "error" || f.rule.startsWith("enhancement-")), `validator: ${JSON.stringify(all.filter((f) => f.severity === "error" || f.rule.startsWith("enhancement-")))}`]])
+  },
+  "strip of a pack-free master writes the input bytes, CRLF or no final newline": () => {
+    const text = readFileSync(join(creator, "templates", "type-standards-qa-audit.md"), "utf8")
+    const problems = []
+    for (const [label, bytes] of [["crlf", text.replace(/\n/g, "\r\n")], ["no-final-newline", text.replace(/\n$/, "")]]) {
+      const path = join(tmp, `${label}.md`), out = join(tmp, `${label}-out.md`)
+      writeFileSync(path, bytes)
+      const r = cli("strip", path, "--pack", "token-conformance", "--out", out)
+      problems.push(...check([[r.status === 0 && readFileSync(out).equals(readFileSync(path)), `${label}: exit ${r.status}, bytes ${r.status === 0 ? "differ" : "-"}`]]))
+    }
+    return problems
+  },
+  "roundtrip on a master without the pack exits 1 and says the pack is not present": () => {
+    const r = cli("roundtrip", join(creator, "templates", "type-standards-qa-audit.md"), "--pack", "revert")
+    return check([[r.status === 1, `exit ${r.status}`], [/not present in this master/.test(tail(r.out)) && !/declared item/.test(r.out), `output: ${JSON.stringify(r.out.trim().split("\n"))}`]])
+  },
+  "a unit whose section is missing goes at the end of the last core section, with a warning naming the section": () => {
+    const qa = normalize(readFileSync(join(creator, "templates", "type-standards-qa-audit.md"), "utf8")).replace(/\n$/, "").split("\n").map((l) => (l === "## Common edge cases" ? "## Gotchas" : l))
+    const out = join(tmp, "missing-section-back.md")
+    const r = cli("expand", writeMaster("missing-section.md", qa), "--pack", "token-conformance", "--out", out)
+    if (r.status !== 0) return [`exit ${r.status}: ${tail(r.out)}`]
+    const lines = normalize(readFileSync(out, "utf8")).split("\n")
+    const unit = lines.findIndex((l) => l.startsWith("- **Token mode: alias tokens.**"))
+    return check([[r.out.split("\n").some((l) => l.startsWith("expand warning:") && l.includes('section "Common edge cases" not found')), "no warning names the missing section"],
+      [unit > lines.findIndex((l) => l.startsWith("## Final gate")) && unit < lines.indexOf("<!-- target:figma-app -->"), `the unit is at line ${unit + 1}, not in the last core section`]])
   },
 }
 

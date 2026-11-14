@@ -436,9 +436,19 @@ if (edition === "master") {
   }
   const tags = metaList("tags")
   const surfaces = metaList("runtimes").filter((r) => r.startsWith("figma-"))
+  // The fence holding a line, for a surface guard anywhere in the helper that holds a region.
+  const fencesAll = fenceBlocks(lines)
+  const fenceText = (i) => { const f = fencesAll.find((x) => i >= x.open && (x.close === -1 || i <= x.close)); return f ? lines.slice(f.open, f.close === -1 ? lines.length : f.close + 1).join("\n") : "" }
   for (const pack of packs) {
     let units
-    try { units = findUnits(lines, pack) } catch { continue } // contract errors: enhancement-regions or the pack tools report them
+    try { units = findUnits(lines, pack) } catch (e) {
+      // A contract error the pack tools would stop on (an ambiguous declared line, a phrase in a table
+      // row): report it with the library's message and line, unless the region scan above already did.
+      const at = /line (\d+)|lines \((\d+)/.exec(e.message)
+      const line = at ? +(at[1] ?? at[2]) : null
+      if (!findings.some((f) => f.rule === "enhancement-regions" && f.line === line)) report("enhancement-regions", `${pack.name}: ${e.message}`, line)
+      continue
+    }
     const prose = units.filter((u) => ["block", "heading-block", "sentence"].includes(u.kind))
     const code = units.filter((u) => ["code-region", "fence"].includes(u.kind))
     const gate = pack.tags.length ? pack.tags.some((t) => tags.includes(t)) : carriesPack(units)
@@ -450,9 +460,13 @@ if (edition === "master") {
     // The pack is in the master when its phrase or its code region is (carriesPack): a declared line
     // alone (a bare table separator, say) can occur in any skill and proves nothing.
     const uncovered = surfaces.filter((s) => !pack.surfaces.includes(s))
-    const guarded = code.some((u) => /figma\.editorType|skipped in a Spec file/.test(u.text))
-    if (carriesPack(units) && uncovered.length && !guarded) {
-      report("enhancement-surfaces", `the ${pack.name} pack runs on ${pack.surfaces.join(", ")}, not on ${uncovered.join(", ")}; add a surface guard to its code region (one that prints "skipped in a Spec file") or narrow metadata.runtimes`, (code[0] ?? prose[0]).start + 1)
+    // A guard anywhere in the helper that holds a region counts (rule i: the guard goes in the helper).
+    const guarded = code.some((u) => /figma\.editorType|skipped in a Spec file/.test(fenceText(u.start)))
+    const at = (code[0] ?? prose[0])?.start
+    if (carriesPack(units) && uncovered.length && uncovered.length === surfaces.length) {
+      report("enhancement-surfaces", `the ${pack.name} pack runs on none of the skill's surfaces (${surfaces.join(", ")}; it runs on ${pack.surfaces.join(", ")}); remove the pack, or narrow metadata.runtimes to surfaces it runs on`, at + 1)
+    } else if (carriesPack(units) && uncovered.length && !guarded) {
+      report("enhancement-surfaces", `the ${pack.name} pack runs on ${pack.surfaces.join(", ")}, not on ${uncovered.join(", ")}; add a surface guard to the helper that holds its code region (one that prints "skipped in a Spec file") or narrow metadata.runtimes`, at + 1)
     }
   }
 }

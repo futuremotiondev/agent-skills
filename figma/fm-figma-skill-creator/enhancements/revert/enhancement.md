@@ -22,7 +22,10 @@ Master line 55. Anchor:
 {
   "section": "Instructions",
   "helper": null,
-  "after": "7. **Verify.** Re-read every changed property from the canvas and compare it with the target. Report mismatches as not fixed, with the value actually read."
+  "after": "7. **Verify.** Re-read every changed property from the canvas and compare it with the target. Report mismatches as not fixed, with the value actually read.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -40,7 +43,10 @@ Master line 59, column 1192. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "Token mode: a near-miss row's Note reads \"on rhythm, no token; nearest Space/400 (16)\", or \"tie: Space/400 (16) or Space/600 (24)\" when two tokens are equally near."
+  "after": "Token mode: a near-miss row's Note reads \"on rhythm, no token; nearest Space/400 (16)\", or \"tie: Space/400 (16) or Space/600 (24)\" when two tokens are equally near.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -58,7 +64,10 @@ Master line 90. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "## After fixes (only if applied)"
+  "after": "## After fixes (only if applied)",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -76,7 +85,10 @@ Master line 142. Anchor:
 {
   "section": "Common edge cases",
   "helper": null,
-  "after": "- **Gap of 2, or fractional values such as 15.5.** Both rank P3 with a note: a gap of 2 is a half-step unless the user disallows 2; 15.5's nearest on-grid value is 16."
+  "after": "- **Gap of 2, or fractional values such as 15.5.** Both rank P3 with a note: a gap of 2 is a half-step unless the user disallows 2; 15.5's nearest on-grid value is 16.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -94,7 +106,10 @@ Master lines 441 to 476. Anchor:
 {
   "section": "Helper scripts",
   "helper": "revert",
-  "after": "```"
+  "after": "```",
+  "afterHelper": "verify",
+  "key": null,
+  "offset": null
 }
 ````
 
@@ -147,7 +162,10 @@ Master line 488. Anchor:
 {
   "section": "Final gate: do not finish until every line is true, checked against the canvas, not from memory",
   "helper": null,
-  "after": "- [ ] Token mode: every bind fix names a non-alias spacing-collection candidate within 4 of the value, and every bound value passed"
+  "after": "- [ ] Token mode: every bind fix names a non-alias spacing-collection candidate within 4 of the value, and every bound value passed",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -165,7 +183,10 @@ Master line 493, column 433. Anchor:
 {
   "section": "In-app execution (Figma agent)",
   "helper": null,
-  "after": "If no script tool is available, read the properties with your own canvas tools and apply confirmed fixes one layer at a time, reporting each."
+  "after": "If no script tool is available, read the properties with your own canvas tools and apply confirmed fixes one layer at a time, reporting each.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -183,7 +204,10 @@ Master line 499, column 870. Anchor:
 {
   "section": "MCP execution (Claude Code, Cursor, Codex)",
   "helper": null,
-  "after": "Run the scripts in Helper scripts through `use_figma` as written, setting the collect script's `let MODE` line before each run: collect and present the table; after the fix question is answered, apply the confirmed rows in a second call and verify in a third."
+  "after": "Run the scripts in Helper scripts through `use_figma` as written, setting the collect script's `let MODE` line before each run: collect and present the table; after the fix question is answered, apply the confirmed rows in a second call and verify in a third.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 

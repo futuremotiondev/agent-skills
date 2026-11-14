@@ -76,7 +76,10 @@ Master line 30, column 380. Anchor:
 {
   "section": "Before you start",
   "helper": null,
-  "after": "If the user names a different scale, or the file's library guidelines document one, use that instead and state it in the report."
+  "after": "If the user names a different scale, or the file's library guidelines document one, use that instead and state it in the report.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -94,7 +97,10 @@ Master line 31. Anchor:
 {
   "section": "Before you start",
   "helper": null,
-  "after": "3. **Confirm the scale.** Default rhythm: a value is on-grid when it is 0, a multiple of 4 below 48, or a multiple of 8 at 48 and above. A gap of exactly 2 is a half-step that many systems allow; report it at P3 unless the user says 2 is disallowed. If the user names a different scale, or the file's library guidelines document one, use that instead and state it in the report. Token mode: when spacing tokens exist, the spacing collection's Default-mode values are added to the on-grid set in rhythm mode."
+  "after": "3. **Confirm the scale.** Default rhythm: a value is on-grid when it is 0, a multiple of 4 below 48, or a multiple of 8 at 48 and above. A gap of exactly 2 is a half-step that many systems allow; report it at P3 unless the user says 2 is disallowed. If the user names a different scale, or the file's library guidelines document one, use that instead and state it in the report. Token mode: when spacing tokens exist, the spacing collection's Default-mode values are added to the on-grid set in rhythm mode.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -112,7 +118,10 @@ Master lines 32 to 34. Anchor:
 {
   "section": "Before you start",
   "helper": null,
-  "after": "4. **Token mode: discover spacing tokens.** Run the collect script in discover mode first; when it returns an audit instead of a token summary, the file has no spacing tokens and that audit is the rhythm result: present it and skip the mode question. Discovery reads the file's local FLOAT variables. A candidate is a variable whose scopes include GAP, or whose name contains \"space\" or \"spacing\" (case-insensitive), excluding letter-spacing, line-height or line-spacing, and paragraph-spacing names. The default ALL_SCOPES does not satisfy the scope rule, but the name rule still applies, so unscoped `Space/*` variables count. A variable scoped to WIDTH_HEIGHT without GAP, or carrying one of those excluded names, is matched but is never a candidate: a value bound to it passes, but it is never offered and never counts toward choosing the collection. Group candidates by collection; the collection with the most candidates that has at least one non-alias Default-mode candidate is the spacing collection; when two collections tie on that count, the one with a candidate above 0 wins. Only its candidates are bind or snap candidates; matched variables in other collections still make a bound value pass but are never offered. If no collection has a non-alias Default-mode candidate, treat the file as having no spacing tokens. Resolve aliases to their final value (at most three hops) and remember which variables are aliases. Record one token entry per variable per mode of its collection, but keep the entries inside the script: the discover run returns `tokenCount` (the spacing collection's candidate entries), `candidateValues` (its sorted distinct Default-mode non-alias values), `spacingCollection`, `matchedCollections`, and `libraryTokens`, and later runs return `tokenCount` instead of the entries, which keeps every result small. Name matched collections that are not offered in one line of the discover report, for example \"Matched but not offered: Sizes (6 WIDTH_HEIGHT), Typography (3 letter-spacing)\", and repeat that line in the audit report's header. If the runtime exposes team-library variable collections, report \"library tokens present, not audited\" once; their values cannot be read without importing them into the file, which this skill never does before confirmation."
+  "after": "4. **Token mode: discover spacing tokens.** Run the collect script in discover mode first; when it returns an audit instead of a token summary, the file has no spacing tokens and that audit is the rhythm result: present it and skip the mode question. Discovery reads the file's local FLOAT variables. A candidate is a variable whose scopes include GAP, or whose name contains \"space\" or \"spacing\" (case-insensitive), excluding letter-spacing, line-height or line-spacing, and paragraph-spacing names. The default ALL_SCOPES does not satisfy the scope rule, but the name rule still applies, so unscoped `Space/*` variables count. A variable scoped to WIDTH_HEIGHT without GAP, or carrying one of those excluded names, is matched but is never a candidate: a value bound to it passes, but it is never offered and never counts toward choosing the collection. Group candidates by collection; the collection with the most candidates that has at least one non-alias Default-mode candidate is the spacing collection; when two collections tie on that count, the one with a candidate above 0 wins. Only its candidates are bind or snap candidates; matched variables in other collections still make a bound value pass but are never offered. If no collection has a non-alias Default-mode candidate, treat the file as having no spacing tokens. Resolve aliases to their final value (at most three hops) and remember which variables are aliases. Record one token entry per variable per mode of its collection, but keep the entries inside the script: the discover run returns `tokenCount` (the spacing collection's candidate entries), `candidateValues` (its sorted distinct Default-mode non-alias values), `spacingCollection`, `matchedCollections`, and `libraryTokens`, and later runs return `tokenCount` instead of the entries, which keeps every result small. Name matched collections that are not offered in one line of the discover report, for example \"Matched but not offered: Sizes (6 WIDTH_HEIGHT), Typography (3 letter-spacing)\", and repeat that line in the audit report's header. If the runtime exposes team-library variable collections, report \"library tokens present, not audited\" once; their values cannot be read without importing them into the file, which this skill never does before confirmation.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -132,7 +141,10 @@ Master line 44. Anchor:
 {
   "section": "Instructions",
   "helper": null,
-  "after": "3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48. Under a 4 pt grid the largest possible delta below 48 is 2, so severity keys on 2 versus 1."
+  "after": "3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48. Under a 4 pt grid the largest possible delta below 48 is 2, so severity keys on 2 versus 1.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -150,7 +162,10 @@ Master line 49, column 122. Anchor:
 {
   "section": "Instructions",
   "helper": null,
-  "after": "- **P3**: fractional deltas below 1, gaps of exactly 2, and anything on a page named Scratch, Archive, or Playground."
+  "after": "- **P3**: fractional deltas below 1, gaps of exactly 2, and anything on a page named Scratch, Archive, or Playground.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -168,7 +183,10 @@ Master line 53, column 598. Anchor:
 {
   "section": "Instructions",
   "helper": null,
-  "after": "Never change or remove an existing binding, a layer's structure, constraints, or layout mode, and never set a width or height."
+  "after": "Never change or remove an existing binding, a layer's structure, constraints, or layout mode, and never set a width or height.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -186,7 +204,10 @@ Master line 59, column 497. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "Say \"no off-grid values in\" followed by the frame count instead of producing an empty table."
+  "after": "Say \"no off-grid values in\" followed by the frame count instead of producing an empty table.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -204,7 +225,10 @@ Master line 59, column 1027. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table before the main table; and the Fix column's bind form, \"bind Space/200\", beside \"set 8\" for a value with no token within 4."
+  "after": "Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table before the main table; and the Fix column's bind form, \"bind Space/200\", beside \"set 8\" for a value with no token within 4.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -222,7 +246,10 @@ Master line 65. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "## Spacing rhythm audit: <scope name>"
+  "after": "## Spacing rhythm audit: <scope name>",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -240,7 +267,10 @@ Master line 70. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- Bound to variables: <n> values using <token names>; left to a variable-level decision"
+  "after": "- Bound to variables: <n> values using <token names>; left to a variable-level decision",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -258,7 +288,10 @@ Master line 71. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- Bound values: <n> passed"
+  "after": "- Bound values: <n> passed",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -276,7 +309,10 @@ Master line 72. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- Tokens off the 4/8 rhythm: Space/150 = 6 (12 values); a scale decision, not a defect"
+  "after": "- Tokens off the 4/8 rhythm: Space/150 = 6 (12 values); a scale decision, not a defect",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -294,7 +330,10 @@ Master line 73. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- Bind opportunities: <n> values across <n> tokens (table below when any)"
+  "after": "- Bind opportunities: <n> values across <n> tokens (table below when any)",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -312,7 +351,10 @@ Master line 74. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- On rhythm, no matching token: <n>"
+  "after": "- On rhythm, no matching token: <n>",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -330,7 +372,10 @@ Master line 75. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- Matches an alias: <n> (not offered)"
+  "after": "- Matches an alias: <n> (not offered)",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -348,7 +393,10 @@ Master line 78. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "- No changes applied."
+  "after": "- No changes applied.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -366,7 +414,10 @@ Master line 79. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "## Bind opportunities (token mode, when any)"
+  "after": "## Bind opportunities (token mode, when any)",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -384,7 +435,10 @@ Master line 80. Anchor:
 {
   "section": "Output contract",
   "helper": null,
-  "after": "| Token (mode) | Values | Example layer |"
+  "after": "| Token (mode) | Values | Example layer |",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -402,7 +456,10 @@ Master lines 100 to 103. Anchor:
 {
   "section": "Do and do not",
   "helper": null,
-  "after": "## Do and do not"
+  "after": "## Do and do not",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -423,7 +480,10 @@ Master line 134, column 176. Anchor:
 {
   "section": "Common edge cases",
   "helper": null,
-  "after": "In rhythm mode, report the variable name and its resolved value at P2 and suggest changing the variable."
+  "after": "In rhythm mode, report the variable name and its resolved value at P2 and suggest changing the variable.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -441,7 +501,10 @@ Master line 135. Anchor:
 {
   "section": "Common edge cases",
   "helper": null,
-  "after": "- **Values bound to variables.** Never overwrite an existing binding. In rhythm mode, report the variable name and its resolved value at P2 and suggest changing the variable. Token mode: a bound value passes and is counted on the Bound values line."
+  "after": "- **Values bound to variables.** Never overwrite an existing binding. In rhythm mode, report the variable name and its resolved value at P2 and suggest changing the variable. Token mode: a bound value passes and is counted on the Bound values line.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -459,7 +522,10 @@ Master line 136. Anchor:
 {
   "section": "Common edge cases",
   "helper": null,
-  "after": "- **Token mode: alias tokens.** An alias resolves to its final value (at most three hops) for matching but is never offered; bind to the non-alias variable with that value. When only an alias holds the value, the value passes with the note \"matches an alias, not offered\" and is counted on the Matches an alias line; otherwise snap to the nearest non-alias token."
+  "after": "- **Token mode: alias tokens.** An alias resolves to its final value (at most three hops) for matching but is never offered; bind to the non-alias variable with that value. When only an alias holds the value, the value passes with the note \"matches an alias, not offered\" and is counted on the Matches an alias line; otherwise snap to the nearest non-alias token.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -477,7 +543,10 @@ Master line 137. Anchor:
 {
   "section": "Common edge cases",
   "helper": null,
-  "after": "- **Token mode: multi-mode collections.** Match against the token values of the mode applied to the node's collection, else the Default mode, and name that mode in the fix: \"bind Space/300 (Compact)\"."
+  "after": "- **Token mode: multi-mode collections.** Match against the token values of the mode applied to the node's collection, else the Default mode, and name that mode in the fix: \"bind Space/300 (Compact)\".",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -495,7 +564,10 @@ Master line 138. Anchor:
 {
   "section": "Common edge cases",
   "helper": null,
-  "after": "- **Token mode: library tokens present but not audited.** Say \"library tokens present, not audited\" once, on the Mode line; never import a library variable to read its value."
+  "after": "- **Token mode: library tokens present but not audited.** Say \"library tokens present, not audited\" once, on the Mode line; never import a library variable to read its value.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -513,7 +585,10 @@ Master line 139, column 104. Anchor:
 {
   "section": "Common edge cases",
   "helper": null,
-  "after": "- **Percentages, mixed values, or negative values.** Report them in the Note column; do not snap them."
+  "after": "- **Percentages, mixed values, or negative values.** Report them in the Note column; do not snap them.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -531,7 +606,10 @@ Master line 151. Anchor:
 {
   "section": "Helper scripts",
   "helper": "collect",
-  "after": "// helper: collect"
+  "after": "// helper: collect",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -555,7 +633,10 @@ Master lines 162 to 238. Anchor:
 {
   "section": "Helper scripts",
   "helper": "collect",
-  "after": "};"
+  "after": "};",
+  "afterHelper": null,
+  "key": "  return hi % 8 === 0 && lo % 8 !== 0 ? hi : lo;",
+  "offset": 1
 }
 ```
 
@@ -649,7 +730,10 @@ Master lines 277 to 282. Anchor:
 {
   "section": "Helper scripts",
   "helper": "collect",
-  "after": "    let target = null, fix = null, half = v === 2 && (k === \"itemSpacing\" || k === \"counterAxisSpacing\");"
+  "after": "    let target = null, fix = null, half = v === 2 && (k === \"itemSpacing\" || k === \"counterAxisSpacing\");",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -672,7 +756,10 @@ Master lines 338 to 340. Anchor:
 {
   "section": "Helper scripts",
   "helper": "collect",
-  "after": "  let key = [r.group, r.path, r.property, r.current, r.fix.modeName].join(\"|\");"
+  "after": "  let key = [r.group, r.path, r.property, r.current, r.fix.modeName].join(\"|\");",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -692,7 +779,10 @@ Master lines 357 to 387. Anchor:
 {
   "section": "Helper scripts",
   "helper": "collect",
-  "after": "const out = { framesMeasured: frames, hiddenSkipped: hidden, notMeasurable: absolute, truncated, values: rows.size, tableRows: list.length, byPriority, byGroup, boundValues, boundTokens: [...new Set(varNames.values())], rows: list.slice(0, MAX_ROWS) };"
+  "after": "const out = { framesMeasured: frames, hiddenSkipped: hidden, notMeasurable: absolute, truncated, values: rows.size, tableRows: list.length, byPriority, byGroup, boundValues, boundTokens: [...new Set(varNames.values())], rows: list.slice(0, MAX_ROWS) };",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -740,7 +830,10 @@ Master lines 408 to 415. Anchor:
 {
   "section": "Helper scripts",
   "helper": "apply",
-  "after": "    let bound = false;"
+  "after": "    let bound = false;",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -765,7 +858,10 @@ Master lines 433 to 435. Anchor:
 {
   "section": "Helper scripts",
   "helper": "verify",
-  "after": "  let ok = actual === f.value;"
+  "after": "  let ok = actual === f.value;",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -785,7 +881,10 @@ Master line 487. Anchor:
 {
   "section": "Final gate: do not finish until every line is true, checked against the canvas, not from memory",
   "helper": null,
-  "after": "- [ ] No binding that existed before this skill ran was changed or removed, and no structure, constraint, layout mode, or explicit size was changed"
+  "after": "- [ ] No binding that existed before this skill ran was changed or removed, and no structure, constraint, layout mode, or explicit size was changed",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -803,7 +902,10 @@ Master line 493, column 612. Anchor:
 {
   "section": "In-app execution (Figma agent)",
   "helper": null,
-  "after": "Revert: on request, run the revert script with the `applied` list from the apply result; when apply ran in batches, concatenate every batch's list and revert in the same batches."
+  "after": "Revert: on request, run the revert script with the `applied` list from the apply result; when apply ran in batches, concatenate every batch's list and revert in the same batches.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -821,7 +923,10 @@ Master line 493, column 1051. Anchor:
 {
   "section": "In-app execution (Figma agent)",
   "helper": null,
-  "after": "Ask the row-number follow-up as free text, with no preset options."
+  "after": "Ask the row-number follow-up as free text, with no preset options.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 
@@ -839,7 +944,10 @@ Master line 499, column 987. Anchor:
 {
   "section": "MCP execution (Claude Code, Cursor, Codex)",
   "helper": null,
-  "after": "Revert: on request, run revert in its own `use_figma` call with the `applied` list from apply, batched as apply was."
+  "after": "Revert: on request, run revert in its own `use_figma` call with the `applied` list from apply, batched as apply was.",
+  "afterHelper": null,
+  "key": null,
+  "offset": null
 }
 ```
 

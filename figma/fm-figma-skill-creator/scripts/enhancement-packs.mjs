@@ -18,9 +18,10 @@
 // extract    writes enhancements/<name>/enhancement.md from the master: a header, then one level-three
 //            heading per unit with its anchor and text. pack.json is hand-maintained and written only
 //            when absent, as a skeleton that needs --phrase (with exactly one --pack).
-// expand     inserts the units each pack's enhancement.md records, each after its anchor, all packs in one
-//            pass; a unit with no anchor falls back per rule (h) with one "expand warning:" line on
-//            standard error. Refuses a master that already carries units of a named pack.
+// expand     inserts the units each pack's enhancement.md records, all packs in one pass, each only where
+//            its anchor can be verified; a unit whose anchor is missing or found more than once falls
+//            back per rule (h) with one "expand warning:" line on standard error. Refuses a master that
+//            already carries a named pack, and writes nothing when the pack tools would refuse the result.
 // roundtrip  strips the packs from the master in the order given, inserts the stripped units again in
 //            reverse order, and compares with the input (LF-normalised). Exit 0 only when the result is
 //            byte-identical and every item the packs declare was found; otherwise it names the first
@@ -32,14 +33,15 @@
 // second extract changes nothing. The rules are in references/enhancement-packs.md.
 //
 // Exit 0 on success, 1 on a contract error (nested regions, an ambiguous declared line, a pack.json
-// problem), a master that already carries the pack (expand), or a failed round trip, 2 on bad
+// problem), a master that already carries the pack or a result the tools would refuse (expand), or a
+// failed round trip (including a pack the master does not carry), 2 on bad
 // arguments or an unreadable master or enhancement.md. Declared items the master lacks are warnings
 // on standard error. Dependency-free, Node 18+.
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSync } from "node:fs"
 import { join, dirname, resolve, relative, basename, sep } from "node:path"
 import { fileURLToPath } from "node:url"
-import { normalize, parseFrontmatter, getField } from "./lib/skill-md.mjs"
+import { normalize } from "./lib/skill-md.mjs"
 import { loadPack, findUnits, stripUnits, readUnits, insertUnits, carriesPack, UNIT_KINDS } from "./lib/enhancements.mjs"
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -135,25 +137,19 @@ function strip(master, packs) {
     stripped = true
     console.error(`stripped ${pack.name}: ${units.length} units (${kindSummary(units) || "none"})`)
   }
-  // Nothing stripped: write the input back as it was (LF-normalised), byte for byte.
-  emit(stripped ? lines : master[master.length - 1] === "" ? master.slice(0, -1) : master)
+  // Nothing stripped: write the input's bytes as they are (CRLF and a missing final newline included).
+  if (stripped) emit(lines)
+  else emit(null, readFileSync(masterAbs))
 }
 
-/** Write the lines to --out, or to standard output when --out is absent. */
-function emit(lines) {
-  const text = lines.join("\n") + "\n"
+/** Write the lines (or, given `raw`, those exact bytes) to --out, or to standard output when --out is absent. */
+function emit(lines, raw = null) {
+  const data = raw ?? lines.join("\n") + "\n"
   if (flags["--out"]) {
     mkdirSync(dirname(resolve(flags["--out"])), { recursive: true })
-    writeFileSync(resolve(flags["--out"]), text, "utf8")
+    writeFileSync(resolve(flags["--out"]), data)
     console.error(`wrote ${flags["--out"]}`)
-  } else process.stdout.write(text)
-}
-
-/** The master's frontmatter name, or null. */
-function skillName(lines) {
-  const fm = parseFrontmatter(lines)
-  const f = fm.present ? getField(fm.fields, "name") : null
-  return f && typeof f.value === "string" ? f.value.trim() : null
+  } else process.stdout.write(data)
 }
 
 function expand(master, packs) {
@@ -165,14 +161,15 @@ function expand(master, packs) {
     if (carriesPack(present)) die(1, `the master already carries ${present.length} units of ${pack.name} (${kindSummary(present)}); strip it first`)
     const file = join(enhancementsDir, pack.name, "enhancement.md")
     if (!existsSync(file)) die(2, `no ${file}; run extract first`)
-    const read = readUnits(readFileSync(file, "utf8"))
-    // The skill the pack was extracted from: the folder of the master its enhancement.md names.
-    const source = read.source ? basename(dirname(read.source)) : ""
-    for (const u of read.units) units.push({ ...u, pack: pack.name, source })
+    for (const u of readUnits(readFileSync(file, "utf8")).units) units.push({ ...u, pack: pack.name })
   }
   // The split of a file that ends in a newline ends in one empty element; emit() writes that newline back.
   const body = master[master.length - 1] === "" ? master.slice(0, -1) : master
-  const lines = insertUnits(body, units, { warn: (m) => console.error(`expand warning: ${m}`), skill: skillName(master) })
+  const lines = insertUnits(body, units, { warn: (m) => console.error(`expand warning: ${m}`) })
+  // Write nothing the pack tools would then refuse (a declared line that now matches twice, say).
+  for (const pack of packs) {
+    try { findUnits(lines, pack) } catch (e) { die(1, `the expanded master would be refused by the pack tools, so nothing was written: ${e.message}`) }
+  }
   console.error(`expanded ${packs.map((p) => p.name).join(", ")}: ${units.length} units (${kindSummary(units) || "none"})`)
   emit(lines)
 }
@@ -181,9 +178,10 @@ function roundtrip(master, packs) {
   const names = packs.map((p) => p.name).join(",")
   let lines = master
   let missing = 0
+  const absent = []
   const steps = []
   for (const pack of packs) {
-    const units = findUnits(lines, pack, { warn: (m) => { missing++; console.error(`roundtrip: ${m}`) } })
+    const units = findUnits(lines, pack, { warn: (m) => { if (m.includes("not present in this master")) absent.push(pack.name); else { missing++; console.error(`roundtrip: ${m}`) } } })
     steps.push({ pack, units })
     lines = stripUnits(lines, units)
   }
@@ -204,7 +202,8 @@ function roundtrip(master, packs) {
     console.error(`  output: ${show(output[at])}`)
   }
   if (missing) console.error(`roundtrip ${names}: ${missing} declared item${missing === 1 ? "" : "s"} not found in the master (listed above); the pack declarations no longer match it`)
-  if (!same || missing) process.exit(1)
+  if (absent.length) console.error(`roundtrip ${names}: ${absent.join(", ")} not present in this master (no phrase unit and no code region), so there is nothing to round-trip`)
+  if (!same || missing || absent.length) process.exit(1)
   console.log(`roundtrip ${names}: byte-identical; units stripped and restored: ${count}`)
 }
 
