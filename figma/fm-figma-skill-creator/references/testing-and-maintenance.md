@@ -29,6 +29,30 @@ The `helper-placement` rule (master only) warns when a `javascript` fence sits i
 region, or a `// helper:` marker sits outside the core `## Helper scripts` section. The build
 extracts helpers only from that section, so either one would ship a helper to one runtime only.
 
+The `helper-form` rule (master, upload, and paste) is an error when a line at the top level of a
+`// helper:` fence opens a function wrapper (`(async () => {`, `(async function`, `(() => {`) or
+closes one (`})();`): write helpers with top-level `await` and a final `return`, because a wrapped
+function returns nothing in-app. The `gate-tool` rule (master only) treats a blockquote in the core
+whose text numbers its options (`1. ... 2. ...`) as a gate, and warns when the paragraph or list item
+that introduces it lacks "structured question tool", or when no `target:figma-app` line names
+`ask_user_question`.
+
+The creator's own gates, for whoever maintains this skill, are two commands: the first from the
+creator folder, the second from the repository root, where the committed `.markdownlint-cli2.jsonc`
+lives.
+
+```bash
+node scripts/check-all.mjs
+npx markdownlint-cli2 "figma/fm-figma-skill-creator/**/*.md" CONTRIBUTING.md README.md
+```
+
+`check-all.mjs` prints one line per check and exits 1 at the first failure: the five checks on
+`references/figma-changelog.md`, the creator's description, both example masters, the seven skill
+templates (exactly the two placeholder warnings each), both example builds with `--validate`, a
+parse of every built helper script, the three pack round trips, the compare on `report-scope2.md`,
+and the five test harnesses. `--list` prints the checks and `--only <group>` runs some of them. It
+names every file it checks and never reads a `history/` folder.
+
 ## The trigger eval (description quality)
 
 The description is the only field every runtime routes on. Test it before testing the body.

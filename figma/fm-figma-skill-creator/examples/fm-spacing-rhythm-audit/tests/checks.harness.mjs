@@ -1,15 +1,17 @@
 // checks.harness.mjs: tests the validator rules that are not pack rules (the description boundary and
 // voice, gate-tool, helper-form, capability-gates, and the helper-fence language the validator shares
-// with the libraries). The pack rules are tested in packs.harness.mjs.
+// with the libraries), and scripts/check-all.mjs (its check list, the changelog checks, and that it
+// never reads a history/ folder). The pack rules are tested in packs.harness.mjs.
 //
 // Usage, from figma/fm-figma-skill-creator:
 //   node examples/fm-spacing-rhythm-audit/tests/checks.harness.mjs
 //
-// Variants and command outputs are written to a folder under the operating system's temporary folder
-// and removed at the end. The creator's files are only read. It exports nothing and exits 1 when any
-// case fails.
+// Variants, scratch copies of the creator, and command outputs are written to a folder under the
+// operating system's temporary folder and removed at the end. The creator's files are only read. It
+// exports nothing and exits 1 when any case fails. It runs check-all.mjs only with --list and --only
+// groups that start no harness, so check-all running this harness never recurses.
 
-import { readFileSync, writeFileSync, mkdtempSync, rmSync } from "node:fs"
+import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, cpSync, rmSync } from "node:fs"
 import { spawnSync } from "node:child_process"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
@@ -20,6 +22,7 @@ const here = dirname(fileURLToPath(import.meta.url))
 const creator = join(here, "..", "..", "..")
 const MASTER = join(here, "..", "SKILL.md")
 const VALIDATOR = join(creator, "scripts", "validate-figma-skill.mjs")
+const CHECK_ALL = join(creator, "scripts", "check-all.mjs")
 const tmp = mkdtempSync(join(tmpdir(), "checks-harness-"))
 
 // ---------------------------------------------------------------------------
@@ -59,6 +62,19 @@ const APP_TOOL = ["", "<!-- target:figma-app -->", "## In-app execution", "", "I
 
 /** A helper section holding one helper fence. */
 const helperSection = (...code) => ["", "## Helper scripts", "", "```javascript", "// helper: h", ...code, "```"]
+
+/** Run check-all.mjs from `root` (a creator folder) with args; returns { status, lines }. */
+const checkAll = (root, ...args) => {
+  const r = spawnSync(process.execPath, [join(root, "scripts", "check-all.mjs"), ...args], { encoding: "utf8", cwd: root })
+  return { status: r.status, lines: (r.stdout + r.stderr).trim().split("\n") }
+}
+
+/** A scratch copy of the creator with only the folders a check needs (never a history/ folder). */
+const scratchCreator = (name, parts) => {
+  const root = join(tmp, name)
+  for (const p of parts) cpSync(join(creator, p), join(root, p), { recursive: true, filter: (src) => !/[\\/]history([\\/]|$)/.test(src) })
+  return root
+}
 
 // ---------------------------------------------------------------------------
 // Cases: each returns the failed messages
@@ -160,6 +176,54 @@ const cases = {
     return check([[own.length === 0, `own fence-language patterns at ${JSON.stringify(own)}`], [caps.length === 1, `a JS fence in a target region: ${JSON.stringify(caps)}`]])
   },
 
+  // check-all.mjs: what it runs, and that it never reads history/.
+  "check-all --list names every check, one line each, and no history path": () => {
+    const r = checkAll(creator, "--list")
+    const want = ["changelog rows", "changelog cells", "changelog basis", "changelog order", "changelog review block",
+      "examples/fm-spacing-rhythm-audit/SKILL.md", "examples/fm-figma-capability-probe/SKILL.md",
+      ...["skill-master", "type-critique-review", "type-design-system-conventions", "type-generation-builder", "type-research-synthesis", "type-standards-qa-audit", "type-workflow-process"].map((t) => `templates/${t}.md`),
+      ...["collect", "compare", "packs", "build", "checks"].map((h) => `tests/${h}.harness.mjs`),
+      "roundtrip token-conformance", "roundtrip revert", "roundtrip token-conformance,revert", "report-scope2.md", "dist/claude/fm-spacing-rhythm-audit/scripts", "dist/claude/fm-figma-capability-probe/scripts"]
+    const missing = want.filter((w) => !r.lines.some((l) => l.includes(w)))
+    return check([[r.status === 0, `exit ${r.status}`], [missing.length === 0, `not listed: ${JSON.stringify(missing)}`],
+      [!r.lines.some((l) => /[\\/]history[\\/]/.test(l)), "a listed check names a history path"]])
+  },
+  "check-all --only changelog passes on the committed changelog with five lines": () => {
+    const r = checkAll(creator, "--only", "changelog")
+    const pass = r.lines.filter((l) => /^PASS +changelog /.test(l))
+    return check([[r.status === 0, `exit ${r.status}: ${r.lines.slice(-2).join(" | ")}`], [pass.length === 5, `${pass.length} changelog PASS lines`]])
+  },
+  "check-all --only changelog fails at the broken check, for each of the five": () => {
+    const text = normalize(readFileSync(join(creator, "references", "figma-changelog.md"), "utf8"))
+    const rows = text.split("\n").filter((l) => l.startsWith("| 20"))
+    const breaks = {
+      "changelog rows": () => text.split("\n").filter((l) => !l.startsWith("| 20") || rows.indexOf(l) < 10).join("\n"),
+      "changelog cells": () => text.replace(rows[3], rows[3] + " extra |"),
+      "changelog basis": () => text.replace(rows[4], rows[4].replace(/\| (documented|observed|secondary) \|$/, "| confirmed |")),
+      "changelog order": () => text.replace(rows[0], "\u0000").replace(rows[rows.length - 1], rows[0]).replace("\u0000", rows[rows.length - 1]),
+      "changelog review block": () => text.replace(/^- Last reviewed: .*$/m, (m) => `${m}\n${m}`),
+    }
+    const problems = []
+    for (const [label, broken] of Object.entries(breaks)) {
+      const root = scratchCreator(`changelog-${label.replace(/ /g, "-")}`, ["scripts", "references"])
+      writeFileSync(join(root, "references", "figma-changelog.md"), broken())
+      const r = checkAll(root, "--only", "changelog")
+      const fail = r.lines.find((l) => l.startsWith("FAIL"))
+      if (r.status !== 1 || !fail || !fail.includes(label)) problems.push(`${label}: exit ${r.status}, ${fail ?? "no FAIL line"}`)
+    }
+    return problems
+  },
+  "check-all never reads a history/ folder: a broken snapshot beside each master changes nothing": () => {
+    const root = scratchCreator("history-guard", ["scripts", "enhancements", "references", "examples/fm-spacing-rhythm-audit/SKILL.md", "examples/fm-figma-capability-probe/SKILL.md"])
+    for (const ex of ["fm-spacing-rhythm-audit", "fm-figma-capability-probe"]) {
+      mkdirSync(join(root, "examples", ex, "history", "0.1"), { recursive: true })
+      writeFileSync(join(root, "examples", ex, "history", "0.1", "SKILL.md"), "not a skill: no frontmatter, no sections\n")
+    }
+    const r = checkAll(root, "--only", "masters")
+    const guard = r.lines.find((l) => /history/.test(l)) || ""
+    return check([[r.status === 0, `exit ${r.status}: ${r.lines.slice(-2).join(" | ")}`], [r.lines.filter((l) => l.startsWith("PASS")).length === 3, `PASS lines: ${JSON.stringify(r.lines)}`],
+      [/no path under a history\/ folder/.test(guard) && r.lines.filter((l) => /history/.test(l)).length === 1, `history lines: ${JSON.stringify(r.lines.filter((l) => /history/.test(l)))}`]])
+  },
 }
 
 // ---------------------------------------------------------------------------

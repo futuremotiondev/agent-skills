@@ -15,17 +15,16 @@ How Futuremotion Studio works on this repository, and the pitfalls that have alr
 
 ## Verification gates
 
-Run from the skill folder (for the Figma skill creator, `figma/fm-figma-skill-creator`):
+Two commands. The first runs from the Figma skill creator's folder, `figma/fm-figma-skill-creator`; the second runs from the repository root and reads the committed `.markdownlint-cli2.jsonc` there (MD013 off; `node_modules`, `tests/fixtures`, `dist`, and `.reference` ignored):
 
 ```bash
-node scripts/build-skill-editions.mjs examples/<skill>/SKILL.md --out examples/<skill>/dist --validate
-node scripts/validate-figma-skill.mjs examples/<skill>/SKILL.md --edition master
-node scripts/validate-figma-skill.mjs --description "<the creator's own description text>"
-node scripts/validate-figma-skill.mjs templates/<template>.md --edition master --allow-placeholders
-npx markdownlint-cli2 --config <config with MD013 off and tests/fixtures/** ignored> "**/*.md"
+node scripts/check-all.mjs
+npx markdownlint-cli2 "figma/fm-figma-skill-creator/**/*.md" CONTRIBUTING.md README.md
 ```
 
-Expected results: every edition at 0 errors and 0 warnings; a rebuild leaves `dist/` byte-identical (`git status --porcelain` empty); each skill template at 0 errors and exactly two placeholder warnings (`name-format`, `description-angle`); markdownlint at 0 issues outside `tests/fixtures/`. The four non-skill templates (eval log, concept cards, eval queries, listing copy) are not skill masters and are not validator targets.
+`check-all.mjs` prints one line per check and exits 1 at the first failure. It runs the five changelog checks on `references/figma-changelog.md`; the creator's own description with `--description`; both example masters with `--edition master`; the seven skill templates, named one by one, with `--allow-placeholders`; both example builds into their `dist/` with `--validate`; a parse of every built `dist/claude/*/scripts/*.js` as the builder parses it; the three pack round trips on the audit master; the compare on `report-scope2.md`; and the five test harnesses. `--list` prints the checks without running them, and `--only <group>` runs some of them. It names every file it checks and never reads a `history/` folder.
+
+Expected results: every check `PASS` and a final `check-all: <n> checks passed`, which means every master and edition at 0 errors and 0 warnings, each skill template at 0 errors and exactly two placeholder warnings (`name-format`, `description-angle`), and every harness at 0 failed; `git status --porcelain` empty afterwards, because a rebuild leaves `dist/` byte-identical; markdownlint at 0 issues. The non-skill templates (eval log, concept cards, eval queries, listing copy, seed plan) are not skill masters and are not validator targets.
 
 Run the gates on the tree you are about to integrate, not on the tree that passed earlier. A green run proves only the tree it ran on.
 
@@ -38,7 +37,7 @@ Run the gates on the tree you are about to integrate, not on the tree that passe
 | A `// helper:` marker or a `/tmp` path is silently rewritten | Git Bash (MSYS) converts arguments that look like paths, and Node resolves `/tmp` as `D:\tmp` while Bash rewrites it | Set `MSYS_NO_PATHCONV=1` when passing `//` strings, use the session scratchpad or repo-relative paths for fixtures, and confirm a size probe fails on a deliberately oversized file before trusting a pass |
 | A Bash call is refused by a hook with no stderr | The dotnet-claude-kit pre-bash guard rejects the recursive delete flag pair anywhere in the command text, including inside heredocs and echoed strings | Delete with PowerShell `Remove-Item -Recurse -Force` or one path at a time; write files that mention the pattern with the editor tools |
 | `git -C <root> log -- <file>` prints nothing for a tracked file | With `-C`, pathspecs resolve against the repo root, not the shell's cwd | Pass root-relative paths or `cd` first |
-| markdownlint reports hundreds of MD013 line-length errors | No committed markdownlint config; the gate uses a config with MD013 off | Use a config file with `{ "default": true, "MD013": false }` and `tests/fixtures/**` ignored. A committed `.markdownlint-cli2.jsonc` is a pending housekeeping item |
+| markdownlint reports hundreds of MD013 line-length errors | It ran without the repository's config, from a folder other than the root | Run it from the repository root, where the committed `.markdownlint-cli2.jsonc` turns MD013 off and ignores `tests/fixtures/`, `dist/`, and `.reference/` |
 | MD022 or MD032 on a comment line, MD024 on repeated deck headings, a table swallowed into a bullet | markdownlint treats HTML comments as content; rerun logs repeat headings; CommonMark continues a list item across a pipe line | Blank lines around comment lines; prefix repeated headings with the round; put tables before bullets, not under them |
 | A validator flag "works" on the wrong input | `--description` takes the text itself, never a file path; multi-word text must be one quoted argument with inner quotes escaped | See the gates above |
 | The Figma MCP steps are blocked at session start | The `figma-desktop` server refuses connections | Use the remote `figma` server; `use_figma` also requires a `description` argument |
