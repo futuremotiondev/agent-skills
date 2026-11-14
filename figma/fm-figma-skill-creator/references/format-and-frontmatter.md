@@ -99,9 +99,8 @@ silently.
 
 ## Manifest
 
-`dist/<name>.manifest.json` is derived only: the build writes it after every run that exits 0, from
-the master, its editions, and the `EVAL-LOG.md` beside it, with no timestamp, commit, or absolute
-path. The master is the truth, so a fact worth recording goes into the master's `metadata` block and
+`dist/<name>.manifest.json` is derived only: the build writes it with the editions, from the master,
+its editions, and the `EVAL-LOG.md` beside it, with no timestamp, commit, or absolute path. The master is the truth, so a fact worth recording goes into the master's `metadata` block and
 the build copies it from there. Delete the manifest freely: no edition refers to it, the validator
 has no rule about it, and the next build restores it.
 

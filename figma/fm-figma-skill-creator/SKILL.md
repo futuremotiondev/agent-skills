@@ -158,7 +158,7 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 
 ## Workflow D: review an existing skill
 
-1. Run the validator with the right `--edition` and report its output verbatim. If `dist/` has no manifest, or its `version` differs from the master's `metadata.version`, say so in one line and continue; the rebuild at the end of this workflow writes a fresh one. To roll a skill back, copy `history/<version>/SKILL.md` over the master and rebuild.
+1. Run the validator with the right `--edition` and report its output verbatim. If `dist/` has no manifest, or its `version` differs from the master's `metadata.version`, say so in one line and continue; the next build writes a fresh one. To roll a skill back, copy `history/<version>/SKILL.md` over the master and rebuild.
 2. Score the body against the rubric in `references/authoring-styles.md`: description formula; requirement-phrased triggers; scope gate present; one question per message; named rules with Do and Do-not; numbers not adjectives; output contract and cap; verify step; final gate; capability gates for unsupported features; no mid-instruction slash invocations; size. Suggest missing packs: a skill that writes to the canvas and has no `Revert:` units gets "add the revert pack" as a P1 finding (the pack requires `confirm-tiered`: the skill writes only after the user confirms).
 3. Report findings as a table ranked P0 to P3 with line numbers and the exact rewrite. P0 is anything that makes the skill misroute, edit the source, or claim an unsupported capability.
 4. Apply fixes only after the user confirms which rows. Re-run the validator and show the before and after summary lines.

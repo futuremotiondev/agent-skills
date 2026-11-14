@@ -337,17 +337,18 @@ const cases = {
       [!existsSync(join(dir, "history")), "history written"],
     ])
   },
-  "a build that stops on a build error writes no manifest and no history": () => {
+  "a build that stops before any edition is emitted writes no edition, no manifest and no history": () => {
     const dir = copyExample(AUDIT, "broken")
     writeFileSync(join(dir, "SKILL.md"), readFileSync(join(dir, "SKILL.md"), "utf8") + "\n<!-- target:mcp -->\nNever closed.\n")
     const r = build(dir)
     return check([
       [r.status === 1 && /build error/.test(r.stderr), `exit ${r.status}, stderr ${show(r.stderr.trim())}`],
+      [!existsSync(join(dir, "dist")), "an edition was written"],
       [!existsSync(manifestPath(dir)), "manifest written"],
       [!existsSync(join(dir, "history")), "history written"],
     ])
   },
-  "a build whose editions fail --validate writes no manifest and no history": () => {
+  "a build whose editions fail --validate writes the editions and the manifest but no history": () => {
     const dir = copyExample(AUDIT, "invalid")
     const text = readFileSync(join(dir, "SKILL.md"), "utf8")
     // An angle bracket in the description builds, then fails description-angle in every edition.
@@ -357,13 +358,14 @@ const cases = {
     return check([
       [r.status === 1 && /description-angle/.test(r.stdout), `exit ${r.status}; no description-angle finding`],
       [existsSync(join(dir, "dist", `${name}.figma.md`)), "the editions were not written, so validation never ran"],
-      [!existsSync(manifestPath(dir)), "manifest written"],
+      [existsSync(manifestPath(dir)), "no manifest beside the editions"],
+      [manifestOf(dir)?.description === metadataOf(dir).description && manifestOf(dir).description.includes("<selected>"), "the manifest does not describe the editions just written"],
       [!existsSync(join(dir, "history")), "history written"],
     ])
   },
-  "the builder names no child_process and a --validate build spawns no process": () => {
-    // Read the source: no import or require of child_process, so the builder cannot start git or any
-    // other process. Then run a --validate build with every child_process function made to throw.
+  "the builder names no git and a build without --validate spawns no process": () => {
+    // The manifest and history path is a build without --validate (which runs the validator as a child
+    // process). Read the source for git, then run that build with every child_process function made to throw.
     const src = readFileSync(BUILDER, "utf8")
     const preload = join(tmp, "no-spawn.mjs")
     writeFileSync(preload, [
@@ -374,13 +376,13 @@ const cases = {
       "",
     ].join("\n"))
     const dir = copyExample(AUDIT, "no-spawn")
-    const r = build(dir, ["--validate"], { nodeArgs: ["--import", pathToFileURL(preload).href] })
+    const r = build(dir, [], { nodeArgs: ["--import", pathToFileURL(preload).href] })
+    const reference = auditBuild()
     return check([
-      [!/child_process/.test(src), "the builder source names child_process"],
-      [!/\.git\b/.test(src), "the builder source names .git"],
-      [r.status === 0, `exit ${r.status}: ${r.stderr.trim()}`],
-      [/OK: .*\[coding-agent\] — 0 errors, 0 warnings/.test(r.stdout), "the --validate output is missing"],
-      [existsSync(manifestPath(dir)) && existsSync(join(dir, "history", "2.2", "SKILL.md")), "no manifest or no history"],
+      [!/\bgit\b|\.git\b/.test(src), "the builder source names git or .git"],
+      [r.status === 0 && r.stderr === "", `exit ${r.status}: ${r.stderr.trim()}`],
+      [existsSync(manifestPath(dir)) && readFileSync(manifestPath(dir)).equals(readFileSync(manifestPath(reference.dir))), "the manifest is missing or differs from an ordinary build's"],
+      [sameBytes(join(dir, "SKILL.md"), join(dir, "history", "2.2", "SKILL.md")) && sameBytes(join(dir, "overlay.claude.yaml"), join(dir, "history", "2.2", "overlay.claude.yaml")), "the history snapshot is missing or wrong"],
     ])
   },
   "enhancements lists regions in core helpers only, from the pack library's region scan": () => {

@@ -25,11 +25,11 @@
 //                                    master's path relative to <out>. No timestamp, commit, or absolute
 //                                    path, so a rebuild is byte-identical. Nothing at runtime reads it.
 //   history/<metadata.version>/SKILL.md (and overlay.claude.yaml when the overlay exists), beside the
-//                                    master: byte copies, so a folder with no git keeps every version
-//                                    built. A rebuild at the same version overwrites that snapshot; the
-//                                    build never reads, lists, or deletes other history folders.
-// The manifest and the history snapshot are written only by a build that exits 0, never on --dry-run.
-// --validate runs the validator on each edition in a worker thread: the builder starts no process.
+//                                    master: byte copies, so a folder outside any repository keeps every
+//                                    version built. A rebuild at the same version overwrites that
+//                                    snapshot; the build never reads, lists, or deletes other history folders.
+// The manifest is written with the editions; the history snapshot only by a build that exits 0. A dry
+// run writes neither. Neither starts a process; --validate runs the validator as a child process.
 //
 // Flatten (second form) reads <skill-dir>/SKILL.md plus references/*.md and writes
 // <out>/<name>.flat.md with every referenced Markdown file appended as a section and links
@@ -40,7 +40,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, statSync, unlinkSync, rmdirSync } from "node:fs"
 import { join, dirname, basename, resolve, relative, extname, isAbsolute } from "node:path"
-import { Worker } from "node:worker_threads"
+import { spawnSync } from "node:child_process"
 import { fileURLToPath } from "node:url"
 import {
   normalize, parseFrontmatter, parseYamlSubset, getField, scanRegions, selectTarget,
@@ -220,28 +220,11 @@ function writeHistory(masterAbs, overlayPath, version) {
   return { dir, files }
 }
 
-/**
- * Run the validator on one edition in a worker thread of this process, with the arguments the command
- * line would take. Resolves to { status, stdout }; the validator's stderr passes through.
- */
-function runValidator(path, edition) {
-  return new Promise((done) => {
-    const w = new Worker(validatorPath, { argv: [path, "--edition", edition], stdout: true })
-    let stdout = "", status = null, ended = false
-    const settle = () => { if (status !== null && ended) done({ status, stdout }) }
-    w.stdout.setEncoding("utf8")
-    w.stdout.on("data", (d) => { stdout += d })
-    w.stdout.on("end", () => { ended = true; settle() })
-    w.on("error", (e) => { stdout += `validator error: ${e.message}\n` })
-    w.on("exit", (code) => { status = code; settle() })
-  })
-}
-
 // ---------------------------------------------------------------------------
 // Build editions from a master
 // ---------------------------------------------------------------------------
 
-async function buildEditions(master) {
+function buildEditions(master) {
   const masterAbs = resolve(master)
   if (!existsSync(masterAbs)) fail(`master not found: ${master}`)
   const lines = normalize(readFileSync(masterAbs, "utf8")).split("\n")
@@ -363,30 +346,36 @@ async function buildEditions(master) {
     source: { master: relPosix(outAbs, masterAbs) },
   }
   const manifestPath = join(outDir, `${name}.manifest.json`)
-
-  if (doValidate && !dryRun) {
-    const runs = [[uploadPath, "upload"], [pastePath, "paste"], [agentPath, "coding-agent"]]
-    let failed = false
-    console.log("")
-    for (const [p, ed] of runs) {
-      const r = await runValidator(p, ed)
-      process.stdout.write(r.stdout)
-      if (r.status !== 0) failed = true
-    }
-    // A failed build writes neither the manifest nor the history snapshot.
-    if (failed) process.exit(1)
-  }
   if (dryRun) {
     console.log(`  manifest and history: not written (dry run)`)
     return
   }
-
-  // The build exits 0 from here: write the manifest, then the history snapshot.
+  // The manifest goes with the editions, so it is written before --validate runs.
   writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n", "utf8")
-  const snap = writeHistory(masterAbs, existsSync(overlayPath) ? overlayPath : null, manifest.version)
   console.log(`\nmanifest: ${relative(process.cwd(), manifestPath) || manifestPath}`)
-  if (snap) console.log(`history:  ${relative(process.cwd(), snap.dir) || snap.dir}  (${snap.files.join(", ")})`)
-  if (!doValidate) console.log(`\nNext: node ${relative(process.cwd(), validatorPath)} <edition> --edition upload|paste|coding-agent  (or rerun with --validate)`)
+
+  if (doValidate && !dryRun) {
+    const runs = [
+      [join(outDir, `${name}.figma.md`), "upload"],
+      [join(outDir, `${name}.paste.md`), "paste"],
+      [join(claudeDir, "SKILL.md"), "coding-agent"],
+    ]
+    let failed = false
+    console.log("")
+    for (const [p, ed] of runs) {
+      const r = spawnSync(process.execPath, [validatorPath, p, "--edition", ed], { encoding: "utf8" })
+      process.stdout.write(r.stdout)
+      if (r.status !== 0) failed = true
+    }
+    // A failed validation exits 1 before the history snapshot.
+    if (failed) process.exit(1)
+  } else if (!dryRun) {
+    console.log(`\nNext: node ${relative(process.cwd(), validatorPath)} <edition> --edition upload|paste|coding-agent  (or rerun with --validate)`)
+  }
+
+  // The build exits 0 from here: write the history snapshot.
+  const snap = writeHistory(masterAbs, existsSync(overlayPath) ? overlayPath : null, manifest.version)
+  if (snap) console.log(`\nhistory: ${relative(process.cwd(), snap.dir) || snap.dir}  (${snap.files.join(", ")})`)
 }
 
 // ---------------------------------------------------------------------------
@@ -469,4 +458,4 @@ function flatten(dir) {
 }
 
 if (flattenDir) flatten(flattenDir)
-else await buildEditions(masterPath)
+else buildEditions(masterPath)
