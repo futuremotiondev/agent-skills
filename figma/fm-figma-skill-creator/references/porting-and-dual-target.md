@@ -8,14 +8,21 @@ feed both if a build step strips target-marked sections and a validator checks e
 ## Single-source layout
 
 ```text
-figma/fm-<skill>/
+fm-<skill>/                     the skill folder (this repository keeps them under figma/)
   SKILL.md                      master: name + description (+ metadata.version), tool-neutral core,
                                 target-marked sections
   overlay.claude.yaml           optional Claude Code keys merged into the coding-agent edition only
   references/                   optional, coding-agent edition only; nothing the Figma edition needs
   EVAL-LOG.md                   trigger and behaviour eval records
+  eval-queries.md               ten positive and ten negative trigger prompts
   listing/                      Community copy and artwork
+  tests/                        optional, Workflow G only: seed plan, seed and oracle scripts,
+                                expected.json, compare schema
+  history/<metadata.version>/   byte copies of the master and overlay, written by each build that
+                                exits 0; ignored by git in this repository
   dist/
+    fm-<skill>.manifest.json    derived record of the metadata, edition sizes, helpers, packs, and
+                                the newest EVAL-LOG entry; nothing reads it at runtime
     fm-<skill>.figma.md         upload edition: figma-app sections kept, mcp sections and markers gone,
                                 frontmatter reduced to name + description
     fm-<skill>.paste.md         Start-from-scratch edition: same body, no frontmatter

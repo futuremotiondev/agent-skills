@@ -22,6 +22,16 @@ This is the first skill built through fm-figma-skill-creator, so its first uploa
 - Paste edition: see build log
 - Coding-agent edition: see build log
 
+## Round 4 plan
+
+The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-13. It is a plan, not a result, so it sits outside Entries; the results go in as a new entry. Futuremotion runs it by hand from a local checklist that is not committed. Every expected value below comes from scope 3 of `tests/expected.json` or from the Round 3 entry.
+
+- **Edition:** upload `dist/fm-spacing-rhythm-audit.figma.md` (2.2). The capability probe is not part of this session; 1.2 ran in-app on 2026-11-13.
+- **Audit:** on the Simple Design System duplicate, Sections page, nothing selected, say "Audit the spacing on this page", then answer 1 (scope) and 1 (mode). Expect the scope question as a card, and the mode question reading "(2 to 160 px, plus negative tokens to -24)". Expect a header with "Matched but not offered: Responsive (1 WIDTH_HEIGHT)" and "P0 2 · P1 3 · P2 0 · P3 5 (10 values in 10 rows)". Expect the five `AI Chatbot` 20s at P3, each binding `Space/400` with the note "tie: Space/400 (16) or Space/600 (24)". Compare the pasted report against scope 3 with `--frame-tolerance 4`: Round 3 read 842 frames and 618 bound values in-app against 844 and 622 (Ruling 31).
+- **Fix question:** answer 3, then type "1, 2". Expect the row-number follow-up as free text with no preset options. Rows 1 and 2, the two `Hero (Slot)` slot gaps (10 → 8, bind `Space/200`), are applied and verified 2 of 2. Then say "revert the last snaps": both read 10 again, unbound, so the duplicate matches scope 3 again.
+- **Ruling 31 diagnostic:** in a fresh chat on the same page, run the script under "Round 4" in the Round 3 entry through the script tool and copy its return. Compare it with the MCP answer recorded there.
+- **Credits:** read after every response, from the AI credits icon under it.
+
 ## Entries
 
 ### v2.2 oracle, 2026-11-13

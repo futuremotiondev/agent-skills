@@ -4,7 +4,7 @@ description: Creates, converts, reviews, tests, and publishes skills that run in
 license: MIT
 compatibility: Scripts need Node 18 or newer. The Figma MCP server is optional and used only for the coding-agent edition.
 metadata:
-  version: "1.2"
+  version: "1.3"
   author: "Futuremotion Studio"
   category: "Workflows"
   tags: "skill authoring, figma agent, templates, validator, publishing, mcp porting"
@@ -117,7 +117,7 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
    | Workflow or process | `type-workflow-process.md` | staged run with checkpoints |
    | None of these | `skill-master.md` | shape it from the skeleton |
 
-2. **Create the folder** `figma/fm-<verb>-<object>/` (or a subfolder the user names) with `SKILL.md`, `overlay.claude.yaml` from `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, and `listing/listing-copy.md`. The `name` must equal the folder name.
+2. **Create the folder** `fm-<verb>-<object>/` (the skill folder, `<skill>` below) in the folder the user names, else beside this creator's own install folder, else in the current working directory. The creator's own repository (`futuremotiondev/agent-skills`) keeps them under `figma/`; that is its layout, not a rule. It holds `SKILL.md`, `overlay.claude.yaml` from `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, and `listing/listing-copy.md`. The `name` must equal the folder name.
 
 3. **Write the description first.** Formula: third-person capability that names the output, then "Use whenever the user asks to ..." with three to five quoted or near-verbatim phrases, then "Not for ... (use /fm-other)". Read it back: would a designer who has never seen the skill type one of those phrases? If not, rewrite before touching the body.
 
@@ -132,8 +132,8 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 7. **Validate and build:**
 
    ```bash
-   node scripts/validate-figma-skill.mjs figma/fm-<name>/SKILL.md --edition master
-   node scripts/build-skill-editions.mjs figma/fm-<name>/SKILL.md --out figma/fm-<name>/dist --validate
+   node scripts/validate-figma-skill.mjs <skill>/SKILL.md --edition master
+   node scripts/build-skill-editions.mjs <skill>/SKILL.md --out <skill>/dist --validate
    ```
 
    Fix every error. Keep a warning only with a one-line reason in `EVAL-LOG.md`.
@@ -158,7 +158,7 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 
 ## Workflow D: review an existing skill
 
-1. Run the validator with the right `--edition` and report its output verbatim. If `dist/` has no manifest, or its `version` differs from the master's `metadata.version`, say so in one line and continue; the next build writes a fresh one. To roll a skill back, copy `history/<version>/SKILL.md` over the master and rebuild.
+1. Run the validator with the right `--edition` and report its output verbatim. If `dist/` has no manifest, or its `version` differs from the master's `metadata.version`, say so in one line and continue; the next build writes a fresh one. To roll a skill back, copy `history/<version>/SKILL.md` over the master, and its `overlay.claude.yaml` over the overlay when one exists, then rebuild (`references/format-and-frontmatter.md`, History).
 2. Score the body against the rubric in `references/authoring-styles.md`: description formula; requirement-phrased triggers; scope gate present; one question per message; named rules with Do and Do-not; numbers not adjectives; output contract and cap; verify step; final gate; capability gates for unsupported features; no mid-instruction slash invocations; size. Suggest missing packs: a skill that writes to the canvas and has no `Revert:` units gets "add the revert pack" as a P1 finding (the pack requires `confirm-tiered`: the skill writes only after the user confirms).
 3. Report findings as a table ranked P0 to P3 with line numbers and the exact rewrite. P0 is anything that makes the skill misroute, edit the source, or claim an unsupported capability.
 4. Apply fixes only after the user confirms which rows. Re-run the validator and show the before and after summary lines.
@@ -230,9 +230,10 @@ node scripts/build-skill-editions.mjs <SKILL.md> --out <dir> [--overlay overlay.
 node scripts/build-skill-editions.mjs --flatten <skill-dir> --out <dir> [--dry-run]
 node scripts/oracle-compare.mjs --expected <expected.json> --scope <n> --schema <schema.json> (--report <pasted.md> | --run <run.json>) [--frame-tolerance <n>]
 node scripts/enhancement-packs.mjs list|strip|extract|expand|roundtrip <SKILL.md> [--pack <name>[,<name>]] [--out <file>]
+node scripts/check-all.mjs [--list] [--only <group>[,<group>]]                 # every gate for this creator and its examples
 ```
 
-All four scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The validator exits 1 on any error; the compare exits 0 on a clean match, 1 on any difference, and 2 when an input cannot be read; the pack tool exits 1 on a contract error, a failed round trip, or an `expand` into a master that already carries the pack or whose result the tools would refuse, and 2 on bad arguments or a missing master or `enhancement.md`. `--allow-placeholders` exists for validating the templates themselves; never use it on a skill you are shipping.
+All five scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`; the pack rules live in `scripts/lib/enhancements.mjs`. The builder writes `dist/<name>.manifest.json` with the editions and, after a build that exits 0, `history/<version>/` beside the master; a `--dry-run` writes neither. `check-all` exits 1 at the first failing check and 2 on an unknown `--only` group. The validator exits 1 on any error; the compare exits 0 on a clean match, 1 on any difference, and 2 when an input cannot be read; the pack tool exits 1 on a contract error, a failed round trip, or an `expand` into a master that already carries the pack or whose result the tools would refuse, and 2 on bad arguments or a missing master or `enhancement.md`. `--allow-placeholders` exists for validating the templates themselves; never use it on a skill you are shipping.
 
 ## Files in this skill
 
@@ -252,9 +253,11 @@ All four scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. 
 | `templates/skill-master.md` and `templates/type-*.md` | starting any new skill |
 | `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md` | the companion files every skill folder gets |
 | `templates/concept-cards.md` | you are pitching ideas in Workflow 0: the deck header, the twenty-line card, the footer question, and the deck rules |
-| `templates/seed-plan.md` | you are planning a Workflow G seed: the header, one row per planted case, the modes, and the proofs |
+| `templates/seed-plan.md` | you are planning a Workflow G seed: the header, one row per planted case, the expected header counts, the modes, and the proofs |
 | `scripts/oracle-compare.mjs` | you are comparing a pasted in-app report, or a raw `use_figma` return, with a skill's `tests/expected.json` in Workflow G |
 | `enhancements/` with `references/enhancement-packs.md` and `scripts/enhancement-packs.mjs` | you are adding or removing an optional pack (token conformance, revert) in Workflow A step 6a, or checking a skill's tags in Workflow D: the shipped packs, their tag contract, and the tool |
+| `scripts/check-all.mjs` | you changed this creator, a template, or an example and want every gate in one run (`--list` names each check) |
+| `dist/<name>.manifest.json` and `history/<version>/` in a skill folder | you need a built skill's version, edition sizes, helpers, packs, and newest eval entry, or a per-version copy of its master and overlay to roll back to (`references/format-and-frontmatter.md`) |
 | `examples/fm-spacing-rhythm-audit/` | a complete worked example with its built `dist/` editions |
 | `examples/fm-figma-capability-probe/` | you need fresh evidence of which Plugin APIs a runtime exposes; optional, for skill authors, and its pasted-back table feeds Workflow F step 5 |
 | `examples/ideation-runs.md` | you want to see Workflow 0 decks for three vague prompts and a recon smoke run |
