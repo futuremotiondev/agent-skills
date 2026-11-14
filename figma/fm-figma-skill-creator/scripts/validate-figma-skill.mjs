@@ -18,8 +18,11 @@
 //   coding-agent  dist/claude/<name>/SKILL.md — the Agent Skills spec edition for MCP agents
 //
 // Dependency-free. Encodes the rule table from references/testing-and-maintenance.md; the
-// table printed by --rules is the same data the checks run from. Exit code 1 when any error
-// is reported (or any warning with --strict), 0 otherwise.
+// table printed by --rules is the same data the checks run from.
+//
+// Exit codes: 0 when no error is reported (and, with --strict, no warning); 1 when any error is
+// reported (or any warning with --strict); 2 on a bad argument (an unknown --edition, an --edition or
+// --description with no value) or a file that is missing or not a file.
 
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs"
 import { basename, dirname, resolve, join } from "node:path"
@@ -102,6 +105,14 @@ const RULES = [
 const RULE_BY_ID = new Map(RULES.map((r) => [r.id, r]))
 
 if (wantRules) { printRules(); process.exit(0) }
+// An --edition with no value would otherwise check the file as a master without saying so.
+{
+  const at = args.indexOf("--edition")
+  if (at >= 0 && (at + 1 >= args.length || args[at + 1].startsWith("--"))) {
+    console.error(`--edition needs a value: one of ${EDITIONS.join(", ")}`)
+    process.exit(2)
+  }
+}
 if (descriptionMode && descriptionText === null) {
   console.error(`--description needs the description text as its value`)
   process.exit(2)
@@ -215,6 +226,7 @@ if (descriptionMode) {
 // ---------------------------------------------------------------------------
 
 if (!existsSync(file)) { console.error(`File not found: ${file}`); process.exit(2) }
+if (!statSync(file).isFile()) { console.error(`${file} is not a file`); process.exit(2) }
 const source = normalize(readFileSync(file, "utf8"))
 const lines = source.split("\n")
 
@@ -371,23 +383,23 @@ for (let i = bodyStart; i < lines.length; i++) {
 // ---------------------------------------------------------------------------
 
 if (edition === "master") {
+  // Fences by the shared rule (fenceBlocks): the language is the first word of the info string, as the
+  // builder and the pack tools read it, so "```javascript linenums" is a javascript fence.
+  const blocks = fenceBlocks(lines)
+  const blockAt = (i) => blocks.find((b) => i >= b.open && (b.close === -1 || i <= b.close)) || null
   let inHelpers = false
-  let openFence = null
-  let openLang = ""
   for (let i = bodyStart; i < lines.length; i++) {
     const line = lines[i]
     if (!fence[i] && /^#{1,2}\s/.test(line)) inHelpers = /^##\s+Helper scripts\s*$/i.test(line) && regionAt(i) === "core"
-    const f = /^\s*(`{3,}|~{3,})\s*([\w-]*)\s*$/.exec(line)
-    if (f && !openFence) {
-      openFence = f[1]
-      openLang = f[2]
-      if (HELPER_FENCE_LANG.test(f[2]) && regionAt(i) !== "core") {
+    const b = blockAt(i)
+    if (b && b.open === i) {
+      if (HELPER_FENCE_LANG.test(b.lang) && regionAt(i) !== "core") {
         report("helper-placement", `javascript fence inside target:${regionAt(i)}; move it to the core "## Helper scripts" section with "// helper: <name>" as its first line, and reference it from both target sections`, i + 1)
       }
       continue
     }
-    if (f && openFence && f[1][0] === openFence[0] && f[1].length >= openFence.length && f[2] === "") { openFence = null; openLang = ""; continue }
-    if (openFence && !HELPER_FENCE_LANG.test(openLang)) continue
+    if (b && b.close === i) continue
+    if (b && !HELPER_FENCE_LANG.test(b.lang)) continue
     if (/^\s*\/\/ helper:/.test(line) && !(inHelpers && regionAt(i) === "core")) {
       report("helper-placement", `"// helper:" marker outside the core "## Helper scripts" section; the build extracts helpers only from there`, i + 1)
     }

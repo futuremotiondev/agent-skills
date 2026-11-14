@@ -2,6 +2,7 @@
   "name": "token-conformance",
   "phrase": "Token mode:",
   "codeRegion": "token-conformance",
+  "fits": "a spacing audit built on the fm-spacing-rhythm-audit collect, apply and verify helpers: its code regions extend those helpers, and its prose is about auto-layout padding, gaps and spacing tokens",
   "templateLines": [
     "- Mode: tokens (<spacingCollection.name>) | rhythm",
     "- Bound values: <n> passed",

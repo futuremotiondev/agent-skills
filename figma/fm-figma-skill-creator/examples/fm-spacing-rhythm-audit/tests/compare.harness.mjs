@@ -28,13 +28,27 @@ const tmp = mkdtempSync(join(tmpdir(), "oracle-compare-harness-"))
 // Helpers
 // ---------------------------------------------------------------------------
 
-/** Run the compare and read its exit code and Result line. */
-function compare(args, script = SCRIPT) {
-  const r = spawnSync(process.execPath, [script, "--expected", EXPECTED, "--schema", SCHEMA, ...args], { cwd: creator, encoding: "utf8" })
+/** Run the compare and read its exit code and Result line; `expected` and `schema` replace the committed files. */
+function compare(args, script = SCRIPT, { expected = EXPECTED, schema = SCHEMA } = {}) {
+  const r = spawnSync(process.execPath, [script, "--expected", expected, "--schema", schema, ...args], { cwd: creator, encoding: "utf8" })
   const out = r.stdout + r.stderr
   const m = out.match(/Result: (\d+) missing, (\d+) extra, (\d+) mismatched/)
-  return { exit: r.status, out, missing: m ? +m[1] : null, extra: m ? +m[2] : null, mismatched: m ? +m[3] : null }
+  return { exit: r.status, out, stderr: r.stderr, missing: m ? +m[1] : null, extra: m ? +m[2] : null, mismatched: m ? +m[3] : null }
 }
+
+/** A copy of the committed schema with `edit` applied, written to the temporary folder. */
+function schemaVariant(name, edit) {
+  return variant(name, JSON.stringify(edit(JSON.parse(readFileSync(SCHEMA, "utf8")))))
+}
+
+/** A copy of expected.json with `edit` applied, written to the temporary folder. */
+function expectedVariant(name, edit) {
+  return variant(name, JSON.stringify(edit(JSON.parse(readFileSync(EXPECTED, "utf8")))))
+}
+
+/** An input the tool cannot use stops it with one message and exit 2, never a stack trace. */
+const oneMessage = (r, re) => check([[r.exit === 2, `exit 2, got ${r.exit}`], [re.test(r.stderr), `message ${re}, got ${JSON.stringify(r.stderr.trim())}`],
+  [!/^\s+at /m.test(r.stderr), "a stack trace was printed"]])
 
 /** Write a variant to the temporary folder and return its path. */
 function variant(name, text) {
@@ -119,13 +133,60 @@ const cases = {
     expectResult(compare(["--scope", "2", "--report", fixture("report-scope2-unknown-header.md")]), {
       exit: 2, contains: ["Header rows found in the report:", "| # | Priority | Node | Property |"],
     }),
-  // The Round 4 in-app capture (2026-11-13), compared with the committed schema unchanged: the agent
-  // printed "Ranked values" where the master says "Off-grid values", so the compare stops at exit 2
-  // before it reads a row, and prints no Result line.
-  "round4-sections-audit.md (in-app capture) exits 2 at the priority line": () =>
+  // The Round 4 in-app capture (2026-11-13), compared with the committed schema unchanged (no alias for
+  // "Ranked values"): the missing priority line is a difference, and the rows and the other counts are
+  // still compared, so the shortened layer paths of rows 1 to 5 show as 5 missing and 5 extra.
+  "round4-sections-audit.md (in-app capture) exits 1 and still lists its row differences": () =>
     expectResult(compare(["--scope", "3", "--report", fixture("round4-sections-audit.md"), "--frame-tolerance", "4"]), {
-      exit: 2, missing: null, extra: null, mismatched: null, contains: ['no "Off-grid values:" line in the report'],
+      exit: 1, missing: 5, extra: 5, mismatched: 0,
+      contains: ['No "Off-grid values:" line in the report', "AI Sidebar / Block / Block / Block (page: AI Chat) (main component) · Gap · 10 (P1)",
+        "Extra in the report (5)\n  Hero (Slot) / Desktop / Slot · Gap · 10", "5 counts outside tolerance; exit 1"],
     }),
+  // The priority line is optional in a schema: an inventory-shaped schema with none compares a perfect report clean.
+  "a schema with no priority line compares a report with no priority line clean": () => {
+    const schema = schemaVariant("schema-no-priority.json", (s) => { delete s.priorityLine; return s })
+    const report = variant("no-priority-line.md", SCOPE2.replace(/^- \*\*Off-grid values:\*\*.*\n/m, ""))
+    const r = compare(["--scope", "2", "--report", report], SCRIPT, { schema })
+    return [...expectResult(r, { exit: 0, missing: 0, extra: 0, mismatched: 0, contains: ["Priority counts: not compared (the schema declares no priority line)", "every count within tolerance; exit 0"] }),
+      ...check([[SCOPE2.includes("**Off-grid values:**") && !readFileSync(report, "utf8").includes("Off-grid values"), "the variant still holds the Off-grid values line"]])]
+  },
+  "a schema that declares the priority line flags a report without it and still compares the rows": () => {
+    const report = variant("no-priority-line-declared.md", SCOPE2.replace(/^- \*\*Off-grid values:\*\*.*\n/m, ""))
+    return expectResult(compare(["--scope", "2", "--report", report]), {
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ['No "Off-grid values:" line in the report', "4 counts outside tolerance"],
+    })
+  },
+  "priority counts absent on both sides are equal": () => {
+    const expected = expectedVariant("expected-no-priority.json", (e) => { for (const s of e.scopes) delete s.counts.byPriority; return e })
+    const run = variant("run-no-priority.json", JSON.stringify((() => { const s = JSON.parse(readFileSync(expected, "utf8")).scopes.find((x) => x.scope === 3); const r = { ...s, ...s.counts }; delete r.counts; return r })()))
+    return expectResult(compare(["--scope", "3", "--run", run], SCRIPT, { expected }), { exit: 0, missing: 0, extra: 0, mismatched: 0, contains: ["every count within tolerance; exit 0"] })
+  },
+
+  // --frame-tolerance applies to frames measured and bound values only, and only up to its value.
+  "frames measured off by 2 passes at tolerance 2": () =>
+    expectResult(compare(["--scope", "2", "--report", variant("frames-13.md", SCOPE2.replace("**Frames measured:** 11 ·", "**Frames measured:** 13 ·")), "--frame-tolerance", "2"]), {
+      exit: 0, missing: 0, extra: 0, mismatched: 0, contains: ["every count within tolerance"],
+    }),
+  "frames measured off by 2 fails at tolerance 1": () =>
+    expectResult(compare(["--scope", "2", "--report", variant("frames-13b.md", SCOPE2.replace("**Frames measured:** 11 ·", "**Frames measured:** 13 ·")), "--frame-tolerance", "1"]), {
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["1 counts outside tolerance"],
+    }),
+  "hidden skipped off by 1 fails even at tolerance 5": () =>
+    expectResult(compare(["--scope", "2", "--report", variant("hidden-2.md", SCOPE2.replace("Hidden skipped: 1 ·", "Hidden skipped: 2 ·")), "--frame-tolerance", "5"]), {
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["1 counts outside tolerance"],
+    }),
+
+  // Inputs the compare cannot use: a folder, or a JSON file that holds no object.
+  "a folder or a JSON null as an input stops with one message and exit 2": () => {
+    const nul = variant("null.json", "null")
+    return [
+      ...oneMessage(compare(["--scope", "2", "--report", tmp]), /report is not a file/),
+      ...oneMessage(compare(["--scope", "2", "--report", fixture("report-scope2.md")], SCRIPT, { expected: tmp }), /expected file is not a file/),
+      ...oneMessage(compare(["--scope", "2", "--report", fixture("report-scope2.md")], SCRIPT, { expected: nul }), /expected file does not hold a JSON object/),
+      ...oneMessage(compare(["--scope", "2", "--report", fixture("report-scope2.md")], SCRIPT, { schema: nul }), /schema does not hold a JSON object/),
+      ...oneMessage(compare(["--scope", "3", "--run", nul]), /run file does not hold a JSON object/),
+    ]
+  },
   "--run on an oracle-shaped scope 3 compares clean": () =>
     expectResult(compare(["--scope", "3", "--run", runOf(3)]), { exit: 0, missing: 0, extra: 0, mismatched: 0 }),
   "--run with one changed fix is flagged": () =>

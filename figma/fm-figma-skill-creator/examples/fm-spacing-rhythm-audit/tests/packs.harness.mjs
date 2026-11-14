@@ -130,6 +130,16 @@ const P = { name: "p", phrase: "Token mode:", codeRegion: "p", templateLines: []
 /** A line that makes a small master carry the test pack P (and token-conformance): one phrase unit. */
 const CARRIED = "Token mode: the pack is carried."
 
+/** A folder `name` under the temporary folder holding a copy of every committed pack (pack.json and enhancement.md). */
+function packsCopy(name) {
+  const root = join(tmp, name)
+  for (const n of readdirSync(PACKS)) {
+    mkdirSync(join(root, "enhancements", n), { recursive: true })
+    for (const f of ["pack.json", "enhancement.md"]) copyFileSync(join(PACKS, n, f), join(root, "enhancements", n, f))
+  }
+  return root
+}
+
 /** Run the CLI; returns { status, out }. */
 const cli = (...args) => { const r = spawnSync(process.execPath, [CLI, ...args], { encoding: "utf8" }); return { status: r.status, out: r.stdout + r.stderr } }
 
@@ -235,6 +245,82 @@ const cases = {
     const committed = readdirSync(PACKS).map((n) => readFileSync(join(PACKS, n, "enhancement.md"), "utf8"))
     return check([[r1.status === 0 && r2.status === 0, `exit ${r1.status}, ${r2.status}`], [first.join() === second.join(), "a second extract changed the files"],
       [first.join() === committed.join(), "the committed enhancement.md files are not what extract writes; run extract"]])
+  },
+
+  // Extract writes a pack record only from a master that carries the pack, and keeps another master's record.
+  "extract on a master that carries no pack writes nothing and exits 1, naming each pack": () => {
+    const root = packsCopy("extract-absent")
+    const before = readdirSync(PACKS).map((n) => readFileSync(join(root, "enhancements", n, "enhancement.md")))
+    const r = cli("extract", join(creator, "examples", "fm-figma-capability-probe", "SKILL.md"), "--enhancements", join(root, "enhancements"))
+    const after = readdirSync(PACKS).map((n) => readFileSync(join(root, "enhancements", n, "enhancement.md")))
+    return check([[r.status === 1, `exit ${r.status}`], [before.every((b, i) => b.equals(after[i])), "an enhancement.md was rewritten"],
+      [/revert/.test(tail(r.out)) && /token-conformance/.test(tail(r.out)) && /not carry/.test(tail(r.out)), `last line: ${tail(r.out)}`]])
+  },
+  "extract keeps an enhancement.md generated from another master unless --force": () => {
+    const root = packsCopy("extract-other")
+    const other = join(root, "examples", "other-audit", "SKILL.md")
+    mkdirSync(dirname(other), { recursive: true })
+    copyFileSync(MASTER, other)
+    const file = join(root, "enhancements", "revert", "enhancement.md")
+    const before = readFileSync(file)
+    const r = cli("extract", other, "--pack", "revert", "--enhancements", join(root, "enhancements"))
+    const kept = readFileSync(file).equals(before)
+    const f = cli("extract", other, "--pack", "revert", "--enhancements", join(root, "enhancements"), "--force")
+    const forced = readFileSync(file, "utf8")
+    return check([[r.status === 1 && /examples\/fm-spacing-rhythm-audit\/SKILL\.md/.test(r.out) && /--force/.test(r.out), `refusal: exit ${r.status}: ${tail(r.out)}`], [kept, "the record was overwritten without --force"],
+      [f.status === 0 && forced.includes("from `examples/other-audit/SKILL.md`"), `--force: exit ${f.status}: ${tail(f.out)}`]])
+  },
+  "a pack name that is not a lowercase name is refused before any folder is made": () => {
+    const root = packsCopy("bad-name")
+    const r = cli("extract", MASTER, "--pack", "../escaped", "--phrase", "Y:", "--enhancements", join(root, "enhancements"))
+    return check([[r.status === 2 && /pack name/.test(r.out), `exit ${r.status}: ${tail(r.out)}`], [!existsSync(join(root, "escaped")), "a folder was created outside enhancements/"]])
+  },
+  "a folder given as the master, or as a pack record, stops with one message and exit 2": () => {
+    const root = packsCopy("folder-inputs")
+    const asMaster = cli("list", tmp)
+    rmSync(join(root, "enhancements", "revert", "enhancement.md"))
+    mkdirSync(join(root, "enhancements", "revert", "enhancement.md"))
+    const stripped = join(tmp, "folder-inputs-stripped.md")
+    writeFileSync(stripped, stripAll(masterLines, [REVERT]).lines.join("\n") + "\n")
+    const asRecord = cli("expand", stripped, "--pack", "revert", "--enhancements", join(root, "enhancements"))
+    return check([[asMaster.status === 2 && /not a file/.test(asMaster.out) && !/^\s+at /m.test(asMaster.out), `master: exit ${asMaster.status}: ${asMaster.out.trim()}`],
+      [asRecord.status === 2 && /not a file/.test(asRecord.out) && !/^\s+at /m.test(asRecord.out), `record: exit ${asRecord.status}: ${asRecord.out.trim()}`]])
+  },
+  // A pack says what a skill needs for it to work; the tools print it.
+  "fits: list and extract print it, and loadPack refuses an empty or non-string fits": () => {
+    const listed = cli("list", MASTER)
+    const records = [TOKENS, REVERT].map((p) => readFileSync(join(PACKS, p.name, "enhancement.md"), "utf8"))
+    const refused = ["", "  ", 3].map((fits) => {
+      const dir = join(tmp, "fits-pack", "revert")
+      mkdirSync(dir, { recursive: true })
+      writeFileSync(join(dir, "pack.json"), JSON.stringify({ ...JSON.parse(readFileSync(join(PACKS, "revert", "pack.json"), "utf8")), fits }))
+      try { loadPack(dir); return false } catch (e) { return /fits/.test(e.message) }
+    })
+    return check([[[TOKENS, REVERT].every((p) => typeof p.fits === "string" && p.fits.trim() !== ""), "a shipped pack has no fits"],
+      [[TOKENS, REVERT].every((p) => listed.out.includes(`Fits: ${p.fits}`)), `list output: ${listed.out.split("\n").filter((l) => l.startsWith("Fits")).join(" | ")}`],
+      [[TOKENS, REVERT].every((p, i) => records[i].includes(`- Fits: ${p.fits}`)), "an enhancement.md has no Fits line"],
+      [refused.every(Boolean), `refused: ${JSON.stringify(refused)}`]])
+  },
+  // Two in-line fallbacks on one master line name their columns, so their warnings never read alike.
+  "fallback warnings for in-line units name the column": () => {
+    const r = cli("expand", join(creator, "templates", "type-standards-qa-audit.md"), "--pack", "token-conformance", "--out", join(tmp, "qa-columns.md"))
+    const inline = r.out.split("\n").filter((l) => /^expand warning: token-conformance: (sentence|prose-sentence|description-sentence) /.test(l))
+    const labels = inline.map((l) => /^expand warning: (.*?\))/.exec(l)[1])
+    return check([[r.status === 0, `exit ${r.status}`], [inline.length >= 2 && inline.every((l) => /\(master line \d+, column \d+\)/.test(l)), `warnings: ${JSON.stringify(inline)}`],
+      [new Set(labels).size === labels.length, `labels repeat: ${JSON.stringify(labels)}`]])
+  },
+  // One section model: a section runs from its level-two heading to the next, across target markers.
+  "a unit inside a target region, and one after its closing marker, round-trip under their heading": () => {
+    const at = masterLines.findIndex((l) => l.startsWith("- **Revert: a layer edited after the snap.**"))
+    const ins = (extra) => [...masterLines.slice(0, at + 1), ...extra, ...masterLines.slice(at + 1, -1)]
+    const inside = writeMaster("region-inside.md", ins(["", "<!-- target:mcp -->", "- **Revert: over MCP.** Run the revert helper in its own call.", "<!-- /target -->"]))
+    const after = writeMaster("region-after.md", ins(["", "<!-- target:figma-app -->", "- In-app, the revert script runs like the others.", "<!-- /target -->", "", "- **Revert: after a region.** Still under Common edge cases."]))
+    const problems = []
+    for (const [label, path] of [["inside", inside], ["after", after]]) {
+      const r = cli("roundtrip", path, "--pack", "revert")
+      problems.push(...check([[r.status === 0, `${label}: exit ${r.status}: ${tail(r.out)}`], [!r.out.includes("expand warning"), `${label}: ${r.out.split("\n").find((l) => l.startsWith("expand warning"))}`]]))
+    }
+    return problems
   },
 
   // The contract's error cases.

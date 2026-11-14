@@ -278,8 +278,9 @@ const cases = {
 
   "9 a tie on candidate count goes to the collection with a positive candidate"() {
     const neg = collection("VC:neg", "Neg"), space = collection("VC:space", "Space")
+    // The losing collection holds a 0, so a span test of "0 or more" instead of "above 0" elects it.
     const vars = [
-      variable("V:n4", "Neg/space-4", neg, [-4]), variable("V:n8", "Neg/space-8", neg, [-8]),
+      variable("V:n0", "Neg/space-0", neg, [0]), variable("V:n4", "Neg/space-4", neg, [-4]),
       variable("V:p4", "Space/100", space, [4]), variable("V:p8", "Space/200", space, [8]),
     ]
     return {
@@ -302,6 +303,21 @@ const cases = {
       assert: (r) => check([
         [r.mode === "rhythm", "mode rhythm, got " + show(r.mode)],
         [typeof r.framesMeasured === "number", "framesMeasured present, got " + show(r.framesMeasured)],
+      ]),
+    }
+  },
+
+  "10b discover with spacing tokens returns the discover summary, not an audit"() {
+    const { col, vars } = spaceTokens([["Space/200", 8], ["Space/400", 16]])
+    const f = node("Plain", "FRAME", { paddingTop: 18 })
+    return {
+      figma: mockFigma({ top: [f], collections: [col], variables: vars }), mode: "discover",
+      assert: (r) => check([
+        [r.mode === "discover", "mode discover, got " + show(r.mode)],
+        [r.tokenCount === 2, "tokenCount 2, got " + show(r.tokenCount)],
+        [show(r.candidateValues) === show([8, 16]), "candidateValues [8,16], got " + show(r.candidateValues)],
+        [r.spacingCollection && r.spacingCollection.name === "Space", "spacingCollection Space, got " + show(r.spacingCollection)],
+        [r.rows === undefined && r.framesMeasured === undefined, "an audit came back: " + show(Object.keys(r))],
       ]),
     }
   },
@@ -351,6 +367,40 @@ const cases = {
   },
 }
 
+// A case may instead return { files() }: a check on the committed files, run without the mock.
+cases["13 the oracle mirrors the collect fence except its declared hunks, and expected.json names the master's version"] = () => ({
+  files() {
+    const fence = BODY.slice(1) // the fence body after its `// helper: collect` marker line
+    const oracle = normalize(readFileSync(join(here, "oracle.use_figma.js"), "utf8")).replace(/\n$/, "").split("\n")
+    const expected = JSON.parse(readFileSync(join(here, "expected.json"), "utf8"))
+    const version = /^\s+version:\s*"([^"]*)"/m.exec(readFileSync(master, "utf8"))?.[1] ?? null
+    const problems = []
+    // Hunk 1: the header and preamble, everything before the oracle's MODE line.
+    const modeAt = oracle.findIndex((l) => /^let MODE = /.test(l))
+    if (modeAt < 0) return ["the oracle has no `let MODE = ` line"]
+    const header = oracle.slice(0, modeAt)
+    let rest = oracle.slice(modeAt)
+    // Hunk 2: the MODE preset. Hunk 3: MAX_ROWS lifted to Infinity.
+    if (!/^let MODE = /.test(fence[0])) problems.push("the fence does not start with its `let MODE = ` line")
+    rest = rest.slice(1).map((l) => l.replace("MAX_ROWS = Infinity", "MAX_ROWS = 60"))
+    // Hunk 4: one line after the walk that clears the selection.
+    const walk = rest.indexOf("for (const n of page.selection) await walk(n, false, null);")
+    if (walk < 0 || !/^figma\.currentPage\.selection = \[\]; \/\/ oracle: /.test(rest[walk + 1] ?? "")) problems.push("hunk 4 (the selection clear after the walk) is not where the README says")
+    else rest.splice(walk + 1, 1)
+    // Hunk 5: a three-line block before the final return that restores tokens and unbound ids.
+    const restore = rest.findIndex((l) => l.startsWith("// oracle: restore"))
+    if (restore < 0 || rest.length - restore !== 4 || rest[rest.length - 1] !== "return out;") problems.push("hunk 5 (the restore block before `return out;`) is not where the README says")
+    else rest.splice(restore, 3)
+    const body = fence.slice(1)
+    const at = body.findIndex((l, i) => l !== rest[i])
+    if (at !== -1 || body.length !== rest.length) problems.push(`the oracle differs from the fence outside the declared hunks at fence line ${at === -1 ? body.length + 1 : at + 2}: ${show(rest[at === -1 ? body.length : at] ?? "<end>").slice(0, 100)}`)
+    return [...problems, ...check([
+      [version !== null && expected.masterVersion === version, `expected.json masterVersion ${show(expected.masterVersion)}, master metadata.version ${show(version)}`],
+      [header.some((l) => l.includes(`metadata.version "${version}"`)), `the oracle header does not name metadata.version "${version}"`],
+    ])]
+  },
+})
+
 // ---------------------------------------------------------------------------
 // Run
 // ---------------------------------------------------------------------------
@@ -359,8 +409,8 @@ let failed = 0
 for (const [name, make] of Object.entries(cases)) {
   let problems
   try {
-    const { figma, mode, assert } = make()
-    problems = assert(await runCollect(figma, mode))
+    const { figma, mode, assert, files } = make()
+    problems = files ? files() : assert(await runCollect(figma, mode))
   } catch (e) {
     problems = ["threw: " + (e && e.stack ? e.stack.split("\n")[0] : String(e))]
   }

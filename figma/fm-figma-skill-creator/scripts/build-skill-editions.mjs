@@ -36,7 +36,12 @@
 // rewritten to point at those sections. scripts/ and assets/ are listed for manual conversion.
 //
 // Dependency-free. Markers: <!-- target:figma-app --> ... <!-- /target --> and <!-- target:mcp -->.
-// Exit 1 on a build error (unbalanced markers, missing name/description, unreadable overlay).
+// Helper fences are found by the shared rule (helperFences in lib/enhancements.mjs): a ``` or ~~~ fence
+// whose info string's first word is javascript or js, so "```javascript linenums" counts.
+//
+// Exit 1 on a build error, before anything is written: unbalanced target markers, a malformed
+// enhancement region marker (a begin with no end, nested or interleaved regions), a missing
+// name/description, a master or overlay that is missing or not a file, or an unreadable overlay.
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, statSync, unlinkSync, rmdirSync } from "node:fs"
 import { join, dirname, basename, resolve, relative, extname, isAbsolute } from "node:path"
@@ -47,7 +52,7 @@ import {
   serializeFrontmatter, mergeFields, collapseBlankRuns, wordCount, estimateTokens, scanFences,
   HELPER_FENCE_LANG, HELPER_MARKER,
 } from "./lib/skill-md.mjs"
-import { scanCodeRegions } from "./lib/enhancements.mjs"
+import { scanCodeRegions, helperFences } from "./lib/enhancements.mjs"
 
 // ---------------------------------------------------------------------------
 // CLI
@@ -96,7 +101,7 @@ const helperPointer = (name) => `The ${name} helper is \`scripts/${name}.js\` in
 
 /**
  * Inside the core `## Helper scripts` section only, replace each javascript fence (``` or ~~~,
- * info string `javascript` or `js`, as the validator accepts) whose first body line is
+ * info string starting with `javascript` or `js`, as the validator accepts) whose first body line is
  * `// helper: <name>` with a one-line pointer. Fences without the marker stay inline.
  * Returns { lines, helpers: [{ name, code, open }] } where code is the fence body minus the marker line
  * and open is the body index of the fence's opening line.
@@ -104,6 +109,9 @@ const helperPointer = (name) => `The ${name} helper is \`scripts/${name}.js\` in
 function extractHelpers(body) {
   const fence = scanFences(body)
   const { regionAt } = scanRegions(body)
+  // Fences by the shared rule (helperFences, over fenceBlocks): the language is the first word of the
+  // info string, so "```javascript linenums" is a javascript fence here as in the validator and the packs.
+  const fenceAt = new Map(helperFences(body).map((f) => [f.open, f]))
   const out = []
   const helpers = []
   let inSection = false
@@ -111,19 +119,16 @@ function extractHelpers(body) {
     const line = body[i]
     // Section bounds: the core heading opens it; the next H1 or H2 outside a fence closes it.
     if (!fence[i] && /^#{1,2}\s/.test(line)) inSection = HELPER_HEADING.test(line) && regionAt(i) === "core"
-    const f = inSection && regionAt(i) === "core" ? /^\s*(`{3,}|~{3,})\s*(\S+)\s*$/.exec(line) : null
-    const open = f && HELPER_FENCE_LANG.test(f[2]) ? f : null
+    const f = inSection && regionAt(i) === "core" ? fenceAt.get(i) : undefined
+    const open = f && HELPER_FENCE_LANG.test(f.lang) ? f : null
     const marker = open && i + 1 < body.length ? HELPER_MARKER.exec(body[i + 1]) : null
     // Near miss: starts like a marker but fails the strict form; warn and keep the fence inline.
     if (open && !marker && i + 1 < body.length && body[i + 1].startsWith("// helper:")) {
       console.warn(`build warning: body line ${i + 2}: "${body[i + 1]}" is not a valid helper marker (// helper: <lowercase-name>); fence left inline`)
     }
     if (!marker) { out.push(line); continue }
-    // The closing fence uses the opening character, at least as many of it, and nothing else.
-    const closeRe = new RegExp(`^\\s*${open[1][0]}{${open[1].length},}\\s*$`)
-    let close = i + 1
-    while (close < body.length && !closeRe.test(body[close])) close++
-    if (close >= body.length) fail(`helper fence "${marker[1]}" at body line ${i + 1} is never closed`)
+    if (open.close === -1) fail(`helper fence "${marker[1]}" at body line ${i + 1} is never closed`)
+    const close = open.close
     if (helpers.some((h) => h.name === marker[1])) fail(`duplicate helper name "${marker[1]}" at body line ${i + 2}`)
     const code = body.slice(i + 2, close)
     if (!code.some((l) => l.trim() !== "")) fail(`helper "${marker[1]}" has no code`)
@@ -180,7 +185,8 @@ function editionSize(text) {
 
 /**
  * The newest entry of an eval log: the first level-three heading under its `## Entries` heading, and a
- * YYYY-MM-DD found in that heading. Nulls when the file, the section, or an entry is missing.
+ * YYYY-MM-DD found in that heading. A heading that still holds an unfilled <...> placeholder (the
+ * template's) is skipped. Nulls when the file, the section, or an entry is missing.
  */
 function readEvalStatus(path) {
   const none = { lastEntry: null, date: null }
@@ -195,6 +201,8 @@ function readEvalStatus(path) {
       if (inEntries) return none
       inEntries = h[1].length === 2 && /^entries$/i.test(h[2])
     } else if (inEntries && h[1].length === 3) {
+      // An entry heading still holding an unfilled <...> placeholder is the template's, not an entry.
+      if (/<[^>]+>/.test(h[2])) continue
       const date = /\d{4}-\d{2}-\d{2}/.exec(h[2])
       return { lastEntry: h[2], date: date ? date[0] : null }
     }
@@ -227,6 +235,7 @@ function writeHistory(masterAbs, overlayPath, version) {
 function buildEditions(master) {
   const masterAbs = resolve(master)
   if (!existsSync(masterAbs)) fail(`master not found: ${master}`)
+  if (!statSync(masterAbs).isFile()) fail(`master is not a file: ${master}`)
   const lines = normalize(readFileSync(masterAbs, "utf8")).split("\n")
   const fm = parseFrontmatter(lines)
   if (!fm.present) fail("master has no frontmatter block on line 1")
@@ -249,6 +258,7 @@ function buildEditions(master) {
   let overlayFields = []
   const overlayPath = overlayArg ? resolve(overlayArg) : join(dirname(masterAbs), "overlay.claude.yaml")
   if (existsSync(overlayPath)) {
+    if (!statSync(overlayPath).isFile()) fail(`overlay is not a file: ${overlayArg ?? basename(overlayPath)}`)
     const oIssues = []
     overlayFields = parseYamlSubset(normalize(readFileSync(overlayPath, "utf8")).split("\n"), 0, oIssues)
     for (const iss of oIssues) fail(`overlay ${basename(overlayPath)} line ${iss.line}: ${iss.message}`)

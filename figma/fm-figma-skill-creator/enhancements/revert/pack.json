@@ -2,6 +2,7 @@
   "name": "revert",
   "phrase": "Revert:",
   "codeRegion": "revert",
+  "fits": "a skill whose apply helper returns `applied: [{ id, property, previous, previousVariableId, value, variableId }]` and changes numeric properties only; the revert helper restores those numbers and bindings and nothing else",
   "templateLines": ["Previous is the human record; the revert list is the apply result."],
   "proseSentences": [
     "Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from."

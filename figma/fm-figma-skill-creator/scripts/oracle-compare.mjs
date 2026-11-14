@@ -16,8 +16,9 @@
 // templates/EVAL-LOG.md.
 //
 // Exit codes: 0 when nothing is missing, extra, or mismatched and every count is within tolerance;
-// 1 when anything differs; 2 when an input cannot be read or parsed (bad arguments, unreadable
-// JSON, no such scope, no priority line, no main table).
+// 1 when anything differs, a missing priority line included (the rows and the other counts are still
+// compared); 2 when an input cannot be read or parsed (bad arguments, an input that is not a file,
+// unreadable JSON or JSON that holds no object, no such scope, no table holding the key columns).
 //
 // The schema names the report's labels and maps them to collect result fields:
 //   keyColumns           fields that identify a row (here path, property, current)
@@ -30,7 +31,9 @@
 //                        mode) is not compared only when the run lacks its field, and a field the run
 //                        carries is compared whatever its modes. A run's own `mode`, when present, must
 //                        equal the scope's; a different one is a difference (exit 1)
-//   priorityLine         label of the "P0 <n> · P1 <n> · P2 <n> · P3 <n>" line
+//   priorityLine         optional: label of the "P0 <n> · P1 <n> · P2 <n> · P3 <n>" line. Without it the
+//                        priority counts are not compared; a report that lacks a declared line differs,
+//                        and priority counts absent on both sides are equal
 //   optionalHeaderLines  labels a report may omit; an omitted counted line reads as 0
 //   fixFormat            how an expected `fix` object prints ("bind {name}", "set {value}")
 // Labels and header names match after the same cleaning as cells, ignoring case. When no table holds
@@ -45,7 +48,7 @@
 //
 // Dependency-free, Node 18+.
 
-import { readFileSync, existsSync } from "node:fs"
+import { readFileSync, existsSync, statSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { normalize, scanFences } from "./lib/skill-md.mjs"
@@ -86,12 +89,17 @@ function parseArgs(argv) {
 
 function readText(path, what) {
   if (!existsSync(path)) fail(`${what} not found: ${path}`)
+  if (!statSync(path).isFile()) fail(`${what} is not a file: ${path}`)
   return normalize(readFileSync(path, "utf8"))
 }
 
+/** A JSON file that holds an object; null, a number, or an array is refused. */
 function readJson(path, what) {
   const text = readText(path, what)
-  try { return JSON.parse(text) } catch (e) { return fail(`${what} is not valid JSON (${path}): ${e.message}`) }
+  let value
+  try { value = JSON.parse(text) } catch (e) { return fail(`${what} is not valid JSON (${path}): ${e.message}`) }
+  if (value === null || typeof value !== "object" || Array.isArray(value)) fail(`${what} does not hold a JSON object (${path})`)
+  return value
 }
 
 /**
@@ -110,8 +118,11 @@ function schemaEntry(name, value, where) {
 /** Read the schema and resolve it for one mode: header lines marked for other modes are set aside. */
 function loadSchema(path, mode) {
   const schema = readJson(path, "schema")
-  for (const key of ["keyColumns", "columns", "headerLines", "priorityLine"]) {
+  for (const key of ["keyColumns", "columns", "headerLines"]) {
     if (schema[key] === undefined) fail(`schema has no "${key}": ${path}`)
+  }
+  if (schema.priorityLine !== undefined && (typeof schema.priorityLine !== "string" || schema.priorityLine.trim() === "")) {
+    fail(`schema "priorityLine" must be a non-empty string when present: ${path}`)
   }
   schema.columnList = Object.entries(schema.columns).map(([n, v]) => schemaEntry(n, v, "columns"))
   schema.fields = [...new Set(schema.columnList.map((c) => c.field).filter(Boolean))]
@@ -273,7 +284,7 @@ function tables(lines) {
 function headerParts(lines, schema) {
   const inFence = scanFences(lines)
   const parts = new Map()
-  const priorityLabel = labelKey(schema.priorityLine)
+  const priorityLabel = schema.priorityLine === undefined ? null : labelKey(schema.priorityLine)
   const add = (part) => {
     const colon = part.indexOf(":")
     if (colon < 0) return
@@ -307,11 +318,13 @@ function fromReport(reportText, schema, numeric, expectedRowCount) {
     else counts.set(line.name, null)
   }
 
-  const priorityRest = parts.get(labelKey(schema.priorityLine))
-  if (priorityRest === undefined) fail(`no "${schema.priorityLine}:" line in the report`)
+  // A declared priority line the report lacks is a difference, not a stop: every priority count reads
+  // as absent, and the rows and the other counts are still compared.
+  const priorityRest = schema.priorityLine === undefined ? undefined : parts.get(labelKey(schema.priorityLine))
+  const priorityMissing = schema.priorityLine !== undefined && priorityRest === undefined
   const priority = {}
   for (const p of PRIORITY_LEVELS) {
-    const m = priorityRest.match(new RegExp(`\\b${p}\\b\\s*:?\\s*(-?\\d[\\d,]*)`))
+    const m = priorityRest === undefined ? null : priorityRest.match(new RegExp(`\\b${p}\\b\\s*:?\\s*(-?\\d[\\d,]*)`))
     priority[p] = m ? num(m[1]) : null
   }
 
@@ -349,7 +362,7 @@ function fromReport(reportText, schema, numeric, expectedRowCount) {
       rows.push(rowOf(source, schema, numeric))
     }
   }
-  return { counts, omitted, priority, rows, columnsMissing }
+  return { counts, omitted, priority, priorityMissing, rows, columnsMissing }
 }
 
 // ---------------------------------------------------------------------------
@@ -369,11 +382,13 @@ function compare(exp, obs, schema, tolerance) {
     const delta = e !== null && o !== null ? o - e : null
     counts.push({ label, e, o, delta, ok: delta !== null && Math.abs(delta) <= tol, omitted: obs.omitted.has(label) })
   }
-  const priority = PRIORITY_LEVELS.map((p) => {
+  // Without a priority line in the schema the priority counts are not compared; a count absent on
+  // both sides is equal.
+  const priority = schema.priorityLine === undefined ? [] : PRIORITY_LEVELS.map((p) => {
     const e = exp.priority[p]
     const o = obs.priority[p]
     const delta = e !== null && o !== null ? o - e : null
-    return { label: p, e, o, delta, ok: delta === 0 }
+    return { label: p, e, o, delta, ok: delta === 0 || (e === null && o === null) }
   })
 
   // Rows pair by key in order, so two rows with the same key pair first to first.
@@ -445,11 +460,12 @@ function entryTemplate() {
 function evalLogStub(ctx) {
   const { expected, scope, obs, result, mode, exitCode } = ctx
   const countsLine = [...obs.counts.entries()].filter(([l]) => !obs.omitted.has(l)).map(([l, v]) => `${l} ${show(v)}`).join(" \u00b7 ")
-  const prio = PRIORITY_LEVELS.map((p) => `${p} ${show(obs.priority[p])}`).join(" \u00b7 ")
+  const prio = ctx.schema.priorityLine === undefined ? null : `${ctx.schema.priorityLine} ${PRIORITY_LEVELS.map((p) => `${p} ${show(obs.priority[p])}`).join(" \u00b7 ")}`
   const selection = Array.isArray(scope.selection) ? `${scope.selection.length} named top-level nodes`
     : scope.selection === "page" ? "every top-level node" : String(scope.selection)
   const defects = []
   if (result.modeDiffers) defects.push(`mode: expected ${result.modeDiffers.e}, observed ${result.modeDiffers.o}`)
+  if (obs.priorityMissing) defects.push(`no "${ctx.schema.priorityLine}:" line in the report`)
   for (const c of [...result.counts, ...result.priority]) if (!c.ok) defects.push(`${c.label}: expected ${show(c.e)}, observed ${show(c.o)}`)
   for (const r of result.missing) defects.push(`missing row ${r.label}`)
   for (const r of result.extra) defects.push(`extra row ${r.label}`)
@@ -457,7 +473,7 @@ function evalLogStub(ctx) {
   for (const f of obs.columnsMissing) defects.push(`no ${f} column in the report table`)
   const fill = {
     "File and selection": `${scope.fileKey || "<file>"}, page ${scope.page || "<page>"}, ${selection} (oracle scope ${scope.scope}, ${scope.mode || "mode not recorded"})`,
-    "What the agent did": `${mode === "run" ? "returned" : "reported"} ${countsLine}; ${ctx.schema.priorityLine} ${prio}; ${obs.rows.length} rows`,
+    "What the agent did": `${mode === "run" ? "returned" : "reported"} ${countsLine}; ${prio ? `${prio}; ` : ""}${obs.rows.length} rows`,
     "What it should have done": result.allMatch ? "nothing different from the oracle" : `match oracle scope ${scope.scope}; see Defects`,
     "Defects": defects.length ? defects.map((d, i) => `${i + 1}. ${d}`).join(" ") : `none against oracle scope ${scope.scope} (oracle-compare exit ${exitCode})`,
   }
@@ -517,7 +533,11 @@ function main() {
       : `  Not carried by the run, and not printed in ${runMode} mode, not compared: ${schema.linesNotInMode.join(", ")}`)
   }
   out.push("")
-  out.push(...countTable(`Priority counts, ${schema.priorityLine}`, result.priority))
+  if (schema.priorityLine === undefined) out.push("Priority counts: not compared (the schema declares no priority line)")
+  else {
+    out.push(...countTable(`Priority counts, ${schema.priorityLine}`, result.priority))
+    if (obs.priorityMissing) out.push(`  No "${schema.priorityLine}:" line in the report; each priority count reads as absent.`)
+  }
   out.push("")
   out.push(...listBlock(`Missing from the ${mode}`, result.missing.map((r) => `${r.label} (${r.values.priority ?? "no priority"})`)))
   out.push(...listBlock(`Extra in the ${mode}`, result.extra.map((r) => r.label)))

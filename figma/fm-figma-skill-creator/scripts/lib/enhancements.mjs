@@ -24,7 +24,7 @@
 import { readFileSync, existsSync } from "node:fs"
 import { join, basename } from "node:path"
 import {
-  parseFrontmatter, getField, scanFences, fenceBlocks, collapseBlankRuns,
+  parseFrontmatter, getField, scanFences, fenceBlocks, scanRegions, collapseBlankRuns,
   OPEN_MARKER, CLOSE_MARKER, HELPER_FENCE_LANG, HELPER_MARKER,
 } from "./skill-md.mjs"
 
@@ -44,6 +44,8 @@ export const PRESENCE_KINDS = ["code-region", "fence", "block", "heading-block",
 export const carriesPack = (units) => units.some((u) => PRESENCE_KINDS.includes(u.kind))
 
 export const REGION_MARKER = /^\s*\/\/ enhancement: ([a-z0-9][a-z0-9-]*) (begin|end)\s*$/
+/** A pack name, which is also its folder name under enhancements/ and its code-region name. */
+export const PACK_NAME = /^[a-z0-9][a-z0-9-]*$/
 const LIST_LEAD = /^(\s*)((?:[-*+]|\d+[.)])\s+(?:\[[ xX]\]\s+)?)?/
 const HEADING = /^(\s*)(#{1,6})\s+/
 
@@ -60,7 +62,8 @@ export function loadPack(dir) {
   const bad = (msg) => { throw new Error(`${file}: ${msg}`) }
   if (pack.name !== basename(dir)) bad(`name "${pack.name}" must equal its folder name "${basename(dir)}"`)
   if (typeof pack.phrase !== "string" || pack.phrase.trim() === "") bad("phrase must be a non-empty string")
-  if (typeof pack.codeRegion !== "string" || !/^[a-z0-9][a-z0-9-]*$/.test(pack.codeRegion)) bad("codeRegion must be a lowercase name")
+  if (typeof pack.codeRegion !== "string" || !PACK_NAME.test(pack.codeRegion)) bad("codeRegion must be a lowercase name")
+  if (pack.fits !== undefined && (typeof pack.fits !== "string" || pack.fits.trim() === "")) bad("fits must be a non-empty string when present")
   for (const k of ["templateLines", "proseSentences", "descriptionSentences", "tags", "lineRewrites", "requires", "conflicts"]) {
     if (pack[k] === undefined) pack[k] = []
     if (!Array.isArray(pack[k])) bad(`${k} must be an array`)
@@ -483,7 +486,10 @@ const tight = (x, y) => !isBlank(x) && isListItem(y) && (isListItem(x) || indent
 const sectionKey = (name) => name.split(":")[0].trim().toLowerCase()
 const quote = (s) => JSON.stringify(s.length > 60 ? s.slice(0, 57) + "..." : s)
 
-/** The body's level-two sections, each { name, start, end } (heading line to the line before the next H2 or target marker); "" is the preamble. */
+/**
+ * The body's level-two sections, each { name, start, end }: heading line to the line before the next
+ * level-two heading, across any target marker, as findUnits records a unit's section; "" is the preamble.
+ */
 function sectionsOf(lines, inFence, bodyStart) {
   const out = []
   let cur = { name: "", start: bodyStart, end: lines.length - 1 }
@@ -491,11 +497,10 @@ function sectionsOf(lines, inFence, bodyStart) {
   for (let i = bodyStart; i < lines.length; i++) {
     if (inFence[i]) continue
     const h2 = /^##\s+(.*?)\s*$/.exec(lines[i])
-    if (h2 || isMarker(lines[i])) {
-      if (cur) cur.end = i - 1
-      cur = h2 ? { name: h2[1], start: i, end: lines.length - 1 } : null
-      if (cur) out.push(cur)
-    }
+    if (!h2) continue
+    cur.end = i - 1
+    cur = { name: h2[1], start: i, end: lines.length - 1 }
+    out.push(cur)
   }
   return out
 }
@@ -519,7 +524,8 @@ function sectionsOf(lines, inFence, bodyStart) {
  * a list item after a list item or its continuation joins it, anything else is set apart by one
  * blank line, and where the text has no blank line at the seam none is added.
  *
- * Fallbacks: prose goes at the end of its section, a template line at the end of the section's report
+ * Fallbacks: prose goes at the end of its section (its last line in the region the section's heading is
+ * in, so never inside another target region), a template line at the end of the section's report
  * fence, a sentence unit on its own line; a missing section means the end of the last core section,
  * before the first target block. The orphan code regions of each helper go into one new `javascript`
  * fence with no helper marker, opened by `// <pack> regions for <helper>: place by hand`, after that
@@ -527,7 +533,9 @@ function sectionsOf(lines, inFence, bodyStart) {
  */
 export function insertUnits(lines, units, { warn = () => {} } = {}) {
   const out = lines.slice()
-  const label = (u) => `${u.pack ? u.pack + ": " : ""}${u.kind} (master ${u.start === u.end ? "line " + (u.start + 1) : "lines " + (u.start + 1) + " to " + (u.end + 1)})`
+  // In-line units name their column, so two fallbacks on one master line never read alike.
+  const INLINE = ["sentence", "prose-sentence", "description-sentence", "tag"]
+  const label = (u) => `${u.pack ? u.pack + ": " : ""}${u.kind} (master ${u.start === u.end ? "line " + (u.start + 1) : "lines " + (u.start + 1) + " to " + (u.end + 1)}${INLINE.includes(u.kind) ? `, column ${u.col + 1}` : ""})`
 
   // Items: units in recorded order, adjacent line units of one kind merged into one piece.
   const items = []
@@ -547,11 +555,7 @@ export function insertUnits(lines, units, { warn = () => {} } = {}) {
     const fm = parseFrontmatter(out)
     const bodyStart = fm.present ? fm.closeLine + 1 : 0
     const inFence = scanFences(out)
-    const fences = fenceBlocks(out).map((f) => {
-      const m = f.close > f.open + 1 && HELPER_FENCE_LANG.test(f.lang) ? HELPER_MARKER.exec(out[f.open + 1]) : null
-      return { ...f, helper: m ? m[1] : null }
-    })
-    return { fm, bodyStart, inFence, fences, sections: sectionsOf(out, inFence, bodyStart) }
+    return { fm, bodyStart, inFence, fences: helperFences(out), regionAt: scanRegions(out).regionAt, sections: sectionsOf(out, inFence, bodyStart) }
   }
   /**
    * The one section a unit's recorded section name picks out: the section with exactly that name, or,
@@ -586,18 +590,23 @@ export function insertUnits(lines, units, { warn = () => {} } = {}) {
     }
     out.splice(a + 1, b, ...(before ? [""] : []), ...body, ...(after ? [""] : []))
   }
-  /** After the last non-blank line of the section, or, when the section is missing, of the last core section before the first target block. */
+  /**
+   * After the last non-blank line of the section that lies in the same region as its heading (core, or
+   * the target region the heading opens), so a fallback never lands in another region; or, when the
+   * section is missing, after the last line of the core before the first target block.
+   */
   const sectionEnd = (s, name) => {
     const sec = findSection(s, name)
-    let k, floor
-    if (sec) { k = sec.end; floor = sec.start }
-    else {
-      const marker = s.sections.length ? out.findIndex((l, i) => i >= s.bodyStart && !s.inFence[i] && OPEN_MARKER.test(l)) : -1
-      k = marker === -1 ? out.length - 1 : marker - 1
-      floor = s.bodyStart
+    if (sec) {
+      const home = s.regionAt(sec.start)
+      let k = sec.end
+      while (k > sec.start && (isBlank(out[k]) || isMarker(out[k]) || s.regionAt(k) !== home)) k--
+      return { at: k, found: true }
     }
-    while (k > floor && isBlank(out[k])) k--
-    return { at: k, found: !!sec }
+    const marker = s.sections.length ? out.findIndex((l, i) => i >= s.bodyStart && !s.inFence[i] && OPEN_MARKER.test(l)) : -1
+    let k = marker === -1 ? out.length - 1 : marker - 1
+    while (k > s.bodyStart && isBlank(out[k])) k--
+    return { at: k, found: false }
   }
 
   // --- where each kind of unit goes; { line } when verified, else { reason } ----------------------

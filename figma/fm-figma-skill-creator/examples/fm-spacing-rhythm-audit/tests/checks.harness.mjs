@@ -193,6 +193,17 @@ const cases = {
     return check([[own.length === 0, `own fence-language patterns at ${JSON.stringify(own)}`], [caps.length === 1, `a JS fence in a target region: ${JSON.stringify(caps)}`]])
   },
 
+  // The validator's inputs: a folder is no file, and --edition needs its value.
+  "the validator refuses a folder and an --edition with no value, exit 2 with one message": () => {
+    const run = (...a) => spawnSync(process.execPath, [VALIDATOR, ...a], { encoding: "utf8" })
+    const folder = run(tmp, "--edition", "master")
+    const bare = run(MASTER, "--edition")
+    const header = readFileSync(VALIDATOR, "utf8").split("\n").slice(0, 30).join("\n")
+    return check([[folder.status === 2 && /not a file/.test(folder.stderr) && !/^\s+at /m.test(folder.stderr), `folder: exit ${folder.status}: ${JSON.stringify(folder.stderr.trim())}`],
+      [bare.status === 2 && /--edition needs/.test(bare.stderr), `--edition with no value: exit ${bare.status}: ${JSON.stringify((bare.stderr || bare.stdout).trim().split("\n").pop())}`],
+      [/\b2\b.*(missing|not a file|bad argument)/i.test(header), "the header does not document exit 2"]])
+  },
+
   // check-all.mjs: what it runs, and that it never reads history/.
   "check-all --list names every check, one line each, and no history path": () => {
     const r = checkAll(creator, "--list")
@@ -254,6 +265,13 @@ const cases = {
     const fail = r.lines.find((l) => l.startsWith("FAIL")) || ""
     return check([[fresh.status === 0, `a current dist/: exit ${fresh.status}: ${fresh.lines.slice(-2).join(" | ")}`],
       [r.status === 1 && fail.includes("build examples/fm-spacing-rhythm-audit/SKILL.md") && /stale/.test(fail) && fail.includes("fm-spacing-rhythm-audit.paste.fields.txt"), `stale dist/: exit ${r.status}: ${fail}`]])
+  },
+  "check-all names a missing dist/ as missing, not stale": () => {
+    const root = scratchCreator("no-dist", ["scripts", "enhancements", "references", "examples/fm-spacing-rhythm-audit/SKILL.md", "examples/fm-spacing-rhythm-audit/overlay.claude.yaml",
+      "examples/fm-spacing-rhythm-audit/EVAL-LOG.md", "examples/fm-figma-capability-probe"])
+    const r = checkAll(root, "--only", "builds")
+    const fail = r.lines.find((l) => l.startsWith("FAIL")) || ""
+    return check([[r.status === 1 && fail.includes("build examples/fm-spacing-rhythm-audit/SKILL.md") && /no committed dist\//.test(fail) && !/stale/.test(fail), `exit ${r.status}: ${fail}`]])
   },
   "check-all never reads a history/ folder: a broken snapshot beside each master changes nothing": () => {
     const root = scratchCreator("history-guard", ["scripts", "enhancements", "references", "examples/fm-spacing-rhythm-audit/SKILL.md", "examples/fm-figma-capability-probe/SKILL.md"])

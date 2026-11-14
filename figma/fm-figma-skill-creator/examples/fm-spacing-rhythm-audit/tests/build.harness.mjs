@@ -409,6 +409,40 @@ const cases = {
       [!existsSync(join(dir, "history")), "history written"],
     ])
   },
+  "a helper fence whose info string has a second word is still a helper, for the builder and the validator": () => {
+    const dir = copyExample(PROBE, "info-string", ["SKILL.md"])
+    const text = readFileSync(join(dir, "SKILL.md"), "utf8")
+    if (!text.includes("```javascript\n// helper: probe\n")) return ["the probe master has no ```javascript fence opening its helper"]
+    writeFileSync(join(dir, "SKILL.md"), text.replace("```javascript\n// helper: probe\n", "```javascript linenums\n// helper: probe\n"))
+    const r = build(dir)
+    const agent = join(dir, "dist", "claude", "fm-figma-capability-probe")
+    // The validator reads the fence language the same way: a two-word javascript fence in a target region warns.
+    const inTarget = join(dir, "in-target.md")
+    writeFileSync(inTarget, text + "\n<!-- target:mcp -->\n## More\n\n```js linenums\nreturn 1;\n```\n<!-- /target -->\n")
+    const v = JSON.parse(spawnSync(process.execPath, [VALIDATOR, inTarget, "--edition", "master", "--json"], { encoding: "utf8" }).stdout)
+    return check([
+      [r.status === 0 && r.stdout.includes("helpers: 1 scripts (probe)"), `exit ${r.status}: ${(r.stdout.match(/helpers:.*/) || [r.stderr.trim()])[0]}`],
+      [existsSync(join(agent, "scripts", "probe.js")), "no scripts/probe.js"],
+      [existsSync(join(agent, "SKILL.md")) && !readFileSync(join(agent, "SKILL.md"), "utf8").includes("// helper: probe"), "the helper stayed inline in the coding-agent edition"],
+      [v.findings.filter((f) => f.rule === "helper-placement").length === 1, `helper-placement findings: ${show(v.findings.filter((f) => f.rule === "helper-placement"))}`],
+    ])
+  },
+  "an entry heading that still holds an angle-bracket placeholder is skipped by evalStatus": () => {
+    const dir = copyExample(PROBE, "placeholder-entry", ["SKILL.md"])
+    writeFileSync(join(dir, "EVAL-LOG.md"), "# EVAL-LOG: x\n\n## Entries\n\n### <YYYY-MM-DD> · v<description version> · <surface>\n\n### 2026-01-03 · v1.0 · Figma Design\n")
+    const r = build(dir)
+    const m = manifestOf(dir)
+    return check([[r.status === 0, `exit ${r.status}`], [same(m?.evalStatus, { lastEntry: "2026-01-03 · v1.0 · Figma Design", date: "2026-01-03" }), `evalStatus ${show(m?.evalStatus)}`]])
+  },
+  "a folder given as the master or the overlay stops the build with one message, exit 1": () => {
+    const dir = copyExample(PROBE, "folder-input", ["SKILL.md"])
+    mkdirSync(join(dir, "a-folder"))
+    const asMaster = spawnSync(process.execPath, [BUILDER, "a-folder", "--out", "dist"], { cwd: dir, encoding: "utf8" })
+    const asOverlay = build(dir, ["--overlay", "a-folder"])
+    const one = (x) => x.status === 1 && /^build error: .*not a file/.test(x.stderr.trim()) && !/^\s+at /m.test(x.stderr)
+    return check([[one(asMaster), `master: exit ${asMaster.status}: ${show(asMaster.stderr.trim())}`], [one(asOverlay), `overlay: exit ${asOverlay.status}: ${show(asOverlay.stderr.trim())}`],
+      [!existsSync(join(dir, "dist")), "dist written"]])
+  },
   "metadata.cost is copied into the manifest when the master has it": () => {
     const dir = copyExample(PROBE, "cost", ["SKILL.md"])
     const text = readFileSync(join(dir, "SKILL.md"), "utf8")

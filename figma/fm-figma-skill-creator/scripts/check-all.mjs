@@ -150,6 +150,8 @@ for (const ex of EXAMPLES) {
     const clean = (r.stdout.match(/^OK: .* — 0 errors, 0 warnings/gm) || []).length
     if (r.status !== 0 || clean !== 3) return bad(`exit ${r.status}, ${clean} of 3 editions clean`, (r.stdout + r.stderr).trim().split("\n").filter((l) => /^(ERROR|WARN|FAIL|build error)/.test(l)))
     const after = distBytes(dist)
+    // No dist/ before the build is a missing dist/, not a stale one.
+    if (!Object.keys(before).length) return bad(`there was no committed dist/ (${dist}); the build wrote one: commit it`)
     const changed = [...new Set([...Object.keys(before), ...Object.keys(after)])].sort().find((p) => !before[p] || !after[p] || !before[p].equals(after[p]))
     return changed ? bad(`the committed dist/ was stale: the build changed ${changed}; commit the rebuilt dist/`) : ok("3 editions at 0 errors, 0 warnings; dist/ byte-identical")
   })
