@@ -417,7 +417,7 @@ function compare(exp, obs, schema, tolerance) {
   }
   const missing = [...pending.values()].flat()
   const allMatch = counts.every((c) => c.ok) && priority.every((p) => p.ok) &&
-    !missing.length && !extra.length && !mismatched.length && !obs.columnsMissing.length
+    !missing.length && !extra.length && !mismatched.length && !obs.columnsMissing.length && !obs.priorityMissing
   return { counts, priority, missing, extra, mismatched, allMatch }
 }
 

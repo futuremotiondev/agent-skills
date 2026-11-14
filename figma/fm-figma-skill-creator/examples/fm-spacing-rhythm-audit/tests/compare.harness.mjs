@@ -156,6 +156,12 @@ const cases = {
       exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ['No "Off-grid values:" line in the report', "4 counts outside tolerance"],
     })
   },
+  "a declared priority line missing from a report fails even when the scope has no priority counts": () => {
+    const expected = expectedVariant("expected-no-priority-report.json", (e) => { for (const s of e.scopes) delete s.counts.byPriority; return e })
+    const report = variant("no-priority-line-no-counts.md", SCOPE2.replace(/^- \*\*Off-grid values:\*\*.*\n/m, ""))
+    const r = compare(["--scope", "2", "--report", report], SCRIPT, { expected })
+    return expectResult(r, { exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ['No "Off-grid values:" line in the report'] })
+  },
   "priority counts absent on both sides are equal": () => {
     const expected = expectedVariant("expected-no-priority.json", (e) => { for (const s of e.scopes) delete s.counts.byPriority; return e })
     const run = variant("run-no-priority.json", JSON.stringify((() => { const s = JSON.parse(readFileSync(expected, "utf8")).scopes.find((x) => x.scope === 3); const r = { ...s, ...s.counts }; delete r.counts; return r })()))
