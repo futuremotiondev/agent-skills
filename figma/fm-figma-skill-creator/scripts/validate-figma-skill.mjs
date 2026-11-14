@@ -26,7 +26,7 @@ import { basename, dirname, resolve, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import {
   normalize, parseFrontmatter, getField, findFrontmatterLikeBlocks,
-  scanFences, scanRegions, wordCount, estimateTokens, fenceBlocks, HELPER_FENCE_LANG,
+  scanFences, scanRegions, wordCount, estimateTokens, fenceBlocks, HELPER_FENCE_LANG, HELPER_MARKER,
 } from "./lib/skill-md.mjs"
 import { loadPack, findUnits, carriesPack, REGION_MARKER } from "./lib/enhancements.mjs"
 
@@ -88,9 +88,11 @@ const RULES = [
   { id: "headings-required", editions: ALL, severity: "warn", basis: "Figma dev recipe: When to use, Instructions, Common edge cases; first-party final gate or output contract" },
   { id: "body-size", editions: ALL, severity: "warn", basis: "spec: under 500 lines; about 5k tokens is coding-agent context guidance; Figma enforces no body limit and its longest first-party skill is about 12k tokens (calibrated 2026-11-02)" },
   { id: "slash-invocations", editions: ["master", ...FIGMA], severity: "warn", basis: "only the first skill mentioned in a prompt runs; point to others only as Not for X (use /y)" },
-  { id: "capability-gates", editions: ["master", ...FIGMA], severity: "warn", basis: "capability table: prototyping, vectors, slots are Coming soon; export and diagrams unsupported in-app" },
+  { id: "capability-gates", editions: ["master", ...FIGMA], severity: "warn", basis: "capability table: prototyping, editing existing vector paths (vector editing, Draw tools), slots are Coming soon; export and diagrams unsupported in-app; generating vector icons and illustrations is available (changelog 2026-11-13)" },
   { id: "console-log", editions: ["master", ...FIGMA], severity: "warn", basis: "script contract: results come back through return, not console.log" },
+  { id: "helper-form", editions: ["master", ...FIGMA], severity: "error", basis: "script contract (observed 2026-11-13): both script tools take a result only from a top-level return, so a helper is top-level await and a final return with no function wrapper" },
   { id: "helper-placement", editions: ["master"], severity: "warn", basis: "build contract: helpers live in the core `## Helper scripts` section, first line `// helper: <name>`; a fence in a target region ships to one runtime only" },
+  { id: "gate-tool", editions: ["master"], severity: "warn", basis: "question contract: every gate says \"through a structured question tool when the runtime has one\", and the target:figma-app section names ask_user_question" },
   { id: "enhancement-regions", editions: ["master"], severity: "error", basis: "enhancement-pack contract rule (a): every `// enhancement: <name> begin` has its end in the same fence, regions never nest, and the name is a shipped pack's code region" },
   { id: "enhancement-tags", editions: ["master"], severity: "warn", basis: "enhancement-pack contract: a pack is one unit, so its prose phrase and its code region travel together (checked when the master carries the pack's metadata tag, or for a pack with no tags when either side is present)" },
   { id: "enhancement-surfaces", editions: ["master"], severity: "warn", basis: "enhancement-pack contract rule (i): a pack whose surfaces do not cover the skill's figma-* runtimes needs a surface guard in its code region" },
@@ -154,9 +156,11 @@ function report(id, message, line) {
 function checkDescription(description, descField) {
   // Third person, capability first. Must catch, anywhere in the text: helps|assists|enables|
   // allows|lets|guides|empowers followed within two words by "you" or "designers to"
-  // ("helps you", "guides designers to"); the openers "This skill", "Designed to", "A skill
+  // ("helps you", "guides designers to"), or within three words by an audience (you, designers,
+  // teams, users, people, anyone: "lets designers", "helps product teams"); helps|lets|allows,
+  // one word, then "to" ("allows users to"); the openers "This skill", "Designed to", "A skill
   // that/to"; and first person ("I ..."/"We ..." openers, "I will", "I'll"), plus a "You" opener.
-  const VOICE = /\b(helps|assists|enables|allows|lets|guides|empowers)\s+(?:[\w'-]+\s+)?(you|designers\s+to)\b|^(this skill|designed to|a skill (that|to))\b|^(i|we|you)\b|\b(i will|i'll)\b/i
+  const VOICE = /\b(helps|assists|enables|allows|lets|guides|empowers)\s+(?:[\w'-]+\s+)?(you|designers\s+to)\b|\b(helps|assists|enables|allows|lets|guides|empowers)\s+(?:[\w'-]+\s+){0,2}(you|designers|teams|users|people|anyone)\b|\b(helps|lets|allows)\s+\w+\s+to\b|^(this skill|designed to|a skill (that|to))\b|^(i|we|you)\b|\b(i will|i'll)\b/i
   // Second-person address in the first sentence: "you" or "your" anywhere in it.
   const VOICE_YOU = /\b(you|your)\b/i
   // A trigger clause. Must catch: "Use when", "Use whenever", "Use this skill when", "Use it
@@ -164,9 +168,10 @@ function checkDescription(description, descField) {
   // "Always use"; or at least two double-quoted phrases (a trigger list without a verb).
   const USE_TRIGGER = /\b(use|trigger|invoke|activate|run|apply)( this( skill)?| it)?\s+(it\s+)?when(ever)?\b|\balways use\b/i
   const QUOTED_PHRASE = /["“][^"”]+["”]/g
-  // A boundary. Must catch: "Not for", "Do not use", "Don't use", "Does not", "Doesn't",
-  // "Excludes", "outside its/the scope", "Skip (it) for", "leave ... to /other-skill".
-  const NOT_FOR = /\bnot for\b|\bdo not use\b|\bdon't use\b|\bdoes not\b|\bdoesn't\b|\bexcludes\b|\boutside (its|the) scope\b|\bskip (it )?for\b|\bleave .{1,40} to \//i
+  // A boundary. Must catch: "Not for", "Do not use", "Don't use", "Excludes", "outside its/the
+  // scope", "Skip (it) for", "leave ... to /other-skill". A bare "does not" or "doesn't" describes
+  // behaviour ("does not need a selection") and is no boundary.
+  const NOT_FOR = /\bnot for\b|\bdo not use\b|\bdon't use\b|\bexcludes\b|\boutside (its|the) scope\b|\bskip (it )?for\b|\bleave .{1,40} to \//i
   // Restriction phrasing Figma advises against. Must catch: "only when", "only if", "unless",
   // "exclusively", "solely", "strictly", "limited to", "restricted to", "except when/if".
   const RESTRICTIVE = /\bonly (when|if)\b|\bunless\b|\bexclusively\b|\bsolely\b|\bstrictly\b|\blimited to\b|\brestricted to\b|\bexcept (when|if)\b/i
@@ -376,16 +381,69 @@ if (edition === "master") {
     if (f && !openFence) {
       openFence = f[1]
       openLang = f[2]
-      if (/^(javascript|js)$/i.test(f[2]) && regionAt(i) !== "core") {
+      if (HELPER_FENCE_LANG.test(f[2]) && regionAt(i) !== "core") {
         report("helper-placement", `javascript fence inside target:${regionAt(i)}; move it to the core "## Helper scripts" section with "// helper: <name>" as its first line, and reference it from both target sections`, i + 1)
       }
       continue
     }
     if (f && openFence && f[1][0] === openFence[0] && f[1].length >= openFence.length && f[2] === "") { openFence = null; openLang = ""; continue }
-    if (openFence && !/^(javascript|js)$/i.test(openLang)) continue
+    if (openFence && !HELPER_FENCE_LANG.test(openLang)) continue
     if (/^\s*\/\/ helper:/.test(line) && !(inHelpers && regionAt(i) === "core")) {
       report("helper-placement", `"// helper:" marker outside the core "## Helper scripts" section; the build extracts helpers only from there`, i + 1)
     }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Helper form (master, upload, paste): a helper fence (HELPER_FENCE_LANG, first line `// helper:
+// <name>`) is top-level await and a final return. A line at the top level of the fence (no indent)
+// that opens a function wrapper or closes one is an error; an indented one is ordinary inner code,
+// and a javascript fence with no helper marker is an example, not a helper. Pack fences that are
+// whole helpers, such as the revert pack's, are helper fences like any other (contract rule j).
+// ---------------------------------------------------------------------------
+
+const WRAP_OPEN = /^\((?:async\s*\(\s*\)\s*=>|async\s+function\b|\(\s*\)\s*=>)/
+const WRAP_CLOSE = /^\}\)\(\)\s*;?\s*$/
+for (const f of fenceBlocks(lines)) {
+  if (f.open < bodyStart || !HELPER_FENCE_LANG.test(f.lang) || !HELPER_MARKER.test(lines[f.open + 1] ?? "")) continue
+  const last = f.close === -1 ? lines.length - 1 : f.close - 1
+  for (let i = f.open + 2; i <= last; i++) {
+    if (WRAP_OPEN.test(lines[i]) || WRAP_CLOSE.test(lines[i])) {
+      report("helper-form", "write helpers with top-level await and a final return; a wrapped function returns nothing in-app", i + 1)
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Gates (master only). A blockquote line in the core, outside fences, whose text numbers its options
+// ("1. ... 2. ...") is a gate. Its introducing paragraph runs back to the previous blank line or the
+// start of its list item (included) and on to the next blank line or list item; it must say
+// "structured question tool". A file with any gate must name ask_user_question in target:figma-app.
+// ---------------------------------------------------------------------------
+
+if (edition === "master") {
+  const GATE = /\b1\.\s.+\b2\.\s/
+  const LIST_ITEM = /^\s*(?:[-*+]|\d+[.)])\s+/
+  const stops = (k) => lines[k].trim() === "" || fence[k] || markerLines.has(k) || /^#{1,6}\s/.test(lines[k])
+  const gates = []
+  for (let i = bodyStart; i < lines.length; i++) {
+    if (fence[i] || regionAt(i) !== "core") continue
+    const q = /^\s*>\s?(.*)$/.exec(lines[i])
+    if (!q || !GATE.test(q[1])) continue
+    let a = i
+    while (a - 1 >= bodyStart && !stops(a - 1)) { a--; if (LIST_ITEM.test(lines[a])) break }
+    let b = i
+    while (b + 1 < lines.length && !stops(b + 1) && !LIST_ITEM.test(lines[b + 1])) b++
+    gates.push({ line: i, text: lines.slice(a, b + 1).join(" ") })
+  }
+  for (const g of gates) {
+    if (!/structured question tool/i.test(g.text)) {
+      report("gate-tool", `the paragraph that introduces this numbered question does not say "through a structured question tool when the runtime has one"`, g.line + 1)
+    }
+  }
+  const namesTool = lines.some((l, i) => regionAt(i) === "figma-app" && /\bask_user_question\b/.test(l))
+  if (gates.length && !namesTool) {
+    report("gate-tool", "this skill asks numbered questions, but no target:figma-app line names ask_user_question; say there that a structured question tool such as `ask_user_question` asks them when it is available", gates[0].line + 1)
   }
 }
 
@@ -446,7 +504,9 @@ if (edition === "master") {
       // row): report it with the library's message and line, unless the region scan above already did.
       const at = /line (\d+)|lines \((\d+)/.exec(e.message)
       const line = at ? +(at[1] ?? at[2]) : null
-      if (!findings.some((f) => f.rule === "enhancement-regions" && f.line === line)) report("enhancement-regions", `${pack.name}: ${e.message}`, line)
+      // Some library messages already start with the pack's name; prefix the others.
+      const message = e.message.startsWith(`${pack.name}: `) ? e.message : `${pack.name}: ${e.message}`
+      if (!findings.some((f) => f.rule === "enhancement-regions" && f.line === line)) report("enhancement-regions", message, line)
       continue
     }
     const prose = units.filter((u) => ["block", "heading-block", "sentence"].includes(u.kind))
@@ -518,7 +578,12 @@ for (let i = bodyStart; i < lines.length; i++) {
   }
 }
 
-const CAPABILITY = /\b([Pp]rototyp\w*|[Ww]ire(?!frame)\w*|[Vv]ector\w*|Slots?|slot (?:component|property|feature)s?|[Ee]xport\w*|[Dd]iagram\w*)\b/g
+// Vectors: generating vector icons and illustrations, and converting images to vectors, are available
+// in-app (changelog 2026-11-13); editing existing vector paths and points, and the Draw tools, are not.
+// So "vector" alone is no capability word: only a vector edit is (vector paths, points, networks,
+// nodes, editing; "edit ... vectors"; Draw tools), reported as "vector path editing".
+const VECTOR_EDIT = /^(?:[Vv]ector |[Ee]dit|[Dd]raw)/
+const CAPABILITY = /\b([Pp]rototyp\w*|[Ww]ire(?!frame)\w*|[Vv]ector (?:paths?|points?|networks?|nodes?|editing|edits?)|[Ee]dit\w* (?:(?:the|its|their|an?|existing|each|every|any)\s+)*vectors?|[Dd]raw tools?|Slots?|slot (?:component|property|feature)s?|[Ee]xport\w*|[Dd]iagram\w*)\b/g
 const PLAN_ONLY = /\b(plan|plan-only|not available|unavailable|cannot|can't|by hand|hand (it|that|them|those|over|off)|skip\w*|unsupported|coming soon|does not|do not|don't|not (possible|supported|yet)|user (must|will|does)|for you to|outside|never|without|no )\b|\bnot\b/i
 // Paragraph-level check: a capability word is fine when its paragraph carries plan-only wording.
 {
@@ -527,7 +592,7 @@ const PLAN_ONLY = /\b(plan|plan-only|not available|unavailable|cannot|can't|by h
   const flush = () => {
     if (!para.length) return
     const text = para.join(" ")
-    const hits = [...text.matchAll(CAPABILITY)].map((m) => m[1].toLowerCase())
+    const hits = [...text.matchAll(CAPABILITY)].map((m) => (VECTOR_EDIT.test(m[1]) ? "vector path editing" : m[1].toLowerCase()))
     if (hits.length && !PLAN_ONLY.test(text)) {
       report("capability-gates", `"${[...new Set(hits)].join(", ")}" mentioned without plan-only wording; the agent cannot do this in-app today`, paraStart + 1)
     }

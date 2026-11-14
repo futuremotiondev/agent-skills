@@ -582,6 +582,16 @@ const cases = {
     return check([[r.out.split("\n").some((l) => l.startsWith("expand warning:") && l.includes('section "Common edge cases" not found')), "no warning names the missing section"],
       [unit > lines.findIndex((l) => l.startsWith("## Final gate")) && unit < lines.indexOf("<!-- target:figma-app -->"), `the unit is at line ${unit + 1}, not in the last core section`]])
   },
+
+  // Task 8, carried items.
+  "the validator does not double the pack name on a library message that starts with it": () => {
+    const s = TOKENS.proseSentences[0]
+    const host = masterLines.findIndex((l) => l.includes(s))
+    const lines = masterLines.slice(0, -1).flatMap((l, i) => (i === host ? [l, "", s] : [l]))
+    const f = findingsFor("doubled-prefix.md", lines, "enhancement-regions")
+    return check([[f.length === 1 && /^token-conformance: declared prose sentence matches 2 times/.test(f[0].message), `findings: ${JSON.stringify(f)}`],
+      [!f.some((x) => x.message.includes("token-conformance: token-conformance:")), "the pack name is doubled"]])
+  },
 }
 
 // ---------------------------------------------------------------------------
