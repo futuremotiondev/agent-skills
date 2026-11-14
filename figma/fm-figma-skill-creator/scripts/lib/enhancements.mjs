@@ -9,7 +9,8 @@
 //
 // A unit is { kind, start, end, col, text, anchor: { section, helper, after } } with 0-based lines;
 // a line-rewrite unit also carries `to`. Contract errors (nested regions, an unpartnered marker, an
-// ambiguous declared line) throw; a declared item the master does not contain is passed to `warn`.
+// ambiguous declared line, a declared prose sentence missing or repeated, the phrase in a table row)
+// throw; any other declared item the master does not contain is passed to `warn`.
 //
 // Dependency-free. Parsing of frontmatter and fences goes through skill-md.mjs.
 
@@ -20,7 +21,7 @@ import {
   OPEN_MARKER, CLOSE_MARKER, HELPER_FENCE_LANG, HELPER_MARKER,
 } from "./skill-md.mjs"
 
-export const UNIT_KINDS = ["code-region", "fence", "block", "heading-block", "sentence", "template-line", "line-rewrite", "description-sentence", "tag"]
+export const UNIT_KINDS = ["code-region", "fence", "block", "heading-block", "sentence", "prose-sentence", "template-line", "line-rewrite", "description-sentence", "tag"]
 export const SURFACES = ["figma-design", "figma-make", "figma-spec"]
 export const DEFAULT_SURFACES = ["figma-design", "figma-make"]
 export const VOCABULARY = ["confirm-tiered", "always-write", "dry-run"]
@@ -43,10 +44,11 @@ export function loadPack(dir) {
   if (pack.name !== basename(dir)) bad(`name "${pack.name}" must equal its folder name "${basename(dir)}"`)
   if (typeof pack.phrase !== "string" || pack.phrase.trim() === "") bad("phrase must be a non-empty string")
   if (typeof pack.codeRegion !== "string" || !/^[a-z0-9][a-z0-9-]*$/.test(pack.codeRegion)) bad("codeRegion must be a lowercase name")
-  for (const k of ["templateLines", "descriptionSentences", "tags", "lineRewrites", "requires", "conflicts"]) {
+  for (const k of ["templateLines", "proseSentences", "descriptionSentences", "tags", "lineRewrites", "requires", "conflicts"]) {
     if (pack[k] === undefined) pack[k] = []
     if (!Array.isArray(pack[k])) bad(`${k} must be an array`)
   }
+  for (const k of ["templateLines", "proseSentences", "descriptionSentences", "tags"]) for (const v of pack[k]) if (typeof v !== "string" || v === "") bad(`each ${k} entry must be a non-empty string`)
   for (const r of pack.lineRewrites) if (typeof r?.from !== "string" || typeof r?.to !== "string") bad("each lineRewrites entry needs string from and to")
   for (const k of ["requires", "conflicts"]) for (const v of pack[k]) if (!VOCABULARY.includes(v)) bad(`${k} value "${v}" is not one of ${VOCABULARY.join(", ")}`)
   if (pack.surfaces !== undefined) {
@@ -62,38 +64,25 @@ export function loadPack(dir) {
 
 const indentOf = (l) => /^\s*/.exec(l)[0].length
 const isBlank = (l) => l.trim() === ""
-const isListItem = (l) => /^\s*(?:[-*+]|\d+[.)])\s+/.test(l)
 const isMarker = (l) => OPEN_MARKER.test(l) || CLOSE_MARKER.test(l)
 
-/** The phrase's words without its closing colon ("Token mode:" -> "Token mode"). */
-const phraseWords = (phrase) => phrase.replace(/:\s*$/, "")
+const isTableRow = (l) => /^\s*\|/.test(l)
 
 /**
- * Does the pack phrase start at `pos`? The phrase itself always counts; its bare words count only
- * where they open a line or a sentence (`opens`), followed by a space or a colon.
+ * Index of the last character of the sentence starting at `pos` (rule d): the first `.`, `?`, or `!`
+ * followed by a space or the end of the line and not inside parentheses opened within the sentence;
+ * or, when a closing parenthesis comes first that the sentence did not open, the character before it.
  */
-function phraseAt(text, pos, phrase, opens) {
-  if (text.startsWith(phrase, pos)) return true
-  const words = phraseWords(phrase)
-  if (!opens || words === phrase || !text.startsWith(words, pos)) return false
-  const next = text[pos + words.length]
-  return next === " " || next === ":"
-}
-
-/** Index of the last character of the sentence starting at `pos` (rule d). */
 function sentenceEnd(text, pos) {
   let depth = 0
   for (let k = pos; k < text.length; k++) {
     const c = text[k]
     if (c === "(") depth++
-    else if (c === ")" && depth > 0) depth--
+    else if (c === ")") { if (depth === 0) return k - 1; depth-- }
     else if ((c === "." || c === "?" || c === "!") && depth === 0 && (k + 1 === text.length || text[k + 1] === " ")) return k
   }
   return text.length - 1
 }
-
-/** True when `pos` opens a sentence: after a terminator (optionally closing bold or a quote) and a space. */
-const opensSentence = (text, pos) => /[.!?](?:\*\*|__|["'”’)])?\s$/.test(text.slice(0, pos))
 
 /** True when `pos` sits inside an inline code span (an odd number of backticks before it). */
 const inCodeSpan = (text, pos) => ((text.slice(0, pos).match(/`/g) || []).length % 2) === 1
@@ -179,11 +168,18 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
   for (let i = bodyStart; i < lines.length; i++) {
     if (inFence[i] || isMarker(lines[i]) || claimed.has(i)) continue
     const line = lines[i]
+    // (d) A unit cannot sit in a table row: cutting it would break the table.
+    if (isTableRow(line)) {
+      for (let p = line.indexOf(pack.phrase); p !== -1; p = line.indexOf(pack.phrase, p + 1)) {
+        if (!inCodeSpan(line, p)) throw new Error(`line ${i + 1}: the phrase "${pack.phrase}" is inside a table row; move the sentence out of the table`)
+      }
+      continue
+    }
     const h = HEADING.exec(line)
     if (h) {
       let lead = h[0].length
       if (line.startsWith("**", lead) || line.startsWith("__", lead)) lead += 2
-      if (!phraseAt(line, lead, pack.phrase, true)) continue
+      if (!line.startsWith(pack.phrase, lead)) continue
       // (c) Heading block: to the next heading of the same or higher level, or a target marker.
       const level = h[2].length
       let end = lines.length - 1
@@ -200,38 +196,51 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
     const ll = LIST_LEAD.exec(line)
     let lead = ll[0].length
     if (line.startsWith("**", lead) || line.startsWith("__", lead)) lead += 2
-    if (!isBlank(line) && phraseAt(line, lead, pack.phrase, true)) {
-      // (b) Block: the line plus continuation lines up to the next blank line or a line at the same level.
-      const base = indentOf(line), isItem = Boolean(ll[2])
+    if (!isBlank(line) && line.startsWith(pack.phrase, lead)) {
+      // (b) Block: the line plus continuation lines, each more indented than the first line (a
+      // blockquote under a list item is), up to the next blank line or a line that is not.
+      const base = indentOf(line)
       let end = i
       for (let j = i + 1; j < lines.length; j++) {
         const l = lines[j]
-        if (isBlank(l) || isMarker(l)) break
-        const ind = indentOf(l)
-        if (ind > base) { end = j; continue }
-        if (!isItem && ind === base && !inFence[j] && !isListItem(l) && !HEADING.test(l) && !/^\s*(`{3,}|~{3,})/.test(l)) { end = j; continue }
-        break
+        if (isBlank(l) || isMarker(l) || indentOf(l) <= base) break
+        end = j
       }
       for (let k = i; k <= end; k++) claimed.add(k)
       add("block", i, end, 0, lines.slice(i, end + 1).join("\n"), anchorFor(i))
       continue
     }
   }
-  // (d) Sentences: the phrase mid-line (its bare words only where they open a sentence).
+  // (d) Sentences: the phrase, with its colon, mid-line.
   for (let i = bodyStart; i < lines.length; i++) {
-    if (inFence[i] || isMarker(lines[i]) || claimed.has(i)) continue
+    if (inFence[i] || isMarker(lines[i]) || claimed.has(i) || isTableRow(lines[i])) continue
     const line = lines[i]
-    const words = phraseWords(pack.phrase)
     let from = 1
     for (;;) {
-      const pos = line.indexOf(words, from)
+      const pos = line.indexOf(pack.phrase, from)
       if (pos === -1) break
       from = pos + 1
-      if (inCodeSpan(line, pos) || !phraseAt(line, pos, pack.phrase, opensSentence(line, pos))) continue
+      if (inCodeSpan(line, pos)) continue
       const end = sentenceEnd(line, pos)
       add("sentence", i, i, pos, line.slice(pos, end + 1), anchorFor(i, lastSentence(line.slice(0, pos))))
       from = end + 1
     }
+  }
+
+  // (f) Declared prose sentences: exact text in body prose, matched exactly once; anything else is an error.
+  for (const s of pack.proseSentences) {
+    const hits = []
+    for (let i = bodyStart; i < lines.length; i++) {
+      if (inFence[i] || isMarker(lines[i])) continue
+      for (let p = lines[i].indexOf(s); p !== -1; p = lines[i].indexOf(s, p + 1)) hits.push({ i, p })
+    }
+    if (hits.length === 0) throw new Error(`${pack.name}: declared prose sentence not found: ${s}`)
+    if (hits.length > 1) throw new Error(`${pack.name}: declared prose sentence matches ${hits.length} times, at ${hits.map((h) => `line ${h.i + 1}`).join(" and ")}: ${s}`)
+    const { i, p } = hits[0]
+    // A declared sentence must not overlap a unit the phrase already found.
+    const clash = claimed.has(i) || units.some((u) => u.kind === "sentence" && u.start === i && p < u.col + u.text.length && u.col < p + s.length)
+    if (clash) throw new Error(`line ${i + 1}: declared prose sentence overlaps a unit tagged by the phrase: ${s}`)
+    add("prose-sentence", i, i, p, s, anchorFor(i, lastSentence(lines[i].slice(0, p))))
   }
 
   // (e) Template lines: exact lines inside the body's non-helper fences.
@@ -303,7 +312,7 @@ export function stripUnits(lines, units) {
   const stale = (u) => { throw new Error(`stale ${u.kind} unit at line ${u.start + 1}: the master changed since findUnits`) }
 
   // In-line cuts first, right to left per line, so earlier columns stay valid.
-  const cuts = units.filter((u) => u.kind === "sentence" || u.kind === "description-sentence").sort((a, b) => a.start - b.start || b.col - a.col)
+  const cuts = units.filter((u) => ["sentence", "prose-sentence", "description-sentence"].includes(u.kind)).sort((a, b) => a.start - b.start || b.col - a.col)
   for (const u of cuts) {
     const l = out[u.start]
     if (!l.startsWith(u.text, u.col)) stale(u)

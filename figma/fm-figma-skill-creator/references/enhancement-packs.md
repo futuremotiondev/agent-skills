@@ -31,6 +31,7 @@ enhancements/
 | `phrase` | The prose tag, written with its colon | `"Token mode:"` |
 | `codeRegion` | The name in `// enhancement: <name> begin` and `end` | `"token-conformance"` |
 | `templateLines` | Exact lines inside the fenced report template that belong to the pack | `"- Bound values: <n> passed"` and nine more |
+| `proseSentences` | Exact prose sentences that belong to the pack but do not start with the phrase | the Output contract's "Token mode adds these lines: …" |
 | `lineRewrites` | Whole lines the pack changes rather than adds: `{ "from", "to" }`, `from` being the line with the pack | the `let MODE` line |
 | `descriptionSentences` | Sentences of the frontmatter `description` that belong to the pack | `"With spacing tokens in the file it audits against those tokens and binds values to the matching variable."` |
 | `tags` | Entries of `metadata.tags` that belong to the pack | `"tokens"`, `"variables"` |
@@ -38,13 +39,13 @@ enhancements/
 | `conflicts` | Behaviours the pack cannot be combined with | `[]` |
 | `cost` | What the pack adds to a run, in calls and credits | "one extra collect call (discover) when the file has tokens; about 22 to 24 credits per page audit either way" |
 | `seedCase` | The seed file, the nodes that prove the pack, the expected scope, and optional `proofs` | `fm-spacing-audit-seed`, five nodes, scope 2 |
-| `surfaces` | Optional: the editor types the pack's code and instructions run in, from `figma-design`, `figma-make`, `figma-spec` | absent, which means `["figma-design", "figma-make"]` |
+| `surfaces` | Optional: the editor types the pack's code and instructions run in, from `figma-design`, `figma-make`, `figma-spec`; a non-empty array when present | absent, which means `["figma-design", "figma-make"]` |
 
-`revert` declares the phrase `"Revert:"`, the code region `revert`, one template line, no rewrites, sentences, or tags, `requires: ["confirm-tiered"]`, and the proofs `revertClean` and `revertAfterEdit` on `Token card`.
+`revert` declares the phrase `"Revert:"`, the code region `revert`, one template line, one prose sentence ("Revert adds: …"), no rewrites, description sentences, or tags, `requires: ["confirm-tiered"]`, and the proofs `revertClean` and `revertAfterEdit` on `Token card`. Every entry of `templateLines`, `proseSentences`, `descriptionSentences`, and `tags` is a non-empty string.
 
 ## Units
 
-A unit is the smallest piece of a pack the tools move. Each unit has a kind, a start and end line, a column (for sentence, description-sentence, and tag units), its text, and an anchor:
+A unit is the smallest piece of a pack the tools move. Each unit has a kind, a start and end line, a column (for sentence, prose-sentence, description-sentence, and tag units), its text, and an anchor:
 
 | Kind | What it covers |
 | --- | --- |
@@ -53,12 +54,13 @@ A unit is the smallest piece of a pack the tools move. Each unit has a kind, a s
 | `block` | A prose line that starts with the phrase, with its continuation lines |
 | `heading-block` | A heading that starts with the phrase, to the next heading of the same or higher level |
 | `sentence` | A sentence that starts with the phrase mid-line |
+| `prose-sentence` | One declared prose sentence |
 | `template-line` | One declared line of the fenced report template |
 | `line-rewrite` | One declared line the pack rewrites |
 | `description-sentence` | One declared sentence of the frontmatter description |
 | `tag` | One declared entry of `metadata.tags` |
 
-The anchor is `{ section, helper, after }`. `section` is the text of the nearest level-two heading above the unit (`frontmatter` for description sentences and tags). `helper` is the name of the helper fence that holds the unit, or `null`. `after` is the exact text of the nearest non-blank line before the unit; for a sentence unit it is the sentence before it on the same line, for a description sentence the sentence before it in the description, and for a tag the entry before it in the list (`null` for the first).
+The anchor is `{ section, helper, after }`. `section` is the text of the nearest level-two heading above the unit (`frontmatter` for description sentences and tags). `helper` is the name of the helper fence that holds the unit, or `null`. `after` is the exact text of the nearest non-blank line before the unit; for a sentence or prose-sentence unit it is the sentence before it on the same line, for a description sentence the sentence before it in the description, and for a tag the entry before it in the list (`null` for the first).
 
 ## The tag scope rule
 
@@ -90,7 +92,7 @@ A fragment region stays a `code-region`, such as the bind branch inside the appl
 
 ### (b) Block units
 
-A prose line whose text, after its indentation, list marker (including a task box such as `- [ ]`), bold markers, or heading hashes, starts with the pack phrase is a block unit: the line plus every continuation line up to the next blank line. A continuation line is more indented than the unit's first line, or a blockquote under the list item; a line at the same list level, or a new list item, ends the block. Step 5 of "Before you start" is one block of three lines, the blockquote and the indented line included:
+A prose line whose text, after its indentation, list marker (including a task box such as `- [ ]`), bold markers, or heading hashes, starts with the pack phrase is a block unit: the line plus every continuation line up to the next blank line. A continuation line is more indented than the unit's first line, as a blockquote or a wrapped line under a list item is. The first line that is not more indented ends the block, even with no blank line before it: a line at the same indent, a new list item, or a heading stays outside the unit. Step 5 of "Before you start" is one block of three lines, the blockquote and the indented line included:
 
 ```markdown
 5. **Token mode: choose the mode once.** If any spacing tokens exist (`spacingCollection` is not null), ask, ...
@@ -98,14 +100,7 @@ A prose line whose text, after its indentation, list marker (including a task bo
    Wait for the answer, then collect again in the chosen mode. Default to 1 when the user says "just audit". ...
 ```
 
-The phrase is written with its colon. Its words without the colon (the phrase's words) also tag a unit, but only where they open a line or a sentence and are followed by a space or a colon, so a unit can read naturally. Anywhere else the bare words are ordinary prose, including inside a longer word ("Token modes") or a code span. The audit master has two such units, both sentence units in the Output contract paragraph:
-
-```markdown
-Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), ...; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4.
-Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from.
-```
-
-The first belongs to `token-conformance` (phrase `Token mode:`), the second to `revert` (phrase `Revert:`).
+Only the phrase with its colon tags a unit. The same words without the colon are ordinary prose, so "Revert the last change by hand if the script stops." and "- Token mode is chosen once per run and never changes mid-run." survive every strip untouched. A pack sentence that cannot start with the phrase is declared in `proseSentences` instead (rule f).
 
 ### (c) Heading blocks
 
@@ -120,13 +115,13 @@ A heading whose text starts with the phrase is a heading-block unit: the heading
 
 ### (d) Sentence units
 
-The phrase in the middle of a line starts a sentence unit: from the phrase to the end of the sentence, plus the one space before the phrase. The sentence ends at the first `.`, `?`, or `!` that is followed by a space or the end of the line and is not inside parentheses opened within the sentence. In the edge case for bound values, the last sentence is the unit:
+The phrase in the middle of a line starts a sentence unit: from the phrase to the end of the sentence. The sentence ends at the first `.`, `?`, or `!` that is followed by a space or the end of the line and is not inside parentheses opened within the sentence. A closing parenthesis that the sentence did not open ends it first: the text before the parenthesis is the unit, and the parenthesis stays. Stripping a sentence unit also removes the one space before the phrase; when there is no space before it (the phrase follows an opening parenthesis, for example), the one space after the sentence is removed instead, if there is one. In the edge case for bound values, the last sentence is the unit:
 
 ```markdown
 - **Values bound to variables.** Never overwrite an existing binding. In rhythm mode, report the variable name and its resolved value at P2 and suggest changing the variable. Token mode: a bound value passes and is counted on the Bound values line.
 ```
 
-A period inside quotation marks also ends a sentence, so keep sentence units free of quoted sentences.
+In "Bind the value (Token mode: only unbound rows) and report it.", the unit is "Token mode: only unbound rows", and stripping it leaves "Bind the value () and report it.". A period inside quotation marks also ends a sentence, so keep sentence units free of quoted sentences. The phrase must not appear in a table row (a line that starts with `|`): cutting it would break the table, so the tools stop with an error that names the line. Move the sentence out of the table.
 
 ### (e) Template lines
 
@@ -138,17 +133,28 @@ Previous is the human record; the revert list is the apply result.
 
 ### (f) Declared changes outside the prose
 
-Three kinds of change cannot carry a phrase and are declared instead. `lineRewrites` replace one whole line, matched exactly and only once, with the line the master has without the pack; the collect helper's first line is the example:
+Four kinds of change cannot carry a phrase and are declared instead.
+
+`proseSentences` are pack sentences in the body's prose that do not start with the phrase. Each entry is matched exactly, outside fences, and must match exactly once: a declared sentence that is missing, or that matches more than once, stops the tools with an error naming the lines, and so does one that overlaps a unit the phrase already tags. It is stripped like a sentence unit. The audit master declares two, both in the Output contract paragraph:
+
+```markdown
+Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), ...; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4.
+Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from.
+```
+
+The first is declared by `token-conformance`, in full in its `pack.json`, and the second by `revert`.
+
+`lineRewrites` replace one whole line, matched exactly and only once, with the line the master has without the pack; the collect helper's first line is the example:
 
 ```javascript
 let MODE = "discover"; // discover | tokens | rhythm // without the token-conformance pack this reads: let MODE = "rhythm"
 ```
 
-`descriptionSentences` are removed from the frontmatter `description`, with the space before them. `tags` are removed from `metadata.tags`, keeping its quoting and its comma-and-space separator.
+`descriptionSentences` are removed from the frontmatter `description`, with the space before them (or, at the start of the description, the space after them, as in rule d). `tags` are removed from `metadata.tags`, keeping its quoting and its comma-and-space separator.
 
 ### (g) Stripping keeps a working master
 
-`strip` removes the units of each named pack, applies its rewrites, removes its description sentences and tags, and collapses runs of blank lines. The result must validate with 0 errors (`validate-figma-skill.mjs --edition master`) and every helper in it must parse, which `build-skill-editions.mjs` checks before it writes. Stripping `token-conformance` from the audit master leaves the plain rhythm audit with four helpers; stripping `revert` leaves three. A declared item that the master does not contain is reported on standard error and skipped.
+`strip` removes the units of each named pack, applies its rewrites, removes its description sentences and tags, and collapses runs of blank lines. The result must validate with 0 errors (`validate-figma-skill.mjs --edition master`) and every helper in it must parse, which `build-skill-editions.mjs` checks before it writes. Stripping `token-conformance` from the audit master leaves the plain rhythm audit with four helpers; stripping `revert` leaves three. A declared template line, line rewrite, description sentence, or tag that the master does not contain is reported on standard error and skipped; a missing declared prose sentence is an error (rule f).
 
 ### (h) Expanding into a master without an anchor
 
@@ -156,7 +162,7 @@ Expanding a pack into a master puts each unit after its anchor. When a master ha
 
 ### (i) Surfaces
 
-The optional `surfaces` field names the editor types the pack's code and instructions run in: `figma-design`, `figma-make`, `figma-spec`. `mcp` is a runtime, never a surface. Absent means `["figma-design", "figma-make"]`, so the two shipped packs omit it. A skill's surfaces are the `figma-*` entries in its `metadata.runtimes`; the audit master's are `figma-design` and `figma-make`.
+The optional `surfaces` field names the editor types the pack's code and instructions run in: `figma-design`, `figma-make`, `figma-spec`. `mcp` is a runtime, never a surface. When present it is a non-empty array of those values; `loadPack` rejects an empty array or any other value. Absent means `["figma-design", "figma-make"]`, so the two shipped packs omit it. A skill's surfaces are the `figma-*` entries in its `metadata.runtimes`; the audit master's are `figma-design` and `figma-make`.
 
 - **Full cover** (every skill surface is in the pack's list): the creator offers the pack normally.
 - **Partial cover**: the creator offers it only when the user names it, says in one sentence which surface it will not run on, and requires a surface guard in the helper that prints `skipped in a Spec file`, as probe 1.2 does.

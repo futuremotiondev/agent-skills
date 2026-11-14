@@ -26,9 +26,10 @@
 //   headerLines          header label -> field path in the scope object ("counts.framesMeasured"), or
 //                        { "field", "aliases": [other labels], "modes": [modes that print the line] };
 //                        in a --report compare, a line whose modes leave out the scope's mode is not
-//                        read or compared; in a --run compare, such a line (judged against the run's
-//                        `mode`, else the scope's) is not compared only when the run lacks its field,
-//                        and a field the run carries is compared whatever its modes
+//                        read or compared; in a --run compare, such a line (judged against the scope's
+//                        mode) is not compared only when the run lacks its field, and a field the run
+//                        carries is compared whatever its modes. A run's own `mode`, when present, must
+//                        equal the scope's; a different one is a difference (exit 1)
 //   priorityLine         label of the "P0 <n> · P1 <n> · P2 <n> · P3 <n>" line
 //   optionalHeaderLines  labels a report may omit; an omitted counted line reads as 0
 //   fixFormat            how an expected `fix` object prints ("bind {name}", "set {value}")
@@ -448,6 +449,7 @@ function evalLogStub(ctx) {
   const selection = Array.isArray(scope.selection) ? `${scope.selection.length} named top-level nodes`
     : scope.selection === "page" ? "every top-level node" : String(scope.selection)
   const defects = []
+  if (result.modeDiffers) defects.push(`mode: expected ${result.modeDiffers.e}, observed ${result.modeDiffers.o}`)
   for (const c of [...result.counts, ...result.priority]) if (!c.ok) defects.push(`${c.label}: expected ${show(c.e)}, observed ${show(c.o)}`)
   for (const r of result.missing) defects.push(`missing row ${r.label}`)
   for (const r of result.extra) defects.push(`extra row ${r.label}`)
@@ -477,12 +479,14 @@ function main() {
   const scope = (expected.scopes || []).find((s) => String(s.scope) === String(opts.scope))
   if (!scope) fail(`no scope ${opts.scope} in ${opts.expected}`)
   // A report prints only its mode's header lines, so lines for other modes are set aside. A run is
-  // compared on every header line, except one whose modes leave out the run's own mode (its `mode`
-  // field, else the scope's) and whose field the run does not carry: a helper without the pack that
-  // owns the line returns no such field. A carried field is always compared, whatever its modes.
+  // compared on every header line, except one whose modes leave out the scope's mode and whose field
+  // the run does not carry: a helper without the pack that owns the line returns no such field. A
+  // carried field is always compared, whatever its modes. The run's own `mode` never decides the
+  // set-aside; when the run carries one, it must equal the scope's, or that is a difference.
   const schema = loadSchema(opts.schema, opts.report ? scope.mode : null)
   const runData = opts.run ? readJson(opts.run, "run file") : null
-  const runMode = runData ? runData.mode ?? scope.mode ?? null : null
+  const runMode = scope.mode ?? null
+  const modeDiffers = Boolean(runData && runData.mode !== undefined && scope.mode && runData.mode !== scope.mode)
   if (runData && runMode) {
     const setAside = schema.lines.filter((l) => l.modes && !l.modes.includes(runMode) && getPath(runData, l.field) === undefined)
     schema.lines = schema.lines.filter((l) => !setAside.includes(l))
@@ -496,16 +500,21 @@ function main() {
     ? fromReport(readText(opts.report, "report"), schema, numeric, exp.rows.length)
     : fromOracle(runData, schema, numeric)
   const result = compare(exp, obs, schema, opts.tolerance)
+  if (modeDiffers) { result.allMatch = false; result.modeDiffers = { e: scope.mode, o: runData.mode } }
   const exitCode = result.allMatch ? 0 : 1
 
   const out = []
   out.push(`oracle-compare: scope ${scope.scope} (${scope.mode || "mode not recorded"}), ${mode} ${opts[mode]}, frame tolerance ${opts.tolerance}`)
   out.push("")
+  if (runData && runData.mode !== undefined) {
+    out.push(`Mode (expected, observed): ${scope.mode || "not recorded"}, ${runData.mode}${modeDiffers ? "  <-- differs" : ""}`)
+    out.push("")
+  }
   out.push(...countTable("Counts", result.counts))
   if (schema.linesNotInMode.length) {
     out.push(opts.report
       ? `  Not printed in ${scope.mode} mode, not compared: ${schema.linesNotInMode.join(", ")}`
-      : `  Not carried by this ${runMode}-mode run, not compared: ${schema.linesNotInMode.join(", ")}`)
+      : `  Not carried by the run, and not printed in ${runMode} mode, not compared: ${schema.linesNotInMode.join(", ")}`)
   }
   out.push("")
   out.push(...countTable(`Priority counts, ${schema.priorityLine}`, result.priority))

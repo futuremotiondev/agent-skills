@@ -163,7 +163,7 @@ function fenced(lang, text) {
 
 const LANG = {
   "code-region": "javascript", fence: "markdown", "line-rewrite": "javascript",
-  block: "markdown", "heading-block": "markdown", sentence: "markdown", "template-line": "markdown",
+  block: "markdown", "heading-block": "markdown", sentence: "markdown", "prose-sentence": "markdown", "template-line": "markdown",
   "description-sentence": "text", tag: "text",
 }
 const code = (s) => (s.includes("`") ? `"${s}"` : `\`${s}\``)

@@ -3,6 +3,9 @@
   "phrase": "Revert:",
   "codeRegion": "revert",
   "templateLines": ["Previous is the human record; the revert list is the apply result."],
+  "proseSentences": [
+    "Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from."
+  ],
   "lineRewrites": [],
   "descriptionSentences": [],
   "tags": [],

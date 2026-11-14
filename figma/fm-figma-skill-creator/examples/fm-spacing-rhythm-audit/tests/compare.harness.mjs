@@ -141,6 +141,15 @@ const cases = {
     expectResult(compare(["--scope", "5", "--run", runOf(5, (r) => { r = withoutTokenCounts(r); r.aliasMatched = 2; return r })]), {
       exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["1 counts outside tolerance", `not compared: ${TOKEN_ONLY_LINES.filter((l) => l !== "Matches an alias").join(", ")}`],
     }),
+  // The set-aside is judged against the scope's mode only; a run's own `mode` never widens it.
+  "--run claiming rhythm on a tokens scope, without the token-only counts, is flagged": () =>
+    expectResult(compare(["--scope", "2", "--run", runOf(2, (r) => { r = withoutTokenCounts(r); r.mode = "rhythm"; return r })]), {
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["3 counts outside tolerance", "Mode (expected, observed): tokens, rhythm  <-- differs"],
+    }),
+  "--run whose mode differs from the scope's is flagged even with every count present": () =>
+    expectResult(compare(["--scope", "3", "--run", runOf(3, (r) => { r.mode = "rhythm"; return r })]), {
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["Mode (expected, observed): tokens, rhythm  <-- differs", "every count within tolerance"],
+    }),
 
   // Rows and cells.
   "a row that ends early is a mismatch": () =>

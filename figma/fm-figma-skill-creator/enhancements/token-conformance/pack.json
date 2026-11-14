@@ -20,6 +20,9 @@
       "to": "let MODE = \"rhythm\";"
     }
   ],
+  "proseSentences": [
+    "Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table before the main table; and the Fix column's bind form, \"bind Space/200\", beside \"set 8\" for a value with no token within 4."
+  ],
   "descriptionSentences": [
     "With spacing tokens in the file it audits against those tokens and binds values to the matching variable."
   ],
