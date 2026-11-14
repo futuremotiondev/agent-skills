@@ -593,9 +593,10 @@ for (let i = bodyStart; i < lines.length; i++) {
 // Vectors: generating vector icons and illustrations, and converting images to vectors, are available
 // in-app (changelog 2026-11-13); editing existing vector paths and points, and the Draw tools, are not.
 // So "vector" alone is no capability word: only a vector edit is (vector paths, points, networks,
-// nodes, editing; "edit ... vectors"; Draw tools), reported as "vector path editing".
+// nodes, editing; "edit ... vectors", possessives included, as in "edit the logo's vectors"; Draw
+// tools), reported as "vector path editing".
 const VECTOR_EDIT = /^(?:[Vv]ector |[Ee]dit|[Dd]raw)/
-const CAPABILITY = /\b([Pp]rototyp\w*|[Ww]ire(?!frame)\w*|[Vv]ector (?:paths?|points?|networks?|nodes?|editing|edits?)|[Ee]dit\w* (?:(?:the|its|their|an?|existing|each|every|any)\s+)*vectors?|[Dd]raw tools?|Slots?|slot (?:component|property|feature)s?|[Ee]xport\w*|[Dd]iagram\w*)\b/g
+const CAPABILITY = /\b([Pp]rototyp\w*|[Ww]ire(?!frame)\w*|[Vv]ector (?:paths?|points?|networks?|nodes?|editing|edits?)|[Ee]dit\w* (?:(?:the|its|their|an?|existing|each|every|any|[\w-]+['’]s)\s+)*vectors?|[Dd]raw tools?|Slots?|slot (?:component|property|feature)s?|[Ee]xport\w*|[Dd]iagram\w*)\b/g
 const PLAN_ONLY = /\b(plan|plan-only|not available|unavailable|cannot|can't|by hand|hand (it|that|them|those|over|off)|skip\w*|unsupported|coming soon|does not|do not|don't|not (possible|supported|yet)|user (must|will|does)|for you to|outside|never|without|no )\b|\bnot\b/i
 // Paragraph-level check: a capability word is fine when its paragraph carries plan-only wording.
 {

@@ -13,7 +13,8 @@
 //   masters      the two example masters, --edition master, at 0 errors and 0 warnings
 //   templates    the seven skill templates, --allow-placeholders, at 0 errors and exactly the two
 //                placeholder warnings (name-format, description-angle)
-//   builds       both examples built into their dist/ with --validate, every edition at 0 and 0
+//   builds       both examples built into their dist/ with --validate, every edition at 0 and 0,
+//                and dist/ byte-identical afterwards (a change means the committed dist/ was stale)
 //   parse        every helper script a build wrote under dist/claude/<name>/scripts/, parsed with
 //                new AsyncFunction(body) as the builder does (node --check rejects top-level await)
 //   roundtrips   enhancement-packs roundtrip on the audit master: each pack, and both
@@ -21,12 +22,13 @@
 //   harnesses    the five test harnesses under examples/fm-spacing-rhythm-audit/tests/
 //
 // Every file is named here. Masters and templates are never found by walking folders; the only
-// listing is of the scripts folder a build writes. Nothing under a history/ folder is ever read: every
+// listings are of the dist/ folders a build writes. Nothing under a history/ folder is ever read: every
 // path goes through file(), which refuses one, and the last line reports the count of paths checked.
-// The builds write dist/ (byte-identical when the masters are unchanged) and the builder's history
-// snapshot beside each master, which this script never reads. Dependency-free.
+// The builds write dist/, which must come out byte-identical, and the builder's history snapshot beside
+// each master, which this script never reads. Dependency-free: Node 18+ and nothing else (the
+// markdownlint run is a separate command).
 
-import { readFileSync, readdirSync, existsSync } from "node:fs"
+import { readFileSync, readdirSync, existsSync, statSync } from "node:fs"
 import { spawnSync } from "node:child_process"
 import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -131,12 +133,25 @@ for (const t of TEMPLATES) {
 }
 
 // builds: into each example's dist/, with --validate; every edition at 0 and 0.
+/** Every file under a dist/ folder, as { creator-relative path: bytes }, sorted by path. */
+function distBytes(rel) {
+  const out = {}
+  const walk = (r) => { for (const n of readdirSync(file(r)).sort()) { const p = `${r}/${n}`; if (statSync(file(p)).isDirectory()) walk(p); else out[p] = readFileSync(file(p)) } }
+  if (existsSync(file(rel))) walk(rel)
+  return out
+}
 for (const ex of EXAMPLES) {
   const rel = `examples/${ex}/SKILL.md`
   add("builds", `build ${rel} --validate`, () => {
-    const r = node(file("scripts/build-skill-editions.mjs"), file(rel), "--out", file(`examples/${ex}/dist`), "--validate")
+    // A rebuild of a committed dist/ must leave it byte-identical; one that changes a file shows it was stale.
+    const dist = `examples/${ex}/dist`
+    const before = distBytes(dist)
+    const r = node(file("scripts/build-skill-editions.mjs"), file(rel), "--out", file(dist), "--validate")
     const clean = (r.stdout.match(/^OK: .* — 0 errors, 0 warnings/gm) || []).length
-    return r.status === 0 && clean === 3 ? ok("3 editions at 0 errors, 0 warnings") : bad(`exit ${r.status}, ${clean} of 3 editions clean`, (r.stdout + r.stderr).trim().split("\n").filter((l) => /^(ERROR|WARN|FAIL|build error)/.test(l)))
+    if (r.status !== 0 || clean !== 3) return bad(`exit ${r.status}, ${clean} of 3 editions clean`, (r.stdout + r.stderr).trim().split("\n").filter((l) => /^(ERROR|WARN|FAIL|build error)/.test(l)))
+    const after = distBytes(dist)
+    const changed = [...new Set([...Object.keys(before), ...Object.keys(after)])].sort().find((p) => !before[p] || !after[p] || !before[p].equals(after[p]))
+    return changed ? bad(`the committed dist/ was stale: the build changed ${changed}; commit the rebuilt dist/`) : ok("3 editions at 0 errors, 0 warnings; dist/ byte-identical")
   })
 }
 
@@ -209,4 +224,4 @@ for (const c of run) {
   }
 }
 console.log(`PASS ${"history".padEnd(width)}  no path under a history/ folder was read (${seen.size} paths checked)`)
-console.log(`check-all: ${run.length} checks passed`)
+console.log(`check-all: ${run.length} check${run.length === 1 ? "" : "s"} passed`)

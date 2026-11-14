@@ -11,7 +11,7 @@
 // exports nothing and exits 1 when any case fails. It runs check-all.mjs only with --list and --only
 // groups that start no harness, so check-all running this harness never recurses.
 
-import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, cpSync, rmSync } from "node:fs"
+import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, cpSync, rmSync, existsSync } from "node:fs"
 import { spawnSync } from "node:child_process"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
@@ -67,6 +67,20 @@ const helperSection = (...code) => ["", "## Helper scripts", "", "```javascript"
 const checkAll = (root, ...args) => {
   const r = spawnSync(process.execPath, [join(root, "scripts", "check-all.mjs"), ...args], { encoding: "utf8", cwd: root })
   return { status: r.status, lines: (r.stdout + r.stderr).trim().split("\n") }
+}
+
+/** Parse JSONC: line and block comments outside strings, and trailing commas, are removed before JSON.parse. */
+function parseJsonc(text) {
+  let out = "", inString = false
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i]
+    if (inString) { out += c; if (c === "\\") out += text[++i] ?? ""; else if (c === "\"") inString = false; continue }
+    if (c === "\"") { inString = true; out += c; continue }
+    if (c === "/" && text[i + 1] === "/") { while (i < text.length && text[i] !== "\n") i++; out += "\n"; continue }
+    if (c === "/" && text[i + 1] === "*") { i = text.indexOf("*/", i + 2); if (i === -1) throw new Error("unclosed block comment"); i++; continue }
+    out += c
+  }
+  return JSON.parse(out.replace(/,(\s*[\]}])/g, "$1"))
 }
 
 /** A scratch copy of the creator with only the folders a check needs (never a history/ folder). */
@@ -158,9 +172,12 @@ const cases = {
     const edit = fileFindings("vec-edit.md", skill(["Edit the existing vector paths of the logo so the corners are round."]), "master", "capability-gates")
     const points = fileFindings("vec-points.md", skill(["Move the vector points of the icon onto the pixel grid."]), "master", "capability-gates")
     const planned = fileFindings("vec-plan.md", skill(["Editing existing vector paths is not available in-app; describe the change for the user to make."]), "master", "capability-gates")
+    const possessive = ["Edit the logo's vectors.", "Edit the logo’s vectors."].map((t, i) => fileFindings(`vec-poss-${i}.md`, skill([t]), "master", "capability-gates").length)
+    const genPossessive = fileFindings("vec-gen-poss.md", skill(["Generate the logo's vector artwork in a new frame."]), "master", "capability-gates")
     return check([[gen.length === 0, `generate: ${JSON.stringify(gen)}`], [conv.length === 0, `convert: ${JSON.stringify(conv)}`],
       [edit.length === 1 && /vector path/.test(edit[0].message), `edit paths: ${JSON.stringify(edit)}`], [points.length === 1, `points: ${JSON.stringify(points)}`],
-      [planned.length === 0, `plan-only: ${JSON.stringify(planned)}`]])
+      [planned.length === 0, `plan-only: ${JSON.stringify(planned)}`], [possessive.every((n) => n === 1), `possessive edit (straight, curly): ${JSON.stringify(possessive)}`],
+      [genPossessive.length === 0, `possessive generate: ${JSON.stringify(genPossessive)}`]])
   },
   "capability-gates: the rule's basis names editing existing vector paths, not vectors in general": () => {
     const r = spawnSync(process.execPath, [VALIDATOR, "--rules"], { encoding: "utf8" })
@@ -191,7 +208,10 @@ const cases = {
   "check-all --only changelog passes on the committed changelog with five lines": () => {
     const r = checkAll(creator, "--only", "changelog")
     const pass = r.lines.filter((l) => /^PASS +changelog /.test(l))
-    return check([[r.status === 0, `exit ${r.status}: ${r.lines.slice(-2).join(" | ")}`], [pass.length === 5, `${pass.length} changelog PASS lines`]])
+    const one = checkAll(creator, "--only", "description")
+    return check([[r.status === 0, `exit ${r.status}: ${r.lines.slice(-2).join(" | ")}`], [pass.length === 5, `${pass.length} changelog PASS lines`],
+      [r.lines[r.lines.length - 1] === "check-all: 5 checks passed", `summary: ${r.lines[r.lines.length - 1]}`],
+      [one.lines[one.lines.length - 1] === "check-all: 1 check passed", `one-check summary: ${one.lines[one.lines.length - 1]}`]])
   },
   "check-all --only changelog fails at the broken check, for each of the five": () => {
     const text = normalize(readFileSync(join(creator, "references", "figma-changelog.md"), "utf8"))
@@ -214,20 +234,26 @@ const cases = {
     return problems
   },
   // The committed lint config: history/ snapshots are git-ignored copies of masters, so the lint skips them.
-  "the committed markdownlint config ignores history/ snapshots, and a lint run with it skips one": () => {
-    const config = JSON.parse(readFileSync(join(creator, "..", "..", ".markdownlint-cli2.jsonc"), "utf8"))
-    // A lint run from a scratch root holding the committed config, one clean file, and a snapshot that fails MD041 and MD047.
-    const root = join(tmp, "lint-root")
-    mkdirSync(join(root, "skill", "history", "0.1"), { recursive: true })
-    cpSync(join(creator, "..", "..", ".markdownlint-cli2.jsonc"), join(root, ".markdownlint-cli2.jsonc"))
-    writeFileSync(join(root, "skill", "SKILL.md"), "# Clean\n\nOne paragraph.\n")
-    writeFileSync(join(root, "skill", "history", "0.1", "SKILL.md"), "no heading and no final newline")
-    const r = spawnSync(process.platform === "win32" ? "npx.cmd" : "npx", ["--yes", "markdownlint-cli2", "**/*.md"], { cwd: root, encoding: "utf8", shell: process.platform === "win32" })
-    const out = (r.stdout || "") + (r.stderr || "")
-    return check([[Array.isArray(config.ignores) && config.ignores.includes("**/history/**"), `ignores: ${JSON.stringify(config.ignores)}`],
-      [r.status === 0 && /Linting: 1 file/.test(out) && /Summary: 0 issues/.test(out), `lint exit ${r.status}: ${out.trim().split("\n").slice(-3).join(" | ")}`],
-      // The "Finding:" line echoes the ignore glob itself, so look for the snapshot's own path.
-      [!/history[\\/]0\.1/.test(out), "the lint output names the snapshot"]])
+  // Read only, never run: the lint is the separate npx command, and this harness needs Node alone. The
+  // config is the repository root's, so a copy of the creator folder elsewhere skips this case.
+  "the committed markdownlint config ignores history/ snapshots": () => {
+    const path = join(creator, "..", "..", ".markdownlint-cli2.jsonc")
+    if (!existsSync(path)) return { skip: `no repository-root .markdownlint-cli2.jsonc beside this creator folder (${path})` }
+    const commented = parseJsonc('{\n  // a line comment\n  "ignores": ["a/**", /* a block comment */ "b//c"],\n}\n')
+    let config
+    try { config = parseJsonc(readFileSync(path, "utf8")) } catch (e) { return [`the committed config does not parse: ${e.message}`] }
+    return check([[JSON.stringify(commented.ignores) === JSON.stringify(["a/**", "b//c"]), `the JSONC reader: ${JSON.stringify(commented)}`],
+      [Array.isArray(config.ignores) && config.ignores.includes("**/history/**"), `ignores: ${JSON.stringify(config.ignores)}`]])
+  },
+  "check-all fails a build that rewrites a stale dist/, naming the first file that changed": () => {
+    const root = scratchCreator("stale-dist", ["scripts", "enhancements", "references", "examples/fm-spacing-rhythm-audit", "examples/fm-figma-capability-probe"])
+    const fresh = checkAll(root, "--only", "builds")
+    const stale = join(root, "examples", "fm-spacing-rhythm-audit", "dist", "fm-spacing-rhythm-audit.paste.fields.txt")
+    writeFileSync(stale, readFileSync(stale, "utf8") + "stale line\n")
+    const r = checkAll(root, "--only", "builds")
+    const fail = r.lines.find((l) => l.startsWith("FAIL")) || ""
+    return check([[fresh.status === 0, `a current dist/: exit ${fresh.status}: ${fresh.lines.slice(-2).join(" | ")}`],
+      [r.status === 1 && fail.includes("build examples/fm-spacing-rhythm-audit/SKILL.md") && /stale/.test(fail) && fail.includes("fm-spacing-rhythm-audit.paste.fields.txt"), `stale dist/: exit ${r.status}: ${fail}`]])
   },
   "check-all never reads a history/ folder: a broken snapshot beside each master changes nothing": () => {
     const root = scratchCreator("history-guard", ["scripts", "enhancements", "references", "examples/fm-spacing-rhythm-audit/SKILL.md", "examples/fm-figma-capability-probe/SKILL.md"])
@@ -246,7 +272,8 @@ const cases = {
 // Run
 // ---------------------------------------------------------------------------
 
-let failed = 0
+// A case returns its failed messages, or { skip: reason } when what it reads is absent here.
+let failed = 0, skipped = 0
 try {
   for (const [name, run] of Object.entries(cases)) {
     let problems
@@ -255,6 +282,7 @@ try {
     } catch (e) {
       problems = ["threw: " + (e && e.message ? e.message : String(e))]
     }
+    if (problems && !Array.isArray(problems) && problems.skip) { skipped++; console.log(`SKIP ${name} (${problems.skip})`); continue }
     if (problems.length) failed++
     console.log((problems.length ? "FAIL " : "PASS ") + name + (problems.length ? "\n  - " + problems.join("\n  - ") : ""))
   }
@@ -262,5 +290,5 @@ try {
   rmSync(tmp, { recursive: true, force: true })
 }
 const total = Object.keys(cases).length
-console.log(`${total} cases, ${failed} failed`)
+console.log(`${total} cases, ${skipped ? `${skipped} skipped, ` : ""}${failed} failed`)
 process.exit(failed ? 1 : 0)
