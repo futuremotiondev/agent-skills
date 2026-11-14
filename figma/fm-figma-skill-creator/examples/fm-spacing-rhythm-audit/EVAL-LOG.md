@@ -126,7 +126,7 @@ None of these is a hand-check item or read by the compare, so none changes the r
 - The Bind opportunities table names `Accordion / Items (page: Accordion)` as the `Space/400` example layer where scope 3 records `Footer / Footer / Platform=Desktop`, as in Rounds 3 and 4; the counts (15, 10, 6, 5, 4, 1, 1) agree.
 - Frames measured 844 and Bound values 622, equal to the oracle, where Rounds 3 and 4 read 842 and 618; the cause is not established.
 
-- **Change made:** none to the master. The creator (1.4) now says an in-app report of the audit (2.3) compares clean with `--frame-tolerance 4`, in `SKILL.md`, `references/testing-and-maintenance.md`, and `tests/README.md`; `references/troubleshooting.md` adds the 844 and 622 reading to "Frame counts can differ between runtimes". `tests/fixtures/round5-sections-audit.md` and its harness case are new.
+- **Change made:** none to the master. The creator (1.4) now says an in-app report of the audit (2.3) compares clean with `--frame-tolerance 4`, in `SKILL.md`, `references/testing-and-maintenance.md`, `references/troubleshooting.md`, and `tests/README.md`; `references/troubleshooting.md` also adds the 844 and 622 reading to "Frame counts can differ between runtimes". `tests/fixtures/round5-sections-audit.md` and its harness case are new.
 - **Re-test needed:** no.
 
 ### Round 4 in-app, v2.2, 2026-11-13
