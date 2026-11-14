@@ -206,4 +206,4 @@ What the compare does not check, one line each:
 
 Known limitation: a report of more than 30 rows. The Output contract tells the agent to show a "By component" summary, the top 30 rows, and then the remaining count per priority, but it prescribes no sentence that states the table is partial, so the compare has nothing reliable to key on. Every row beyond the 30 shown is listed as missing. No scope in `expected.json` has more than 21 printed rows.
 
-An in-app report of the audit (2.3) compares clean with `--frame-tolerance 4` (Round 5, 2026-11-14); earlier versions did not, because the agent rewrote labels and layer paths.
+One in-app report of the audit (2.3) compared clean with `--frame-tolerance 4` (Round 5, 2026-11-14: scope 3, token mode, one run); earlier versions did not, because the agent rewrote labels and layer paths.

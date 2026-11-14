@@ -32,7 +32,7 @@ The one in-app session of the audit's 2.3 plan, prepared on 2026-11-14. It is a 
 - **Expected report:** the 2.3 Output contract template printed verbatim, filling only its `<…>` parts, with the priority line "Off-grid values: P0 2 · P1 3 · P2 0 · P3 5 (10 values in 10 rows)". Rows 1 and 2 are the two `Hero (Slot)` slot gaps, 10 to 8, bind `Space/200`. In-app the page has read 842 frames and 618 bound values in Rounds 3 and 4 against the oracle's 844 and 622, so the compare runs with `--frame-tolerance 4`: `node scripts/oracle-compare.mjs --expected examples/fm-spacing-rhythm-audit/tests/expected.json --scope 3 --schema examples/fm-spacing-rhythm-audit/tests/schema.spacing.json --report <the capture> --frame-tolerance 4`, hoped-for result exit 0.
 - **Expected After fixes:** "Changed: 2 properties on 2 layers · Verified: 2 of 2". After "revert the last snaps", the two `Hero (Slot)` slot gaps must read 10 and unbound again, so the duplicate still matches scope 3.
 - **Credits:** about 150, from Round 4's six matching responses (60, 14, 36, 6, 22, 12); stop at 200. Credits are read after every response, from the AI credits icon under it.
-- **Micro-test (Task 4):** wording micro-test, 2026-11-14, no credits: five single-shot agents per edition were given the paste edition and scope 3's collect result and asked for the report. Scored with `oracle-compare` at tolerance 0, the 2.3 edition compared clean 5 of 5 and the 2.2 control 4 of 5 (its one failure appended node ids to the layer paths). The control already follows the template closely, so this shows that 2.3 does no harm and narrows the spread between runs; it does not reproduce the in-app rewrite of Round 4.
+- **Micro-test:** wording micro-test, 2026-11-14, no credits: five single-shot agents per edition were given the paste edition and scope 3's collect result and asked for the report. Scored with `oracle-compare` at tolerance 0, the 2.3 edition compared clean 5 of 5 and the 2.2 control 4 of 5 (its one failure appended node ids to the layer paths). The control already follows the template closely, so this shows that 2.3 does no harm and narrows the spread between runs; it does not reproduce the in-app rewrite of Round 4.
 - **Run:** on 2026-11-14; the results are the entry "Round 5 in-app, v2.3, 2026-11-14" below.
 
 ## Round 4 plan
@@ -128,6 +128,11 @@ None of these is a hand-check item or read by the compare, so none changes the r
 
 - **Change made:** none to the master. The creator (1.4) now says an in-app report of the audit (2.3) compares clean with `--frame-tolerance 4`, in `SKILL.md`, `references/testing-and-maintenance.md`, `references/troubleshooting.md`, and `tests/README.md`; `references/troubleshooting.md` also adds the 844 and 622 reading to "Frame counts can differ between runtimes". `tests/fixtures/round5-sections-audit.md` and its harness case are new.
 - **Re-test needed:** no.
+- **Carried to the next version:**
+  1. The report template has no line for four things other instructions require: the remaining count per priority when there are more than 30 rows, the "select 50 frames or fewer" sentence, the "no off-grid values in" sentence, and the library-tokens note; and it does not say where the After fixes table's Layer cell comes from (Round 5 printed the agent's own names there).
+  2. In rhythm mode on a file whose spacing collection holds a token below 4 (for example 2), a positive value below 4 that is not a token is offered "set 4", although the file's own token is nearer: the helper's nearest-value rule looks at the 4/8 rhythm only.
+  3. In rhythm mode the helper offers a snap for a negative off-grid value (a gap of −2 is offered "set 0"), although Common edge cases says negative values are not snapped. This predates 2.3.
+  4. In Instructions step 3 the example "2 becomes 4" stands one sentence before the rule that explains it.
 
 ### Round 4 in-app, v2.2, 2026-11-13
 
@@ -191,7 +196,7 @@ None of these is a hand-check item or read by the compare, so none changes the r
   The first turn, which loads the 46,399-character skill, cost 60 where the 2026-11-02 model said about 10 for a question.
 - **Timings:** about 8 s to the scope question, about 9 s to the mode question, 52 s to the report, about 5 s to the follow-up, 22 s to apply, 14 s to revert.
 
-#### Open finding: the agent rewrote the report template
+#### Open finding (closed in Round 5, 2.3): the agent rewrote the report template
 
 Recorded for Futuremotion's decision on whether the skill should insist on its template; no change is proposed here. Its consequence: an in-app report of this audit does not compare clean today, so compare `--run` on MCP returns and check an in-app report's numbers by hand until the audit enforces its template (planned as separate work).
 
@@ -213,7 +218,7 @@ Recorded for Futuremotion's decision on whether the skill should insist on its t
 | After applying: `Changed: <n> properties on <n> layers · Verified: <n> of <n>` | "Both values and bindings are confirmed. Rows 3–10 were left unchanged." |
 
 - **Change made:** none to the master and no version bump. Recorded in the creator's references: `troubleshooting.md` closes "Frame counts can differ between runtimes" and adds the 2026-11-13 credit readings and the prompt-box paste row; `format-and-frontmatter.md` adds the Edit-screen note. `tests/fixtures/round4-sections-audit.md` and its harness case are new.
-- **Re-test needed:** no for the gates and the 2.2 classification. The template finding waits on Futuremotion's decision.
+- **Re-test needed:** no for the gates and the 2.2 classification. The template finding waits on Futuremotion's decision (closed in Round 5, 2.3; see the Round 5 entry above).
 
 ### v2.2 oracle, 2026-11-13
 

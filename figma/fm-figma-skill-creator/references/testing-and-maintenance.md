@@ -114,9 +114,10 @@ Use this when the skill reports measurable canvas facts (counts, lists, bindings
 Skip this when the skill drafts text, renames, or arranges by taste; Workflow F is its test path.
 It plans the seed in `templates/seed-plan.md`, builds the seed and runs the oracle over MCP into
 the skill's `tests/expected.json`, hands the in-app run to a human, and compares the result with
-`scripts/oracle-compare.mjs`. An in-app report of the audit (2.3) compares clean with
-`--frame-tolerance 4` (Round 5, 2026-11-14); earlier versions did not, because the agent rewrote
-labels and layer paths.
+`scripts/oracle-compare.mjs`. One in-app report of the audit (2.3) compared clean with
+`--frame-tolerance 4` (Round 5, 2026-11-14: scope 3, token mode, one run); earlier versions did
+not, because the agent rewrote labels and layer paths. When a report does not compare clean, check
+its numbers by hand against the oracle before trusting it.
 `examples/fm-spacing-rhythm-audit/tests/README.md` is the worked example.
 
 ## Maintenance
