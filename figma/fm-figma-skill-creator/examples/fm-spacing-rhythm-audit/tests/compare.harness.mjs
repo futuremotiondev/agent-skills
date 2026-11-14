@@ -140,7 +140,7 @@ const cases = {
     expectResult(compare(["--scope", "3", "--report", fixture("round4-sections-audit.md"), "--frame-tolerance", "4"]), {
       exit: 1, missing: 5, extra: 5, mismatched: 0,
       contains: ['No "Off-grid values:" line in the report', "AI Sidebar / Block / Block / Block (page: AI Chat) (main component) · Gap · 10 (P1)",
-        "Extra in the report (5)\n  Hero (Slot) / Desktop / Slot · Gap · 10", "5 counts outside tolerance; exit 1"],
+        "Extra in the report (5)\n  Hero (Slot) / Desktop / Slot · Gap · 10", '5 counts outside tolerance; no "Off-grid values:" line; exit 1'],
     }),
   // The Round 5 in-app capture (2026-11-14, audit 2.3), compared with the committed schema unchanged:
   // every row, count and priority count matches oracle scope 3.
@@ -167,7 +167,8 @@ const cases = {
     const expected = expectedVariant("expected-no-priority-report.json", (e) => { for (const s of e.scopes) delete s.counts.byPriority; return e })
     const report = variant("no-priority-line-no-counts.md", SCOPE2.replace(/^- \*\*Off-grid values:\*\*.*\n/m, ""))
     const r = compare(["--scope", "2", "--report", report], SCRIPT, { expected })
-    return expectResult(r, { exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ['No "Off-grid values:" line in the report'] })
+    return expectResult(r, { exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ['No "Off-grid values:" line in the report',
+      'Result: 0 missing, 0 extra, 0 mismatched; every count within tolerance; no "Off-grid values:" line; exit 1'] })
   },
   "priority counts absent on both sides are equal": () => {
     const expected = expectedVariant("expected-no-priority.json", (e) => { for (const s of e.scopes) delete s.counts.byPriority; return e })

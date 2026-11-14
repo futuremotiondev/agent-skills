@@ -259,7 +259,8 @@ const cases = {
     const h = join(dir, "history")
     return check([
       [r1.status === 0 && r2.status === 0, `exits ${r1.status}, ${r2.status}`],
-      [same(list(h), [VERSION, NEXT_VERSION]), `history holds ${show(list(h))}`],
+      // list() sorts as text ("2.10" before "2.9"), so sort the expected pair the same way.
+      [same(list(h), [VERSION, NEXT_VERSION].sort()), `history holds ${show(list(h))}`],
       [existsSync(join(h, VERSION, "SKILL.md")) && readFileSync(join(h, VERSION, "SKILL.md")).equals(before), `history/${VERSION}/SKILL.md is not the pre-bump master`],
       [sameBytes(join(dir, "SKILL.md"), join(h, NEXT_VERSION, "SKILL.md")), `history/${NEXT_VERSION}/SKILL.md is not the bumped master`],
       [sameBytes(join(dir, "overlay.claude.yaml"), join(h, NEXT_VERSION, "overlay.claude.yaml")), `history/${NEXT_VERSION} has no overlay copy`],

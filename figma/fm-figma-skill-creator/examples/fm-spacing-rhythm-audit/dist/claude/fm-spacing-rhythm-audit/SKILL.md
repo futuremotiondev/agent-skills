@@ -10,7 +10,7 @@ metadata:
   runtimes: "figma-design, figma-make, mcp"
   target: mcp
 license: MIT
-compatibility: Requires the Figma MCP server (use_figma, create_session) and the figma-use skill; calls that change the canvas also need figma-generate-design.
+compatibility: Requires the Figma MCP server (use_figma, create_session, get_metadata) and the figma-use skill; calls that change the canvas also need figma-generate-design.
 ---
 
 # Spacing rhythm audit
