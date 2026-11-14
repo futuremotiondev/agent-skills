@@ -64,9 +64,9 @@ For a user who knows the moment that hurts but not the skill that would fix it. 
 3. **Generate five concept cards** with `templates/concept-cards.md`:
    - **Mapping:** map the grounding answer to surfaces and patterns through the seeds' `tags` and `fits when` lines in `references/skill-idea-catalog.md`.
    - **Card sourcing:** take at least two cards from matched cells, at least one from an empty cell, and one wildcard.
-   - **Landscape check:** check `references/skill-landscape.md` so each card says "new" or "better than X".
+   - **Landscape check:** check `references/skill-landscape.md` so each card says "new" or "better than X"; before calling a concept new, also search (do not load) `references/community-skill-index.md`.
    - **Feasibility check:** check feasibility against `references/agent-capabilities-and-tools.md` and, for anything Figma shipped in the last year, `references/figma-changelog.md`; when its Last reviewed date is more than 60 days old, say so in one line and offer to refresh it from Figma's release notes, never as a stop.
-   - **Cost model:** cost with the observed model (about 10 credits to ask, 22 to 24 per page-scale audit, 18 per five fixes) scaled by scope.
+   - **Cost model:** cost from the observed readings, scaled by scope: on 2026-11-02 about 10 credits to ask, 22 to 24 per page-scale audit, 18 per five fixes; on 2026-11-13 60 for the first turn that loads a 46 KB skill, 14 and 6 for later questions, 36 for a page audit, 22 to apply two rows, 12 to revert them.
    - **Ranking and wildcard:** rank by value to the user's stated moment; card 5 is the wildcard.
    - **Plan-only rule:** unsupported ideas are reshaped into plan-only form or dropped; at most one plan-only card.
    - **Validator step:** before showing the deck, run each Does line from this skill's folder with `node scripts/validate-figma-skill.mjs --description "<Does line>"`, passing the whole line as one argument and escaping any double quotes inside it, and rewrite any line that warns.
@@ -249,6 +249,7 @@ All five scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`; 
 | `references/porting-and-dual-target.md` | you are converting in either direction or marking target sections |
 | `references/troubleshooting.md` | something misbehaves, or sources disagree |
 | `references/skill-landscape.md` | you need to know whether a skill idea already exists, or a concept card must say "new" or "better than X" |
+| `references/community-skill-index.md` | you must check by name or keyword whether a Community skill outside the landscape table already does an idea; search it, do not load it |
 | `references/skill-idea-catalog.md` | you are mapping a vague wish to gap cells and seeds in Workflow 0, or promoting a chosen card |
 | `templates/skill-master.md` and `templates/type-*.md` | starting any new skill |
 | `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md`, `.markdownlint.jsonc` | companion files every skill folder gets; markdownlint config template |

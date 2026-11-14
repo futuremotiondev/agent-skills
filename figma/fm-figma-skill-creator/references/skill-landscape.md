@@ -1,6 +1,6 @@
 # Skill landscape
 
-The Figma-agent skills this repository has studied, one row each, with no cap. On 2026-11-13 the Figma Community AI skills library listed 322 skills; 285 of them were not yet in this table. Three of those 285 were added that day, which brought the table to 103 rows, so 282 listed skills are still not in it. The table is factual: it records what a skill does, not whether it is good. `skill-idea-catalog.md` computes its gap grid from this table, and Workflow 0 checks it before pitching any concept so a card can say whether it is new or better than an existing row.
+The Figma-agent skills this repository has studied, one row each, with no cap. On 2026-11-13 the Figma Community AI skills library listed 322 skills; 285 of them were not yet in this table. Three of those 285 were added that day, which brought the table to 103 rows, so 282 listed skills are still not in it; `community-skill-index.md` lists them by name and card purpose, for searching. The table is factual: it records what a skill does, not whether it is good. `skill-idea-catalog.md` computes its gap grid from this table, and Workflow 0 checks it before pitching any concept so a card can say whether it is new or better than an existing row.
 
 How the columns are filled:
 

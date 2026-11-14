@@ -1,0 +1,286 @@
+# Community skill index
+
+The 282 Figma Community skills that are not rows of `skill-landscape.md`, one line each: the listing name, then the one-line purpose from its listing card. Read from the Community AI skills library's listing cards on 2026-11-13, not from the skills' text, so there is no category, pattern, or idiom. Use it to check whether an idea already exists, by name or keyword: search it, do not load it. Three listing names (`design-handoff`, `export-tokens`, `layer-cleanup`) occur twice, for different skills, and the second entry says so.
+
+- `senior-uiux-product-designer`: Design, audit, and improve production-ready interfaces with senior product design judgment.
+- `layer-cleanup`: From "Frame 427" to a file that explains itself.
+- `balise-ux-writing`: Write clearer, more useful interface copy directly in Figma.
+- `ui-state-expander`: Expand a UI screen, component, or flow into the full set of states.
+- `bento-board-ui`: Turn your website into share-ready bento board.
+- `design-system-documentation`: Generate design system documentation.
+- `logo-motion`: Make advance Logo motion.
+- `developer-handoff`: Turn any component into a complete, dev-ready spec sheet on canvas, in one click.
+- `accessibility-review`: Audit any Figma frame against WCAG 2.2 and pin the exact fixes on the canvas.
+- `xray-scan`: Hyper-realistic X-ray.
+- `screen-alternatives`: Stress-tests your screen, then draws two structurally different alternatives next to it.
+- `design-critique-ai-design-reviewer`: Honest feedback. Actionable improvements. Make better designs, faster.
+- `ios-app-design`: Skill for a proper way to design iOS apps.
+- `responsive-design`: One click to make your design responsive.
+- `build-a-variable-library`: Build a variable library for your design system complete with light and dark mode.
+- `spec-notes`: Annotates designs with implementation notes for developer handoff.
+- `component-usage-docs`: Generate initial component usage docs for any component.
+- `design-system-checker`: Keep your design system strong, consistent, and scalable.
+- `figma-product-design-director`: AI-powered product design guidance for UI, UX, visual identity, and design systems.
+- `dark-mode-mirror`: Generate accessible dark mode designs in seconds, not hours.
+- `social-media-post-creator`: Builds on-brand social media post, story, or ad frames (Instagram, LinkedIn, X/Twitter).
+- `recreate-from-image`: Turn reference images into pixel-accurate, properly-layered Figma frames.
+- `checklist-design`: Get actionable feedback on your designs based off curated UI/UX checklists.
+- `design-system-builder`: Build a production-ready design system from your existing Figma product.
+- `ui-motion-choreography`: Define how UI moves through timing, easing, hierarchy, and continuity.
+- `senior-design-review`: A senior designer's review of your work: what to fix first, and why in 15 seconds or less.
+- `document-component-migration`: Compares a legacy component with its replacement and generates a structured migration guide.
+- `component-builder`: Builds a new component, or a new variant of an existing one.
+- `ui-consistency-checker`: Make every screen feel like part of the same product.
+- `connect-screens`: Connect screens in a flow automatically.
+- `accessibility-checker`: Find accessibility barriers before they become usability problems.
+- `create-property`: Create visual property docs with live component examples for each configurable option.
+- `design-handoff`: Make Figma designs clear, complete, and ready for development.
+- `clean-layers`: Clean hidden layers, auto layout chains and fixed-width children that could be fill-width.
+- `ux-audit`: AI-powered UX review for SaaS products and user flows.
+- `map-user-flows`: Select and scan existing prototypes to generate user stories, and identify gaps or opportunities.
+- `generate-flat-illustrations`: Card text is only the word "illustration".
+- `animation-asset-prep`: Structure Figma scenes so they are clean, keyframeable, and transition-ready.
+- `generate-prd`: Generate a PRD and technical handoff for agent or developer, by selecting your designs.
+- `logarithmic-color-palette`: Color families spaced by how the eye sees contrast, not by even math.
+- `mobile-breakpoint`: First pass mobile breakpoint in seconds.
+- `design-system-audit-for-mcp`: Make design systems easier for agents to understand.
+- `create-api`: Create API docs with component properties, values, defaults, subcomponents, and usage examples.
+- `accessibility-annotator`: Annotates a frame with screen-reader reading order, landmark regions, and alt-text suggestions.
+- `design-md`: Bidirectional DESIGN.md and Figma sync for tokens and components, verified every step.
+- `design-decision-maker`: Compare designs. Choose better. Validate impact.
+- `design-system-drift-detector`: Detect design system drift before it spreads.
+- `dev-handoff-spec-generator`: Produces a literal redline/spec sheet for a frame.
+- `whats-new-in-figma`: Learn about the latest Figma feature releases.
+- `hot-seat`: A one-question-at-a-time interview that stress-tests a design decision, feature, or flow.
+- `dark-mode-converter`: Audits a frame for dark-mode readiness by checking every fill, stroke, and text is bound to a variable.
+- `tokenize`: Replace hardcoded values with variables that exist in your file or libraries.
+- `ai-a11y-toolkit-wcag-22-aa`: Accessibility rules your AI agent follows, for design and code.
+- `scene-storyboarding`: Turn product flows into clear, paced visual stories.
+- `saas-ux-review`: AI-powered UX review for SaaS products and user flows.
+- `ios-26-swift-ui`: iOS 26 Figma frames into real SwiftUI.
+- `daily-report`: Your design progress, summarised in seconds.
+- `ux-case-study`: Frames are evidence, not narrative.
+- `game-ui`: Turn your designs into a game.
+- `bento-grid-layout`: Transform any brand assets into polished adaptive bento grids.
+- `safe-auto-layout-conversion`: Convert to Auto Layout without visual drift.
+- `hey-polish-me`: Improve a finished Figma design with evidence-based proposals.
+- `layer-naming-hygiene-audit`: Audits layer names and page/file organization against the file's own established convention.
+- `motion-design-system`: Create custom motion design tokens and principles for your brand.
+- `design-system-consistency`: Find where your design violates the system.
+- `design-system-audit`: Audit hardcoded Figma values and bind them to local design tokens.
+- `file-directory`: Easily generate a guide to your Figma Design file.
+- `design-system-inventory`: Automatically map, count, and audit your Figma design system.
+- `apple-best-practices`: Make any Figma design feel native to Apple and ready to build with Swift.
+- `extract-website-styles`: Give URL and get the styles.
+- `design-system-review`: Audits a selected frame or set of frames against the design system in one pass.
+- `annotate-redlines`: Adds dev-handoff redline annotations onto the canvas as a transparent overlay.
+- `modern-saas-design-audit`: Audit SaaS product designs with a senior-level UX, UI, design-system, accessibility review (card text truncated).
+- `apple-native-ui`: Design for the way Apple platforms behave.
+- `prd-to-ui-flow`: Paste a PRD and generate a review-ready UX flow with screens, states, and CTA connections.
+- `responsive-breakpoint-adapter`: Produces the mobile (or tablet) version of an existing frame.
+- `copy-that`: Optimize your UX writing.
+- `write-first-design`: Clarify the decision before shaping the interface.
+- `figma-cleanup`: Clean messy Figma files and reduce design debt.
+- `conversion-audit`: Find conversion friction and turn UX problems into growth opportunities.
+- `redline-spec`: Auto-generates measurement redlines and dev-ready specs on your canvas.
+- `structured-saas-dev-tool-ui`: Create high-craft SaaS and dev-tool interfaces with precision, restraint, and modern product polish.
+- `design-handoff`: Audit and prepare designs for hand-offs (second skill of this name).
+- `user-testing-prototype-builder`: Plan, apply, and document safe Figma prototype links.
+- `motion-carousel-prepared-by-avni`: Build polished 4:5 motion carousels from prepared photo, cutout, mask, and video layers.
+- `figma-auto-layout`: Ground Figma agent with complete Figma Auto Layout context for precise designs.
+- `empty-loading-error-state-generator`: Checks a flow or screen for missing empty, loading, and error states.
+- `file-hygiene`: Audit, organize, and safely clean Figma files while keeping designs aligned to your system.
+- `spec-kit-docs`: Turns a component into a three-page spec with one slash command.
+- `layer-cleanup`: Make your layers look good with real names (second skill of this name).
+- `text-to-flows`: Describe a flow in words, get two flow options built on patterns from YC startups 2021-2026.
+- `design-audit-panel`: AI skills that find frictions, accessibility risks, business gaps and the next best fix.
+- `design-qa-board`: Compares your build to the Figma frame and annotates only what is off.
+- `accessible-ux-writing`: Audit the text in your interface for accessibility and clarity.
+- `another-logo-in-the-wall`: Make an eclectic group of logos scale proportionally automatically.
+- `ux-state-mapper`: Map every UX state before users encounter it.
+- `dialkit`: Wire up DialKit controls to your React, Solid, Svelte, or Vue projects.
+- `safe-nesting-cleanup`: Remove redundant wrappers without breaking layouts.
+- `slot-table-maker`: Generate a slot-based variable table component in Figma.
+- `cloud-architecture-diagram`: Generate cloud diagrams from a plain-English description of your setup.
+- `oklch-palette-repair`: Card text is only "Design system".
+- `document-component-update`: Let them know what changed with a component update.
+- `figma-layer-renamer`: Give every Figma layer a name that explains its place and purpose.
+- `carousel-editor`: Card text: "carousel ig social media post".
+- `code-ready-component-spec`: Generate engineering-ready handoff specs from selected Figma components.
+- `landing-page-cro`: Landing Page CRO, an AI conversion reviewer.
+- `figma-naming-skeleton`: Audit your designed web or mobile screens with a naming convention.
+- `motion-showcase-loop`: Looping animation that reveals items one at a time with scale and blur transitions.
+- `better-accessibility`: Accessibility guidance that uses pa11y.
+- `nikkianderson-guide-concept-test`: Build a concept test to get users' initial reactions to designs.
+- `tidy-up`: Restructure flat designs with auto layout.
+- `screen-states`: Generates states like empty, error, loading, offline while following your design system.
+- `design-file-audit-for-mcp`: Find agent risks across your entire design file.
+- `a11y-quickcheck`: a11y quick check.
+- `repair-library-usage`: Clean up legacy library bindings and ghost variables as best you can.
+- `type-scale`: Generate type scales and batch-create Figma local variables and text styles.
+- `rad-fps`: Turn your Motion timelines into a specified frame rate.
+- `mesh-wash`: Mesh gradient backgrounds built from real Figma layers, not a flattened image.
+- `persuasive-microcopy`: Plain (UK) English copy standards for interfaces, buttons, nudges, and notifications.
+- `design-qa-diff`: Design-vs-build QA that speaks your tokens, with drifts ranked and pinned on the canvas.
+- `compliance-review`: Gut-check designs against centralized compliance guidance.
+- `hey-be-careful`: Six rules for careful, step-by-step agent execution.
+- `token-coverage`: Counts what is tokenised. Names what is not.
+- `product-hero-tile`: Card text: "product hero tile".
+- `color-scale-typography-scale-expert`: Audits a color ramp or type scale for consistent step progression.
+- `overnight-brand-logo--brand-board`: One line about a business in; a logo, palette, type and brand board out.
+- `da11y`: Designs and reviews accessible screens in Figma, measures contrast with code and annotates the file.
+- `android-native-ui`: Design for Android behaviour and input.
+- `value-upfront-rewrite`: Finds every filler string on your screen and rewrites it so the value is stated upfront.
+- `landing-page-glow-up`: Turn any plain landing page into 3 premium redesigns in one command, with your photos.
+- `naming-linter`: Card text: "Frame 427 was never a name."
+- `ai-a11y-toolkit-review`: Measure a frame against WCAG 2.2 AA and get numbers back, not opinions.
+- `crear-foundations`: Card text: "Foundations".
+- `fluid-design`: Preserve continuity through interaction.
+- `empty-state-generator`: Turn empty screens into clear next steps.
+- `responsive-design-checker`: Find responsive UX issues before they break on smaller screens.
+- `component-audit`: Automated design health checks, token validation, and component link repair. NOTE: same name as the Qredence landscape row, different publisher.
+- `identity-gen`: Contact data has never been easier (fills identity/contact data).
+- `japanese-ux-writing-review`: Finds ambiguity specific to Japanese UI and improves the wording (card text in Japanese).
+- `stress-test-copy`: Text replacer with realistic edge case copy.
+- `reference-interview`: Adapts the librarian's reference interview, a structured way of clarifying needs.
+- `variable-migration-tokenization`: Convert Figma styles and reusable values into clean, connected variables.
+- `wcag-2-2-web`: Accessible by design, from the first prompt.
+- `uk-localisation`: Turn any email or web page into UK-ready copy: spelling, wording, pricing and delivery.
+- `modern-css-html`: Build responsive behaviour from native materials.
+- `subtractive-design`: Remove what gets in the way.
+- `persona-critique`: Test your designs against real user personas.
+- `carouselcritpost`: Card text: "hiearchy" [sic].
+- `wcag-palette`: Given a single color, builds a WCAG-checked palette (card text truncated).
+- `ux-writing-review`: AI review for UX copy: corrects tone, clarity, and filters inappropriate language.
+- `figma-design-to-make`: Recreate Figma Design frames in Figma Make with precise layout, typography, and visual fidelity.
+- `i18n-localization-stress-test`: Stress tests a design against text expansion and RTL mirroring.
+- `figma-to-tailwind-theme`: Convert Figma Variables into Tailwind and CSS tokens.
+- `a11y-wcag-fixer`: Find contrast and touch-target issues, then preview safer WCAG-oriented fixes before applying them.
+- `pds-bind-space-variables`: Every hand-typed number bound to the right variable, local or linked library.
+- `wireframe-from-meeting`: From conversation to sketch, before jumping into pixels.
+- `review-summary`: Summarises hundreds of comments so important feedback is not missed.
+- `micro-copy-polisher`: Polish placeholder UI text into realistic, layout-safe microcopy.
+- `tgax-component-spec-guide-generator`: Component spec docs generator.
+- `read-room`: Automatically reads the frames around yours, so every new design continues the flow.
+- `state-builder`: Build a design state for you.
+- `design-documentation`: Card text: "design document".
+- `button-size-check`: Scans buttons, icons, form fields on a selected screen against real standards and delivers an audit.
+- `figma-components`: Equip Figma agent with complete Figma Component and Slot Node API specifications.
+- `tgax-color-scale`: Color palette generator.
+- `quick-web-start`: Build a solid, responsive design-token foundation in seconds.
+- `join-text`: Merge separate text layers in one click.
+- `banner-responsive-resizer`: Resize marketing banners into social-ready 1:1 and 9:16 layouts.
+- `semantic-rename-layers`: Rename messy Figma layers into clear, semantic names with AI.
+- `ds-compliance-review`: Design system compliance, checked and pinned on canvas, with a fix for every violation.
+- `tsx-developer`: Ground Figma agent with front-end engineering, TypeScript, and React design standards.
+- `brand-check`: Checks a design against your brand book and keeps fonts consistent per breakpoint.
+- `icon-publish-guard`: Pre-publish lint for S-Icons: audit, report, then fix with approval.
+- `motion-gravity-drop`: Looping animation where items drop to the floor and then pop back into place.
+- `proxy-mode`: Spawn a subagent using a specific model to handle the session.
+- `motion-card-toss`: Looping animation that stacks cards like a pile of photos on a surface.
+- `annotate-aria-landmarks`: Automatically add Dev Mode annotations for ARIA landmark roles.
+- `i18n-layout-stress-test`: Find overflow, wrapping, truncation, and RTL layout risks before your multilingual UI ships.
+- `cris-setup`: Card text: "SDD setup".
+- `export-tokens`: Export your DTCG tokens and tailwind.config.js any time you make an update.
+- `icon-description`: Icon description with Persian layout keyboard.
+- `componentize-audit`: Component usage report.
+- `agent-handoff`: Generate handoff doc for seamless agent continuity.
+- `checkout-ux-review`: Remove checkout friction and turn more users into customers.
+- `icon-consistency-checker`: Audits icon usage across a frame or set of frames.
+- `ds-documentation`: Documentation of component set.
+- `ds-remediate`: Fix approved design system issues safely.
+- `motion-composer`: Compose Figma motion with web implementation specs.
+- `iap-briefing`: Turn an idea into a clear problem to solve (card text in Portuguese).
+- `form-audit`: Say goodbye to bad forms.
+- `coding-prompter`: Generate coding prompt from Figma design.
+- `design-engineering`: Connect interface decisions to implementation.
+- `semantic-html-first`: Give web controls their proper behaviour.
+- `seamful-design-audit`: Identify where a design should have seams and does not.
+- `accesibilidad-ui`: Basic visual accessibility review (card text in Spanish, truncated).
+- `md-to-figma`: Turn design tokens and Figma exports into import-ready Markdown.
+- `lean-components-review`: Consistency-first component library reviews.
+- `interface-affordances`: Make the next action easier to discover.
+- `maxxing-slop-check`: A screen can look right while the file is wrong.
+- `state-matrix-generator`: Generate editable Figma state matrices in one click.
+- `frame-title-size-renamer`: Name selected frames from what people actually see.
+- `flatten-icon-frames`: Outline strokes, union, fill black, and flatten all icon frames for export.
+- `export-tokens`: DTCG tokens, straight from the canvas (second skill of this name).
+- `component-quality-review`: Review components for scalable, reusable, and production-ready quality.
+- `alt-suggest`: Smart alt-text suggestions for every image.
+- `anonymize`: Anonymize your privacy details.
+- `nombrar-capas`: Name layers (Spanish name).
+- `name-components`: Turn selected Figma layers into clear component names and descriptions.
+- `symphonia-type-scale`: Build a type scale before creating the text styles.
+- `pricing-page-review`: Pricing page review, a SaaS pricing UX reviewer.
+- `signup-flow-review`: Signup flow review, a SaaS activation reviewer.
+- `prototype-to-production`: Find what the happy path leaves out.
+- `abdoul-landing-ux-planner`: Plan better landing pages with UX-first thinking.
+- `iap-product-discovery`: Orchestrate product discovery with AI (card text in Portuguese).
+- `audit-aksesibilitas`: WCAG guidance, explained in Bahasa Indonesia.
+- `ds-test`: Test output component.
+- `translate-english-to-spanish-ui`: Translate English UI into Spanish for Spain or Latin America, with safe batching and quality checks.
+- `current-page-audit-for-mcp`: Audit the active page before agents edit it.
+- `ai-output-judgement`: Give generated work a specific critique.
+- `figma-frame`: Ground Figma agent with exact Frame specifications for manual layout creation.
+- `revisar-ui`: UI review (Spanish name).
+- `activation-review`: Get users to their first meaningful value faster.
+- `iap-acessibilidade`: Include accessibility from the start (card text in Portuguese).
+- `symphonia-text-typesetting`: Check line-height, tracking and number styles.
+- `tgax-component-first-design`: You have to use component first.
+- `import-tokens`: Import your json, js, etc. so your Figma library follows your repo.
+- `dxe`: Review the whole flow, with evidence.
+- `iap-hipoteses`: Turn uncertainty into product decisions (card text in Portuguese).
+- `iap-mapa-de-capacidades`: Connect AI capabilities to real product opportunities (card text in Portuguese).
+- `language-translator`: One design, seven languages. Localize without touching the original.
+- `marka-email-generator-email`: Prepare Figma frames for export as email templates with the Marka Email Generator plugin.
+- `icon-override-repair`: Fix broken icon overrides and auto-apply pending library updates while preserving color tokens.
+- `plain-japanese-ui`: Rewrite Japanese UI copy in plain Japanese (card text in Japanese).
+- `product-delight`: Put care into the moments people repeat.
+- `iap-persona-sintetica`: Model people and agents to explore different perspectives (card text in Portuguese).
+- `state-coverage-flow-audit`: Catch every missing UI state before QA does.
+- `type-scale-jp`: Japanese-language variant of the type-scale skill (card text in Japanese).
+- `iap-matriz-csd`: Separate what we know from what we still need to discover (card text in Portuguese).
+- `symphonia-vertical-spacing`: Check gaps and padding against your spacing grid.
+- `ds-fix`: Fix issues.
+- `ds-component`: Building a component set.
+- `ds-foundation`: Creating variables and styles for foundation level for a design system.
+- `preparar-entrega`: Review (Spanish name).
+- `revisar-componentes`: Components (Spanish name).
+- `weather-audit`: Scores a frame's AI-readiness across 4 dimensions, delivered as a weather forecast.
+- `ux-flow-doctor`: Audit user flows, detect UX issues, validate interactions, and recommend fixes before development.
+- `swipeline-carousel`: Turn any idea into an editable LinkedIn or Instagram carousel.
+- `audit-component`: Card text: "audit component".
+- `iap-brainstorming`: Expand the possibilities before choosing (card text in Portuguese).
+- `parse-motion-parameters`: Converts Motion animation into an annotated timeline (card text in Chinese).
+- `iap-colaboracao-humano-e-agente`: Redesign work between people, AI and agents (card text in Portuguese).
+- `figma-rectangle`: Ground Figma agent with exact Rectangle specifications and styling rules.
+- `figma-ellipse`: Equip your Figma agent with full Ellipse specifications for custom shape generation.
+- `symphonia-line-length`: Check how many characters fit on each line.
+- `iap-jornada-de-usuario`: Redesign the journey for people and agents (card text in Portuguese).
+- `revisar-espaciado`: Space (Spanish name).
+- `generate-design-tokens-specs`: Generate design token foundations documentation frames.
+- `iap-visao-produto`: Turn strategy into a clear product vision (card text in Portuguese).
+- `tipografia-semantica`: Organizes the file's text styles (card text in Portuguese).
+- `ds-orchestrator`: Who is responsible to generate a design system within the workflow.
+- `figma-text`: Ground Figma agent with complete TextNode specifications, range styling, and font loading rules.
+- `figma-line`: Ground Figma agent with exact Line specifications and property constraints.
+- `figma-base-props`: Ground Figma agent with core component props for precise Figma development.
+- `maxxing-handoff-gate`: Every action has a destination and a way back.
+- `update-doc`: Card text: "update document".
+- `magoo-figma-native`: Your pre-design-system library (card text in Portuguese).
+- `generate-ui-component`: Generate production-ready UI components using design token foundations.
+- `generate-ui-template`: Generate UI templates and blocks using existing resources.
+- `figma-grid`: Ground your Figma agent with complete Grid specifications and API rules.
+- `annotation-cleaner`: Safely bulk-remove Figma annotations; comments and design left untouched.
+- `symphonia-text-overflow`: Find the copy length that breaks the component.
+- `ui-roi-audit`: Rank interface fixes by expected return.
+- `build-handoff-specs`: Turn any Figma screen or component into a build-ready spec your coding agents understand.
+- `html-email-to-figma`: Import HTML emails into Figma.
+- `i18n-translator`: Duplicate and translate frames into 8+ languages to catch layout breaks before you code i18n.
+- `roaster`: Brutal design reviews. Better interfaces.
+- `reel-cover-remix`: Remix any reel cover into 3 scroll-stopping styles in one command.
+- `symphonia-microtypography`: Fix dashes, quotes and orphans in Polish and English.
+- `symphonia-glyph-fidelity`: Check caps tracking, ligatures and missing glyphs.
+- `name-figma-marcar-orden-foco`: Creates a focus order on interactive elements (card text in Spanish).
+- `figma-init-agents-markdowm`: Initialize a Figma Design file by discovering and reading its context documents, design system, UX rules (card text truncated).
+- `generate-component-branded-specs`: Generate branded documentation pages for UI components.

@@ -1,6 +1,6 @@
 # Skill idea catalog
 
-A curated, gated list of concept seeds for new Figma-agent skills. The gap grid is computed from `skill-landscape.md`; seeds sit in the cells they fill, and every seed has passed the admission rules below. Workflow 0 reads this file to turn a vague wish into concept cards. Credit estimates use the observed model until a fuller cost reference exists: about 10 credits to ask a question, 22 to 24 credits per page-scale audit, and about 18 credits per five fixes.
+A curated, gated list of concept seeds for new Figma-agent skills. The gap grid is computed from `skill-landscape.md`; seeds sit in the cells they fill, and every seed has passed the admission rules below. Workflow 0 reads this file to turn a vague wish into concept cards. Credit estimates in the seeds use the readings of 2026-11-02: about 10 credits to ask a question, 22 to 24 credits per page-scale audit, and about 18 credits per five fixes. The readings of 2026-11-13 ran higher: 60 for the first turn of a chat that loads a 46 KB skill, 14 and 6 for later questions, 36 for a page audit, 22 to apply two rows, 12 to revert them.
 
 ## Gaps
 

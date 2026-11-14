@@ -40,7 +40,7 @@ enhancements/
 | `requires` | Behaviours the pack depends on (vocabulary below) | `[]` |
 | `conflicts` | Behaviours the pack cannot be combined with | `[]` |
 | `fits` | Optional, a non-empty string when present: what a skill must have for the pack to work; `list` and `extract` print it | "a spacing audit built on the fm-spacing-rhythm-audit collect, apply and verify helpers: …" |
-| `cost` | What the pack adds to a run, in calls and credits | "one extra collect call (discover) when the file has tokens; about 22 to 24 credits per page audit either way" |
+| `cost` | What the pack adds to a run, in calls and credits | "one extra collect call (discover) when the file has tokens; a page audit cost 22 to 24 credits either way on 2026-11-02, and 36 on 2026-11-13" |
 | `seedCase` | The seed file, the nodes that prove the pack, the expected scope, and optional `proofs` | `fm-spacing-audit-seed`, five nodes, scope 2 |
 | `surfaces` | Optional: the editor types the pack's code and instructions run in, from `figma-design`, `figma-make`, `figma-spec`; a non-empty array when present | absent, which means `["figma-design", "figma-make"]` |
 

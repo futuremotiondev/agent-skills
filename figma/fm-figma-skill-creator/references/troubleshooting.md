@@ -147,7 +147,7 @@ Extracted from the run's ledger, task reports, review reports, and live observat
 | The oracle throws `SELECTION name "X" matches N top-level nodes` | A seed node was renamed or duplicated | Keep the twelve seed names unique and unchanged; restore edits after a proof (`Token card` padding left back to 8, unbound) |
 | The mock harness passes but Figma behaves differently | The mock models the author's assumptions (it kept a binding on a raw write) | Label mock numbers as sanity checks; prove every write path over `use_figma` |
 | markdownlint fails on `tests/fixtures/*.md` | The fixtures are verbatim agent output with `<figma-node-link>` elements | Exclude `**/tests/fixtures/**` from lint; never edit a fixture |
-| Discover and collect walk the file twice | The mode question needs token names before collect | `let MODE = "discover"` returns tokens only and falls back to rhythm when none exist; observed cost is flat at 22 to 24 credits per page audit regardless of canvas size |
+| Discover and collect walk the file twice | The mode question needs token names before collect | `let MODE = "discover"` returns tokens only and falls back to rhythm when none exist; observed cost per page audit was flat at 22 to 24 credits regardless of canvas size on 2026-11-02, and 36 on 2026-11-13 |
 
 ### Helper rules that reviews had to restore
 
