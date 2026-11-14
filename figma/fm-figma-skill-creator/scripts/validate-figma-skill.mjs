@@ -28,7 +28,7 @@ import {
   normalize, parseFrontmatter, getField, findFrontmatterLikeBlocks,
   scanFences, scanRegions, wordCount, fenceBlocks, HELPER_FENCE_LANG,
 } from "./lib/skill-md.mjs"
-import { loadPack, findUnits, REGION_MARKER } from "./lib/enhancements.mjs"
+import { loadPack, findUnits, carriesPack, REGION_MARKER } from "./lib/enhancements.mjs"
 
 // ---------------------------------------------------------------------------
 // CLI
@@ -441,17 +441,17 @@ if (edition === "master") {
     try { units = findUnits(lines, pack) } catch { continue } // contract errors: enhancement-regions or the pack tools report them
     const prose = units.filter((u) => ["block", "heading-block", "sentence"].includes(u.kind))
     const code = units.filter((u) => ["code-region", "fence"].includes(u.kind))
-    const gate = pack.tags.length ? pack.tags.some((t) => tags.includes(t)) : prose.length > 0 || code.length > 0
+    const gate = pack.tags.length ? pack.tags.some((t) => tags.includes(t)) : carriesPack(units)
     if (gate && prose.length && !code.length) {
       report("enhancement-tags", `"${pack.phrase}" appears in prose but no helper carries the ${pack.name} code region; add the region or remove the phrase`, prose[0].start + 1)
     } else if (gate && code.length && !prose.length) {
       report("enhancement-tags", `a helper carries the ${pack.name} code region but no prose says "${pack.phrase}"; tag the pack's instructions or remove the region`, code[0].start + 1)
     }
-    // The pack is in the master when its phrase or its code region is: a declared line alone (a bare
-    // table separator, say) can occur in any skill and proves nothing.
+    // The pack is in the master when its phrase or its code region is (carriesPack): a declared line
+    // alone (a bare table separator, say) can occur in any skill and proves nothing.
     const uncovered = surfaces.filter((s) => !pack.surfaces.includes(s))
     const guarded = code.some((u) => /figma\.editorType|skipped in a Spec file/.test(u.text))
-    if ((prose.length || code.length) && uncovered.length && !guarded) {
+    if (carriesPack(units) && uncovered.length && !guarded) {
       report("enhancement-surfaces", `the ${pack.name} pack runs on ${pack.surfaces.join(", ")}, not on ${uncovered.join(", ")}; add a surface guard to its code region (one that prints "skipped in a Spec file") or narrow metadata.runtimes`, (code[0] ?? prose[0]).start + 1)
     }
   }

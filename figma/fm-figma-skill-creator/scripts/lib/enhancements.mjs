@@ -13,7 +13,8 @@
 // a line-rewrite unit also carries `to`, and a unit read from an enhancement.md may carry `pack` and
 // `source` (the skill it was extracted from). Contract errors (nested regions, an unpartnered marker,
 // an ambiguous declared line or prose sentence, the phrase in a table row) throw; a declared item the
-// master does not contain is passed to `warn`.
+// master does not contain is passed to `warn`. A master that does not carry the pack (carriesPack:
+// no phrase unit, no code region) has no units at all, and `warn` gets one not-present line instead.
 //
 // Dependency-free. Parsing of frontmatter and fences goes through skill-md.mjs.
 
@@ -28,6 +29,16 @@ export const UNIT_KINDS = ["code-region", "fence", "block", "heading-block", "se
 export const SURFACES = ["figma-design", "figma-make", "figma-spec"]
 export const DEFAULT_SURFACES = ["figma-design", "figma-make"]
 export const VOCABULARY = ["confirm-tiered", "always-write", "dry-run"]
+
+/** Unit kinds that show a master carries a pack: a phrase unit or the pack's code region. */
+export const PRESENCE_KINDS = ["code-region", "fence", "block", "heading-block", "sentence"]
+
+/**
+ * True when `units` show the master carries the pack: at least one phrase unit or code region. A
+ * declared item alone (a table separator, a tag such as "tokens") can occur in any skill and proves
+ * nothing. findUnits, the validator's pack rules, and expand all decide presence with this.
+ */
+export const carriesPack = (units) => units.some((u) => PRESENCE_KINDS.includes(u.kind))
 
 export const REGION_MARKER = /^\s*\/\/ enhancement: ([a-z0-9][a-z0-9-]*) (begin|end)\s*$/
 const LIST_LEAD = /^(\s*)((?:[-*+]|\d+[.)])\s+(?:\[[ xX]\]\s+)?)?/
@@ -228,6 +239,13 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
       add("sentence", i, i, pos, line.slice(pos, end + 1), anchorFor(i, lastSentence(line.slice(0, pos))))
       from = end + 1
     }
+  }
+
+  // Declared items belong to the pack only in a master that carries it (rule g): without a phrase unit
+  // or the code region, a matching table separator or tag is the master's own text, so nothing is a unit.
+  if (!carriesPack(units)) {
+    warn(`${pack.name}: not present in this master (no "${pack.phrase}" phrase unit and no "${pack.codeRegion}" code region); its declared lines, sentences, and tags are left alone`)
+    return []
   }
 
   // (f) Declared prose sentences: exact text in body prose. Missing is a warning, like the other declared

@@ -12,7 +12,7 @@
 import { readFileSync, writeFileSync, mkdtempSync, mkdirSync, copyFileSync, rmSync, readdirSync } from "node:fs"
 import { spawnSync } from "node:child_process"
 import { tmpdir } from "node:os"
-import { dirname, join } from "node:path"
+import { dirname, join, basename } from "node:path"
 import { fileURLToPath } from "node:url"
 import { normalize } from "../../../scripts/lib/skill-md.mjs"
 import { loadPack, findUnits, stripUnits } from "../../../scripts/lib/enhancements.mjs"
@@ -127,12 +127,20 @@ function throwsWith(lines, p, re) {
 const tiny = (...body) => ["---", "name: fm-x", "description: Does a thing.", "metadata:", '  tags: "a, b"', "---", "", "# T", "", "## Helper scripts", "", ...body]
 const helper = (...code) => ["```javascript", "// helper: h", ...code, "```"]
 const P = { name: "p", phrase: "Token mode:", codeRegion: "p", templateLines: [], lineRewrites: [], proseSentences: [], descriptionSentences: [], tags: [] }
+/** A line that makes a small master carry the test pack P (and token-conformance): one phrase unit. */
+const CARRIED = "Token mode: the pack is carried."
 
 /** Run the CLI; returns { status, out }. */
 const cli = (...args) => { const r = spawnSync(process.execPath, [CLI, ...args], { encoding: "utf8" }); return { status: r.status, out: r.stdout + r.stderr } }
 
 /** The last line of a command's output, for failure messages. */
 const tail = (out) => out.trim().split("\n").pop()
+
+/** The output's warnings are exactly one line saying the pack is not present in this master. */
+const notPresentOnly = (out, name) => {
+  const warns = out.split("\n").filter((l) => l.startsWith("warning:"))
+  return warns.length === 1 && warns[0].includes(`${name}: not present in this master`)
+}
 
 /** The four pack selections the round trip is proven on: each pack, and both in either order. */
 const SELECTIONS = [["token-conformance"], ["revert"], ["token-conformance", "revert"], ["revert", "token-conformance"]]
@@ -221,28 +229,29 @@ const cases = {
   "a region spanning two fences is an error": () => throwsWith(tiny(...helper("// enhancement: p begin", "x"), "", ...helper("y", "// enhancement: p end")), P, /different fence/),
   "an end without a begin is an error": () => throwsWith(tiny(...helper("x", "// enhancement: p end")), P, /has no begin/),
   "a region that never ends is an error": () => throwsWith(tiny(...helper("// enhancement: p begin", "x")), P, /never ends/),
-  "an ambiguous template line is an error": () => throwsWith(tiny("```markdown", "- Bound: <n>", "- Bound: <n>", "```"), { ...P, templateLines: ["- Bound: <n>"] }, /exactly one/),
-  "an ambiguous line rewrite is an error": () => throwsWith(tiny(...helper("let M = 1;", "let M = 1;")), { ...P, lineRewrites: [{ from: "let M = 1;", to: "let M = 2;" }] }, /matches 2 lines/),
+  // Declared items count only in a master that carries the pack, so these masters end with one phrase line.
+  "an ambiguous template line is an error": () => throwsWith(tiny("```markdown", "- Bound: <n>", "- Bound: <n>", "```", "", CARRIED), { ...P, templateLines: ["- Bound: <n>"] }, /exactly one/),
+  "an ambiguous line rewrite is an error": () => throwsWith(tiny(...helper("let M = 1;", "let M = 1;"), "", CARRIED), { ...P, lineRewrites: [{ from: "let M = 1;", to: "let M = 2;" }] }, /matches 2 lines/),
   "a missing declared prose sentence is a warning that names it": () => {
     const warns = []
     let units = null
-    try { units = findUnits(tiny("Some prose."), { ...P, proseSentences: ["Token mode adds lines."] }, { warn: (m) => warns.push(m) }) } catch (e) { return [`threw: ${e.message}`] }
-    return check([[units.length === 0, `${units.length} units`], [warns.length === 1 && warns[0].includes("Token mode adds lines."), `warnings: ${JSON.stringify(warns)}`]])
+    try { units = findUnits(tiny("Some prose.", "", CARRIED), { ...P, proseSentences: ["Token mode adds lines."] }, { warn: (m) => warns.push(m) }) } catch (e) { return [`threw: ${e.message}`] }
+    return check([[!units.some((u) => u.kind === "prose-sentence"), `${units.length} units`], [warns.length === 1 && warns[0].includes("Token mode adds lines."), `warnings: ${JSON.stringify(warns)}`]])
   },
-  "an ambiguous declared prose sentence is an error": () => throwsWith(tiny("Token mode adds lines. Token mode adds lines."), { ...P, proseSentences: ["Token mode adds lines."] }, /prose sentence.*2 times.*line 12/),
+  "an ambiguous declared prose sentence is an error": () => throwsWith(tiny("Token mode adds lines. Token mode adds lines.", "", CARRIED), { ...P, proseSentences: ["Token mode adds lines."] }, /prose sentence.*2 times.*line 12/),
   "a declared prose sentence overlapping a phrase-tagged unit is an error": () =>
     throwsWith(tiny("Intro. Token mode: adds lines here."), { ...P, proseSentences: ["Token mode: adds lines here."] }, /line 12: declared prose sentence overlaps a unit/),
   "an ambiguous declared description sentence is an error": () =>
-    throwsWith(["---", "name: fm-x", "description: Does a thing. Does a thing. Use whenever asked.", "---", "", "# T"], { ...P, descriptionSentences: ["Does a thing."] }, /description sentence occurs twice on line 3/),
+    throwsWith(["---", "name: fm-x", "description: Does a thing. Does a thing. Use whenever asked.", "---", "", "# T", "", CARRIED], { ...P, descriptionSentences: ["Does a thing."] }, /description sentence occurs twice on line 3/),
   "a missing template line, rewrite, description sentence, or tag is a warning": () => {
     const warns = []
-    findUnits(tiny(), { ...P, templateLines: ["- gone"], lineRewrites: [{ from: "zz", to: "y" }], descriptionSentences: ["Nope."], tags: ["c"] }, { warn: (m) => warns.push(m) })
+    findUnits(tiny(CARRIED), { ...P, templateLines: ["- gone"], lineRewrites: [{ from: "zz", to: "y" }], descriptionSentences: ["Nope."], tags: ["c"] }, { warn: (m) => warns.push(m) })
     return check([[warns.length === 4, `${warns.length} warnings`]])
   },
   "a phrase inside a table row is an error": () => throwsWith(masterWith("| Mode | Token mode: binds | Rhythm mode: sets |"), TOKENS, /line \d+: .*table row/),
 
-  // A master the pack is absent from passes through strip: exit 0, unchanged, with warnings.
-  "stripping a pack a second time exits 0, changes nothing, and warns": () => {
+  // A master the pack is absent from passes through strip: exit 0, unchanged, with one not-present line.
+  "stripping a pack a second time exits 0, changes nothing, and says the pack is not present": () => {
     const problems = []
     for (const name of ["token-conformance", "revert"]) {
       const once = join(tmp, `once-${name}.md`), twice = join(tmp, `twice-${name}.md`)
@@ -250,9 +259,48 @@ const cases = {
       const r2 = cli("strip", once, "--pack", name, "--out", twice)
       problems.push(...check([[r1.status === 0, `${name}: first strip exit ${r1.status}`], [r2.status === 0, `${name}: second strip exit ${r2.status}: ${r2.out.trim().split("\n").pop()}`],
         [r2.status !== 0 || readFileSync(twice, "utf8") === readFileSync(once, "utf8"), `${name}: second strip changed the file`],
-        [/warning: .*not found/.test(r2.out), `${name}: second strip printed no warning`]]))
+        [notPresentOnly(r2.out, name), `${name}: second strip output: ${JSON.stringify(r2.out.split("\n").filter((l) => l.startsWith("warning:")))}`]]))
     }
     return problems
+  },
+  "stripping token-conformance from the probe leaves it byte-identical and says the pack is not present": () => {
+    const probe = join(creator, "examples", "fm-figma-capability-probe", "SKILL.md")
+    const out = join(tmp, "probe-stripped.md")
+    const r = cli("strip", probe, "--pack", "token-conformance", "--out", out)
+    return check([[r.status === 0, `exit ${r.status}: ${tail(r.out)}`], [r.status !== 0 || readFileSync(out).equals(readFileSync(probe)), "the probe changed"],
+      [notPresentOnly(r.out, "token-conformance"), `output: ${JSON.stringify(r.out.split("\n").filter((l) => l.startsWith("warning:")))}`]])
+  },
+  "every template and example master a pack is absent from passes through strip byte-identical": () => {
+    const files = [...readdirSync(join(creator, "templates")).filter((f) => f.endsWith(".md")).map((f) => join(creator, "templates", f)),
+      join(creator, "examples", "fm-spacing-rhythm-audit", "SKILL.md"), join(creator, "examples", "fm-figma-capability-probe", "SKILL.md")]
+    const problems = []
+    let runs = 0
+    for (const file of files) {
+      const text = readFileSync(file, "utf8")
+      for (const p of [TOKENS, REVERT]) {
+        if (text.includes(p.phrase) || text.includes(`// enhancement: ${p.codeRegion} begin`)) continue
+        runs++
+        const out = join(tmp, `absent-${p.name}-${basename(file)}`)
+        const r = cli("strip", file, "--pack", p.name, "--out", out)
+        if (r.status !== 0 || !readFileSync(out).equals(readFileSync(file)) || !notPresentOnly(r.out, p.name)) problems.push(`${p.name} from ${basename(file)}: exit ${r.status}, ${tail(r.out)}`)
+      }
+    }
+    return [...problems, ...check([[runs >= 26, `only ${runs} absent pairs checked`]])]
+  },
+  "a master with the tokens tag but no pack keeps its tag through a token-conformance strip": () => {
+    const path = writeMaster("tag-only.md", ["---", "name: fm-x", "description: Audits a thing. Use whenever asked. Not for other things.", "metadata:",
+      '  tags: "spacing, tokens, variables"', "---", "", "# T", "", "Design tokens are named values."])
+    const out = join(tmp, "tag-only-stripped.md")
+    const r = cli("strip", path, "--pack", "token-conformance", "--out", out)
+    return check([[r.status === 0, `exit ${r.status}: ${tail(r.out)}`], [r.status !== 0 || readFileSync(out).equals(readFileSync(path)), "the master changed"],
+      [r.status !== 0 || readFileSync(out, "utf8").includes('tags: "spacing, tokens, variables"'), "the tokens tag was removed"]])
+  },
+  "a master that carries the pack but lacks one declared line still warns for that line": () => {
+    const gone = "- Bound values: <n> passed"
+    const path = writeMaster("one-missing.md", masterLines.filter((l) => l !== gone))
+    const r = cli("strip", path, "--pack", "token-conformance", "--out", join(tmp, "one-missing-stripped.md"))
+    const warns = r.out.split("\n").filter((l) => l.startsWith("warning:"))
+    return check([[r.status === 0, `exit ${r.status}: ${tail(r.out)}`], [warns.length === 1 && warns[0].includes("template line not found: " + gone), `warnings: ${JSON.stringify(warns)}`]])
   },
   "stripping each pack from a master with no pack tags leaves it byte-identical": () => {
     const src = join(creator, "templates", "type-standards-qa-audit.md")

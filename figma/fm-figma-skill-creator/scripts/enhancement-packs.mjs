@@ -12,7 +12,9 @@
 //            then the count per kind.
 // strip      removes every unit of each --pack (in the order given), applies its line rewrites, drops its
 //            description sentences and metadata tags, collapses blank runs, and writes --out (standard
-//            output when --out is absent).
+//            output when --out is absent). A master that does not carry a pack (no phrase unit, no code
+//            region) keeps everything for that pack, with one not-present warning; when no pack was
+//            present the output is the input, byte for byte.
 // extract    writes enhancements/<name>/enhancement.md from the master: a header, then one level-three
 //            heading per unit with its anchor and text. pack.json is hand-maintained and written only
 //            when absent, as a skeleton that needs --phrase (with exactly one --pack).
@@ -38,7 +40,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSy
 import { join, dirname, resolve, relative, basename, sep } from "node:path"
 import { fileURLToPath } from "node:url"
 import { normalize, parseFrontmatter, getField } from "./lib/skill-md.mjs"
-import { loadPack, findUnits, stripUnits, readUnits, insertUnits, UNIT_KINDS } from "./lib/enhancements.mjs"
+import { loadPack, findUnits, stripUnits, readUnits, insertUnits, carriesPack, UNIT_KINDS } from "./lib/enhancements.mjs"
 
 const here = dirname(fileURLToPath(import.meta.url))
 const args = process.argv.slice(2)
@@ -124,12 +126,17 @@ function list(master, packs) {
 
 function strip(master, packs) {
   let lines = master
+  let stripped = false
   for (const pack of packs) {
+    // A master that does not carry the pack yields no units and one not-present warning: leave it alone.
     const units = findUnits(lines, pack, { warn })
+    if (!units.length) continue
     lines = stripUnits(lines, units)
+    stripped = true
     console.error(`stripped ${pack.name}: ${units.length} units (${kindSummary(units) || "none"})`)
   }
-  emit(lines)
+  // Nothing stripped: write the input back as it was (LF-normalised), byte for byte.
+  emit(stripped ? lines : master[master.length - 1] === "" ? master.slice(0, -1) : master)
 }
 
 /** Write the lines to --out, or to standard output when --out is absent. */
@@ -152,10 +159,10 @@ function skillName(lines) {
 function expand(master, packs) {
   const units = []
   for (const pack of packs) {
-    // Carrying the pack means its phrase or its code region; a declared line alone (a bare table
-    // separator, say) can occur in any master.
-    const present = findUnits(master, pack).filter((u) => ["code-region", "fence", "block", "heading-block", "sentence"].includes(u.kind))
-    if (present.length) die(1, `the master already carries ${present.length} units of ${pack.name} (${kindSummary(present)}); strip it first`)
+    // Carrying the pack means its phrase or its code region (carriesPack); a declared line alone (a bare
+    // table separator, say) can occur in any master.
+    const present = findUnits(master, pack)
+    if (carriesPack(present)) die(1, `the master already carries ${present.length} units of ${pack.name} (${kindSummary(present)}); strip it first`)
     const file = join(enhancementsDir, pack.name, "enhancement.md")
     if (!existsSync(file)) die(2, `no ${file}; run extract first`)
     const read = readUnits(readFileSync(file, "utf8"))
