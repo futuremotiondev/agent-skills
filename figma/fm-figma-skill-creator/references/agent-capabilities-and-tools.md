@@ -309,8 +309,8 @@ as the in-app table above.
 The two in-app experiment rows are omitted over MCP.
 
 - Payload bytes: not measured by this run: it used `PAYLOAD` 1000 and returned its result packaged as strings, a maintainer deviation to save context; the 48,000-byte limit was measured directly the same day
-- Walk time: 1 to 2 ms (the run record gives one range for this run and the Spec run)
-- Nodes walked: not stated in the run record; the page was empty
+- Walk time: 1 to 2 ms (changelog source "Probe 1.2 2026-11-13" gives one range for this run and the Spec run)
+- Nodes walked: not stated in the "Probe 1.2 2026-11-13" record; the page was empty
 - Style counts: text 0 · paint 0 · effect 0 · grid 0
 
 What this run shows: the top-level helper form runs unchanged over `use_figma`, and the two
@@ -386,7 +386,7 @@ is how they are shown.
 The two in-app experiment rows are omitted over MCP.
 
 - Payload bytes: not measured by this run: `PAYLOAD` 1000 and the result packaged as strings, the same maintainer deviation as the MCP Design run
-- Walk time: 1 to 2 ms (the run record gives one range for this run and the MCP Design run)
+- Walk time: 1 to 2 ms (changelog source "Probe 1.2 2026-11-13" gives one range for this run and the MCP Design run)
 - Nodes walked: 1, the `SPEC_BLOCK`
 - Style counts: text 0 · paint 0 · effect 0 · grid 0
 

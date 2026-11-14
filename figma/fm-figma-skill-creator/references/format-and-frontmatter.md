@@ -86,7 +86,7 @@ upload test that proves extra keys are tolerated.
 | Action | Where | Notes |
 | --- | --- | --- |
 | Enable / disable | Manage skills | Disabling blocks automatic and direct use; for a published skill it affects only your account |
-| Edit | Manage skills > Edit (Markdown editor) | Figma: once a skill works, edit it directly rather than regenerating it each session (regeneration costs credits). The Edit screen shows the body without its frontmatter block, so an update pastes the paste edition and checks the description field separately (observed 2026-11-13) |
+| Edit | Manage skills > Edit (Markdown editor) | Figma: once a skill works, edit it directly rather than regenerating it each session (regeneration costs credits). This is the one update path for an installed skill: the Edit screen shows the body without its frontmatter block, so replace the instructions with the paste edition and check the description field against `dist/<name>.paste.fields.txt` (observed twice on 2026-11-13, no credits). Upload is for the first install; whether uploading a skill of the same name replaces it or makes a duplicate has not been tested |
 | Export | Manage skills > "..." > Export | "so you can use it with your own agents"; exported shape and frontmatter round-trip are Unverified; never treat the Figma copy as master |
 | Publish | Manage skills > More actions > Publish | Private (team or organization) or Community; see publishing-kit.md |
 | Publish changes | Manage skills > Publish changes | No version number, changelog, or rollback; the page shows only "Last updated" |
@@ -146,7 +146,7 @@ the restored master past the newest folder in `history/`, because the restored m
 old version and a build at an unchanged version overwrites that version's snapshot. Then rebuild,
 from the creator folder, with
 `node scripts/build-skill-editions.mjs <skill>/SKILL.md --out <skill>/dist --validate`, and
-re-upload the upload edition. A repository ignores the folder (this one's `.gitignore` has
+update the installed skill through Manage skills > Edit (Lifecycle, above). A repository ignores the folder (this one's `.gitignore` has
 `**/history/`) because git is its history.
 
 ## Access, cost, and visibility

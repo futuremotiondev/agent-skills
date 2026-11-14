@@ -57,9 +57,9 @@ names every file it checks and never reads a `history/` folder.
 
 The description is the only field every runtime routes on. Test it before testing the body.
 
-1. Write about 20 queries in `templates/eval-queries.md`: 8 to 10 that should trigger the skill
-   (varied wording, no slash command) and 8 to 10 near-miss negatives (adjacent tasks the skill
-   must not claim).
+1. Write 20 queries in `templates/eval-queries.md`: ten that should trigger the skill (varied
+   wording, no slash command) and ten near-miss negatives (adjacent tasks the skill must not
+   claim).
 2. Hold out about 40 percent for validation; tune on the rest.
 3. In Figma, run each training query 3 times in a fresh chat on a duplicate file. Count a trigger
    rate of 0.5 or better as a pass per query; a negative that triggers is a fail.
@@ -97,7 +97,9 @@ path for a skill whose quick check failed.
 5. Capture the chat transcript and a screenshot of any canvas output.
 6. Export the skill from Manage skills and diff it against the upload edition to learn the
    export shape (it is undocumented).
-7. Feed findings back into the master; rebuild; re-upload with "Publish changes" if published.
+7. Feed findings back into the master; bump `metadata.version`; rebuild; update the installed skill
+   (Manage skills > Edit, as in `format-and-frontmatter.md`, Lifecycle), then "Publish changes" if
+   published.
 8. Read the credits. Every in-app turn costs Figma AI credits. Hover or click the AI credits icon,
    the "View AI credit usage" control beside each agent response, and it shows "Used N AI
    credits". It shows only once, so read it once, in order, right after each response, and write
@@ -111,9 +113,11 @@ after it and never a condition of the creator's Final gate.
 Use this when the skill reports measurable canvas facts (counts, lists, bindings) or writes and promises a clean revert, and you want proof a human cannot get by reading the canvas.
 Skip this when the skill drafts text, renames, or arranges by taste; Workflow F is its test path.
 It plans the seed in `templates/seed-plan.md`, builds the seed and runs the oracle over MCP into
-the skill's `tests/expected.json`, hands the in-app run to a human, and compares the pasted report
-with `scripts/oracle-compare.mjs`. `examples/fm-spacing-rhythm-audit/tests/README.md` is the
-worked example.
+the skill's `tests/expected.json`, hands the in-app run to a human, and compares the result with
+`scripts/oracle-compare.mjs`. An in-app report of the audit does not compare clean today, because
+the agent rewrites labels and layer paths (Round 4, 2026-11-13); compare `--run` on MCP returns, and
+check an in-app report's numbers by hand, until the audit enforces its template.
+`examples/fm-spacing-rhythm-audit/tests/README.md` is the worked example.
 
 ## Maintenance
 
@@ -123,8 +127,9 @@ worked example.
   changelog, or rollback, only "Last updated".
 - Keep one `SKILL.md` per skill. A second "upload surface" file per skill failed in practice for
   the largest public catalogue and was removed within days.
-- Re-upload after each change; whether saved or exported copies receive updates is undocumented,
-  so announce changes to the team.
+- Update the installed skill after each change through Manage skills > Edit (`format-and-frontmatter.md`,
+  Lifecycle); whether saved or exported copies receive updates is undocumented, so announce changes
+  to the team.
 - Review capability gates on every Figma release: each "Coming soon" row that becomes "Supported"
   makes a plan-only branch obsolete.
 - Re-run the trigger eval after any description change and after Figma model updates.

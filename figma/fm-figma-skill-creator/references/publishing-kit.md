@@ -59,7 +59,7 @@ the Figma agent" instead, because Figma's own pages disagree on plan wording.
 - [ ] Validator passes on the upload edition; no frontmatter beyond name and description.
 - [ ] Name is prefixed, specific, lowercase-hyphen; not already in your team or org.
 - [ ] Description starts with the output, has quoted trigger phrases, and a "Not for" clause.
-- [ ] Trigger eval and behaviour eval logged; happy path and edge cases run on a duplicate file.
+- [ ] Quick check logged (trigger and behaviour evals when Workflow F called for them); happy path and edge cases run on a duplicate file.
 - [ ] Credits per run recorded; expensive steps are scoped or confirmed.
 - [ ] No secrets, internal URLs, or client data in the body (chats are visible to collaborators).
 - [ ] Capability gates match today's "Supported / Coming soon" table.

@@ -59,7 +59,7 @@ The scope gate. Always three checks:
    Figma Spec file, which is a document with no canvas, say this skill needs a Design file and stop.
    A skill written to read or write a Spec replaces that sentence with its Spec branch, and its
    helper detects the surface with `figma.editorType === "figspec"`, never with the presence of
-   `figma.spec`, which exists in Design files too. The Specs plan adds the template for such skills.
+   `figma.spec`, which exists in Design files too. No template ships for such skills yet.
 2. **Scope.** Use the current selection. If nothing is selected, ask a verbatim question with
    numbered options (through a structured question tool when the runtime has one) and stop. Never
    expand to the page or file without asking.
@@ -166,7 +166,8 @@ Load the `figma-use` skill before any `use_figma` call. Call `create_session` fo
 pass the returned `sessionId` on every later call. Before the first call that changes the canvas,
 also load `figma-generate-design` (or `figma-generate-library` when the deliverable is a reusable
 component, variable collection or style) and name it beside `figma-use` in `skillNames` on every
-changing call; read-only calls need neither. Keep each return under 48,000 bytes, because a larger
+changing call; read-only calls need neither and pass `skillNames: "figma-use,fm-<name>"`. Keep each
+return under 48,000 bytes, because a larger
 one is refused and the call's canvas edits are discarded. Read with `get_design_context` or
 `get_screenshot`, write with `use_figma`, and run the collect helper in Helper scripts through
 `use_figma` as written.

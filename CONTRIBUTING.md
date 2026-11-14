@@ -69,6 +69,6 @@ The repo's plans run through the subagent-driven-development process: one implem
 - Specs and plans: `docs/superpowers/specs/` and `docs/superpowers/plans/` (gitignored, local only).
 - Run ledgers: `.superpowers/sdd/<plan>/progress.md` (gitignored, local only; the sole record of a run's rulings until archived).
 - Archive of finished or superseded specification documents and retired plan workspaces: `docs/archive/` (gitignored like the rest of `docs/`; because a forced clean of ignored files would remove it, keep a backup of `docs/` outside the checkout, or decide to un-ignore `docs/archive/`).
-- Research corpus behind the Figma skill landscape and the validator's calibration: `.reference/figma-skills/` at the repo root (gitignored, local only; 111 bodies, 88 unique skills).
+- Research corpus behind the Figma skill landscape and the validator's calibration: `.reference/figma-skills/` at the repo root (gitignored, local only; 100 skill bodies: 38 in `community-skill-bodies/`, 62 in `qredence-skills/`).
 - Raw pitfall extraction behind this file: `docs/superpowers/notes/2026-11-03-plan-1-pitfalls-raw.md` (gitignored).
 - Live observations about the Figma runtime: `figma/fm-figma-skill-creator/references/agent-capabilities-and-tools.md` and each example's `EVAL-LOG.md`.

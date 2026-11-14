@@ -125,6 +125,8 @@ Track is one of `Product`, `MCP`, `Official skills`, `Plugin API`, `Observed`, a
 
 - **RN:** [Figma release notes](https://www.figma.com/release-notes/).
 - **PT:** [figma/plugin-typings](https://github.com/figma/plugin-typings) release date, used as a proxy because the Plugin API updates feed shows no dates.
+- **Figma blog:** [Figma blog](https://www.figma.com/blog/), the announcement post for the row's event.
+- **Plugin API updates:** [Plugin API updates](https://www.figma.com/plugin-docs/updates/), Figma's feed of Plugin API changes.
 - **MSG:** [figma/mcp-server-guide](https://github.com/figma/mcp-server-guide) commit date.
 - **Probe tables 2026-11-03:** the capability probe 1.0 run in the Figma Design agent and over MCP. Their tables in `references/agent-capabilities-and-tools.md` were replaced by the 2026-11-13 tables; the MCP table survives as the MCP baseline in `examples/fm-figma-capability-probe/EVAL-LOG.md`, the in-app run as its 2026-11-03 entry, and both tables in git history.
 - **MCP probe 2026-11-13:** the MCP-side run of 2026-11-13 (Specs over MCP, the 1.1 probe rerun, the return-size measurement, an embedded Spec on a Design canvas); run record `docs/superpowers/notes/2026-11-13-mcp-probe-and-specs-over-mcp.md`, local only.

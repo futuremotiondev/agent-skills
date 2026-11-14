@@ -48,7 +48,7 @@ The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-
   oracle-compare: no "Off-grid values:" line in the report
   ```
 
-  The agent printed the priority line as "Ranked values", so the compare stopped before it read a count or a row. `tests/compare.harness.mjs` pins this exit and the absent Result line. The one difference the compare reports, and every other line and row checked by hand against scope 3 of `tests/expected.json`:
+  The agent printed the priority line as "Ranked values", so the compare stopped before it read a count or a row. After the whole-branch review fix wave (2026-11-13) a missing priority line is a reported difference, and the same command exits 1 with 5 missing, 5 extra, 0 mismatched and 5 counts outside tolerance (the four priority counts and "On rhythm, no matching token"); `tests/compare.harness.mjs` pins that result. The one difference the compare reports, and every other line and row checked by hand against scope 3 of `tests/expected.json`:
 
   | Item | Report | Scope 3 | Kind |
   | --- | --- | --- | --- |
@@ -56,13 +56,15 @@ The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-
   | Frames measured | 842 | 844 | a number differs (−2, inside the tolerance of 4; Ruling 31) |
   | Bound values | 618 passed | 622 | a number differs (−4, inside the tolerance of 4; Ruling 31) |
   | Hidden skipped, absolute children | 9, 4 ("Absolute-positioned children excluded") | 9, 4 | the label or layout differs, the number agrees (the label is a known schema alias) |
+  | Title | "Spacing audit: Sections", plain text | `## Spacing rhythm audit: Sections` | the label or layout differs |
   | Mode | "Size tokens, Default mode" | tokens, `Size` | the label or layout differs, the number agrees |
+  | Scale | not printed | `Scale: 4 pt below 48, 8 pt from 48` | the line is left out |
   | Tokens off the 4/8 rhythm | "Space/150 = 6, used by 12 bound values" | `Space/150` = 6, 12 values | the label or layout differs, the number agrees |
-  | On rhythm, no matching token | not printed | 0 | the label or layout differs, the number agrees (a 0 left out) |
+  | On rhythm, no matching token | not printed | 0 | the line is left out (a 0); the compare reads an absent line as a difference |
   | Bind opportunities | no header line; "Another 42 unbound values" in a sentence; table after the main table | 42 across 7 tokens | the label or layout differs, the number agrees |
   | Bind opportunity counts | 15, 10, 6, 5, 4, 1, 1 | 15, 10, 6, 5, 4, 1, 1 | agree; example layers shortened, and `Space/400` shows `Accordion / Items` (`6031:7224`, in the oracle's id list, as in Round 3) for the oracle's `Footer / Footer / Platform=Desktop` |
   | Rows 1 to 10: property, current, nearest, fix, delta, priority | as scope 3 | as scope 3 | agree |
-  | Rows 1 to 10: layer path | shortened, for example "Hero (Slot) / Desktop / Slot" | "Hero Sections / Hero (Slot) / Platform=Desktop / Slot" | the label or layout differs, the number agrees |
+  | Rows 1 to 5: layer path | shortened, for example "Hero (Slot) / Desktop / Slot" | "Hero Sections / Hero (Slot) / Platform=Desktop / Slot" | the label or layout differs, the number agrees |
   | Rows 3 to 5: order | `AI -> Conversation`, `AI Sidebar`, `Checkbox Field` | the reverse | the label or layout differs, the number agrees (same priority and delta) |
   | Notes | "Direct child of a main component", "Main on AI Chat; inherited by 2 instances", "Tie: 16 or Space/600 (24)" | "", "inherited by 2 instances", "tie: Space/400 (16) or Space/600 (24)" | the label or layout differs, the number agrees |
   | Matched but not offered | Responsive (1 WIDTH_HEIGHT) | same | agree |
@@ -76,7 +78,7 @@ The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-
   [{"id":"I4317:11022;4317:10969","type":"INSTANCE","visible":true,"layoutMode":"HORIZONTAL","children":["I4317:11022;4317:10969;4317:319 FRAME","I4317:11022;4317:10969;4317:10864 SLOT"]},{"id":"I4317:11022;4317:10969;4317:10864","type":"SLOT","visible":true,"layoutMode":"VERTICAL","children":["I4317:11022;4317:10969;4317:10866 TEXT"]},{"id":"I4331:7195;4317:10969;4317:10864","type":"SLOT","visible":true,"layoutMode":"VERTICAL","children":["I4331:7195;4317:10969;4317:10866 TEXT"]}]
   ```
 
-  Both nested `Code` slots are listed, visible, `VERTICAL`, each with its text child, the same as the MCP run, so the in-app runtime reaches them: H1 and H2 are ruled out. The audit again read 842 frames and 618 bound values. What remains is H3: the in-app agent sometimes walks on its own rather than running the helper as written, and the chat cannot show which. No runtime difference goes into the capability reference; the helper is unchanged. Attempts 1 and 2 were faults of the automation's paste method, not of Figma: the scripted insert dropped the line breaks, so the leading `//` comment swallowed the script (attempt 1 returned "Plugin executed successfully" and no data), and with the comment removed the prompt box likely rewrote `(c)` (attempt 2 returned a SyntaxError). Attempt 3 sent the script on one line with the callback parameter renamed `kid`, its only difference from the Round 3 script.
+  Both nested `Code` slots are listed, visible, `VERTICAL`, each with its text child, the same as the MCP run, so the in-app runtime reaches them: H1 and H2 are ruled out. The audit again read 842 frames and 618 bound values. What remains is H3: most likely, by elimination, the agent ran its own walk rather than the helper as written; this is not confirmed, because the chat cannot show which, and the same 842 and 618 in three sessions point to a deterministic cause. No runtime difference goes into the capability reference; the helper is unchanged. Attempts 1 and 2 were faults of the automation's paste method, not of Figma: the scripted insert dropped the line breaks, so the leading `//` comment swallowed the script (attempt 1 returned "Plugin executed successfully" and no data), and with the comment removed the prompt box likely rewrote `(c)` (attempt 2 returned a SyntaxError). Attempt 3 sent the script on one line with the callback parameter renamed `kid`, its only difference from the Round 3 script.
 - **Credits:** 184 in nine turns, read from "View AI credit usage" under each response; the hand-off estimated about 100.
 
   | Step | Turn | Credits |
@@ -97,7 +99,7 @@ The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-
 
 #### Open finding: the agent rewrote the report template
 
-Recorded for Futuremotion's decision on whether the skill should insist on its template; no change is proposed here.
+Recorded for Futuremotion's decision on whether the skill should insist on its template; no change is proposed here. Its consequence: an in-app report of this audit does not compare clean today, so compare `--run` on MCP returns and check an in-app report's numbers by hand until the audit enforces its template (planned as separate work).
 
 | Master's Output contract | What the agent printed |
 | --- | --- |
