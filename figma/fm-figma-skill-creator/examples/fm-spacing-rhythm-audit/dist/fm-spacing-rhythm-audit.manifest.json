@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1",
+  "type": "skill",
+  "name": "fm-spacing-rhythm-audit",
+  "description": "Audits the selected frames against a 4/8 pt spacing rhythm and lists every off-grid padding and gap with the exact value, the nearest on-grid value, and a severity from P0 to P3; it snaps values only after the user confirms. With spacing tokens in the file it audits against those tokens and binds values to the matching variable. Use whenever the user asks to check the spacing, audit spacing, find off-grid padding or gaps, clean up the spacing, or asks whether a layout follows the 8 pt grid or the spacing scale. Not for restructuring layouts or converting frames to auto layout; it measures and snaps auto-layout padding and gaps only.",
+  "version": "2.2",
+  "author": "Futuremotion Studio",
+  "category": "Design systems",
+  "tags": [
+    "spacing",
+    "audit",
+    "8pt",
+    "padding",
+    "auto layout",
+    "tokens",
+    "variables"
+  ],
+  "appliesTo": [
+    "audit",
+    "variables",
+    "layout"
+  ],
+  "runtimes": [
+    "figma-design",
+    "figma-make",
+    "mcp"
+  ],
+  "editions": {
+    "upload": {
+      "path": "fm-spacing-rhythm-audit.figma.md",
+      "bodyLines": 482,
+      "approxTokens": 8478
+    },
+    "paste": {
+      "path": "fm-spacing-rhythm-audit.paste.md",
+      "bodyLines": 481,
+      "approxTokens": 8478
+    },
+    "codingAgent": {
+      "path": "claude/fm-spacing-rhythm-audit/SKILL.md",
+      "bodyLines": 161,
+      "approxTokens": 4991,
+      "helpers": [
+        "apply",
+        "collect",
+        "revert",
+        "verify"
+      ]
+    }
+  },
+  "enhancements": [
+    "revert",
+    "token-conformance"
+  ],
+  "cost": null,
+  "evalStatus": {
+    "lastEntry": "v2.2 oracle, 2026-11-13",
+    "date": "2026-11-13"
+  },
+  "source": {
+    "master": "../SKILL.md"
+  }
+}

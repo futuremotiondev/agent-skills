@@ -97,6 +97,52 @@ Known issues reported on the forum (July to October 2026): team-published skills
 Manage skills but not reachable by `/`; guests get no skills even with a Full seat, and it fails
 silently.
 
+## Manifest
+
+`dist/<name>.manifest.json` is derived only: the build writes it after every run that exits 0, from
+the master, its editions, and the `EVAL-LOG.md` beside it, with no timestamp, commit, or absolute
+path. The master is the truth, so a fact worth recording goes into the master's `metadata` block and
+the build copies it from there. Delete the manifest freely: no edition refers to it, the validator
+has no rule about it, and the next build restores it.
+
+| Key | Value |
+| --- | --- |
+| `schemaVersion` | `"1"` |
+| `type` | `"skill"` |
+| `name` | The master's `name` |
+| `description` | The master's `description` |
+| `version` | `metadata.version`, or null |
+| `author` | `metadata.author`, or null |
+| `category` | `metadata.category`, or null |
+| `tags` | `metadata.tags` split on commas and trimmed |
+| `appliesTo` | `metadata.applies-to` split on commas and trimmed |
+| `runtimes` | `metadata.runtimes` split on commas and trimmed |
+| `editions` | `upload`, `paste`, and `codingAgent`, each with `path` (relative to `dist/`), `bodyLines`, and `approxTokens`, counted as the validator counts them; `codingAgent` adds `helpers`, the helper names sorted |
+| `enhancements` | The enhancement-pack code regions (`// enhancement: <name> begin`) in core helpers, sorted and unique |
+| `cost` | `metadata.cost` when present, else null |
+| `evalStatus` | `lastEntry`, the first level-three heading under `## Entries` in `EVAL-LOG.md`, and `date`, the `YYYY-MM-DD` in it; both null without the file, the section, or an entry |
+| `source` | `master`, the master's path relative to `dist/`, with forward slashes |
+
+## History
+
+```text
+<skill folder>/
+  SKILL.md                    the master
+  overlay.claude.yaml         optional
+  history/
+    <metadata.version>/       verbatim: 2.2, 1.0.0
+      SKILL.md                byte copy of the master
+      overlay.claude.yaml     byte copy, only when the overlay exists
+  dist/                       never snapshotted
+```
+
+The build keeps one folder per `metadata.version`, holding byte copies of the master and the
+overlay only. It writes the folder on every successful build, so a rebuild at an unchanged version
+overwrites that version's snapshot and an edit without a version bump is not kept. To roll a skill
+back, copy the snapshot's `SKILL.md` over the master, and its `overlay.claude.yaml` over the overlay
+when it has one, and rebuild. A repository ignores the folder (this one's `.gitignore` has
+`**/history/`) because git is its history.
+
 ## Access, cost, and visibility
 
 - "Available on all plans. Users with Full seats can chat with the agent in Figma Design and Figma

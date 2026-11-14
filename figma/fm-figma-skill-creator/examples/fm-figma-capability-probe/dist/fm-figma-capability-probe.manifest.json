@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1",
+  "type": "skill",
+  "name": "fm-figma-capability-probe",
+  "description": "Reports which Plugin API surfaces the Figma agent's script runtime exposes, as a table of available, missing, and error results plus payload, timing, and style counts, then asks the user to paste the table back. Use whenever the user asks to probe, test, or check what the Figma agent can do, which APIs are available, or whether scripts can do X, or asks for a capability probe or runtime check. Not for auditing or changing designs; optional, for skill authors: no skill depends on it, no end user needs it installed, and it can be removed from Figma once its table has been pasted back.",
+  "version": "1.2",
+  "author": "Futuremotion Studio",
+  "category": "Workflows",
+  "tags": [
+    "probe",
+    "capabilities",
+    "plugin api",
+    "runtime",
+    "skill authoring"
+  ],
+  "appliesTo": [
+    "workflow",
+    "documentation"
+  ],
+  "runtimes": [
+    "figma-design",
+    "figma-make",
+    "figma-spec",
+    "mcp"
+  ],
+  "editions": {
+    "upload": {
+      "path": "fm-figma-capability-probe.figma.md",
+      "bodyLines": 341,
+      "approxTokens": 3645
+    },
+    "paste": {
+      "path": "fm-figma-capability-probe.paste.md",
+      "bodyLines": 340,
+      "approxTokens": 3645
+    },
+    "codingAgent": {
+      "path": "claude/fm-figma-capability-probe/SKILL.md",
+      "bodyLines": 94,
+      "approxTokens": 1755,
+      "helpers": [
+        "probe"
+      ]
+    }
+  },
+  "enhancements": [],
+  "cost": null,
+  "evalStatus": {
+    "lastEntry": "2026-11-13 · v1.2 · Figma Design agent, two runs",
+    "date": "2026-11-13"
+  },
+  "source": {
+    "master": "../SKILL.md"
+  }
+}

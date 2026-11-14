@@ -3,6 +3,8 @@
 // The contract is references/enhancement-packs.md; this module is its executable form, and
 // scripts/enhancement-packs.mjs is the command line over it. Exports:
 //   loadPack(dir)                          read and check enhancements/<name>/pack.json
+//   helperFences(lines)                    every fenced block, with its `// helper:` name or null
+//   scanCodeRegions(lines, fences)         every `// enhancement: <name> begin`/`end` region of any pack
 //   findUnits(lines, pack, { warn })       every unit of one pack in a master, in line order
 //   stripUnits(lines, units)               the master without those units, blank runs collapsed
 //   readUnits(text)                        the units an enhancement.md records, and its source master
@@ -120,6 +122,51 @@ function lastSentence(text) {
 }
 
 // ---------------------------------------------------------------------------
+// Code regions
+// ---------------------------------------------------------------------------
+
+/** Every fenced block of `lines` (fenceBlocks), each with `helper`: its `// helper:` name, or null. */
+export function helperFences(lines) {
+  return fenceBlocks(lines).map((f) => {
+    const m = f.close > f.open + 1 && HELPER_FENCE_LANG.test(f.lang) ? HELPER_MARKER.exec(lines[f.open + 1]) : null
+    return { ...f, helper: m ? m[1] : null }
+  })
+}
+
+/**
+ * Every enhancement code region in `lines`, of any pack, in line order: { name, begin, end, fence }
+ * with 0-based begin and end marker lines and the fence that holds them (an entry of `fences`, which
+ * defaults to helperFences(lines)). Every fenced line is read for region markers. Throws on a contract
+ * error: a region that begins inside another, an end with no begin or for another region, an end in a
+ * different fence from its begin, a region that never ends. findUnits and the builder's manifest read
+ * regions through this one scan.
+ */
+export function scanCodeRegions(lines, fences = helperFences(lines)) {
+  const inFence = scanFences(lines)
+  const fenceAt = (i) => fences.find((f) => i >= f.open && (f.close === -1 || i <= f.close)) || null
+  const regions = []
+  let open = null
+  for (let i = 0; i < lines.length; i++) {
+    if (!inFence[i]) continue
+    const m = REGION_MARKER.exec(lines[i])
+    if (!m) continue
+    const [, name, edge] = m
+    if (edge === "begin") {
+      if (open) throw new Error(`line ${i + 1}: region "${name}" begins inside region "${open.name}" (line ${open.line + 1}); regions never nest or interleave`)
+      open = { name, line: i, fence: fenceAt(i) }
+      continue
+    }
+    if (!open) throw new Error(`line ${i + 1}: "// enhancement: ${name} end" has no begin`)
+    if (open.name !== name) throw new Error(`line ${i + 1}: region "${open.name}" (line ${open.line + 1}) is closed by an end for "${name}"`)
+    if (fenceAt(i) !== open.fence) throw new Error(`line ${i + 1}: region "${name}" ends in a different fence from its begin (line ${open.line + 1})`)
+    regions.push({ name, begin: open.line, end: i, fence: open.fence })
+    open = null
+  }
+  if (open) throw new Error(`line ${open.line + 1}: region "${open.name}" never ends`)
+  return regions
+}
+
+// ---------------------------------------------------------------------------
 // findUnits
 // ---------------------------------------------------------------------------
 
@@ -132,10 +179,7 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
   const fm = parseFrontmatter(lines)
   const bodyStart = fm.present ? fm.closeLine + 1 : 0
   const inFence = scanFences(lines)
-  const fences = fenceBlocks(lines).map((f) => {
-    const m = f.close > f.open + 1 && HELPER_FENCE_LANG.test(f.lang) ? HELPER_MARKER.exec(lines[f.open + 1]) : null
-    return { ...f, helper: m ? m[1] : null }
-  })
+  const fences = helperFences(lines)
   const fenceAt = (i) => fences.find((f) => i >= f.open && (f.close === -1 || i <= f.close)) || null
 
   // Section per line: the nearest level-two heading above it, outside fences; "frontmatter" before the body.
@@ -176,33 +220,17 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
   const units = []
   const add = (kind, start, end, col, text, anchor, extra = {}) => units.push({ kind, start, end, col, text, anchor, ...extra })
 
-  // (a) Code regions: scan every fenced line for region markers of any pack, so nesting and
-  // interleaving are caught across packs; keep this pack's regions.
-  let open = null
-  for (let i = 0; i < lines.length; i++) {
-    if (!inFence[i]) continue
-    const m = REGION_MARKER.exec(lines[i])
-    if (!m) continue
-    const [, name, edge] = m
-    if (edge === "begin") {
-      if (open) throw new Error(`line ${i + 1}: region "${name}" begins inside region "${open.name}" (line ${open.line + 1}); regions never nest or interleave`)
-      open = { name, line: i, fence: fenceAt(i) }
-      continue
+  // (a) Code regions: scanCodeRegions reads every pack's regions, so nesting and interleaving are
+  // caught across packs; keep this pack's regions.
+  for (const r of scanCodeRegions(lines, fences)) {
+    if (r.name !== pack.codeRegion) continue
+    const f = r.fence
+    if (f && f.helper && r.begin === f.open + 2 && r.end === f.close - 1) {
+      add("fence", f.open, f.close, 0, lines.slice(f.open, f.close + 1).join("\n"), anchorFor(f.open))
+    } else {
+      add("code-region", r.begin, r.end, 0, lines.slice(r.begin, r.end + 1).join("\n"), anchorFor(r.begin))
     }
-    if (!open) throw new Error(`line ${i + 1}: "// enhancement: ${name} end" has no begin`)
-    if (open.name !== name) throw new Error(`line ${i + 1}: region "${open.name}" (line ${open.line + 1}) is closed by an end for "${name}"`)
-    if (fenceAt(i) !== open.fence) throw new Error(`line ${i + 1}: region "${name}" ends in a different fence from its begin (line ${open.line + 1})`)
-    if (name === pack.codeRegion) {
-      const f = open.fence
-      if (f && f.helper && open.line === f.open + 2 && i === f.close - 1) {
-        add("fence", f.open, f.close, 0, lines.slice(f.open, f.close + 1).join("\n"), anchorFor(f.open))
-      } else {
-        add("code-region", open.line, i, 0, lines.slice(open.line, i + 1).join("\n"), anchorFor(open.line))
-      }
-    }
-    open = null
   }
-  if (open) throw new Error(`line ${open.line + 1}: region "${open.name}" never ends`)
 
   // (b, c, d) Prose units: body lines outside fences and target markers.
   const claimed = new Set()

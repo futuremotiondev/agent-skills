@@ -321,3 +321,7 @@ export function mergeFields(base, overlay) {
 export function wordCount(lines) {
   return lines.join(" ").split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length
 }
+
+/** Estimated tokens for a word count. The validator's size rule and the builder's manifest share it. */
+export const TOKENS_PER_WORD = 1.35
+export const estimateTokens = (words) => Math.round(words * TOKENS_PER_WORD)

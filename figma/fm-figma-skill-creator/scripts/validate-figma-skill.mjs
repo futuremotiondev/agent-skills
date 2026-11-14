@@ -26,7 +26,7 @@ import { basename, dirname, resolve, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import {
   normalize, parseFrontmatter, getField, findFrontmatterLikeBlocks,
-  scanFences, scanRegions, wordCount, fenceBlocks, HELPER_FENCE_LANG,
+  scanFences, scanRegions, wordCount, estimateTokens, fenceBlocks, HELPER_FENCE_LANG,
 } from "./lib/skill-md.mjs"
 import { loadPack, findUnits, carriesPack, REGION_MARKER } from "./lib/enhancements.mjs"
 
@@ -490,7 +490,7 @@ if (!hasHeading(/final gate|output contract|output|checklist|done when|completio
 
 const bodyLineCount = bodyLines.filter((l) => l.trim() !== "").length
 const words = wordCount(bodyLines)
-const approxTokens = Math.round(words * 1.35)
+const approxTokens = estimateTokens(words)
 // Lines: the spec's 500 applies everywhere. Tokens: about 5k is coding-agent context guidance;
 // Figma enforces no body limit, so its editions warn only past its longest first-party skill (~12k).
 if (bodyLines.length > 500) report("body-size", `body is ${bodyLines.length} lines (${bodyLineCount} non-blank); spec recommends under 500`, null)
