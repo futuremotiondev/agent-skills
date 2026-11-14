@@ -387,7 +387,13 @@ const cases = {
           [show(r.byPriority) === show({ P0: 0, P1: 3, P2: 1, P3: 1 }), "byPriority P0 0, P1 3, P2 1, P3 1, got " + show(r.byPriority)],
           [!r.rows.some((x) => x.nearest === 0), "nearest 0 on " + show(r.rows.filter((x) => x.nearest === 0).map((x) => x.property))],
           [!r.rows.some((x) => x.fix && x.fix.value === 0), "fix.value 0 on " + show(r.rows.filter((x) => x.fix && x.fix.value === 0).map((x) => x.property))],
-        ])
+        ]).concat((() => {
+          // The live oracle run of the same frame on the seed file (scope 6) must return these rows too.
+          const scope6 = JSON.parse(readFileSync(join(here, "expected.json"), "utf8")).scopes.find((s) => s.scope === 6)
+          if (!scope6) return ["expected.json has no scope 6"]
+          const live = scope6.rows.map((x) => [x.priority, x.property, x.current, x.nearest, x.delta, x.note])
+          return check([[show(live) === show(got), "expected.json scope 6 rows " + show(live) + ", mock rows " + show(got)]])
+        })())
       },
     }
   },

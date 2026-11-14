@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-13",
+  "generated": "2026-11-14",
   "masterVersion": "2.3",
   "seedFileKey": "hSEurPqV8Dgzn9yTwPSnnL",
   "notokensFileKey": "idjl35MjLGg4IJtPPH86GA",
@@ -2412,6 +2412,277 @@
           },
           "ids": [
             "1:2"
+          ],
+          "count": 1
+        }
+      ]
+    },
+    {
+      "scope": 6,
+      "fileKey": "hSEurPqV8Dgzn9yTwPSnnL",
+      "page": "Seed",
+      "selection": [
+        "Tiny"
+      ],
+      "mode": "rhythm",
+      "counts": {
+        "framesMeasured": 1,
+        "hiddenSkipped": 0,
+        "notMeasurable": 0,
+        "byPriority": {
+          "P0": 0,
+          "P1": 3,
+          "P2": 1,
+          "P3": 1
+        }
+      },
+      "tokens": [
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 12,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 10,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": true,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": true,
+          "candidate": true
+        }
+      ],
+      "libraryTokens": "none",
+      "spacingCollection": {
+        "id": "VariableCollectionId:2:4",
+        "name": "Spacing",
+        "defaultModeName": "Default",
+        "min": 4,
+        "max": 16,
+        "minPositive": 4,
+        "minNegative": null
+      },
+      "matchedCollections": [
+        {
+          "name": "Legacy",
+          "count": 1,
+          "reasons": "1 not elected"
+        }
+      ],
+      "unbound": [],
+      "onRhythmNoToken": 0,
+      "aliasMatched": 0,
+      "boundPassed": 0,
+      "offRhythmTokens": [],
+      "rows": [
+        {
+          "id": "32:8",
+          "path": "Tiny",
+          "group": "Tiny",
+          "property": "Padding left",
+          "current": 0.5,
+          "nearest": 4,
+          "delta": 3.5,
+          "priority": "P1",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "set",
+            "value": 4,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "32:8"
+          ],
+          "count": 1
+        },
+        {
+          "id": "32:8",
+          "path": "Tiny",
+          "group": "Tiny",
+          "property": "Padding top",
+          "current": 1,
+          "nearest": 4,
+          "delta": 3,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 4,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "32:8"
+          ],
+          "count": 1
+        },
+        {
+          "id": "32:8",
+          "path": "Tiny",
+          "group": "Tiny",
+          "property": "Padding right",
+          "current": 2,
+          "nearest": 4,
+          "delta": 2,
+          "priority": "P1",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 4,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "32:8"
+          ],
+          "count": 1
+        },
+        {
+          "id": "32:8",
+          "path": "Tiny",
+          "group": "Tiny",
+          "property": "Padding bottom",
+          "current": 3,
+          "nearest": 4,
+          "delta": 1,
+          "priority": "P2",
+          "boundId": null,
+          "note": "",
+          "fix": {
+            "kind": "set",
+            "value": 4,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "32:8"
+          ],
+          "count": 1
+        },
+        {
+          "id": "32:8",
+          "path": "Tiny",
+          "group": "Tiny",
+          "property": "Gap",
+          "current": 2,
+          "nearest": 4,
+          "delta": 2,
+          "priority": "P3",
+          "boundId": null,
+          "note": "2 px half-step",
+          "fix": {
+            "kind": "set",
+            "value": 4,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "32:8"
           ],
           "count": 1
         }

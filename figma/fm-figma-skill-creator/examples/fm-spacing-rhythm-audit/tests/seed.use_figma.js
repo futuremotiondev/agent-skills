@@ -135,6 +135,7 @@ row.push(ensureNode("Bound padding", () => {
 }));
 row.push(ensureNode("Fractional", () => frame(all(15.5))));
 row.push(ensureNode("Hidden scratch", () => { const f = frame(all(7)); f.visible = false; return f; }));
+row.push(ensureNode("Tiny", () => frame({ top: 1, right: 2, bottom: 3, left: 0.5, gap: 2 }))); // scope 6 only, outside SEED_SELECTION: values below 4 snap to 4, never to 0
 row.push(ensureNode("Token card", () => frame({ ...all(8), gap: 6 })));
 row.push(ensureNode("Alias card", () => {
   const f = frame({ top: 8, right: 8, bottom: 8, left: 8 });
