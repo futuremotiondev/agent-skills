@@ -4,7 +4,8 @@
 // scripts/enhancement-packs.mjs is the command line over it. Exports:
 //   loadPack(dir)                          read and check enhancements/<name>/pack.json
 //   helperFences(lines)                    every fenced block, with its `// helper:` name or null
-//   scanCodeRegions(lines, fences)         every `// enhancement: <name> begin`/`end` region of any pack
+//   scanCodeRegions(lines, fences)         every `// enhancement: <name> begin`/`end` region of any pack,
+//                                          read in javascript and js fences only
 //   findUnits(lines, pack, { warn })       every unit of one pack in a master, in line order
 //   stripUnits(lines, units)               the master without those units, blank runs collapsed
 //   readUnits(text)                        the units an enhancement.md records, and its source master
@@ -136,20 +137,22 @@ export function helperFences(lines) {
 /**
  * Every enhancement code region in `lines`, of any pack, in line order: { name, begin, end, fence }
  * with 0-based begin and end marker lines and the fence that holds them (an entry of `fences`, which
- * defaults to helperFences(lines)). Every fenced line is read for region markers. Throws on a contract
- * error: a region that begins inside another, an end with no begin or for another region, an end in a
- * different fence from its begin, a region that never ends. findUnits and the builder's manifest read
- * regions through this one scan.
+ * defaults to helperFences(lines)). Region markers are read only inside javascript and js fences
+ * (HELPER_FENCE_LANG), as the validator reads them: a marker shown in a fence of another language, a
+ * `markdown` example or a `ts` snippet, is ordinary text. Throws on a contract error: a region that
+ * begins inside another, an end with no begin or for another region, an end in a different fence from
+ * its begin, a region that never ends. findUnits and the builder's manifest read regions through this
+ * one scan.
  */
 export function scanCodeRegions(lines, fences = helperFences(lines)) {
-  const inFence = scanFences(lines)
   const fenceAt = (i) => fences.find((f) => i >= f.open && (f.close === -1 || i <= f.close)) || null
   const regions = []
   let open = null
   for (let i = 0; i < lines.length; i++) {
-    if (!inFence[i]) continue
     const m = REGION_MARKER.exec(lines[i])
     if (!m) continue
+    const host = fenceAt(i)
+    if (!host || !HELPER_FENCE_LANG.test(host.lang)) continue
     const [, name, edge] = m
     if (edge === "begin") {
       if (open) throw new Error(`line ${i + 1}: region "${name}" begins inside region "${open.name}" (line ${open.line + 1}); regions never nest or interleave`)
@@ -550,7 +553,17 @@ export function insertUnits(lines, units, { warn = () => {} } = {}) {
     })
     return { fm, bodyStart, inFence, fences, sections: sectionsOf(out, inFence, bodyStart) }
   }
-  const findSection = (s, name) => s.sections.find((x) => x.name === name) || (name ? s.sections.find((x) => x.name && sectionKey(x.name) === sectionKey(name)) : null) || null
+  /**
+   * The one section a unit's recorded section name picks out: the section with exactly that name, or,
+   * when none has it, the one whose name before any colon matches. A name that two sections carry
+   * picks none, like a missing one (rule h: nothing is placed by guessing); sectionMiss says which.
+   */
+  const sectionMatches = (s, name) => {
+    const exact = s.sections.filter((x) => x.name === name)
+    return exact.length || !name ? exact : s.sections.filter((x) => x.name && sectionKey(x.name) === sectionKey(name))
+  }
+  const findSection = (s, name) => { const m = sectionMatches(s, name); return m.length === 1 ? m[0] : null }
+  const sectionMiss = (s, name) => { const n = sectionMatches(s, name).length; return n > 1 ? `section "${name}" matches ${n} sections` : `section "${name}" not found` }
   const fenceAt = (s, k) => s.fences.find((x) => k >= x.open && (x.close === -1 || k <= x.close)) || null
   const prevNonBlankAt = (i) => { for (let k = i - 1; k >= 0; k--) if (!isBlank(out[k])) return out[k]; return null }
   const ok = (line) => ({ line })
@@ -598,7 +611,7 @@ export function insertUnits(lines, units, { warn = () => {} } = {}) {
       if (hosts.length !== 1) return fail(hosts.length ? `${hosts.length} helpers are named "${helper}"` : `no helper "${helper}"`)
       ranges = [[hosts[0].open, hosts[0].close]]
     } else {
-      if (!sec) return fail(`section "${section}" not found`)
+      if (!sec) return fail(sectionMiss(s, section))
       if (it.kind === "code-region") ranges = s.fences.filter((x) => !x.helper && HELPER_FENCE_LANG.test(x.lang) && x.open >= sec.start && x.open <= sec.end).map((x) => [x.open, x.close])
       else ranges = [[sec.start, sec.end]]
     }
@@ -613,6 +626,7 @@ export function insertUnits(lines, units, { warn = () => {} } = {}) {
       return !f || k === f.close
     }
     if (afterHelper) {
+      if (!sec) return fail(sectionMiss(s, section))
       const hosts = s.fences.filter((x) => x.helper === afterHelper && x.close !== -1 && sec && x.open >= sec.start && x.close <= sec.end)
       if (hosts.length !== 1) return fail(hosts.length ? `${hosts.length} helpers are named "${afterHelper}" in ${where}` : `no helper "${afterHelper}" in ${where}`)
       return ok(hosts[0].close)
@@ -629,7 +643,7 @@ export function insertUnits(lines, units, { warn = () => {} } = {}) {
   const locateInline = (it, s) => {
     const { section, after } = it.anchor
     const sec = findSection(s, section)
-    if (!sec) return fail(`section "${section}" not found`)
+    if (!sec) return fail(sectionMiss(s, section))
     if (after === null) return fail(`it has no sentence before it to follow`)
     const cands = []
     for (let k = sec.start; k <= sec.end; k++) {
@@ -643,7 +657,7 @@ export function insertUnits(lines, units, { warn = () => {} } = {}) {
     const f = helper ? s.fences.filter((x) => x.helper === helper && x.close !== -1) : []
     if (helper && f.length !== 1) return fail(f.length ? `${f.length} helpers are named "${helper}"` : `no helper "${helper}"`)
     const sec = helper ? { start: f[0].open + 1, end: f[0].close - 1 } : findSection(s, section)
-    if (!sec) return fail(`section "${section}" not found`)
+    if (!sec) return fail(sectionMiss(s, section))
     let cands = []
     for (let k = sec.start; k <= sec.end; k++) if (out[k] === it.to) cands.push(k)
     if (cands.length > 1) cands = cands.filter((k) => prevNonBlankAt(k) === after)

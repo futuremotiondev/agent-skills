@@ -93,7 +93,7 @@ const RULES = [
   { id: "helper-form", editions: ["master", ...FIGMA], severity: "error", basis: "script contract (observed 2026-11-13): both script tools take a result only from a top-level return, so a helper is top-level await and a final return with no function wrapper" },
   { id: "helper-placement", editions: ["master"], severity: "warn", basis: "build contract: helpers live in the core `## Helper scripts` section, first line `// helper: <name>`; a fence in a target region ships to one runtime only" },
   { id: "gate-tool", editions: ["master"], severity: "warn", basis: "question contract: every gate says \"through a structured question tool when the runtime has one\", and the target:figma-app section names ask_user_question" },
-  { id: "enhancement-regions", editions: ["master"], severity: "error", basis: "enhancement-pack contract rule (a): every `// enhancement: <name> begin` has its end in the same fence, regions never nest, and the name is a shipped pack's code region" },
+  { id: "enhancement-regions", editions: ["master"], severity: "error", basis: "enhancement-pack contract rule (a): every `// enhancement: <name> begin` has its end in the same javascript or js fence, regions never nest, and the name is a shipped pack's code region; also any other contract error the pack library stops on (an ambiguous declared line or sentence, a phrase in a table row)" },
   { id: "enhancement-tags", editions: ["master"], severity: "warn", basis: "enhancement-pack contract: a pack is one unit, so its prose phrase and its code region travel together (checked when the master carries the pack's metadata tag, or for a pack with no tags when either side is present)" },
   { id: "enhancement-surfaces", editions: ["master"], severity: "warn", basis: "enhancement-pack contract rule (i): a pack whose surfaces do not cover the skill's figma-* runtimes needs a surface guard in its code region" },
   { id: "placeholders-frontmatter", editions: ALL, severity: "error", basis: "a name or description still holding <verb> or <object> is an unfinished template" },
@@ -450,7 +450,9 @@ if (edition === "master") {
 // ---------------------------------------------------------------------------
 // Enhancement packs (master only). The packs are the creator's own, in enhancements/ beside this
 // scripts folder; references/enhancement-packs.md is the contract. Region markers are read inside
-// javascript and js fences only.
+// javascript and js fences only, here and in the library (scanCodeRegions), so a marker shown in a
+// fence of another language is ordinary text. enhancement-regions reports this scan's findings and
+// every other contract error the library stops on for the master.
 // ---------------------------------------------------------------------------
 
 if (edition === "master") {
@@ -520,13 +522,23 @@ if (edition === "master") {
     // The pack is in the master when its phrase or its code region is (carriesPack): a declared line
     // alone (a bare table separator, say) can occur in any skill and proves nothing.
     const uncovered = surfaces.filter((s) => !pack.surfaces.includes(s))
-    // A guard anywhere in the helper that holds a region counts (rule i: the guard goes in the helper).
-    const guarded = code.some((u) => /figma\.editorType|skipped in a Spec file/.test(fenceText(u.start)))
+    // Rule i: the guard goes in the helper. A guard anywhere in a helper covers that helper's regions,
+    // and only those: each fence that holds a code unit needs its own.
+    const GUARD = /figma\.editorType|skipped in a Spec file/
+    const unguarded = []
+    for (const u of code) {
+      const f = fencesAll.find((x) => u.start >= x.open && (x.close === -1 || u.start <= x.close))
+      if (!f || unguarded.some((x) => x.f === f) || GUARD.test(fenceText(u.start))) continue
+      const m = HELPER_MARKER.exec(lines[f.open + 1] ?? "")
+      unguarded.push({ f, u, label: m ? `"${m[1]}"` : `at line ${f.open + 1}` })
+    }
     const at = (code[0] ?? prose[0])?.start
     if (carriesPack(units) && uncovered.length && uncovered.length === surfaces.length) {
-      report("enhancement-surfaces", `the ${pack.name} pack runs on none of the skill's surfaces (${surfaces.join(", ")}; it runs on ${pack.surfaces.join(", ")}); remove the pack, or narrow metadata.runtimes to surfaces it runs on`, at + 1)
-    } else if (carriesPack(units) && uncovered.length && !guarded) {
-      report("enhancement-surfaces", `the ${pack.name} pack runs on ${pack.surfaces.join(", ")}, not on ${uncovered.join(", ")}; add a surface guard to the helper that holds its code region (one that prints "skipped in a Spec file") or narrow metadata.runtimes`, at + 1)
+      report("enhancement-surfaces", `the ${pack.name} pack runs on none of the skill's surfaces (${surfaces.join(", ")}; it runs on ${pack.surfaces.join(", ")}); remove the pack: narrowing metadata.runtimes cannot give it a surface it runs on`, at + 1)
+    } else if (carriesPack(units) && uncovered.length && (!code.length || unguarded.length)) {
+      const where = !code.length ? "the helper that holds its code region"
+        : `the helper${unguarded.length === 1 ? "" : "s"} ${unguarded.map((x) => x.label).join(", ")}, which hold${unguarded.length === 1 ? "s" : ""} its code region`
+      report("enhancement-surfaces", `the ${pack.name} pack runs on ${pack.surfaces.join(", ")}, not on ${uncovered.join(", ")}; add a surface guard (one that prints "skipped in a Spec file") to ${where}, or narrow metadata.runtimes`, (unguarded[0]?.u.start ?? at) + 1)
     }
   }
 }

@@ -584,6 +584,22 @@ const cases = {
   },
 
   // Task 8, carried items.
+  "a section name that two sections carry is a fallback with a warning, never a silent placement": () => {
+    // Strip revert, then add a second "## Instructions" before the real one, holding a copy of the Verify line the revert block anchors on.
+    const noRevert = stripAll(masterLines, [REVERT]).lines
+    const verifyLine = noRevert.find((l) => l.startsWith("7. **Verify.**"))
+    const at = noRevert.indexOf("## Instructions")
+    const lines = [...noRevert.slice(0, at), "## Instructions", "", verifyLine, "", ...noRevert.slice(at)]
+    const out = join(tmp, "dup-section-back.md")
+    const r = cli("expand", writeMaster("dup-section.md", lines), "--pack", "revert", "--out", out)
+    if (r.status !== 0) return [`exit ${r.status}: ${tail(r.out)}`]
+    const warns = r.out.split("\n").filter((l) => l.startsWith("expand warning:"))
+    const back = normalize(readFileSync(out, "utf8")).split("\n")
+    const first = back.indexOf("## Instructions")
+    const decoy = back.slice(first, back.indexOf("## Instructions", first + 1))
+    return check([[warns.length >= 1 && warns.some((l) => /section "Instructions" matches 2 sections/.test(l)), `warnings: ${JSON.stringify(warns)}`],
+      [!decoy.some((l) => l.includes("Revert")), `a revert unit went into the decoy section: ${JSON.stringify(decoy)}`]])
+  },
   "the validator does not double the pack name on a library message that starts with it": () => {
     const s = TOKENS.proseSentences[0]
     const host = masterLines.findIndex((l) => l.includes(s))
@@ -591,6 +607,33 @@ const cases = {
     const f = findingsFor("doubled-prefix.md", lines, "enhancement-regions")
     return check([[f.length === 1 && /^token-conformance: declared prose sentence matches 2 times/.test(f[0].message), `findings: ${JSON.stringify(f)}`],
       [!f.some((x) => x.message.includes("token-conformance: token-conformance:")), "the pack name is doubled"]])
+  },
+  "a region marker shown in a markdown or ts fence is ordinary text for the library and the validator": () => {
+    const lines = masterWith("```markdown\n// enhancement: revert begin\n```\n\n```ts\n// enhancement: token-conformance end\n```")
+    const problems = []
+    for (const [p, want] of [[TOKENS, 39], [REVERT, 8]]) {
+      try { const n = findUnits(lines, p).length; if (n !== want) problems.push(`${p.name}: ${n} units, expected ${want}`) } catch (e) { problems.push(`${p.name}: threw ${e.message}`) }
+    }
+    const f = findingsFor("shown-markers.md", lines, null).filter((x) => x.severity === "error" || x.rule.startsWith("enhancement-"))
+    const r = cli("strip", writeMaster("shown-markers-cli.md", lines), "--pack", "revert", "--out", join(tmp, "shown-markers-stripped.md"))
+    return [...problems, ...check([[f.length === 0, `validator: ${JSON.stringify(f)}`], [r.status === 0, `strip exit ${r.status}: ${tail(r.out)}`]])]
+  },
+  "enhancement-surfaces: a guard in one helper does not cover a region in another": () => {
+    const region = ["// enhancement: token-conformance begin", "const t = 1;", "// enhancement: token-conformance end"]
+    const guard = 'if (figma.editorType === "figspec") return { skipped: "skipped in a Spec file" };'
+    const two = (g1, g2) => packMaster("audit", "figma-design, figma-spec, mcp", "```javascript", "// helper: one", ...g1, ...region, "return 1", "```", "",
+      "```javascript", "// helper: two", ...g2, ...region, "return 2", "```")
+    const oneGuarded = findingsFor("v-surf-one.md", two([guard], []), "enhancement-surfaces")
+    const bothGuarded = findingsFor("v-surf-both.md", two([guard], [guard]), "enhancement-surfaces")
+    return check([[oneGuarded.length === 1 && /"two"/.test(oneGuarded[0].message) && oneGuarded[0].line === 24,`one guarded: ${JSON.stringify(oneGuarded)}`],
+      [bothGuarded.length === 0, `both guarded: ${JSON.stringify(bothGuarded)}`]])
+  },
+  "no overlap advises removing the pack, in the validator and in contract rule (i)": () => {
+    const region = ["// enhancement: token-conformance begin", "const t = 1;", "// enhancement: token-conformance end"]
+    const none = findingsFor("v-surf-none-advice.md", packMaster("audit", "figma-spec, mcp", ...helper(...region, "return 1")), "enhancement-surfaces")
+    const contract = readFileSync(join(creator, "references", "enhancement-packs.md"), "utf8").split("\n").find((l) => l.startsWith("- **No overlap**")) || ""
+    return check([[none.length === 1 && /remove the pack/.test(none[0].message) && !/or narrow/.test(none[0].message), `message: ${JSON.stringify(none.map((f) => f.message))}`],
+      [/remove/.test(contract) && !/offers to narrow/.test(contract), `contract: ${contract}`]])
   },
 }
 
