@@ -9,8 +9,8 @@
 //
 // A unit is { kind, start, end, col, text, anchor: { section, helper, after } } with 0-based lines;
 // a line-rewrite unit also carries `to`. Contract errors (nested regions, an unpartnered marker, an
-// ambiguous declared line, a declared prose sentence missing or repeated, the phrase in a table row)
-// throw; any other declared item the master does not contain is passed to `warn`.
+// ambiguous declared line or prose sentence, the phrase in a table row) throw; a declared item the
+// master does not contain is passed to `warn`.
 //
 // Dependency-free. Parsing of frontmatter and fences goes through skill-md.mjs.
 
@@ -227,14 +227,15 @@ export function findUnits(lines, pack, { warn = () => {} } = {}) {
     }
   }
 
-  // (f) Declared prose sentences: exact text in body prose, matched exactly once; anything else is an error.
+  // (f) Declared prose sentences: exact text in body prose. Missing is a warning, like the other declared
+  // items (a master without the pack passes through strip); more than one match is an error.
   for (const s of pack.proseSentences) {
     const hits = []
     for (let i = bodyStart; i < lines.length; i++) {
       if (inFence[i] || isMarker(lines[i])) continue
       for (let p = lines[i].indexOf(s); p !== -1; p = lines[i].indexOf(s, p + 1)) hits.push({ i, p })
     }
-    if (hits.length === 0) throw new Error(`${pack.name}: declared prose sentence not found: ${s}`)
+    if (hits.length === 0) { warn(`${pack.name}: declared prose sentence not found: ${s}`); continue }
     if (hits.length > 1) throw new Error(`${pack.name}: declared prose sentence matches ${hits.length} times, at ${hits.map((h) => `line ${h.i + 1}`).join(" and ")}: ${s}`)
     const { i, p } = hits[0]
     // A declared sentence must not overlap a unit the phrase already found.

@@ -206,7 +206,12 @@ const cases = {
   "a region that never ends is an error": () => throwsWith(tiny(...helper("// enhancement: p begin", "x")), P, /never ends/),
   "an ambiguous template line is an error": () => throwsWith(tiny("```markdown", "- Bound: <n>", "- Bound: <n>", "```"), { ...P, templateLines: ["- Bound: <n>"] }, /exactly one/),
   "an ambiguous line rewrite is an error": () => throwsWith(tiny(...helper("let M = 1;", "let M = 1;")), { ...P, lineRewrites: [{ from: "let M = 1;", to: "let M = 2;" }] }, /matches 2 lines/),
-  "a missing declared prose sentence is an error": () => throwsWith(tiny("Some prose."), { ...P, proseSentences: ["Token mode adds lines."] }, /prose sentence.*not found/),
+  "a missing declared prose sentence is a warning that names it": () => {
+    const warns = []
+    let units = null
+    try { units = findUnits(tiny("Some prose."), { ...P, proseSentences: ["Token mode adds lines."] }, { warn: (m) => warns.push(m) }) } catch (e) { return [`threw: ${e.message}`] }
+    return check([[units.length === 0, `${units.length} units`], [warns.length === 1 && warns[0].includes("Token mode adds lines."), `warnings: ${JSON.stringify(warns)}`]])
+  },
   "an ambiguous declared prose sentence is an error": () => throwsWith(tiny("Token mode adds lines. Token mode adds lines."), { ...P, proseSentences: ["Token mode adds lines."] }, /prose sentence.*2 times.*line 12/),
   "a missing template line, rewrite, description sentence, or tag is a warning": () => {
     const warns = []
@@ -214,6 +219,33 @@ const cases = {
     return check([[warns.length === 4, `${warns.length} warnings`]])
   },
   "a phrase inside a table row is an error": () => throwsWith(masterWith("| Mode | Token mode: binds | Rhythm mode: sets |"), TOKENS, /line \d+: .*table row/),
+
+  // A master the pack is absent from passes through strip: exit 0, unchanged, with warnings.
+  "stripping a pack a second time exits 0, changes nothing, and warns": () => {
+    const problems = []
+    for (const name of ["token-conformance", "revert"]) {
+      const once = join(tmp, `once-${name}.md`), twice = join(tmp, `twice-${name}.md`)
+      const r1 = cli("strip", MASTER, "--pack", name, "--out", once)
+      const r2 = cli("strip", once, "--pack", name, "--out", twice)
+      problems.push(...check([[r1.status === 0, `${name}: first strip exit ${r1.status}`], [r2.status === 0, `${name}: second strip exit ${r2.status}: ${r2.out.trim().split("\n").pop()}`],
+        [r2.status !== 0 || readFileSync(twice, "utf8") === readFileSync(once, "utf8"), `${name}: second strip changed the file`],
+        [/warning: .*not found/.test(r2.out), `${name}: second strip printed no warning`]]))
+    }
+    return problems
+  },
+  "stripping each pack from a master with no pack tags leaves it byte-identical": () => {
+    const src = join(creator, "templates", "type-standards-qa-audit.md")
+    const copy = join(tmp, "untagged.md")
+    copyFileSync(src, copy)
+    const problems = []
+    for (const name of ["token-conformance", "revert"]) {
+      const out = join(tmp, `untagged-no-${name}.md`)
+      const r = cli("strip", copy, "--pack", name, "--out", out)
+      problems.push(...check([[r.status === 0, `${name}: exit ${r.status}: ${r.out.trim().split("\n").pop()}`],
+        [r.status !== 0 || readFileSync(out).equals(readFileSync(src)), `${name}: output differs from the template`]]))
+    }
+    return problems
+  },
 
   // Finding 1: ordinary sentences that merely start with the phrase's words are not units.
   "ordinary sentences survive a strip of each pack untouched": () => {

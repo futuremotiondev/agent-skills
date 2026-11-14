@@ -135,7 +135,7 @@ Previous is the human record; the revert list is the apply result.
 
 Four kinds of change cannot carry a phrase and are declared instead.
 
-`proseSentences` are pack sentences in the body's prose that do not start with the phrase. Each entry is matched exactly, outside fences, and must match exactly once: a declared sentence that is missing, or that matches more than once, stops the tools with an error naming the lines, and so does one that overlaps a unit the phrase already tags. It is stripped like a sentence unit. The audit master declares two, both in the Output contract paragraph:
+`proseSentences` are pack sentences in the body's prose that do not start with the phrase. Each entry is matched exactly, outside fences. A declared sentence that the master does not contain is a warning that names it, and nothing is removed for it, as with every other declared item. A declared sentence that matches more than once stops the tools with an error naming the lines, because they cannot know which to cut, and so does one that overlaps a unit the phrase already tags. It is stripped like a sentence unit. The audit master declares two, both in the Output contract paragraph:
 
 ```markdown
 Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), ...; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4.
@@ -154,7 +154,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
 
 ### (g) Stripping keeps a working master
 
-`strip` removes the units of each named pack, applies its rewrites, removes its description sentences and tags, and collapses runs of blank lines. The result must validate with 0 errors (`validate-figma-skill.mjs --edition master`) and every helper in it must parse, which `build-skill-editions.mjs` checks before it writes. Stripping `token-conformance` from the audit master leaves the plain rhythm audit with four helpers; stripping `revert` leaves three. A declared template line, line rewrite, description sentence, or tag that the master does not contain is reported on standard error and skipped; a missing declared prose sentence is an error (rule f).
+`strip` removes the units of each named pack, applies its rewrites, removes its description sentences and tags, and collapses runs of blank lines. The result must validate with 0 errors (`validate-figma-skill.mjs --edition master`) and every helper in it must parse, which `build-skill-editions.mjs` checks before it writes. Stripping `token-conformance` from the audit master leaves the plain rhythm audit with four helpers; stripping `revert` leaves three. A declared item that the master does not contain is reported on standard error and skipped, so a master without the pack, never tagged or already stripped, passes through `strip` unchanged.
 
 ### (h) Expanding into a master without an anchor
 
