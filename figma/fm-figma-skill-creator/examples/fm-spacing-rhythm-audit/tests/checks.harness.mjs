@@ -213,6 +213,22 @@ const cases = {
     }
     return problems
   },
+  // The committed lint config: history/ snapshots are git-ignored copies of masters, so the lint skips them.
+  "the committed markdownlint config ignores history/ snapshots, and a lint run with it skips one": () => {
+    const config = JSON.parse(readFileSync(join(creator, "..", "..", ".markdownlint-cli2.jsonc"), "utf8"))
+    // A lint run from a scratch root holding the committed config, one clean file, and a snapshot that fails MD041 and MD047.
+    const root = join(tmp, "lint-root")
+    mkdirSync(join(root, "skill", "history", "0.1"), { recursive: true })
+    cpSync(join(creator, "..", "..", ".markdownlint-cli2.jsonc"), join(root, ".markdownlint-cli2.jsonc"))
+    writeFileSync(join(root, "skill", "SKILL.md"), "# Clean\n\nOne paragraph.\n")
+    writeFileSync(join(root, "skill", "history", "0.1", "SKILL.md"), "no heading and no final newline")
+    const r = spawnSync(process.platform === "win32" ? "npx.cmd" : "npx", ["--yes", "markdownlint-cli2", "**/*.md"], { cwd: root, encoding: "utf8", shell: process.platform === "win32" })
+    const out = (r.stdout || "") + (r.stderr || "")
+    return check([[Array.isArray(config.ignores) && config.ignores.includes("**/history/**"), `ignores: ${JSON.stringify(config.ignores)}`],
+      [r.status === 0 && /Linting: 1 file/.test(out) && /Summary: 0 issues/.test(out), `lint exit ${r.status}: ${out.trim().split("\n").slice(-3).join(" | ")}`],
+      // The "Finding:" line echoes the ignore glob itself, so look for the snapshot's own path.
+      [!/history[\\/]0\.1/.test(out), "the lint output names the snapshot"]])
+  },
   "check-all never reads a history/ folder: a broken snapshot beside each master changes nothing": () => {
     const root = scratchCreator("history-guard", ["scripts", "enhancements", "references", "examples/fm-spacing-rhythm-audit/SKILL.md", "examples/fm-figma-capability-probe/SKILL.md"])
     for (const ex of ["fm-spacing-rhythm-audit", "fm-figma-capability-probe"]) {

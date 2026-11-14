@@ -15,7 +15,7 @@ How Futuremotion Studio works on this repository, and the pitfalls that have alr
 
 ## Verification gates
 
-Two commands. The first runs from the Figma skill creator's folder, `figma/fm-figma-skill-creator`; the second runs from the repository root and reads the committed `.markdownlint-cli2.jsonc` there (MD013 off; `node_modules`, `tests/fixtures`, `dist`, and `.reference` ignored):
+Two commands. The first runs from the Figma skill creator's folder, `figma/fm-figma-skill-creator`; the second runs from the repository root and reads the committed `.markdownlint-cli2.jsonc` there (MD013 off; `node_modules`, `tests/fixtures`, `dist`, `.reference`, and `history` ignored):
 
 ```bash
 node scripts/check-all.mjs
@@ -37,7 +37,7 @@ Run the gates on the tree you are about to integrate, not on the tree that passe
 | A `// helper:` marker or a `/tmp` path is silently rewritten | Git Bash (MSYS) converts arguments that look like paths, and Node resolves `/tmp` as `D:\tmp` while Bash rewrites it | Set `MSYS_NO_PATHCONV=1` when passing `//` strings, use the session scratchpad or repo-relative paths for fixtures, and confirm a size probe fails on a deliberately oversized file before trusting a pass |
 | A Bash call is refused by a hook with no stderr | The dotnet-claude-kit pre-bash guard rejects the recursive delete flag pair anywhere in the command text, including inside heredocs and echoed strings | Delete with PowerShell `Remove-Item -Recurse -Force` or one path at a time; write files that mention the pattern with the editor tools |
 | `git -C <root> log -- <file>` prints nothing for a tracked file | With `-C`, pathspecs resolve against the repo root, not the shell's cwd | Pass root-relative paths or `cd` first |
-| markdownlint reports hundreds of MD013 line-length errors | It ran without the repository's config, from a folder other than the root | Run it from the repository root, where the committed `.markdownlint-cli2.jsonc` turns MD013 off and ignores `tests/fixtures/`, `dist/`, and `.reference/` |
+| markdownlint reports hundreds of MD013 line-length errors | It ran without the repository's config, from a folder other than the root | Run it from the repository root, where the committed `.markdownlint-cli2.jsonc` turns MD013 off and ignores `tests/fixtures/`, `dist/`, `.reference/`, and the builder's `history/` snapshots |
 | MD022 or MD032 on a comment line, MD024 on repeated deck headings, a table swallowed into a bullet | markdownlint treats HTML comments as content; rerun logs repeat headings; CommonMark continues a list item across a pipe line | Blank lines around comment lines; prefix repeated headings with the round; put tables before bullets, not under them |
 | A validator flag "works" on the wrong input | `--description` takes the text itself, never a file path; multi-word text must be one quoted argument with inner quotes escaped | See the gates above |
 | The Figma MCP steps are blocked at session start | The `figma-desktop` server refuses connections | Use the remote `figma` server; `use_figma` also requires a `description` argument |
