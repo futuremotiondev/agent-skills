@@ -121,7 +121,7 @@ The phrase in the middle of a line starts a sentence unit: from the phrase to th
 - **Values bound to variables.** Never overwrite an existing binding. In rhythm mode, report the variable name and its resolved value at P2 and suggest changing the variable. Token mode: a bound value passes and is counted on the Bound values line.
 ```
 
-In "Bind the value (Token mode: only unbound rows) and report it.", the unit is "Token mode: only unbound rows", and stripping it leaves "Bind the value () and report it.". A period inside quotation marks also ends a sentence, so keep sentence units free of quoted sentences. The phrase must not appear in a table row (a line that starts with `|`): cutting it would break the table, so the tools stop with an error that names the line. Move the sentence out of the table.
+In "Bind the value (Token mode: only unbound rows) and report it.", the unit is "Token mode: only unbound rows", and stripping it leaves "Bind the value () and report it.". A period inside quotation marks also ends a sentence, so keep sentence units free of quoted sentences. Do not put the phrase inside an inline enumeration such as "a) … b) …", because the enumeration's closing parenthesis ends the unit early and the cut leaves broken text. The phrase must not appear in a table row (a line whose first non-space character is `|`): cutting it would break the table, so the tools stop with an error that names the line. Move the sentence out of the table. A phrase inside a code span (between backticks) is ordinary prose: it starts no sentence unit and raises no table-row error.
 
 ### (e) Template lines
 

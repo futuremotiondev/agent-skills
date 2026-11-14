@@ -526,7 +526,9 @@ function main() {
   out.push("")
   const countsOff = [...result.counts, ...result.priority].filter((c) => !c.ok).length
   out.push(`Result: ${result.missing.length} missing, ${result.extra.length} extra, ${result.mismatched.length} mismatched; ` +
-    (countsOff ? `${countsOff} counts outside tolerance` : "every count within tolerance") + `; exit ${exitCode}`)
+    (countsOff ? `${countsOff} counts outside tolerance` : "every count within tolerance") +
+    // A run whose own mode differs from the scope's fails even when every count agrees; say so here.
+    (result.modeDiffers ? `; mode differs (expected ${result.modeDiffers.e}, observed ${result.modeDiffers.o})` : "") + `; exit ${exitCode}`)
   out.push("")
   out.push("EVAL-LOG entry stub:")
   out.push("")

@@ -213,6 +213,10 @@ const cases = {
     return check([[units.length === 0, `${units.length} units`], [warns.length === 1 && warns[0].includes("Token mode adds lines."), `warnings: ${JSON.stringify(warns)}`]])
   },
   "an ambiguous declared prose sentence is an error": () => throwsWith(tiny("Token mode adds lines. Token mode adds lines."), { ...P, proseSentences: ["Token mode adds lines."] }, /prose sentence.*2 times.*line 12/),
+  "a declared prose sentence overlapping a phrase-tagged unit is an error": () =>
+    throwsWith(tiny("Intro. Token mode: adds lines here."), { ...P, proseSentences: ["Token mode: adds lines here."] }, /line 12: declared prose sentence overlaps a unit/),
+  "an ambiguous declared description sentence is an error": () =>
+    throwsWith(["---", "name: fm-x", "description: Does a thing. Does a thing. Use whenever asked.", "---", "", "# T"], { ...P, descriptionSentences: ["Does a thing."] }, /description sentence occurs twice on line 3/),
   "a missing template line, rewrite, description sentence, or tag is a warning": () => {
     const warns = []
     findUnits(tiny(), { ...P, templateLines: ["- gone"], lineRewrites: [{ from: "zz", to: "y" }], descriptionSentences: ["Nope."], tags: ["c"] }, { warn: (m) => warns.push(m) })

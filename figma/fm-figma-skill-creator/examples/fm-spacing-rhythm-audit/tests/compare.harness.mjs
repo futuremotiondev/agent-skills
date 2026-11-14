@@ -141,14 +141,22 @@ const cases = {
     expectResult(compare(["--scope", "5", "--run", runOf(5, (r) => { r = withoutTokenCounts(r); r.aliasMatched = 2; return r })]), {
       exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["1 counts outside tolerance", `not compared: ${TOKEN_ONLY_LINES.filter((l) => l !== "Matches an alias").join(", ")}`],
     }),
+  // The shape the token-stripped helper really returns: no `mode` and no token-only counts, on a rhythm scope.
+  "--run with no mode and no token-only counts on a rhythm scope compares clean": () => {
+    const r = compare(["--scope", "5", "--run", runOf(5, (x) => { x = withoutTokenCounts(x); delete x.mode; return x })])
+    return [...expectResult(r, { exit: 0, missing: 0, extra: 0, mismatched: 0, contains: [`not compared: ${TOKEN_ONLY_LINES.join(", ")}`, "every count within tolerance; exit 0"] }),
+      ...check([[!r.out.includes("Mode (expected, observed)"), "a Mode line was printed for a run with no mode"]])]
+  },
   // The set-aside is judged against the scope's mode only; a run's own `mode` never widens it.
   "--run claiming rhythm on a tokens scope, without the token-only counts, is flagged": () =>
     expectResult(compare(["--scope", "2", "--run", runOf(2, (r) => { r = withoutTokenCounts(r); r.mode = "rhythm"; return r })]), {
-      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["3 counts outside tolerance", "Mode (expected, observed): tokens, rhythm  <-- differs"],
+      exit: 1, missing: 0, extra: 0, mismatched: 0,
+      contains: ["3 counts outside tolerance; mode differs (expected tokens, observed rhythm); exit 1", "Mode (expected, observed): tokens, rhythm  <-- differs"],
     }),
   "--run whose mode differs from the scope's is flagged even with every count present": () =>
     expectResult(compare(["--scope", "3", "--run", runOf(3, (r) => { r.mode = "rhythm"; return r })]), {
-      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["Mode (expected, observed): tokens, rhythm  <-- differs", "every count within tolerance"],
+      exit: 1, missing: 0, extra: 0, mismatched: 0,
+      contains: ["Mode (expected, observed): tokens, rhythm  <-- differs", "every count within tolerance; mode differs (expected tokens, observed rhythm); exit 1"],
     }),
 
   // Rows and cells.
