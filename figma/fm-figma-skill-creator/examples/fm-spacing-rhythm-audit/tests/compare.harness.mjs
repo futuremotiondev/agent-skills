@@ -160,7 +160,7 @@ const cases = {
   "a schema that declares the priority line flags a report without it and still compares the rows": () => {
     const report = variant("no-priority-line-declared.md", SCOPE2.replace(/^- \*\*Off-grid values:\*\*.*\n/m, ""))
     return expectResult(compare(["--scope", "2", "--report", report]), {
-      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ['No "Off-grid values:" line in the report', "4 counts outside tolerance"],
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ['No "Off-grid values:" line in the report', '4 counts outside tolerance; no "Off-grid values:" line; exit 1'],
     })
   },
   "a declared priority line missing from a report fails even when the scope has no priority counts": () => {
