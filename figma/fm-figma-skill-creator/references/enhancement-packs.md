@@ -2,15 +2,17 @@
 
 An enhancement pack is a behaviour that many different skills can adopt as one separable unit: instruction steps, output-contract lines, edge cases, a Final gate line, helper code, and a seed case that proves it. "Audit colour contrast" is a skill; "bind a value to the matching token" is a pack.
 
-A pack lives in a master as tagged units. This file is the contract for those tags. `scripts/enhancement-packs.mjs` is its test: `list` reports the units it finds, `strip` removes a pack from a master, and `extract` writes each pack's reference file from a tagged master, so pack text is never copied by hand. The audit master, `examples/fm-spacing-rhythm-audit/SKILL.md`, carries the two shipped packs and supplies every example below.
+A pack lives in a master as tagged units. This file is the contract for those tags. `scripts/enhancement-packs.mjs` is its test: `list` reports the units it finds, `strip` removes a pack from a master, `extract` writes each pack's reference file from a tagged master, so pack text is never copied by hand, `expand` inserts the units a reference file records into a master, and `roundtrip` proves that strip then expand gives a master back byte for byte. The audit master, `examples/fm-spacing-rhythm-audit/SKILL.md`, carries the two shipped packs and supplies every example below.
 
 ```bash
 node scripts/enhancement-packs.mjs list <SKILL.md> [--pack <name>]...
 node scripts/enhancement-packs.mjs strip <SKILL.md> --pack <name> [--pack <name>]... [--out <file>]
 node scripts/enhancement-packs.mjs extract <SKILL.md> [--pack <name>]... [--phrase "<Phrase:>"]
+node scripts/enhancement-packs.mjs expand <SKILL.md> --pack <name> [--pack <name>]... [--out <file>]
+node scripts/enhancement-packs.mjs roundtrip <SKILL.md> --pack <name>[,<name>]...
 ```
 
-Packs resolve from `enhancements/<name>/pack.json` beside the `scripts` folder, or from `--enhancements <dir>`. Without `--pack`, every pack in that folder is used. `strip` writes to standard output when `--out` is absent.
+Packs resolve from `enhancements/<name>/pack.json` beside the `scripts` folder, or from `--enhancements <dir>`. Without `--pack`, `list` and `extract` use every pack in that folder; `--pack` also takes a comma-separated list. `strip` and `expand` write to standard output when `--out` is absent.
 
 ## Pack folder layout
 
@@ -158,7 +160,9 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
 
 ### (h) Expanding into a master without an anchor
 
-Expanding a pack into a master puts each unit after its anchor. When a master has no anchor for a unit, prose units go at the end of their section, and the orphan code regions of each helper go into one new `javascript` fence with no `// helper:` marker, opened by the comment `// <pack> regions for <helper>: place by hand`, for example `// token-conformance regions for collect: place by hand`, with one warning per region. That fence is never extracted as a helper. (`expand` is the next tool to build; until then this rule is the specification it follows.)
+Expanding a pack into a master puts each unit after its anchor. When a master has no anchor for a unit, prose units go at the end of their section, and the orphan code regions of each helper go into one new `javascript` fence with no `// helper:` marker, opened by the comment `// <pack> regions for <helper>: place by hand`, for example `// token-conformance regions for collect: place by hand`, with one warning per region. That fence is never extracted as a helper.
+
+`expand` reads the units from each pack's `enhancement.md` and prints one `expand warning:` line per fallback, of any kind. It takes the units in recorded order, because a unit's anchor can be the unit before it, and adjacent line units of one kind go in as one piece. When an anchor line occurs more than once in its scope, the occurrence nearest the unit's recorded line wins. An anchor with no letter or digit, such as `};` or a bare fence line, places a unit only in the skill the pack was extracted from: in another skill it says nothing about where the unit belongs, so the unit falls back. A sentence unit that falls back goes on its own line, a template line goes at the end of its section's report fence, and a line rewrite with no line to rewrite is skipped. Blank lines at a seam follow Markdown: a list item after a list item or its indented continuation joins it, and anything else is set apart by one blank line. `expand` refuses a master that already carries the pack's phrase or code region; a declared line alone, such as a table separator, does not count. `roundtrip` strips the named packs in the order given and inserts their units again in reverse order; it exits 0 only when the result is byte-identical to the input and every declared item was found.
 
 ### (i) Surfaces
 

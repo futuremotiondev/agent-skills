@@ -16,6 +16,7 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { normalize } from "../../../scripts/lib/skill-md.mjs"
 import { loadPack, findUnits, stripUnits } from "../../../scripts/lib/enhancements.mjs"
+import * as enhancements from "../../../scripts/lib/enhancements.mjs"
 
 const here = dirname(fileURLToPath(import.meta.url))
 const creator = join(here, "..", "..", "..")
@@ -129,6 +130,22 @@ const P = { name: "p", phrase: "Token mode:", codeRegion: "p", templateLines: []
 
 /** Run the CLI; returns { status, out }. */
 const cli = (...args) => { const r = spawnSync(process.execPath, [CLI, ...args], { encoding: "utf8" }); return { status: r.status, out: r.stdout + r.stderr } }
+
+/** The last line of a command's output, for failure messages. */
+const tail = (out) => out.trim().split("\n").pop()
+
+/** The four pack selections the round trip is proven on: each pack, and both in either order. */
+const SELECTIONS = [["token-conformance"], ["revert"], ["token-conformance", "revert"], ["revert", "token-conformance"]]
+
+/** Run the validator with --json on lines written to a temporary master; returns its findings for one rule (all when rule is null). */
+function findingsFor(name, lines, rule, ...flags) {
+  const r = spawnSync(process.execPath, [VALIDATOR, writeMaster(name, lines), "--edition", "master", "--json", ...flags], { encoding: "utf8" })
+  return JSON.parse(r.stdout).findings.filter((f) => rule === null || f.rule === rule)
+}
+
+/** A small master with chosen tags, runtimes, and body, for the validator's pack rules. */
+const packMaster = (tags, runtimes, ...body) => ["---", "name: fm-x", "description: Audits a thing. Use whenever asked. Not for other things.", "metadata:",
+  `  tags: "${tags}"`, `  runtimes: "${runtimes}"`, "---", "", "# T", "", "## Helper scripts", "", ...body]
 
 // The reviewer's ordinary sentences: none carries a tag, so each must survive a strip untouched.
 const ORDINARY = [
@@ -271,6 +288,113 @@ const cases = {
     const out = stripAll(masterWith("Token mode: tokens are matched per mode.\nThis core sentence follows on the next line and must stay."), [TOKENS]).lines
     return check([[out.includes("This core sentence follows on the next line and must stay."), "the same-indent line was removed"],
       [!out.includes("Token mode: tokens are matched per mode."), "the tagged line survived"]])
+  },
+
+  // Expand and the round trip (Task 6).
+  "the committed enhancement.md files read back as the units findUnits finds": () => {
+    const problems = []
+    for (const p of [TOKENS, REVERT]) {
+      const { units } = enhancements.readUnits(readFileSync(join(PACKS, p.name, "enhancement.md"), "utf8"))
+      const want = findUnits(masterLines, p)
+      const strip = (u) => JSON.stringify({ kind: u.kind, start: u.start, end: u.end, col: u.col, text: u.text, anchor: u.anchor, to: u.to })
+      if (units.length !== want.length) problems.push(`${p.name}: read ${units.length} units, found ${want.length}`)
+      else units.forEach((u, i) => { if (strip(u) !== strip(want[i])) problems.push(`${p.name}: unit ${i + 1} differs: ${strip(u).slice(0, 120)}`) })
+    }
+    return problems
+  },
+  "roundtrip exits 0 for each pack and for both in either order, with no expand warning": () => {
+    const problems = []
+    for (const sel of SELECTIONS) {
+      const r = cli("roundtrip", MASTER, "--pack", sel.join(","))
+      problems.push(...check([[r.status === 0, `${sel}: exit ${r.status}: ${tail(r.out)}`], [!r.out.includes("expand warning"), `${sel}: printed an expand warning`]]))
+    }
+    return problems
+  },
+  "strip then expand from the pack records gives back the master byte for byte": () => {
+    const problems = []
+    for (const sel of SELECTIONS) {
+      const stripped = join(tmp, `rt-stripped-${sel.join("-")}.md`), back = join(tmp, `rt-back-${sel.join("-")}.md`)
+      const s = cli("strip", MASTER, ...sel.flatMap((n) => ["--pack", n]), "--out", stripped)
+      const e = cli("expand", stripped, ...sel.flatMap((n) => ["--pack", n]), "--out", back)
+      problems.push(...check([[s.status === 0 && e.status === 0, `${sel}: exit ${s.status}, ${e.status}: ${tail(e.out)}`],
+        [e.status !== 0 || readFileSync(back).equals(readFileSync(MASTER)), `${sel}: the expanded file differs from the master`],
+        [!e.out.includes("expand warning"), `${sel}: printed an expand warning`]]))
+    }
+    return problems
+  },
+  "roundtrip exits 1 when the result differs, and names the first differing line": () => {
+    // A tagged block glued to the next paragraph: strip leaves one blank line, and expand cannot know there was none.
+    const path = writeMaster("glued.md", masterWith("Token mode: tokens are matched per mode.\nThis core sentence follows on the next line and must stay."))
+    const r = cli("roundtrip", path, "--pack", "token-conformance")
+    return check([[r.status === 1, `exit ${r.status}`], [/differs from the input at line \d+/.test(r.out), `output: ${tail(r.out)}`]])
+  },
+  "roundtrip exits 1 on a reworded declared prose sentence, and names the sentence": () => {
+    const s = TOKENS.proseSentences[0]
+    const path = writeMaster("drifted.md", masterText.replace(s, s.replace("Token mode adds these lines:", "Token mode adds the following lines:")).replace(/\n$/, "").split("\n"))
+    const r = cli("roundtrip", path, "--pack", "token-conformance")
+    return check([[r.status === 1, `exit ${r.status}`], [r.out.includes("declared prose sentence not found: " + s.slice(0, 60)), `output: ${tail(r.out)}`]])
+  },
+  "expand refuses a master that already carries the pack": () => {
+    const r = cli("expand", MASTER, "--pack", "revert", "--out", join(tmp, "twice-expanded.md"))
+    return check([[r.status === 1 && /already carries/.test(r.out), `exit ${r.status}: ${tail(r.out)}`]])
+  },
+  "a declared line alone does not make a master carry the pack": () => {
+    // The probe's report table has the separator "| --- | --- | --- |", which token-conformance also declares.
+    const probe = join(creator, "examples", "fm-figma-capability-probe", "SKILL.md")
+    const surfaces = findingsFor("probe-copy.md", normalize(readFileSync(probe, "utf8")).replace(/\n$/, "").split("\n"), "enhancement-surfaces")
+    const r = cli("expand", probe, "--pack", "token-conformance", "--out", join(tmp, "probe-with-tokens.md"))
+    return check([[surfaces.length === 0, `validator: ${JSON.stringify(surfaces)}`], [r.status === 0, `expand exit ${r.status}: ${tail(r.out)}`]])
+  },
+  "expand into the untagged QA template: a warning per orphan code region, unmarked fences, validates, builds": () => {
+    const out = join(tmp, "qa-with-tokens.md")
+    const r = cli("expand", join(creator, "templates", "type-standards-qa-audit.md"), "--pack", "token-conformance", "--out", out)
+    if (r.status !== 0) return [`expand exit ${r.status}: ${tail(r.out)}`]
+    const warns = r.out.split("\n").filter((l) => l.startsWith("expand warning:"))
+    const lines = normalize(readFileSync(out, "utf8")).split("\n")
+    const fences = lines.map((l) => /^\/\/ token-conformance regions for ([a-z-]+): place by hand$/.exec(l)).filter(Boolean).map((m) => m[1])
+    const units = byKind(findUnits(lines, TOKENS))
+    const v = findingsFor("qa-with-tokens-check.md", lines, null, "--allow-placeholders")
+    const named = writeMaster("qa-named.md", lines.map((l) => (l.startsWith("name: ") ? "name: fm-qa-with-tokens" : l)))
+    const b = spawnSync(process.execPath, [BUILDER, named, "--out", join(tmp, "dist-qa"), "--dry-run"], { encoding: "utf8" })
+    // Every unit lands somewhere except the rewrite, whose rhythm line the template lacks. The nine sentence
+    // units have no anchor here, so each lands on its own line at its section's end and reads back as a block.
+    const regionWarnings = warns.filter((l) => /code-region .* has no anchor in helper/.test(l)).length
+    return check([
+      [regionWarnings === 6, `${regionWarnings} code-region warnings, expected 6`],
+      [JSON.stringify(fences) === JSON.stringify(["collect", "apply", "verify"]), `orphan fences: ${JSON.stringify(fences)}`],
+      [!lines.some((l) => /^\/\/ helper: (apply|verify)$/.test(l)), "an orphan fence carries a helper marker"],
+      [sameCounts(units, { "code-region": 6, block: 17, "description-sentence": 1, "heading-block": 1, "prose-sentence": 1, tag: 2, "template-line": 10 }), `units after expand: ${JSON.stringify(units)}`],
+      [v.length === 2 && v.every((f) => ["name-format", "description-angle"].includes(f.rule) && f.severity === "warn"), `validator: ${JSON.stringify(v.map((f) => `${f.severity} ${f.rule} ${f.message}`))}`],
+      [b.status === 0 && b.stdout.includes("helpers: 1 scripts (collect)"), `builder: ${(b.stdout + b.stderr).match(/helpers:.*|build error.*/)?.[0]}`],
+    ])
+  },
+
+  // The validator's pack rules, each on a failing input.
+  "validator enhancement-regions: an unended begin, nested regions, and an unknown pack are errors": () => {
+    const unended = findingsFor("v-unended.md", packMaster("a", "figma-design", ...helper("// enhancement: revert begin", "x", "return 1")), "enhancement-regions")
+    const nested = findingsFor("v-nested.md", packMaster("a", "figma-design", ...helper("// enhancement: revert begin", "// enhancement: token-conformance begin", "x",
+      "// enhancement: token-conformance end", "// enhancement: revert end", "return 1")), "enhancement-regions")
+    const unknown = findingsFor("v-unknown.md", packMaster("a", "figma-design", ...helper("// enhancement: no-such-pack begin", "x", "// enhancement: no-such-pack end", "return 1")), "enhancement-regions")
+    return check([[unended.length === 1 && unended[0].severity === "error" && /no end/.test(unended[0].message), `unended: ${JSON.stringify(unended)}`],
+      [nested.length >= 1 && nested.every((f) => f.severity === "error") && nested.some((f) => /nest/.test(f.message)), `nested: ${JSON.stringify(nested)}`],
+      [unknown.length === 1 && unknown[0].severity === "error" && /no-such-pack/.test(unknown[0].message), `unknown: ${JSON.stringify(unknown)}`]])
+  },
+  "validator enhancement-tags: a pack phrase without its code region warns, gated by the tags or, for revert, by either side": () => {
+    const tokens = findingsFor("v-tags.md", packMaster("audit, tokens", "figma-design", "Token mode: bind the value to the matching token.", "", ...helper("return 1")), "enhancement-tags")
+    const untagged = findingsFor("v-tags-off.md", packMaster("audit", "figma-design", "Token mode: bind the value to the matching token.", "", ...helper("return 1")), "enhancement-tags")
+    const revert = findingsFor("v-revert.md", packMaster("audit", "figma-design", ...helper("// enhancement: revert begin", "return 1", "// enhancement: revert end")), "enhancement-tags")
+    return check([[tokens.length === 1 && tokens[0].severity === "warn" && /token-conformance/.test(tokens[0].message), `tokens: ${JSON.stringify(tokens)}`],
+      [untagged.length === 0, `untagged master warned: ${JSON.stringify(untagged)}`],
+      [revert.length === 1 && revert[0].severity === "warn" && /revert/.test(revert[0].message), `revert: ${JSON.stringify(revert)}`]])
+  },
+  "validator enhancement-surfaces: a pack that does not cover a skill surface warns without a surface guard": () => {
+    const region = (...guard) => helper("// enhancement: token-conformance begin", ...guard, "const t = 1;", "// enhancement: token-conformance end", "return 1")
+    const bare = findingsFor("v-surf.md", packMaster("audit", "figma-design, figma-spec, mcp", ...region()), "enhancement-surfaces")
+    const guarded = findingsFor("v-surf-guard.md", packMaster("audit", "figma-design, figma-spec, mcp",
+      ...region('if (figma.editorType === "figspec") return { skipped: "skipped in a Spec file" };')), "enhancement-surfaces")
+    const covered = findingsFor("v-surf-ok.md", packMaster("audit", "figma-design, figma-make, mcp", ...region()), "enhancement-surfaces")
+    return check([[bare.length === 1 && bare[0].severity === "warn" && /figma-spec/.test(bare[0].message), `bare: ${JSON.stringify(bare)}`],
+      [guarded.length === 0, `guarded: ${JSON.stringify(guarded)}`], [covered.length === 0, `covered: ${JSON.stringify(covered)}`]])
   },
 }
 

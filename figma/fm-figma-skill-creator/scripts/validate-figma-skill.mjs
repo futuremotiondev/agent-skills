@@ -23,10 +23,12 @@
 
 import { readFileSync, existsSync, readdirSync, statSync } from "node:fs"
 import { basename, dirname, resolve, join } from "node:path"
+import { fileURLToPath } from "node:url"
 import {
   normalize, parseFrontmatter, getField, findFrontmatterLikeBlocks,
-  scanFences, scanRegions, wordCount,
+  scanFences, scanRegions, wordCount, fenceBlocks, HELPER_FENCE_LANG,
 } from "./lib/skill-md.mjs"
+import { loadPack, findUnits, REGION_MARKER } from "./lib/enhancements.mjs"
 
 // ---------------------------------------------------------------------------
 // CLI
@@ -89,6 +91,9 @@ const RULES = [
   { id: "capability-gates", editions: ["master", ...FIGMA], severity: "warn", basis: "capability table: prototyping, vectors, slots are Coming soon; export and diagrams unsupported in-app" },
   { id: "console-log", editions: ["master", ...FIGMA], severity: "warn", basis: "script contract: results come back through return, not console.log" },
   { id: "helper-placement", editions: ["master"], severity: "warn", basis: "build contract: helpers live in the core `## Helper scripts` section, first line `// helper: <name>`; a fence in a target region ships to one runtime only" },
+  { id: "enhancement-regions", editions: ["master"], severity: "error", basis: "enhancement-pack contract rule (a): every `// enhancement: <name> begin` has its end in the same fence, regions never nest, and the name is a shipped pack's code region" },
+  { id: "enhancement-tags", editions: ["master"], severity: "warn", basis: "enhancement-pack contract: a pack is one unit, so its prose phrase and its code region travel together (checked when the master carries the pack's metadata tag, or for a pack with no tags when either side is present)" },
+  { id: "enhancement-surfaces", editions: ["master"], severity: "warn", basis: "enhancement-pack contract rule (i): a pack whose surfaces do not cover the skill's figma-* runtimes needs a surface guard in its code region" },
   { id: "placeholders-frontmatter", editions: ALL, severity: "error", basis: "a name or description still holding <verb> or <object> is an unfinished template" },
   { id: "placeholders-body", editions: ALL, severity: "warn", basis: "authoring placeholders such as <Step name> or <e.g. ...> must be replaced; agent fill-ins such as <n> are fine" },
 ]
@@ -380,6 +385,74 @@ if (edition === "master") {
     if (openFence && !/^(javascript|js)$/i.test(openLang)) continue
     if (/^\s*\/\/ helper:/.test(line) && !(inHelpers && regionAt(i) === "core")) {
       report("helper-placement", `"// helper:" marker outside the core "## Helper scripts" section; the build extracts helpers only from there`, i + 1)
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Enhancement packs (master only). The packs are the creator's own, in enhancements/ beside this
+// scripts folder; references/enhancement-packs.md is the contract. Region markers are read inside
+// javascript and js fences only.
+// ---------------------------------------------------------------------------
+
+if (edition === "master") {
+  const packsDir = join(dirname(fileURLToPath(import.meta.url)), "..", "enhancements")
+  const packs = []
+  if (existsSync(packsDir)) {
+    for (const n of readdirSync(packsDir).sort()) {
+      try { if (existsSync(join(packsDir, n, "pack.json"))) packs.push(loadPack(join(packsDir, n))) } catch { /* a broken pack.json is the pack tools' error to report */ }
+    }
+  }
+  const knownRegions = new Set(packs.map((p) => p.codeRegion))
+
+  // enhancement-regions: per fence, every begin has its end, regions never nest, names are known.
+  for (const f of fenceBlocks(lines)) {
+    if (!HELPER_FENCE_LANG.test(f.lang)) continue
+    const last = f.close === -1 ? lines.length - 1 : f.close - 1
+    let open = null
+    for (let i = f.open + 1; i <= last; i++) {
+      const m = REGION_MARKER.exec(lines[i])
+      if (!m) continue
+      const [, regionName, edge] = m
+      if (edge === "begin") {
+        if (!knownRegions.has(regionName)) report("enhancement-regions", `region "${regionName}" is not a shipped pack's code region (${[...knownRegions].join(", ") || "none"})`, i + 1)
+        if (open) report("enhancement-regions", `region "${regionName}" begins inside region "${open.name}" (line ${open.line + 1}); regions never nest`, i + 1)
+        open = { name: regionName, line: i }
+      } else if (!open) {
+        report("enhancement-regions", `"// enhancement: ${regionName} end" has no begin in this fence`, i + 1)
+      } else {
+        if (open.name !== regionName) report("enhancement-regions", `region "${open.name}" (line ${open.line + 1}) is closed by an end for "${regionName}"`, i + 1)
+        open = null
+      }
+    }
+    if (open) report("enhancement-regions", `region "${open.name}" has no end in its fence`, open.line + 1)
+  }
+
+  // enhancement-tags and enhancement-surfaces: per pack the master carries.
+  const meta = getField(fm.fields, "metadata")
+  const metaList = (key) => {
+    const c = meta && meta.children ? meta.children.find((x) => x.key === key) : null
+    return c ? String(c.value).split(",").map((t) => t.trim()).filter(Boolean) : []
+  }
+  const tags = metaList("tags")
+  const surfaces = metaList("runtimes").filter((r) => r.startsWith("figma-"))
+  for (const pack of packs) {
+    let units
+    try { units = findUnits(lines, pack) } catch { continue } // contract errors: enhancement-regions or the pack tools report them
+    const prose = units.filter((u) => ["block", "heading-block", "sentence"].includes(u.kind))
+    const code = units.filter((u) => ["code-region", "fence"].includes(u.kind))
+    const gate = pack.tags.length ? pack.tags.some((t) => tags.includes(t)) : prose.length > 0 || code.length > 0
+    if (gate && prose.length && !code.length) {
+      report("enhancement-tags", `"${pack.phrase}" appears in prose but no helper carries the ${pack.name} code region; add the region or remove the phrase`, prose[0].start + 1)
+    } else if (gate && code.length && !prose.length) {
+      report("enhancement-tags", `a helper carries the ${pack.name} code region but no prose says "${pack.phrase}"; tag the pack's instructions or remove the region`, code[0].start + 1)
+    }
+    // The pack is in the master when its phrase or its code region is: a declared line alone (a bare
+    // table separator, say) can occur in any skill and proves nothing.
+    const uncovered = surfaces.filter((s) => !pack.surfaces.includes(s))
+    const guarded = code.some((u) => /figma\.editorType|skipped in a Spec file/.test(u.text))
+    if ((prose.length || code.length) && uncovered.length && !guarded) {
+      report("enhancement-surfaces", `the ${pack.name} pack runs on ${pack.surfaces.join(", ")}, not on ${uncovered.join(", ")}; add a surface guard to its code region (one that prints "skipped in a Spec file") or narrow metadata.runtimes`, (code[0] ?? prose[0]).start + 1)
     }
   }
 }

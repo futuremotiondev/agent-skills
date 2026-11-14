@@ -127,6 +127,8 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 
 6. **Put helper code in the core, then add the target sections** at the end of the body. Code lives in a core `## Helper scripts` section after Common edge cases and before the Final gate: one fenced `javascript` block per helper whose first body line is `// helper: <name>`, with the name matching `^[a-z][a-z0-9-]*$` (lowercase, hyphenated). Write each helper with top-level `await` and a final `return`, with no function wrapper. Both script tools take the result from `return`; a wrapped function that is never returned gives back nothing in-app. Each helper is self-contained, re-fetches nodes by id, works in batches of about 25, measures in a later call, and loads fonts before text edits. The build inlines every helper in the Figma editions and moves each to `scripts/<name>.js` in the coding-agent edition; a helper fence inside a target section would ship to one runtime only, and the validator warns about it (`helper-placement`). Both target sections run the helpers by name: `target:figma-app` through `evaluate_script`, with a prose fallback sentence; `target:mcp` in this order: load `figma-use` before any `use_figma` call; call `create_session` for the file key and pass the returned `sessionId` on every later call; before the first call that changes the canvas also load `figma-generate-design` (or `figma-generate-library` when the deliverable is a reusable component, variable collection, or style) and name it beside `figma-use` in `skillNames` on every changing call, while read-only calls need neither; keep each return under 48,000 bytes, because a larger one is refused and the call's canvas edits are discarded. It then sends each helper through `use_figma` as written. A skill that never writes to the canvas leaves out the companion-skill sentence. `references/agent-capabilities-and-tools.md` lists what each runtime has.
 
+   **6a. Choose enhancements.** Read `references/enhancement-packs.md`, then pick from the shipped packs in `enhancements/` by comparing each pack's surfaces with the skill's (the `figma-*` entries of `metadata.runtimes`; a pack with no `surfaces` runs on `figma-design` and `figma-make`). Full cover: offer it. Partial cover: offer it only when the user names it, say in one sentence which surface it will not run on, and give its helper code a surface guard that prints `skipped in a Spec file`. No overlap: do not add it, say why in one sentence, and offer to narrow the skill's surfaces. A preset leaves out its non-matching packs; list what it left out. Run `node scripts/enhancement-packs.mjs expand <SKILL.md> --pack <name> --out <SKILL.md>` for each chosen pack, then resolve the fallbacks by hand (one `expand warning:` line each; orphan code regions arrive in a fence marked "place by hand") and re-run `roundtrip` once the master is tagged.
+
 7. **Validate and build:**
 
    ```bash
@@ -157,7 +159,7 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 ## Workflow D: review an existing skill
 
 1. Run the validator with the right `--edition` and report its output verbatim.
-2. Score the body against the rubric in `references/authoring-styles.md`: description formula; requirement-phrased triggers; scope gate present; one question per message; named rules with Do and Do-not; numbers not adjectives; output contract and cap; verify step; final gate; capability gates for unsupported features; no mid-instruction slash invocations; size.
+2. Score the body against the rubric in `references/authoring-styles.md`: description formula; requirement-phrased triggers; scope gate present; one question per message; named rules with Do and Do-not; numbers not adjectives; output contract and cap; verify step; final gate; capability gates for unsupported features; no mid-instruction slash invocations; size. Suggest missing packs: a skill that writes to the canvas and has no `Revert:` units gets "add the revert pack" as a P1 finding.
 3. Report findings as a table ranked P0 to P3 with line numbers and the exact rewrite. P0 is anything that makes the skill misroute, edit the source, or claim an unsupported capability.
 4. Apply fixes only after the user confirms which rows. Re-run the validator and show the before and after summary lines.
 
@@ -227,9 +229,10 @@ node scripts/validate-figma-skill.mjs <file> --edition master|upload|paste|codin
 node scripts/build-skill-editions.mjs <SKILL.md> --out <dir> [--overlay overlay.claude.yaml] [--validate] [--dry-run]
 node scripts/build-skill-editions.mjs --flatten <skill-dir> --out <dir> [--dry-run]
 node scripts/oracle-compare.mjs --expected <expected.json> --scope <n> --schema <schema.json> (--report <pasted.md> | --run <run.json>) [--frame-tolerance <n>]
+node scripts/enhancement-packs.mjs list|strip|extract|expand|roundtrip <SKILL.md> [--pack <name>[,<name>]] [--out <file>]
 ```
 
-All three scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The validator exits 1 on any error; the compare exits 0 on a clean match, 1 on any difference, and 2 when an input cannot be read. `--allow-placeholders` exists for validating the templates themselves; never use it on a skill you are shipping.
+All four scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`. The validator exits 1 on any error; the compare exits 0 on a clean match, 1 on any difference, and 2 when an input cannot be read; the pack tool exits 1 on a contract error or a round trip that does not give back the same bytes. `--allow-placeholders` exists for validating the templates themselves; never use it on a skill you are shipping.
 
 ## Files in this skill
 
@@ -251,6 +254,7 @@ All three scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`.
 | `templates/concept-cards.md` | you are pitching ideas in Workflow 0: the deck header, the twenty-line card, the footer question, and the deck rules |
 | `templates/seed-plan.md` | you are planning a Workflow G seed: the header, one row per planted case, the modes, and the proofs |
 | `scripts/oracle-compare.mjs` | you are comparing a pasted in-app report, or a raw `use_figma` return, with a skill's `tests/expected.json` in Workflow G |
+| `enhancements/` with `references/enhancement-packs.md` and `scripts/enhancement-packs.mjs` | you are adding or removing an optional pack (token conformance, revert) in Workflow A step 6a, or checking a skill's tags in Workflow D: the shipped packs, their tag contract, and the tool |
 | `examples/fm-spacing-rhythm-audit/` | a complete worked example with its built `dist/` editions |
 | `examples/fm-figma-capability-probe/` | you need fresh evidence of which Plugin APIs a runtime exposes; optional, for skill authors, and its pasted-back table feeds Workflow F step 5 |
 | `examples/ideation-runs.md` | you want to see Workflow 0 decks for three vague prompts and a recon smoke run |

@@ -133,6 +133,15 @@ if (sel.length === 0) return { error: "nothing selected" };
 return { ok: true };
 ```
 
+Optional behaviours ship as enhancement packs: the folders in `enhancements/`, with the tag
+contract in `references/enhancement-packs.md`. A pack's code sits inside a helper between
+`// enhancement: <pack> begin` and `// enhancement: <pack> end`, or is a whole helper, and its prose
+starts with the pack's phrase (`Token mode:`, `Revert:`). `scripts/enhancement-packs.mjs expand` adds a
+pack after its anchors, `strip` removes it, and `roundtrip` proves the two give back the same bytes.
+The validator checks the markers (`enhancement-regions`), that a pack's phrase and its code region
+travel together (`enhancement-tags`), and that a pack runs on the skill's surfaces or carries a
+surface guard (`enhancement-surfaces`).
+
 ## Final gate
 
 A checklist the agent must satisfy "against the canvas, not from memory" before finishing: every
