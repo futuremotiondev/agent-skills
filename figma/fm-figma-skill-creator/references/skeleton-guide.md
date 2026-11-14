@@ -30,8 +30,9 @@ metadata:
 - `description`: the routing text. Third-person capability, then requirement-style triggers with
   quoted user phrases, then one exclusion. Under 1,024 characters, key use case first.
 - `metadata` holds six quoted strings: `version`, `author`, `category`, `tags`, `applies-to`, and
-  `runtimes`, which a later manifest generator reads. They stay in the master and the coding-agent
-  edition; the build strips them from the upload edition, which keeps only name and description.
+  `runtimes`, which the builder copies into the manifest it writes, `dist/<name>.manifest.json`.
+  They stay in the master and the coding-agent edition; the build strips them from the upload
+  edition, which keeps only name and description.
 - `runtimes` lists where the skill runs, from the documented values `figma-design`, `figma-make`,
   `figma-spec`, and `mcp`. Add `figma-spec` only to a skill that has a Spec branch; a skill whose
   surface check stops in a Spec file leaves it out.

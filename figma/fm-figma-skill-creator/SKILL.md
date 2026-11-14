@@ -129,7 +129,7 @@ return { page: page.name, pages, counts, collections, styles, namingSample };
 
    **6a. Choose enhancements.** Read `references/enhancement-packs.md`, then pick from the shipped packs in `enhancements/`, honouring each pack's `requires` and `conflicts`, by comparing its surfaces with the skill's (the `figma-*` entries of `metadata.runtimes`; a pack with no `surfaces` runs on `figma-design` and `figma-make`). Full cover: offer it. Partial cover: offer it only when the user names it, say in one sentence which surface it will not run on, and give the helper that holds its code a surface guard that prints `skipped in a Spec file`. No overlap: do not add it, and say why in one sentence (narrowing the skill's surfaces cannot help; a master that already carries it should strip it). A preset (a named set of packs; none ship yet) leaves out its non-matching packs; list what it left out. Run `node scripts/enhancement-packs.mjs expand <SKILL.md> --pack <name> --out <SKILL.md>` for each chosen pack and resolve each `expand warning:` by hand (orphan code regions arrive in a fence marked "place by hand"). Then `strip` the pack to a scratch file and validate that file, so the pack stays separable. Run `roundtrip` only on a master that keeps every line the pack's `pack.json` declares word for word; a failure names the item to restore.
 
-7. **Validate and build:**
+7. **Validate and build** from the creator folder; every path below is relative to it, or absolute:
 
    ```bash
    node scripts/validate-figma-skill.mjs <skill>/SKILL.md --edition master
@@ -230,7 +230,7 @@ node scripts/build-skill-editions.mjs <SKILL.md> --out <dir> [--overlay overlay.
 node scripts/build-skill-editions.mjs --flatten <skill-dir> --out <dir> [--dry-run]
 node scripts/oracle-compare.mjs --expected <expected.json> --scope <n> --schema <schema.json> (--report <pasted.md> | --run <run.json>) [--frame-tolerance <n>]
 node scripts/enhancement-packs.mjs list|strip|extract|expand|roundtrip <SKILL.md> [--pack <name>[,<name>]] [--out <file>]
-node scripts/check-all.mjs [--list] [--only <group>[,<group>]]                 # every gate for this creator and its examples
+node scripts/check-all.mjs [--list] [--only <group>[,<group>]]                 # every validation and build gate for this creator and its examples
 ```
 
 All five scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`; the pack rules live in `scripts/lib/enhancements.mjs`. The builder writes `dist/<name>.manifest.json` with the editions and, after a build that exits 0, `history/<version>/` beside the master; a `--dry-run` writes neither. `check-all` exits 1 at the first failing check and 2 on an unknown `--only` group. The validator exits 1 on any error; the compare exits 0 on a clean match, 1 on any difference, and 2 when an input cannot be read; the pack tool exits 1 on a contract error, a failed round trip, or an `expand` into a master that already carries the pack or whose result the tools would refuse, and 2 on bad arguments or a missing master or `enhancement.md`. `--allow-placeholders` exists for validating the templates themselves; never use it on a skill you are shipping.
@@ -251,12 +251,12 @@ All five scripts are dependency-free Node and share `scripts/lib/skill-md.mjs`; 
 | `references/skill-landscape.md` | you need to know whether a skill idea already exists, or a concept card must say "new" or "better than X" |
 | `references/skill-idea-catalog.md` | you are mapping a vague wish to gap cells and seeds in Workflow 0, or promoting a chosen card |
 | `templates/skill-master.md` and `templates/type-*.md` | starting any new skill |
-| `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md` | the companion files every skill folder gets |
+| `templates/overlay.claude.yaml`, `eval-queries.md`, `EVAL-LOG.md`, `listing-copy.md`, `.markdownlint.jsonc` | the companion files every skill folder gets, and its markdownlint config |
 | `templates/concept-cards.md` | you are pitching ideas in Workflow 0: the deck header, the twenty-line card, the footer question, and the deck rules |
 | `templates/seed-plan.md` | you are planning a Workflow G seed: the header, one row per planted case, the expected header counts, the modes, and the proofs |
 | `scripts/oracle-compare.mjs` | you are comparing a pasted in-app report, or a raw `use_figma` return, with a skill's `tests/expected.json` in Workflow G |
 | `enhancements/` with `references/enhancement-packs.md` and `scripts/enhancement-packs.mjs` | you are adding or removing an optional pack (token conformance, revert) in Workflow A step 6a, or checking a skill's tags in Workflow D: the shipped packs, their tag contract, and the tool |
-| `scripts/check-all.mjs` | you changed this creator, a template, or an example and want every gate in one run (`--list` names each check) |
+| `scripts/check-all.mjs` | you changed this creator, a template, or an example and want every validation and build gate in one run (`--list` names each check; markdownlint is a separate command) |
 | `dist/<name>.manifest.json` and `history/<version>/` in a skill folder | you need a built skill's version, edition sizes, helpers, packs, and newest eval entry, or a per-version copy of its master and overlay to roll back to (`references/format-and-frontmatter.md`) |
 | `examples/fm-spacing-rhythm-audit/` | a complete worked example with its built `dist/` editions |
 | `examples/fm-figma-capability-probe/` | you need fresh evidence of which Plugin APIs a runtime exposes; optional, for skill authors, and its pasted-back table feeds Workflow F step 5 |
