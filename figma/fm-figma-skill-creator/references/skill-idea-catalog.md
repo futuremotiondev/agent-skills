@@ -4,14 +4,14 @@ A curated, gated list of concept seeds for new Figma-agent skills. The gap grid 
 
 ## Gaps
 
-Counts of landscape rows per pattern and surface, computed from the `Pattern` and `Surface` columns of `skill-landscape.md` (100 rows, 2026-11-03).
+Counts of landscape rows per pattern and surface, computed from the `Pattern` and `Surface` columns of `skill-landscape.md` (103 rows, 2026-11-13).
 
 | Pattern | components | variables | type | colour | layout | content | accessibility | motion | handoff | documentation |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | audit | 6 | 1 | 0 | 2 | 6 | 2 | 1 | 2 | 3 | 0 |
-| generator | 2 | 1 | 2 | 1 | 5 | 1 | 0 | 2 | 3 | 4 |
+| generator | 2 | 1 | 2 | 1 | 7 | 1 | 0 | 2 | 3 | 4 |
 | critique | 0 | 0 | 0 | 0 | 6 | 2 | 0 | 1 | 0 | 1 |
-| synthesis | 0 | 0 | 0 | 0 | 0 | 8 | 0 | 0 | 1 | 4 |
+| synthesis | 0 | 0 | 0 | 0 | 0 | 8 | 0 | 0 | 1 | 5 |
 | workflow | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 2 | 4 | 7 |
 | conventions | 1 | 3 | 0 | 2 | 1 | 2 | 1 | 3 | 3 | 0 |
 
@@ -49,7 +49,7 @@ Every cell with a count of 0 or 1, and why it is that thin:
 - **conventions × components (1):** covered by audit-pattern component skills; one naming enforcer applies a standard.
 - **conventions × type (0):** nobody has tried; type rules are encoded as scales (generator) rather than applied as conventions.
 - **conventions × layout (1):** covered by audit-pattern spacing skills; one container normaliser applies conventions.
-- **conventions × accessibility (1):** covered by audits; the one guideline skill is known by name only.
+- **conventions × accessibility (1):** covered by audits; the one guideline skill applies its rules to the code Figma Make generates, not to the canvas.
 - **conventions × documentation (0):** nobody has tried; file and page conventions live in team wikis, not in skills.
 
 ## Admission rules
