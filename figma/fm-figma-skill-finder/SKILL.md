@@ -1,9 +1,9 @@
 ---
-name: fm-figma-design-skill-finder
+name: fm-figma-skill-finder
 description: Research and rank Figma-specific agent skills — both the single-file skills in the Figma Community AI skills library (figma.com/community/ai-skills) that run inside the Figma agent and Figma Make, and the SKILL.md skills for external coding agents (Claude Code, Cursor, Codex, Copilot, Gemini CLI, Grok, Kiro) that drive the Figma MCP server — across figma/mcp-server-guide, figma/community-resources, vendor design-system repos, GitHub, and skill aggregators, then produce a scored Markdown report and an .xlsx catalog. Use whenever the user asks to find, discover, research, compare, audit, or recommend Figma skills — "what Figma skills exist for X", "find a skill that does design-to-code from Figma", "is there a FigJam / Slides / Code Connect / variables skill", "which Figma skills work in Cursor", "audit the Figma skill ecosystem for Y" — or wants to know whether coverage exists before authoring one. Figma plugins, widgets, Make templates, Code Connect files, and MCP servers are classified, not cataloged.
 ---
 
-# Figma Design Skill Finder
+# Figma Skill Finder
 
 Deep-research the Figma skill ecosystem for a requested topic. Produce a verified,
 scored, deduplicated catalog — never a plausible-sounding list.

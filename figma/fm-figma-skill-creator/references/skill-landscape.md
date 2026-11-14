@@ -124,4 +124,4 @@ Twelve Community listings published by Qredence are the same files as their Qred
 
 ## Refresh
 
-New rows come from running `fm-figma-design-skill-finder` (in this repo) for Community skills and from any skill the user shares. Append new rows and never rewrite or delete history; a skill that changes gets a new row with its new Seen date. The one exception is a row written without the skill's body: once the body is read, that row is corrected in place, keeps its Seen date, and its note gives the date the body was read. Recompute the gap grid in `skill-idea-catalog.md` after each refresh.
+New rows come from running `fm-figma-skill-finder` (in this repo) for Community skills and from any skill the user shares. Append new rows and never rewrite or delete history; a skill that changes gets a new row with its new Seen date. The one exception is a row written without the skill's body: once the body is read, that row is corrected in place, keeps its Seen date, and its note gives the date the body was read. Recompute the gap grid in `skill-idea-catalog.md` after each refresh.

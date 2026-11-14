@@ -1,5 +1,5 @@
 ---
-name: fm-figma-shader-creation
+name: fm-figma-shader-creator
 description: Use whenever a Figma shader is being created, written, built, modified, extended, enhanced, fixed, debugged, reviewed, or published. Triggers include any mention of a Figma shader effect or shader fill, custom effect, custom fill, procedural fill, WebGPU or WGSL for Figma, a shader main.ts, defineProperties, features.json, the create_shader / update_shader / get_shader MCP tools, adding controls or factory presets to a shader, making an existing shader such as fm-halftone-shader resolution independent, harvesting presets from configured layers, shader cover artwork or thumbnails, or publishing a shader to a team library, an organization, or the Figma Community. Use before calling create_shader or update_shader and before editing any shader source, for both the Figma MCP path and the in-app Figma agent path.
 ---
 

@@ -49,7 +49,7 @@ folder. The CLI detects your agents and asks which skills to install.
 npx skills add futuremotiondev/agent-skills -g -a claude-code
 
 # Install one skill into the current project for Codex
-npx skills add futuremotiondev/agent-skills --skill fm-figma-shader-creation -a codex
+npx skills add futuremotiondev/agent-skills --skill fm-figma-shader-creator -a codex
 
 # Install everything, for every detected agent, without prompts
 npx skills add futuremotiondev/agent-skills --all
@@ -150,13 +150,17 @@ Every skill folder is named with the `fm-` prefix and matches its frontmatter `n
 
 | Skill | What it does | Scope |
 | --- | --- | --- |
-| [`fm-figma-shader-creation`](figma/fm-figma-shader-creation/) | Creates and modifies custom Figma shader effects and fills (`main.ts`, WebGPU/WGSL): runtime contract, controls, factory presets, commenting standard, MCP and in-app workflows, cover artwork and publishing. Ships effect and fill templates and a dependency-free validator. | Universal |
+| [`fm-figma-shader-creator`](figma/fm-figma-shader-creator/) | Creates and modifies custom Figma shader effects and fills (`main.ts`, WebGPU/WGSL): runtime contract, controls, factory presets, commenting standard, MCP and in-app workflows, cover artwork and publishing. Ships effect and fill templates and a dependency-free validator. | Universal |
 | [`fm-figma-skill-creator`](figma/fm-figma-skill-creator/) | Creates, converts, reviews, tests, and publishes skills for Figma's built-in AI agent (single-file slash-command skills for Figma Design and Make) and ports them to and from coding-agent SKILL.md skills for the Figma MCP server. Starts from an ideation workflow backed by a landscape of 103 Figma skills and a catalog of 21 gated concept seeds. Ships six type templates, a 36-rule validator, a three-edition build script that extracts helper scripts for the coding-agent edition and writes a manifest and a per-version history snapshot for each skill, an oracle harness that compares a pasted in-app report with MCP ground truth, two enhancement packs (token conformance, revert) with a tool that strips and adds them, a `check-all` script that runs every validation and build gate, a publishing kit, and two worked examples: `fm-spacing-rhythm-audit` (with an MCP oracle, test fixtures, and five test harnesses) and `fm-figma-capability-probe` (a runtime probe for the in-app agent). | Universal |
-| [`fm-figma-design-skill-finder`](figma/fm-figma-design-skill-finder/) | Researches and ranks Figma-specific agent skills across the Figma Community library and the MCP skill ecosystem, producing a verified, scored catalog. | Universal |
+| [`fm-figma-skill-finder`](figma/fm-figma-skill-finder/) | Researches and ranks Figma-specific agent skills across the Figma Community library and the MCP skill ecosystem, producing a verified, scored catalog. | Universal |
 
-Planned additions: `fm-figma-design-system-creator` (builds a design system over MCP and emits a
-per-system in-app skill through `fm-figma-skill-creator`) and `fm-figma-plugin-creator` (the full
-Figma plugin lifecycle).
+Renamed on 2026-11-13: `fm-figma-shader-creation` is now `fm-figma-shader-creator`, and
+`fm-figma-design-skill-finder` is now `fm-figma-skill-finder`. An install command that uses an old
+name no longer finds the skill; install again under the new name and remove the old copy.
+
+Planned additions: `fm-figma-design-system-creator` (builds a design system's variables and styles
+over MCP; an in-app companion skill comes later) and `fm-figma-plugin-creator` (the full Figma
+plugin lifecycle).
 
 ### File management
 

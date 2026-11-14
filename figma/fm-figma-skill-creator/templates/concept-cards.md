@@ -50,7 +50,7 @@ Which one should I build first? 1 to 5, or tell me what to change.
 2. At least two cards come from cells matched by the Mapping line, and at least one comes from an empty cell, a cell with a count of 0 in the gap grid of `references/skill-idea-catalog.md`.
 3. Unsupported ideas are reshaped into plan-only form or dropped. At most one card is plan-only, and it is never card 1.
 4. Card 5 is the wildcard and says so in its hook.
-5. Vectors, slots, prototype wiring, exports, and diagrams are plan-only in-app. Authoring shader code is MCP-only and routes to /fm-figma-shader-creation.
+5. Vectors, slots, prototype wiring, exports, and diagrams are plan-only in-app. Authoring shader code is MCP-only and routes to /fm-figma-shader-creator.
 6. A card never claims an unsupported capability as its core.
 7. Every name, the part after the slash in the card heading, passes `^fm-[a-z0-9]+(-[a-z0-9]+)*$`.
 8. Every Does line passes `node scripts/validate-figma-skill.mjs --description "<text>"` with no warnings. Run it on each line before showing the deck. The usual warning is `description-lead`, a first sentence over 250 characters: end the capability sentence sooner and move the detail into the next one.

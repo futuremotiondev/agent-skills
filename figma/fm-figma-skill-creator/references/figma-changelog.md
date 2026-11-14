@@ -53,7 +53,7 @@ Track is one of `Product`, `MCP`, `Official skills`, `Plugin API`, `Observed`, a
 | 2026-11-05 | Product | Agent-generated vector illustrations and icons improved | No effect on skills; context only. | RN | documented |
 | 2026-11-03 | Product | Code layers read prototype connections | No effect on skills; context only. | RN | documented |
 | 2026-11-03 | Observed | Probe 1.0 run in the Design agent and over MCP: shared plugin data works; `setPluginData` and `clientStorage` error; a 52,907-byte return was rejected over MCP with a stated 48,000-byte limit | Persist run state with `setSharedPluginData` only, never `setPluginData` or `clientStorage`, and keep every return under 48,000 bytes. | Probe tables 2026-11-03 | observed |
-| 2026-11-02 | Product | Shaders generally available | Shader fills may be named in target:figma-app as a shipped feature; route shader authoring itself to fm-figma-shader-creation. | RN | documented |
+| 2026-11-02 | Product | Shaders generally available | Shader fills may be named in target:figma-app as a shipped feature; route shader authoring itself to fm-figma-shader-creator. | RN | documented |
 | 2026-10-27 | Product | Version history for generative plugins and shaders | No effect on skills; context only. | RN | documented |
 | 2026-10-26 | MCP | Weave image and video models reachable through MCP | No effect on skills; context only. | RN | documented |
 | 2026-10-19 | MCP | `create_session` first appears in `figma-use`; Antigravity plugin support | Call `create_session` with the file key before any file tool in every target:mcp section, and pass its `sessionId` on later calls. | MSG | documented |

@@ -3,7 +3,7 @@ description: Research and rank Figma skills for a topic, then emit a scored repo
 argument-hint: <topic> [--depth quick|standard|exhaustive] [--max N] [--min-score N] [--outputs report,xlsx,json,install] [--exclude <org>] [--include-unverified] [--surface community|mcp|both] [--agents claude-code,cursor,...] [--products figjam,slides,...]
 ---
 
-Use the `fm-figma-design-skill-finder` skill to research Figma skills.
+Use the `fm-figma-skill-finder` skill to research Figma skills.
 
 Raw arguments: `$ARGUMENTS`
 
