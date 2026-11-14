@@ -86,7 +86,7 @@ upload test that proves extra keys are tolerated.
 | Action | Where | Notes |
 | --- | --- | --- |
 | Enable / disable | Manage skills | Disabling blocks automatic and direct use; for a published skill it affects only your account |
-| Edit | Manage skills > Edit (Markdown editor) | Figma: once a skill works, edit it directly rather than regenerating it each session (regeneration costs credits) |
+| Edit | Manage skills > Edit (Markdown editor) | Figma: once a skill works, edit it directly rather than regenerating it each session (regeneration costs credits). The Edit screen shows the body without its frontmatter block, so an update pastes the paste edition and checks the description field separately (observed 2026-11-13) |
 | Export | Manage skills > "..." > Export | "so you can use it with your own agents"; exported shape and frontmatter round-trip are Unverified; never treat the Figma copy as master |
 | Publish | Manage skills > More actions > Publish | Private (team or organization) or Community; see publishing-kit.md |
 | Publish changes | Manage skills > Publish changes | No version number, changelog, or rollback; the page shows only "Last updated" |

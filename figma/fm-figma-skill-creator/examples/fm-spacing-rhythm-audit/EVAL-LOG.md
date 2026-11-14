@@ -31,8 +31,93 @@ The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-
 - **Fix question:** answer 3, then type "1, 2". Expect the row-number follow-up as free text with no preset options. Rows 1 and 2, the two `Hero (Slot)` slot gaps (10 → 8, bind `Space/200`), are applied and verified 2 of 2. Then say "revert the last snaps": both read 10 again, unbound, so the duplicate matches scope 3 again.
 - **Ruling 31 diagnostic:** in a fresh chat on the same page, run the script under "Round 4" in the Round 3 entry through the script tool and copy its return. Compare it with the MCP answer recorded there.
 - **Credits:** read after every response, from the AI credits icon under it.
+- **Run:** on 2026-11-13; the results are the entry "Round 4 in-app, v2.2, 2026-11-13" below.
 
 ## Entries
+
+### Round 4 in-app, v2.2, 2026-11-13
+
+- **Edition tested:** 2.2 in the Figma Design agent, run by the orchestrator through an automated browser rather than by Futuremotion by hand. The installed skill was updated through Manage skills, Edit, Save (0 credits). The Edit screen holds the body without a frontmatter block, so the paste edition went in and the name and description fields, already equal to `dist/fm-spacing-rhythm-audit.paste.fields.txt`, were left as they were. Read back after Save: 46,399 characters, contains "plus negative tokens to".
+- **File and selection:** the Simple Design System duplicate `RoEqd4VFbADE0s0nZ0n8Yj`, Sections page, nothing selected (oracle scope 3).
+- **Prompts:** "Audit the spacing on this page", then 1 (scope), 1 (mode), 3 at the fix question, "1, 2" at the follow-up, then "revert the last snaps" in the same chat. The plain prompt triggered the skill; the slash form was not needed.
+- **Gates:** the scope, mode, and fix questions rendered as cards with lettered clickable options plus "Add a custom response", each with the master's text exactly. The mode question read "(2 to 160 px, plus negative tokens to -24)", the 2.2 wording. The row-number follow-up was plain text, "Which row numbers?", with no options. Round 3's mismatches 1 and 2 are fixed in-app.
+- **Report:** saved verbatim as `tests/fixtures/round4-sections-audit.md` (the page's tables converted to Markdown, nothing else changed). Ten rows; P0 2 · P1 3 · P2 0 · P3 5; the five `AI Chatbot` 20s at P3 binding `Space/400` with a tie note, the 2.2 classification. "Matched but not offered: Responsive (1 WIDTH_HEIGHT)" was printed, so Round 3's mismatch 3 is fixed. The blast-radius sentence for rows 3 to 5 and the 50-frame line were present.
+- **Compare:** `node scripts/oracle-compare.mjs --expected examples/fm-spacing-rhythm-audit/tests/expected.json --scope 3 --schema examples/fm-spacing-rhythm-audit/tests/schema.spacing.json --report examples/fm-spacing-rhythm-audit/tests/fixtures/round4-sections-audit.md --frame-tolerance 4`, with the committed schema unchanged. Exit 2. It printed no stub; its whole output is one line on stderr:
+
+  ```text
+  oracle-compare: no "Off-grid values:" line in the report
+  ```
+
+  The agent printed the priority line as "Ranked values", so the compare stopped before it read a count or a row. `tests/compare.harness.mjs` pins this exit and the absent Result line. The one difference the compare reports, and every other line and row checked by hand against scope 3 of `tests/expected.json`:
+
+  | Item | Report | Scope 3 | Kind |
+  | --- | --- | --- | --- |
+  | Priority line (the compare's exit-2 difference) | "Ranked values: P0 2 · P1 3 · P2 0 · P3 5" | Off-grid values, P0 2 · P1 3 · P2 0 · P3 5 | the label or layout differs, the number agrees |
+  | Frames measured | 842 | 844 | a number differs (−2, inside the tolerance of 4; Ruling 31) |
+  | Bound values | 618 passed | 622 | a number differs (−4, inside the tolerance of 4; Ruling 31) |
+  | Hidden skipped, absolute children | 9, 4 ("Absolute-positioned children excluded") | 9, 4 | the label or layout differs, the number agrees (the label is a known schema alias) |
+  | Mode | "Size tokens, Default mode" | tokens, `Size` | the label or layout differs, the number agrees |
+  | Tokens off the 4/8 rhythm | "Space/150 = 6, used by 12 bound values" | `Space/150` = 6, 12 values | the label or layout differs, the number agrees |
+  | On rhythm, no matching token | not printed | 0 | the label or layout differs, the number agrees (a 0 left out) |
+  | Bind opportunities | no header line; "Another 42 unbound values" in a sentence; table after the main table | 42 across 7 tokens | the label or layout differs, the number agrees |
+  | Bind opportunity counts | 15, 10, 6, 5, 4, 1, 1 | 15, 10, 6, 5, 4, 1, 1 | agree; example layers shortened, and `Space/400` shows `Accordion / Items` (`6031:7224`, in the oracle's id list, as in Round 3) for the oracle's `Footer / Footer / Platform=Desktop` |
+  | Rows 1 to 10: property, current, nearest, fix, delta, priority | as scope 3 | as scope 3 | agree |
+  | Rows 1 to 10: layer path | shortened, for example "Hero (Slot) / Desktop / Slot" | "Hero Sections / Hero (Slot) / Platform=Desktop / Slot" | the label or layout differs, the number agrees |
+  | Rows 3 to 5: order | `AI -> Conversation`, `AI Sidebar`, `Checkbox Field` | the reverse | the label or layout differs, the number agrees (same priority and delta) |
+  | Notes | "Direct child of a main component", "Main on AI Chat; inherited by 2 instances", "Tie: 16 or Space/600 (24)" | "", "inherited by 2 instances", "tie: Space/400 (16) or Space/600 (24)" | the label or layout differs, the number agrees |
+  | Matched but not offered | Responsive (1 WIDTH_HEIGHT) | same | agree |
+
+  Only the two Ruling 31 counts differ in number. A scratch copy outside the repository with only "Ranked values" renamed (not committed, not the capture) gets past that line and exits 1 with 5 missing, 5 extra, 0 mismatched and "On rhythm, no matching token" absent: the shortened paths of rows 1 to 5 no longer match the key column, while the five `AI Chatbot` rows, whose path the agent kept, match on every compared column.
+- **Apply (answer 3, "1, 2"):** both `Hero (Slot)` slot gaps 10 → 8, bound to `Space/200`, in an After fixes table with Previous "10 px, unbound"; "Both values and bindings are confirmed. Rows 3–10 were left unchanged." Applying to a `SLOT` node worked. No blast-radius sentence, correctly (neither row is a main component elsewhere).
+- **Revert:** "Reverted both last snaps: the gaps are back to 10 px, unbound, as recorded before the changes. Both restorations are confirmed; nothing else was changed." Checked over MCP afterwards, read-only: the committed oracle for scope 3 (`PAGE = "Sections"`, `SELECTION = "page"`, `MODE = "tokens"`) returned 9,985 bytes, and `oracle-compare.mjs --run` against scope 3 printed `0 missing, 0 extra, 0 mismatched; every count within tolerance; exit 0` with tolerance 0; rows, `unbound` with its ids, and `tokens` equal the fixture. The duplicate is as the oracle recorded it.
+- **Ruling 31 diagnostic (closed as H3):** in a new chat, the Round 3 script returned, on the third attempt:
+
+  ```json
+  [{"id":"I4317:11022;4317:10969","type":"INSTANCE","visible":true,"layoutMode":"HORIZONTAL","children":["I4317:11022;4317:10969;4317:319 FRAME","I4317:11022;4317:10969;4317:10864 SLOT"]},{"id":"I4317:11022;4317:10969;4317:10864","type":"SLOT","visible":true,"layoutMode":"VERTICAL","children":["I4317:11022;4317:10969;4317:10866 TEXT"]},{"id":"I4331:7195;4317:10969;4317:10864","type":"SLOT","visible":true,"layoutMode":"VERTICAL","children":["I4331:7195;4317:10969;4317:10866 TEXT"]}]
+  ```
+
+  Both nested `Code` slots are listed, visible, `VERTICAL`, each with its text child, the same as the MCP run, so the in-app runtime reaches them: H1 and H2 are ruled out. The audit again read 842 frames and 618 bound values. What remains is H3: the in-app agent sometimes walks on its own rather than running the helper as written, and the chat cannot show which. No runtime difference goes into the capability reference; the helper is unchanged. Attempts 1 and 2 were faults of the automation's paste method, not of Figma: the scripted insert dropped the line breaks, so the leading `//` comment swallowed the script (attempt 1 returned "Plugin executed successfully" and no data), and with the comment removed the prompt box likely rewrote `(c)` (attempt 2 returned a SyntaxError). Attempt 3 sent the script on one line with the callback parameter renamed `kid`, its only difference from the Round 3 script.
+- **Credits:** 184 in nine turns, read from "View AI credit usage" under each response; the hand-off estimated about 100.
+
+  | Step | Turn | Credits |
+  | --- | --- | --- |
+  | 1 | Update the installed skill through Manage skills, Edit | 0 |
+  | 2a | "Audit the spacing on this page", scope question | 60 |
+  | 2b | 1, mode question | 14 |
+  | 2c | 1, the report and the fix question | 36 |
+  | 3a | 3, row-number follow-up | 6 |
+  | 3b | "1, 2", apply | 22 |
+  | 3c | "revert the last snaps" | 12 |
+  | 4 | Diagnostic, attempt 1 (fault of the automation's paste method) | 18 |
+  | 4 | Diagnostic, attempt 2 (fault of the automation's paste method) | 8 |
+  | 4 | Diagnostic, attempt 3 (valid) | 8 |
+
+  The first turn, which loads the 46,399-character skill, cost 60 where the 2026-11-02 model said about 10 for a question.
+- **Timings:** about 8 s to the scope question, about 9 s to the mode question, 52 s to the report, about 5 s to the follow-up, 22 s to apply, 14 s to revert.
+
+#### Open finding: the agent rewrote the report template
+
+Recorded for Futuremotion's decision on whether the skill should insist on its template; no change is proposed here.
+
+| Master's Output contract | What the agent printed |
+| --- | --- |
+| `## Spacing rhythm audit: <scope name>` | "Spacing audit: Sections", plain text |
+| `Mode: tokens (<spacingCollection.name>)` | "Mode: Size tokens, Default mode" |
+| `Scale: 4 pt below 48, 8 pt from 48` | not printed |
+| `Not measurable (absolute children): <n>` | "Absolute-positioned children excluded: 4" |
+| `Off-grid values: P0 <n> · P1 <n> · P2 <n> · P3 <n> (<n> values in <n> rows)` | "Ranked values: P0 2 · P1 3 · P2 0 · P3 5", no parenthetical |
+| `Bound values: <n> passed` | "Bound values: 618 passed, with inherited values counted at their source" |
+| `Tokens off the 4/8 rhythm: Space/150 = 6 (12 values); a scale decision, not a defect` | "Space/150 = 6, used by 12 bound values. This is a system-scale decision, not a defect." |
+| `Bind opportunities: <n> values across <n> tokens` | no header line; "Another 42 unbound values already match tokens" under the second table |
+| `On rhythm, no matching token: <n>` | not printed (it is 0) |
+| `No changes applied.` | "Nothing was changed." in the opening sentence |
+| The Bind opportunities table before the main table | after it, headed "Exact-value bind opportunities" |
+| `Layer (path)` cells as the helper returns them | shortened paths, page and "(main component)" dropped |
+| Note cells as the helper returns them | reworded notes |
+| After applying: `Changed: <n> properties on <n> layers · Verified: <n> of <n>` | "Both values and bindings are confirmed. Rows 3–10 were left unchanged." |
+
+- **Change made:** none to the master and no version bump. Recorded in the creator's references: `troubleshooting.md` closes "Frame counts can differ between runtimes" and adds the 2026-11-13 credit readings and the prompt-box paste row; `format-and-frontmatter.md` adds the Edit-screen note. `tests/fixtures/round4-sections-audit.md` and its harness case are new.
+- **Re-test needed:** no for the gates and the 2.2 classification. The template finding waits on Futuremotion's decision.
 
 ### v2.2 oracle, 2026-11-13
 
@@ -89,7 +174,7 @@ The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-
 1. **Scope question as plain text** (instruction). Step 2 did not route the scope question through the structured question tool, while steps 5 and 6 did through the in-app section. Fixed in 2.1: step 2 and step 6 say "through a structured question tool when the runtime has one", and the in-app section names `ask_user_question` for the scope, mode, and fix questions.
 2. **Invented presets at the row-number follow-up** (agent behaviour the instruction allowed). Fixed in 2.1: on 3, ask "Which row numbers?" as a free-text question with no preset options or ranges, and apply exactly the rows named; the in-app section repeats it.
 3. **"Matched but not offered" dropped in (b)** (instruction). The line was defined only in the discover step, so it was not part of the output contract; prompt (a) printed it, prompt (b) did not. Fixed in 2.1: the line is in the report template and the output-contract prose, omitted when `matchedCollections` is empty, and the discover step says to repeat it in the report header.
-4. **842 frames and 618 bound values against 844 and 622** (runtime, open defect; no helper change). The collect walk (`"layoutMode" in n && n.layoutMode !== "NONE"`, a manual recursion over `children`, `visible === false` skips) is identical in v1.2 and 2.0, and v1.2 Run B also read 842, so the gap is reproducible, not a restated number. The v1.2 attribution to "the two SLOT nodes" is wrong: the Hero slots `6062:12601` and `6062:12602` are measured in-app, because they appear as rows 6 and 7 with no inherited note. A read-only `use_figma` replay of the walk on 2026-11-03 found exactly one pair of frames that accounts for both gaps: the two nested `Code` slots, `I4317:11022;4317:10969;4317:10864` and `I4331:7195;4317:10969;4317:10864`. Each is a SLOT inside an `AI Chat -> Code Block` instance that sits in the `Content` slot of an `AI -> Conversation` instance inside the `AI Chatbot` component set; they are the only measured SLOTs nested in slot content inside another instance. Their four paddings are bound and inherited, so the four bound keys sit on the main slot `4317:10864` (page AI Chat) and are reached only through these two frames: skipping both removes exactly 2 frames and 4 bound values. Hypotheses for why the in-app walk misses them: (H1) the in-app runtime does not list a slot that belongs to an instance placed inside another instance's slot, so `Code Block`'s `children` comes back without its `Code` slot; (H2) those nested nodes read `visible === false` or lack `layoutMode` in-app; (H3) the agent ran its own walk rather than the helper (the chat cannot show which), though matching rows, priorities, and the same 842 in two versions make this least likely. The helper is not changed on a guess.
+4. **842 frames and 618 bound values against 844 and 622** (closed on 2026-11-13 as H3; no helper change). The Round 4 diagnostic found both nested `Code` slots visible in-app, `VERTICAL`, each with its text child, the same as over MCP, which rules out H1 and H2; the in-app agent sometimes walks on its own, so in-app counts are compared with `--frame-tolerance 4` (see the Round 4 entry). The evidence as recorded on 2026-11-03 follows. The collect walk (`"layoutMode" in n && n.layoutMode !== "NONE"`, a manual recursion over `children`, `visible === false` skips) is identical in v1.2 and 2.0, and v1.2 Run B also read 842, so the gap is reproducible, not a restated number. The v1.2 attribution to "the two SLOT nodes" is wrong: the Hero slots `6062:12601` and `6062:12602` are measured in-app, because they appear as rows 6 and 7 with no inherited note. A read-only `use_figma` replay of the walk on 2026-11-03 found exactly one pair of frames that accounts for both gaps: the two nested `Code` slots, `I4317:11022;4317:10969;4317:10864` and `I4331:7195;4317:10969;4317:10864`. Each is a SLOT inside an `AI Chat -> Code Block` instance that sits in the `Content` slot of an `AI -> Conversation` instance inside the `AI Chatbot` component set; they are the only measured SLOTs nested in slot content inside another instance. Their four paddings are bound and inherited, so the four bound keys sit on the main slot `4317:10864` (page AI Chat) and are reached only through these two frames: skipping both removes exactly 2 frames and 4 bound values. Hypotheses for why the in-app walk misses them: (H1) the in-app runtime does not list a slot that belongs to an instance placed inside another instance's slot, so `Code Block`'s `children` comes back without its `Code` slot; (H2) those nested nodes read `visible === false` or lack `layoutMode` in-app; (H3) the agent ran its own walk rather than the helper (the chat cannot show which), though matching rows, priorities, and the same 842 in two versions make this least likely. The helper is not changed on a guess.
 
 #### Change made (2.1)
 

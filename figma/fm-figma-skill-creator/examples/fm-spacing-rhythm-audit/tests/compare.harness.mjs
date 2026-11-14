@@ -119,6 +119,13 @@ const cases = {
     expectResult(compare(["--scope", "2", "--report", fixture("report-scope2-unknown-header.md")]), {
       exit: 2, contains: ["Header rows found in the report:", "| # | Priority | Node | Property |"],
     }),
+  // The Round 4 in-app capture (2026-11-13), compared with the committed schema unchanged: the agent
+  // printed "Ranked values" where the master says "Off-grid values", so the compare stops at exit 2
+  // before it reads a row, and prints no Result line.
+  "round4-sections-audit.md (in-app capture) exits 2 at the priority line": () =>
+    expectResult(compare(["--scope", "3", "--report", fixture("round4-sections-audit.md"), "--frame-tolerance", "4"]), {
+      exit: 2, missing: null, extra: null, mismatched: null, contains: ['no "Off-grid values:" line in the report'],
+    }),
   "--run on an oracle-shaped scope 3 compares clean": () =>
     expectResult(compare(["--scope", "3", "--run", runOf(3)]), { exit: 0, missing: 0, extra: 0, mismatched: 0 }),
   "--run with one changed fix is flagged": () =>
