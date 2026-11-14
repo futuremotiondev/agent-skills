@@ -142,6 +142,13 @@ const cases = {
       contains: ['No "Off-grid values:" line in the report', "AI Sidebar / Block / Block / Block (page: AI Chat) (main component) · Gap · 10 (P1)",
         "Extra in the report (5)\n  Hero (Slot) / Desktop / Slot · Gap · 10", "5 counts outside tolerance; exit 1"],
     }),
+  // The Round 5 in-app capture (2026-11-14, audit 2.3), compared with the committed schema unchanged:
+  // every row, count and priority count matches oracle scope 3.
+  "round5-sections-audit.md (in-app capture, audit 2.3) compares clean": () =>
+    expectResult(compare(["--scope", "3", "--report", fixture("round5-sections-audit.md"), "--frame-tolerance", "4"]), {
+      exit: 0, missing: 0, extra: 0, mismatched: 0,
+      contains: ["Result: 0 missing, 0 extra, 0 mismatched; every count within tolerance; exit 0"],
+    }),
   // The priority line is optional in a schema: an inventory-shaped schema with none compares a perfect report clean.
   "a schema with no priority line compares a report with no priority line clean": () => {
     const schema = schemaVariant("schema-no-priority.json", (s) => { delete s.priorityLine; return s })

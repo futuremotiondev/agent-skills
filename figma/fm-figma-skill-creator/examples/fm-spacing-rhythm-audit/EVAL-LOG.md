@@ -33,6 +33,7 @@ The one in-app session of the audit's 2.3 plan, prepared on 2026-11-14. It is a 
 - **Expected After fixes:** "Changed: 2 properties on 2 layers · Verified: 2 of 2". After "revert the last snaps", the two `Hero (Slot)` slot gaps must read 10 and unbound again, so the duplicate still matches scope 3.
 - **Credits:** about 150, from Round 4's six matching responses (60, 14, 36, 6, 22, 12); stop at 200. Credits are read after every response, from the AI credits icon under it.
 - **Micro-test (Task 4):** wording micro-test, 2026-11-14, no credits: five single-shot agents per edition were given the paste edition and scope 3's collect result and asked for the report. Scored with `oracle-compare` at tolerance 0, the 2.3 edition compared clean 5 of 5 and the 2.2 control 4 of 5 (its one failure appended node ids to the layer paths). The control already follows the template closely, so this shows that 2.3 does no harm and narrows the spread between runs; it does not reproduce the in-app rewrite of Round 4.
+- **Run:** on 2026-11-14; the results are the entry "Round 5 in-app, v2.3, 2026-11-14" below.
 
 ## Round 4 plan
 
@@ -46,6 +47,87 @@ The one in-app session of the creator's Plan 2 (Ruling 34), prepared on 2026-11-
 - **Run:** on 2026-11-13; the results are the entry "Round 4 in-app, v2.2, 2026-11-13" below.
 
 ## Entries
+
+### Round 5 in-app, v2.3, 2026-11-14
+
+- **Edition tested:** 2.3 in the Figma Design agent, run by the orchestrator through an automated browser. Installed through Manage skills, Edit, Save (0 credits): the paste edition (46,707 characters) replaced the body; the name and description fields were already equal to `dist/fm-spacing-rhythm-audit.paste.fields.txt` and were left as they were. Read back after Save: 46,706 characters (the trailing newline is trimmed), containing "verbatim, filling only its"; Last updated November 14, 2026.
+- **File and selection:** the Simple Design System duplicate `RoEqd4VFbADE0s0nZ0n8Yj`, Sections page, nothing selected (oracle scope 3). Before the session, over MCP, the two `Hero (Slot)` slot frames `6062:12601` and `6062:12602` read gap 10, unbound; after the session, the same.
+- **Prompts:** "Audit the spacing on this page" in a new chat, then 1 (scope), 1 (mode), 3 at the fix question, "1, 2" at the follow-up, then "revert the last snaps" in the same chat.
+- **Gates:** the scope, mode, and fix questions rendered as cards with lettered options plus "Add a custom response", each with the master's text exactly. The mode question read "(2 to 160 px, plus negative tokens to -24)". The discover response printed "Matched but not offered: Responsive (1 WIDTH_HEIGHT)." above the mode question. The row-number follow-up was plain text, "Which row numbers?", with no options.
+- **Report:** saved verbatim as `tests/fixtures/round5-sections-audit.md`. Each response was read from the page and written as Markdown: headings and list items in Markdown form, real tables as pipe tables, node links as their text, option buttons left out; nothing else changed. The capture therefore holds the agent's lead-in sentence and its work-status line ("Auditing page padding and gaps") above the report, and the fix question below it. The report follows the 2.3 template: heading `## Spacing rhythm audit: Sections`, the header lines in the template's order and labels ("Off-grid values: P0 2 · P1 3 · P2 0 · P3 5 (10 values in 10 rows)", "Bind opportunities: 42 values across 7 tokens", "On rhythm, no matching token: 0", "Matched but not offered: Responsive (1 WIDTH_HEIGHT)", "No changes applied."), the Bind opportunities table before the main table, and ten rows whose Layer (path) and Note cells are scope 3's `path` and `note`. It read 844 frames and 622 bound values, equal to the oracle; Rounds 3 and 4 read 842 and 618 on the same page. One run does not explain the change; it is recorded as an observation.
+- **Compare:** `node scripts/oracle-compare.mjs --expected examples/fm-spacing-rhythm-audit/tests/expected.json --scope 3 --schema examples/fm-spacing-rhythm-audit/tests/schema.spacing.json --report examples/fm-spacing-rhythm-audit/tests/fixtures/round5-sections-audit.md --frame-tolerance 4`, with the committed schema unchanged. Exit 0. Its output up to the Result line (the EVAL-LOG entry stub it prints next is replaced by this entry):
+
+  ```text
+  oracle-compare: scope 3 (tokens), report examples/fm-spacing-rhythm-audit/tests/fixtures/round5-sections-audit.md, frame tolerance 4
+
+  Counts (expected, observed, delta)
+    Frames measured                        844     844     0
+    Hidden skipped                           9       9     0
+    Not measurable (absolute children)       4       4     0
+    Bound values                           622     622     0
+    On rhythm, no matching token             0       0     0
+    Matches an alias                         0       0     0  (line omitted, read as 0)
+
+  Priority counts, Off-grid values (expected, observed, delta)
+    P0       2       2     0
+    P1       3       3     0
+    P2       0       0     0
+    P3       5       5     0
+
+  Missing from the report (0)
+  Extra in the report (0)
+  Mismatched (0)
+
+  Result: 0 missing, 0 extra, 0 mismatched; every count within tolerance; exit 0
+  ```
+
+  The same command with `--frame-tolerance 0` prints the same Result line and exits 0. `tests/compare.harness.mjs` pins the tolerance-4 result (exit 0, 0 missing, 0 extra, 0 mismatched).
+- **Hand check:** what the compare does not read, checked against the 2.3 Output contract template and scope 3 of `tests/expected.json`:
+
+  | Item | Expected | Observed (file, line) | Result |
+  | --- | --- | --- | --- |
+  | Heading | `## Spacing rhythm audit: Sections` | the same (`round5-sections-audit.md`, 5) | pass |
+  | Mode line | `- Mode: tokens (Size)` (`spacingCollection.name` is `Size`) | the same (7) | pass |
+  | Scale line | `- Scale: 4 pt below 48, 8 pt from 48` | the same, with "; checked against the system's spacing tokens" added inside the placeholder (8) | pass (label and value as the template; the added clause is an observation) |
+  | Bind opportunities section | `## Bind opportunities` and its table before the main table | heading 22, table 24 to 32, main table 36 | pass |
+  | Note cells, rows 1 to 10 | each row's `note`: empty for rows 1 and 2; "inherited by 9 instances", "inherited by 1 instance", "inherited by 2 instances" for rows 3 to 5; "tie: Space/400 (16) or Space/600 (24)" for rows 6 to 10 | the same, in order (38 to 47) | pass |
+  | After fixes heading | `## After fixes` | the same (`round5-after-fixes.md`, 9) | pass |
+  | After fixes record line | "Previous is the human record; the revert list is the apply result." | the same (11) | pass |
+  | After fixes columns | `#`, Layer, Property, Previous, Now, Fix, in that order | the same (13) | pass |
+  | Changed line | "- Changed: 2 properties on 2 layers · Verified: 2 of 2" | the same (18) | pass |
+  | Revert | both rows reported restored | "I reverted both snaps using the previous change record and confirmed both gaps are back to **10 px, unbound**. Nothing else changed." (`round5-revert.md`, 3) | pass |
+
+- **Apply (answer 3, "1, 2"):** both `Hero (Slot)` slot gaps 10 → 8, bound to `Space/200`, in an After fixes table with Previous "10 px, unbound"; rows 3 to 10 listed as not changed, user excluded; "Structure, constraints, layout mode, and explicit sizes: unchanged".
+- **Revert:** reported in one sentence (see the hand check). Checked over MCP afterwards: both slot frames read gap 10, unbound, as before the session.
+- **Credits:** 148 in six responses, read under each response (Round 4's six matching responses were 150). Allowance: 184 + 148 = 332 of 600.
+
+  | Step | Turn | Credits |
+  | --- | --- | --- |
+  | 1 | Update the installed skill through Manage skills, Edit | 0 |
+  | 2a | "Audit the spacing on this page", scope question | 60 |
+  | 2b | 1, discover run and mode question | 14 |
+  | 2c | 1, the report and the fix question | 34 |
+  | 3a | 3, row-number follow-up | 6 |
+  | 3b | "1, 2", apply and After fixes | 22 |
+  | 3c | "revert the last snaps" | 12 |
+
+- **Micro-test:** recorded in the Round 5 plan above; not repeated here.
+
+#### Observations: what the agent added outside the template
+
+None of these is a hand-check item or read by the compare, so none changes the result.
+
+- A lead-in sentence and a work-status line before the heading (`round5-sections-audit.md`, 1 and 3), and in `round5-after-fixes.md` a lead-in sentence and three status lines (1 to 7).
+- Two explanatory paragraphs between the header list and the Bind opportunities section (18 and 20): the P0/P1 rows are 10 px gaps and the P3 rows are ties; rows 3 to 5 are main components on other pages.
+- The sentence "All proposed bindings use the Default mode." after the main table (49).
+- The Scale line's added clause inside its placeholder (8).
+- In `round5-after-fixes.md` the Layer cells are the agent's own names ("Desktop hero slot", "Mobile hero slot"), not layer paths (15 and 16). The 2.3 wording names the "Layer (path)" and Note cells only, so this column of the After fixes table is not covered.
+- In `round5-revert.md` the revert is reported in one sentence, not in a table; the template prescribes none.
+- The Bind opportunities table names `Accordion / Items (page: Accordion)` as the `Space/400` example layer where scope 3 records `Footer / Footer / Platform=Desktop`, as in Rounds 3 and 4; the counts (15, 10, 6, 5, 4, 1, 1) agree.
+- Frames measured 844 and Bound values 622, equal to the oracle, where Rounds 3 and 4 read 842 and 618; the cause is not established.
+
+- **Change made:** none to the master. The creator (1.4) now says an in-app report of the audit (2.3) compares clean with `--frame-tolerance 4`, in `SKILL.md`, `references/testing-and-maintenance.md`, and `tests/README.md`; `references/troubleshooting.md` adds the 844 and 622 reading to "Frame counts can differ between runtimes". `tests/fixtures/round5-sections-audit.md` and its harness case are new.
+- **Re-test needed:** no.
 
 ### Round 4 in-app, v2.2, 2026-11-13
 
