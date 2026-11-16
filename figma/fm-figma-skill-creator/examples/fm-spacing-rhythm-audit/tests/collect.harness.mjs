@@ -675,16 +675,22 @@ cases["16 the report template is literal"] = () => ({
     while (close < lines.length && !/^\s*```/.test(lines[close])) close++
     const block = lines.slice(open + 1, close)
     const notes = ["(only ", "(token mode", "(table below", "(or the", "one entry per"]
+    const offGrid = "- Off-grid values: P0 <n> · P1 <n> · P2 <n> · P3 <n> (<n> values in <n> rows)"
+    const negLine = "- Negative values: <n> not snapped: <label> (<n> values, example <layer>)"
     const required = [
       "## Spacing rhythm audit: <scope name>",
-      "- Off-grid values: P0 <n> · P1 <n> · P2 <n> · P3 <n> (<n> values in <n> rows)",
+      offGrid,
+      negLine,
       "- Changed: <n> properties on <n> layers · Verified: <n> of <n>",
     ]
+    // Audit 2.4: the Negative values line sits directly after the Off-grid values line.
+    const at = block.indexOf(offGrid)
     return [
       ...notes.flatMap((s) => block.filter((l) => l.includes(s)).map((l) => `a line holds ${show(s)}: ${show(l)}`)),
       ...block.filter((l) => !l.startsWith("|") && l.includes(" | ")).map((l) => `a line outside a table holds " | ": ${show(l)}`),
       ...block.filter((l) => l.includes("Space/150")).map((l) => `a line holds "Space/150": ${show(l)}`),
       ...required.filter((r) => !block.includes(r)).map((r) => `the block has no line ${show(r)}`),
+      ...check([[at < 0 || block[at + 1] === negLine, `the line after the Off-grid values line is ${show(block[at + 1] ?? "<end>")}, not the Negative values line`]]),
     ]
   },
 })
