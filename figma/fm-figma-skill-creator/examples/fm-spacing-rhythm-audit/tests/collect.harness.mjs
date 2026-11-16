@@ -154,7 +154,7 @@ function negGroups(mode) {
   }
 }
 
-/** Cases 22 and 23: the live file's "Edge values" frame (fractional paddings, a negative gap) holding a "Stack" frame whose negative gap is bound to an unmatched variable. */
+/** Cases 22 and 23: the live file's "Edge values" frame (fractional paddings, a negative gap) holding a "Stack" frame whose negative gap is bound to an unmatched variable; each also reads its stored scope (7 rhythm, 8 tokens). */
 function edgeValues(mode) {
   const spacing = collection("VC:spacing", "Spacing"), overlap = collection("VC:overlap", "Overlap")
   const steps = [["Space/100", 4], ["Space/150", 6], ["Space/200", 8], ["Space/300", 12], ["Space/400", 16]]
@@ -186,7 +186,18 @@ function edgeValues(mode) {
         [show(gotNeg) === show(wantNeg), "negatives.list " + show(wantNeg) + ", got " + show(gotNeg)],
         [show(got) === show(want), "rows " + show(want) + ", got " + show(got)],
         [fixOk, (mode === "rhythm" ? "every fix " + show(set6) : "every fix bind Space/150, value 6") + ", got " + show(r.rows.map((x) => x.fix))],
-      ])
+      ]).concat((() => {
+        // The live oracle run of the same frame on the seed file (scope 7 in rhythm mode, 8 in token mode) must return these rows and entries too.
+        const n = mode === "rhythm" ? 7 : 8
+        const stored = JSON.parse(readFileSync(join(here, "expected.json"), "utf8")).scopes.find((s) => s.scope === n)
+        if (!stored) return ["expected.json has no scope " + n]
+        const live = stored.rows.map((x) => [x.priority, x.property, x.current, x.nearest, x.delta, x.note])
+        const liveNeg = ((stored.negatives || {}).list || []).map((e) => [e.label, e.values, e.examplePath])
+        return check([
+          [show(live) === show(got), "expected.json scope " + n + " rows " + show(live) + ", mock rows " + show(got)],
+          [show(liveNeg) === show(gotNeg), "expected.json scope " + n + " negatives.list " + show(liveNeg) + ", mock " + show(gotNeg)],
+        ])
+      })())
     },
   }
 }

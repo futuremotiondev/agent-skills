@@ -127,6 +127,22 @@ const cases = {
       exit: 1, missing: 1, extra: 0, mismatched: 1,
       contains: ["Bound padding \u00b7 Padding left \u00b7 18 (P2)", "Card \u00b7 Padding right \u00b7 19: nearest 20 vs 16; fix set 20 vs set 16", "every count within tolerance"],
     }),
+  // The Negative values line (audit 2.4): its total is compared; a report that omits it reads as 0.
+  "report-scope7.md (rhythm, negative values) compares clean": () =>
+    expectResult(compare(["--scope", "7", "--report", fixture("report-scope7.md")]), { exit: 0, missing: 0, extra: 0, mismatched: 0 }),
+  "a wrong Negative values total is flagged": () => {
+    const text = readFileSync(fixture("report-scope7.md"), "utf8")
+    const report = variant("negatives-3.md", text.replace("2 not snapped", "3 not snapped"))
+    return [...expectResult(compare(["--scope", "7", "--report", report]), { exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["1 counts outside tolerance"] }),
+      ...check([[text.includes("**Negative values:** 2 not snapped"), "report-scope7.md has no \"Negative values: 2 not snapped\" line"]])]
+  },
+  "a report that omits the Negative values line differs when the scope has negative values": () => {
+    const text = readFileSync(fixture("report-scope7.md"), "utf8")
+    const report = variant("no-negatives-line.md", text.replace(/^- \*\*Negative values:\*\*.*\n/m, ""))
+    return [...expectResult(compare(["--scope", "7", "--report", report]), {
+      exit: 1, missing: 0, extra: 0, mismatched: 0, contains: ["(line omitted, read as 0)", "1 counts outside tolerance"],
+    }), ...check([[!readFileSync(report, "utf8").includes("Negative values"), "the variant still holds the Negative values line"]])]
+  },
   "report-scope2-alt-headers.md compares clean": () =>
     expectResult(compare(["--scope", "2", "--report", fixture("report-scope2-alt-headers.md")]), { exit: 0, missing: 0, extra: 0, mismatched: 0 }),
   "report-scope2-unknown-header.md exits 2 and lists the header rows": () =>

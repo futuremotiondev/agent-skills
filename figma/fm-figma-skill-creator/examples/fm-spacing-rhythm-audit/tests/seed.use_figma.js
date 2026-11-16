@@ -79,6 +79,11 @@ if (!aliasExisted || created.includes("Spacing/Compact")) {
   alias200.scopes = ["GAP", "WIDTH_HEIGHT"];
 }
 
+// Overlap: one negative variable for the Edge values fixture (scopes 7 and 8). Its scopes do not list GAP and its
+// name holds neither "space" nor "spacing", so token discovery skips it: never a candidate, never a matched collection.
+const overlap = ensureCollection("Overlap");
+const stack8 = ensureVariable("overlap/stack", overlap, -8, ["ALL_SCOPES"]);
+
 // ---------- Nodes ----------
 
 // Find a top-level node on the page by name, or build it with make().
@@ -151,6 +156,22 @@ if (modesSupported && compactId) {
     return f;
   }));
 }
+// Edge values: scopes 7 and 8 only, outside SEED_SELECTION, last in the row so no other frame moves. Paddings 5.5 and 6.5
+// snap to the token value 6 (Space/150) in both modes; its gap of -2 and the gap of its child Stack, bound to
+// overlap/stack (-8), are negative values: counted on the Negative values line, never rows.
+row.push(ensureNode("Edge values", () => {
+  const f = frame({ top: 5.5, bottom: 6.5, gap: -2 });
+  const s = figma.createFrame();
+  s.name = "Stack";
+  s.resize(120, 40);
+  s.layoutMode = "VERTICAL";
+  s.primaryAxisSizingMode = "FIXED";
+  s.counterAxisSizingMode = "FIXED";
+  f.appendChild(s);
+  s.itemSpacing = -8;
+  s.setBoundVariable("itemSpacing", stack8);
+  return f;
+}));
 let x = 0;
 for (const n of row) { n.x = x; n.y = 0; x += n.width + 40; }
 

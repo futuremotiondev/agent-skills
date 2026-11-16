@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-14",
+  "generated": "2026-11-16",
   "masterVersion": "2.4",
   "seedFileKey": "hSEurPqV8Dgzn9yTwPSnnL",
   "notokensFileKey": "idjl35MjLGg4IJtPPH86GA",
@@ -193,6 +193,10 @@
           "values": 1
         }
       ],
+      "negatives": {
+        "values": 0,
+        "list": []
+      },
       "rows": [
         {
           "id": "2:11",
@@ -765,6 +769,10 @@
           "values": 1
         }
       ],
+      "negatives": {
+        "values": 0,
+        "list": []
+      },
       "rows": [
         {
           "id": "2:11",
@@ -1700,6 +1708,10 @@
           "values": 12
         }
       ],
+      "negatives": {
+        "values": 0,
+        "list": []
+      },
       "rows": [
         {
           "id": "6062:12601",
@@ -2196,6 +2208,10 @@
           "values": 12
         }
       ],
+      "negatives": {
+        "values": 0,
+        "list": []
+      },
       "rows": [
         {
           "id": "6062:12601",
@@ -2330,6 +2346,10 @@
       "aliasMatched": 0,
       "boundPassed": 0,
       "offRhythmTokens": [],
+      "negatives": {
+        "values": 0,
+        "list": []
+      },
       "rows": [
         {
           "id": "1:2",
@@ -2580,6 +2600,10 @@
       "aliasMatched": 0,
       "boundPassed": 0,
       "offRhythmTokens": [],
+      "negatives": {
+        "values": 0,
+        "list": []
+      },
       "rows": [
         {
           "id": "32:8",
@@ -2683,6 +2707,460 @@
           },
           "ids": [
             "32:8"
+          ],
+          "count": 1
+        }
+      ]
+    },
+    {
+      "scope": 7,
+      "fileKey": "hSEurPqV8Dgzn9yTwPSnnL",
+      "page": "Seed",
+      "selection": [
+        "Edge values"
+      ],
+      "mode": "rhythm",
+      "counts": {
+        "framesMeasured": 2,
+        "hiddenSkipped": 0,
+        "notMeasurable": 0,
+        "byPriority": {
+          "P0": 0,
+          "P1": 0,
+          "P2": 0,
+          "P3": 2
+        }
+      },
+      "tokens": [
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 12,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 10,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": true,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": true,
+          "candidate": true
+        }
+      ],
+      "libraryTokens": "none",
+      "spacingCollection": {
+        "id": "VariableCollectionId:2:4",
+        "name": "Spacing",
+        "defaultModeName": "Default",
+        "min": 4,
+        "max": 16,
+        "minPositive": 4,
+        "minNegative": null
+      },
+      "matchedCollections": [
+        {
+          "name": "Legacy",
+          "count": 1,
+          "reasons": "1 not elected"
+        }
+      ],
+      "unbound": [],
+      "onRhythmNoToken": 0,
+      "aliasMatched": 0,
+      "boundPassed": 0,
+      "offRhythmTokens": [],
+      "negatives": {
+        "values": 2,
+        "list": [
+          {
+            "label": "unbound -2",
+            "values": 1,
+            "exampleId": "37:10",
+            "examplePath": "Edge values"
+          },
+          {
+            "label": "overlap/stack = -8",
+            "values": 1,
+            "exampleId": "37:11",
+            "examplePath": "Edge values / Stack"
+          }
+        ]
+      },
+      "rows": [
+        {
+          "id": "37:10",
+          "path": "Edge values",
+          "group": "Edge values",
+          "property": "Padding top",
+          "current": 5.5,
+          "nearest": 6,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional; nearest token Space/150 (6)",
+          "fix": {
+            "kind": "set",
+            "value": 6,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "37:10"
+          ],
+          "count": 1
+        },
+        {
+          "id": "37:10",
+          "path": "Edge values",
+          "group": "Edge values",
+          "property": "Padding bottom",
+          "current": 6.5,
+          "nearest": 6,
+          "delta": -0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional; nearest token Space/150 (6)",
+          "fix": {
+            "kind": "set",
+            "value": 6,
+            "reason": "nearest on-grid"
+          },
+          "ids": [
+            "37:10"
+          ],
+          "count": 1
+        }
+      ]
+    },
+    {
+      "scope": 8,
+      "fileKey": "hSEurPqV8Dgzn9yTwPSnnL",
+      "page": "Seed",
+      "selection": [
+        "Edge values"
+      ],
+      "mode": "tokens",
+      "counts": {
+        "framesMeasured": 2,
+        "hiddenSkipped": 0,
+        "notMeasurable": 0,
+        "byPriority": {
+          "P0": 0,
+          "P1": 0,
+          "P2": 0,
+          "P3": 2
+        }
+      },
+      "tokens": [
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:5",
+          "name": "Space/100",
+          "value": 4,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:6",
+          "name": "Space/150",
+          "value": 6,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:7",
+          "name": "Space/200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 12,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:8",
+          "name": "Space/300",
+          "value": 10,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:9",
+          "name": "Space/400",
+          "value": 16,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": false,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:1",
+          "modeName": "Default",
+          "isAlias": true,
+          "candidate": true
+        },
+        {
+          "id": "VariableID:2:10",
+          "name": "Space/alias-of-200",
+          "value": 8,
+          "collection": "VariableCollectionId:2:4",
+          "modeId": "2:2",
+          "modeName": "Compact",
+          "isAlias": true,
+          "candidate": true
+        }
+      ],
+      "libraryTokens": "none",
+      "spacingCollection": {
+        "id": "VariableCollectionId:2:4",
+        "name": "Spacing",
+        "defaultModeName": "Default",
+        "min": 4,
+        "max": 16,
+        "minPositive": 4,
+        "minNegative": null
+      },
+      "matchedCollections": [
+        {
+          "name": "Legacy",
+          "count": 1,
+          "reasons": "1 not elected"
+        }
+      ],
+      "unbound": [],
+      "onRhythmNoToken": 0,
+      "aliasMatched": 0,
+      "boundPassed": 0,
+      "offRhythmTokens": [],
+      "negatives": {
+        "values": 2,
+        "list": [
+          {
+            "label": "unbound -2",
+            "values": 1,
+            "exampleId": "37:10",
+            "examplePath": "Edge values"
+          },
+          {
+            "label": "overlap/stack = -8",
+            "values": 1,
+            "exampleId": "37:11",
+            "examplePath": "Edge values / Stack"
+          }
+        ]
+      },
+      "rows": [
+        {
+          "id": "37:10",
+          "path": "Edge values",
+          "group": "Edge values",
+          "property": "Padding top",
+          "current": 5.5,
+          "nearest": 6,
+          "delta": 0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "bind",
+            "value": 6,
+            "variableId": "VariableID:2:6",
+            "name": "Space/150",
+            "modeName": "Default"
+          },
+          "ids": [
+            "37:10"
+          ],
+          "count": 1
+        },
+        {
+          "id": "37:10",
+          "path": "Edge values",
+          "group": "Edge values",
+          "property": "Padding bottom",
+          "current": 6.5,
+          "nearest": 6,
+          "delta": -0.5,
+          "priority": "P3",
+          "boundId": null,
+          "note": "fractional",
+          "fix": {
+            "kind": "bind",
+            "value": 6,
+            "variableId": "VariableID:2:6",
+            "name": "Space/150",
+            "modeName": "Default"
+          },
+          "ids": [
+            "37:10"
           ],
           "count": 1
         }

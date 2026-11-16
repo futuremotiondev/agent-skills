@@ -504,7 +504,7 @@ const cases = {
     const v = findingsFor("qa-with-tokens-check.md", lines, null, "--allow-placeholders")
     const named = writeMaster("qa-named.md", lines.map((l) => (l.startsWith("name: ") ? "name: fm-qa-with-tokens" : l)))
     const b = spawnSync(process.execPath, [BUILDER, named, "--out", join(tmp, "dist-qa"), "--dry-run"], { encoding: "utf8" })
-    // Every unit lands somewhere except the rewrite, whose rhythm line the template lacks. The nine sentence
+    // Every unit lands somewhere except the rewrite, whose rhythm line the template lacks. The eight sentence
     // units have no anchor here, so each lands on its own line at its section's end and reads back as a block.
     const regionWarnings = warns.filter((l) => /code-region .* has no anchor in helper/.test(l)).length
     return check([
