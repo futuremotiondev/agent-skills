@@ -2,7 +2,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
 // Collect: read auto-layout padding and gaps, fold inherited instance values into the main component, rank off-grid values, group by component. Read-only.
 const MAX_FRAMES = 2000, MAX_ROWS = 60;
 let onGrid = (v) => v === 0 || (v < 48 ? v % 4 === 0 : v % 8 === 0);
-const nearest = (v) => {
+let nearest = (v) => {
   if (onGrid(v)) return v;
   const step = v < 48 ? 4 : 8;
   const lo = Math.floor(v / step) * step, hi = lo + step;
@@ -60,16 +60,15 @@ if (MODE === "discover" && spacingCollection) return { mode: "discover", tokenCo
 if (tokens.length === 0) MODE = "rhythm";
 const rhythm = onGrid, col = spacingCollection && cols.get(spacingCollection.id);
 const inCol = (t, modeId) => !!col && t.collection === col.id && t.modeId === modeId;
-if (MODE === "rhythm" && col) { const extra = new Set(tokens.filter((t) => inCol(t, col.defaultModeId)).map((t) => t.value)); onGrid = (v) => rhythm(v) || extra.has(v); } // Rhythm mode: the spacing collection's Default-mode values also count as on-grid.
-const cands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && !t.isAlias && t.value !== 0)]) : []); // Per mode: bind candidates are the spacing collection's non-alias, non-zero tokens; its alias tokens are never offered.
+if (MODE === "rhythm" && col) { const extra = new Set(tokens.filter((t) => inCol(t, col.defaultModeId)).map((t) => t.value)), above = [...extra].filter((x) => x > 0), grid = nearest; onGrid = (v) => rhythm(v) || extra.has(v); nearest = (v) => nearestToken(v, [grid(v), ...above]); } // Rhythm mode: the spacing collection's Default-mode values also count as on-grid, and its positive values as snap targets.
+const cands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && !t.isAlias && t.value > 0)]) : []); // Per mode: bind candidates are the spacing collection's non-alias tokens above 0; its alias tokens are never offered.
 const aliasCands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && t.isAlias)]) : []);
-const bound = new Map(), boundTop = new Map(), opps = new Map(), choices = new Map(), onRhythm = new Set(), negatives = new Map(), aliasMatched = new Map();
+const bound = new Map(), boundTop = new Map(), opps = new Map(), choices = new Map(), onRhythm = new Set(), aliasMatched = new Map();
 const nearestToken = (v, values) => values.reduce((b, x) => { if (b === null) return x; const dx = Math.abs(x - v), db = Math.abs(b - v); if (dx !== db) return dx < db ? x : b; if ((x % 8 === 0) !== (b % 8 === 0)) return x % 8 === 0 ? x : b; return Math.min(x, b); }, null); // Nearest token value; on a tie the multiple of 8 when exactly one is, else the lower.
 // One value in token mode: null when it passes (a value only an alias holds passes too) or is a bind opportunity, else { target, fix }.
 const tokenCheck = (own, k, v, isBound) => {
   if (isBound || v === 0) return null;
   const key = own.id + "|" + k, modes = own.resolvedVariableModes || {};
-  if (v < 0) { negatives.set(key, { own, k, v }); return null; }
   const pool = cands.get(modes[col.id]) || cands.get(col.defaultModeId) || [];
   const eq = pool.filter((t) => t.value === v);
   if (eq.length) { opps.set(key, { own, k, v, eq }); return null; }
@@ -114,7 +113,8 @@ const rank = (delta, info, inst, bound, half) => {
   if (info.root) return delta >= 2 && info.depth <= 1 ? "P0" : "P1";
   return delta >= 2 ? "P1" : "P2";
 };
-const rows = new Map(), inherited = new Map();
+const rows = new Map(), inherited = new Map(), negs = new Map();
+const neg = (s, k, v) => { const b = s.boundVariables && s.boundVariables[k], key = (b ? b.id : "") + "|" + v, e = negs.get(key) || { boundId: b ? b.id : null, value: v, owners: new Set(), exampleId: s.id, examplePath: pathOf(s) }; e.owners.add(s.id + "|" + k); negs.set(key, e); }; // A negative value is never classified or snapped: it is counted per variable and value, or per unbound value, for the Negative values line.
 let frames = 0, hidden = 0, absolute = 0, truncated = false;
 const measure = (n, inst, twin) => {
   frames++;
@@ -123,6 +123,7 @@ const measure = (n, inst, twin) => {
   for (const k of props) {
     const v = n[k];
     if (typeof v !== "number") continue;
+    if (v < 0) { neg(inst && twin && twin[k] === v ? twin : n, k, v); continue; }
     let target = null, fix = null, half = v === 2 && (k === "itemSpacing" || k === "counterAxisSpacing");
     // enhancement: token-conformance begin
     // Record every bound value (both modes); in token mode classify against the tokens instead.
@@ -203,7 +204,8 @@ for (const r of list) {
 }
 const byGroup = [...groups.values()].sort((a, b) => b.rows - a.rows).slice(0, 15);
 const boundValues = list.filter((r) => r.boundId).reduce((s, r) => s + r.count, 0);
-const out = { framesMeasured: frames, hiddenSkipped: hidden, notMeasurable: absolute, truncated, values: rows.size, tableRows: list.length, byPriority, byGroup, boundValues, boundTokens: [...new Set(varNames.values())], rows: list.slice(0, MAX_ROWS) };
+const out = { framesMeasured: frames, hiddenSkipped: hidden, notMeasurable: absolute, truncated, values: rows.size, tableRows: list.length, byPriority, byGroup, boundValues, boundTokens: [...new Set(varNames.values())], negatives: { values: 0, list: [] }, rows: list.slice(0, MAX_ROWS) };
+for (const [i, e] of [...negs.values()].sort((a, b) => b.owners.size - a.owners.size).entries()) { const n = e.owners.size, l = out.negatives.list, va = e.boundId && i < 8 ? await figma.variables.getVariableByIdAsync(e.boundId) : null; out.negatives.values += n; if (i < 8) l.push({ label: (e.boundId ? (va ? va.name : e.boundId) + " = " : "unbound ") + e.value, values: n, exampleId: e.exampleId, examplePath: e.examplePath }); else (l[8] = l[8] || { label: "others", values: 0, exampleId: e.exampleId, examplePath: e.examplePath }).values += n; } // Largest first; past eight entries the rest fold into one "others" entry.
 // enhancement: token-conformance begin
 // Settle bind targets (same top-level frame, then shortest name), summarise bind opportunities per token, list bound tokens off the 4/8 rhythm.
 const inTop = (top, id) => (boundTop.get(top) && boundTop.get(top).has(id) ? 1 : 0);
@@ -214,6 +216,7 @@ for (const r of list) {
   const ch = choices.get(r.fix);
   if (ch) { const t = pick(ch.list, ch.top); r.fix.variableId = t.id; r.fix.name = t.name; r.note = also(nearNote(r), ch.list, t); }
   else if (r.fix.reason === "no token within 4") r.note = (r.note ? r.note + "; " : "") + r.fix.reason;
+  else if (MODE === "rhythm" && col && !rhythm(r.fix.value)) { const t = tokens.filter((x) => inCol(x, col.defaultModeId) && x.value === r.fix.value).sort((a, b) => a.isAlias - b.isAlias || a.name.length - b.name.length)[0]; if (t) r.note = (r.note ? r.note + "; " : "") + "nearest token " + t.name + " (" + t.value + ")"; } // Rhythm mode: a snap to a token value off the 4/8 rhythm names the token.
 }
 const unbound = new Map(), oppRows = [];
 for (const o of opps.values()) {
@@ -222,7 +225,6 @@ for (const o of opps.values()) {
   u.count++; unbound.set(key, u);
   oppRows.push({ id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "P3", boundId: null, note: also("unbound; bind to " + t.name, o.eq, t) + (n ? "; inherited by " + n + " instance" + (n === 1 ? "" : "s") : ""), fix: { kind: "bind", value: o.v, variableId: t.id, name: t.name, modeName: t.modeName }, ids: [id], count: 1 });
 }
-const negRows = [...negatives.values()].map((o) => { const ci = compInfo(o.own); return { id: o.own.id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "—", boundId: null, note: "negative value, not snapped", fix: null, ids: [o.own.id], count: 1 }; });
 const off = new Map();
 for (const b of bound.values()) {
   if (rhythm(b.v)) continue;
@@ -233,6 +235,6 @@ for (const b of bound.values()) {
 }
 Object.assign(out, { mode: MODE, tokenCount: tokens.length, libraryTokens, spacingCollection, matchedCollections, unbound: [...unbound.values()].sort((a, b) => b.count - a.count), onRhythmNoToken: onRhythm.size, aliasMatched: aliasMatched.size, offRhythmTokens: [...off.values()], boundPassed: MODE === "tokens" ? bound.size : [...bound.values()].filter((b) => onGrid(b.v)).length });
 oppRows.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0) || (a.property < b.property ? -1 : a.property > b.property ? 1 : 0));
-out.rows = list.concat(frames <= 50 ? oppRows : [], negRows).slice(0, MAX_ROWS);
+out.rows = list.concat(frames <= 50 ? oppRows : []).slice(0, MAX_ROWS);
 // enhancement: token-conformance end
 return out;

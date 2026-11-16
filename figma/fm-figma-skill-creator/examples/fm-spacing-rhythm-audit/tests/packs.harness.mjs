@@ -194,9 +194,9 @@ const ORDINARY = [
 
 const cases = {
   // The audit master's units.
-  "token-conformance: 39 units by kind": () => {
+  "token-conformance: 38 units by kind": () => {
     const k = byKind(findUnits(masterLines, TOKENS))
-    const want = { "code-region": 6, block: 8, "description-sentence": 1, "heading-block": 1, "line-rewrite": 1, "prose-sentence": 1, sentence: 9, tag: 2, "template-line": 10 }
+    const want = { "code-region": 6, block: 8, "description-sentence": 1, "heading-block": 1, "line-rewrite": 1, "prose-sentence": 1, sentence: 8, tag: 2, "template-line": 10 }
     return check([[sameCounts(k, want), `got ${JSON.stringify(k)}`]])
   },
   "revert: 8 units by kind": () => {
@@ -511,7 +511,7 @@ const cases = {
       [regionWarnings === 6, `${regionWarnings} code-region warnings, expected 6`],
       [JSON.stringify(fences) === JSON.stringify(["collect", "apply", "verify"]), `orphan fences: ${JSON.stringify(fences)}`],
       [!lines.some((l) => /^\/\/ helper: (apply|verify)$/.test(l)), "an orphan fence carries a helper marker"],
-      [sameCounts(units, { "code-region": 6, block: 17, "description-sentence": 1, "heading-block": 1, "prose-sentence": 1, tag: 2, "template-line": 10 }), `units after expand: ${JSON.stringify(units)}`],
+      [sameCounts(units, { "code-region": 6, block: 16, "description-sentence": 1, "heading-block": 1, "prose-sentence": 1, tag: 2, "template-line": 10 }), `units after expand: ${JSON.stringify(units)}`],
       [v.length === 2 && v.every((f) => ["name-format", "description-angle"].includes(f.rule) && f.severity === "warn"), `validator: ${JSON.stringify(v.map((f) => `${f.severity} ${f.rule} ${f.message}`))}`],
       [b.status === 0 && b.stdout.includes("helpers: 1 scripts (collect)"), `builder: ${(b.stdout + b.stderr).match(/helpers:.*|build error.*/)?.[0]}`],
     ])
@@ -582,9 +582,9 @@ const cases = {
     const twice = run("twice-verify", insertAfterLine(noRevert, "## Instructions", ["", verifyLine]), "revert")
     const at = (r, re) => r.lines.findIndex((l) => re.test(l))
     return check([
-      [renamed.r.status === 0 && renamed.warns.length === 1 && /fence \(master lines 439 to \d+\).*helper "verify"/.test(renamed.warns[0]), `renamed: ${JSON.stringify(renamed.warns)}`],
+      [renamed.r.status === 0 && renamed.warns.length === 1 && /fence \(master lines 442 to \d+\).*helper "verify"/.test(renamed.warns[0]), `renamed: ${JSON.stringify(renamed.warns)}`],
       [at(renamed, /^\/\/ helper: revert$/) > at(renamed, /^\/\/ helper: check$/), "renamed: the revert fence is not after the renamed helper"],
-      [decoy.r.status === 0 && decoy.warns.length === 1 && /code-region \(master lines 160 to 236\)/.test(decoy.warns[0]), `decoy: ${JSON.stringify(decoy.warns)}`],
+      [decoy.r.status === 0 && decoy.warns.length === 1 && /code-region \(master lines 161 to 236\)/.test(decoy.warns[0]), `decoy: ${JSON.stringify(decoy.warns)}`],
       [at(decoy, /^\/\/ Discovery: /) > at(decoy, /^\/\/ token-conformance regions for collect: place by hand$/) && at(decoy, /regions for collect/) > 0, "decoy: the Discovery region is not in the orphan fence"],
       [twice.r.status === 0 && twice.warns.length === 1 && /block \(master line 55\).*2 lines/.test(twice.warns[0]), `twice: ${JSON.stringify(twice.warns)}`],
     ])
@@ -697,7 +697,7 @@ const cases = {
   "a region marker shown in a markdown or ts fence is ordinary text for the library and the validator": () => {
     const lines = masterWith("```markdown\n// enhancement: revert begin\n```\n\n```ts\n// enhancement: token-conformance end\n```")
     const problems = []
-    for (const [p, want] of [[TOKENS, 39], [REVERT, 8]]) {
+    for (const [p, want] of [[TOKENS, 38], [REVERT, 8]]) {
       try { const n = findUnits(lines, p).length; if (n !== want) problems.push(`${p.name}: ${n} units, expected ${want}`) } catch (e) { problems.push(`${p.name}: threw ${e.message}`) }
     }
     const f = findingsFor("shown-markers.md", lines, null).filter((x) => x.severity === "error" || x.rule.startsWith("enhancement-"))

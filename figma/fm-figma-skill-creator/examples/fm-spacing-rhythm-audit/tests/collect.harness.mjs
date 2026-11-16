@@ -5,7 +5,8 @@
 //
 // The harness reads SKILL.md, takes the `// helper: collect` fence body as written (top-level
 // `await`, final `return`), sets its `let MODE` line per case, and runs it with
-// `new AsyncFunction("figma", body)`. Each case builds its own mock file and checks the result.
+// `new AsyncFunction("figma", body)`. Each case builds its own mock file and checks the result; a
+// case may also return its own fence body (case 24 strips the token-conformance pack in-process).
 // It exports nothing and exits 1 when any case fails.
 //
 // A mock proves the helper's logic only. Every write path and every live number is proved over the
@@ -15,17 +16,18 @@ import { readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { normalize, scanFences } from "../../../scripts/lib/skill-md.mjs"
+import { loadPack, findUnits, stripUnits } from "../../../scripts/lib/enhancements.mjs"
 
 const here = dirname(fileURLToPath(import.meta.url))
 const master = join(here, "..", "SKILL.md")
+const masterLines = () => normalize(readFileSync(master, "utf8")).split("\n")
 
 // ---------------------------------------------------------------------------
 // Helper extraction
 // ---------------------------------------------------------------------------
 
-/** The body of the `// helper: collect` fence, between the fence lines, exactly as written. */
-function collectBody() {
-  const lines = normalize(readFileSync(master, "utf8")).split("\n")
+/** The body of the `// helper: collect` fence in `lines` (default: the master's), between the fence lines, exactly as written. */
+function collectBody(lines = masterLines()) {
   const inFence = scanFences(lines)
   for (let i = 0; i < lines.length; i++) {
     if (!inFence[i] || lines[i + 1] !== "// helper: collect") continue
@@ -37,15 +39,15 @@ function collectBody() {
 }
 
 const BODY = collectBody()
-const MODE_LINE = BODY.findIndex((l) => /^let MODE = /.test(l))
-if (MODE_LINE < 0) throw new Error("the collect helper has no `let MODE = ...` line")
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
 
-/** Run the collect helper with MODE set to `mode` against the mock `figma`. */
-async function runCollect(figma, mode) {
-  const body = BODY.slice()
-  body[MODE_LINE] = `let MODE = "${mode}";`
-  return new AsyncFunction("figma", body.join("\n"))(figma)
+/** Run the collect helper `body` (default: the master's) with MODE set to `mode` against the mock `figma`. */
+async function runCollect(figma, mode, body = BODY) {
+  const at = body.findIndex((l) => /^let MODE = /.test(l))
+  if (at < 0) throw new Error("the collect helper has no `let MODE = ...` line")
+  const lines = body.slice()
+  lines[at] = `let MODE = "${mode}";`
+  return new AsyncFunction("figma", lines.join("\n"))(figma)
 }
 
 // ---------------------------------------------------------------------------
@@ -119,7 +121,79 @@ const check = (pairs) => pairs.filter(([ok]) => !ok).map(([, msg]) => msg)
 const show = (x) => JSON.stringify(x)
 
 // ---------------------------------------------------------------------------
-// Cases: each returns { figma, mode, assert(result) }; assert returns the failed messages.
+// Shared builders: one mock file run in either mode
+// ---------------------------------------------------------------------------
+
+/** Cases 18 and 19: negative gaps bound to a spacing token, unbound, and bound to a variable discovery does not match. */
+function negGroups(mode) {
+  const space = collection("VC:space", "Space"), overlap = collection("VC:overlap", "Overlap")
+  const neg200 = variable("V:sn200", "Space/Negative 200", space, [-8])
+  const border = variable("V:border", "overlap/border", overlap, [-1], ["ALL_SCOPES"])
+  const vars = [variable("V:s100", "Space/100", space, [4]), variable("V:s200", "Space/200", space, [8]), neg200, border]
+  const a = node("A", "FRAME", { itemSpacing: -8, boundVariables: { itemSpacing: { type: "VARIABLE_ALIAS", id: neg200.id } } })
+  const b = node("B", "FRAME", { itemSpacing: -8, boundVariables: { itemSpacing: { type: "VARIABLE_ALIAS", id: neg200.id } } })
+  const c = node("C", "FRAME", { itemSpacing: -8 })
+  const d = node("D", "FRAME", { itemSpacing: -1, boundVariables: { itemSpacing: { type: "VARIABLE_ALIAS", id: border.id } } })
+  // [label, values, exampleId], largest first.
+  const want = [["Space/Negative 200 = -8", 2, a.id], ["unbound -8", 1, c.id], ["overlap/border = -1", 1, d.id]]
+  return {
+    figma: mockFigma({ top: [a, b, c, d], collections: [space, overlap], variables: vars }), mode,
+    assert: (r) => {
+      const neg = r.negatives || {}, got = (neg.list || []).map((e) => [e.label, e.values, e.exampleId])
+      return check([
+        [r.mode === mode, "mode " + mode + ", got " + show(r.mode)],
+        [r.rows.length === 0, "no rows, got " + show(r.rows)],
+        [neg.values === 4, "negatives.values 4, got " + show(neg.values)],
+        [r.boundPassed === 0, "boundPassed 0, got " + show(r.boundPassed)],
+        [show(r.offRhythmTokens) === "[]", "offRhythmTokens empty, got " + show(r.offRhythmTokens)],
+        [show(r.unbound) === "[]", "unbound empty, got " + show(r.unbound)],
+        [show(r.matchedCollections) === "[]", "matchedCollections empty, got " + show(r.matchedCollections)],
+        [show(got) === show(want), "negatives.list " + show(want) + ", got " + show(got)],
+      ])
+    },
+  }
+}
+
+/** Cases 22 and 23: the live file's "Edge values" frame (fractional paddings, a negative gap) holding a "Stack" frame whose negative gap is bound to an unmatched variable. */
+function edgeValues(mode) {
+  const spacing = collection("VC:spacing", "Spacing"), overlap = collection("VC:overlap", "Overlap")
+  const steps = [["Space/100", 4], ["Space/150", 6], ["Space/200", 8], ["Space/300", 12], ["Space/400", 16]]
+  const stackVar = variable("V:stack", "overlap/stack", overlap, [-8], ["ALL_SCOPES"])
+  const vars = [...steps.map(([n, v], i) => variable("V:sp" + i, n, spacing, [v])), stackVar]
+  const edge = node("Edge values", "FRAME", { paddingTop: 5.5, paddingBottom: 6.5, itemSpacing: -2 })
+  const stack = node("Stack", "FRAME", { itemSpacing: -8, boundVariables: { itemSpacing: { type: "VARIABLE_ALIAS", id: stackVar.id } } })
+  edge.children = [stack]
+  stack.parent = edge
+  const note = mode === "rhythm" ? "fractional; nearest token Space/150 (6)" : "fractional"
+  // [priority, property, current, nearest, delta, note], in the order the rows must come back.
+  const want = [["P3", "Padding top", 5.5, 6, 0.5, note], ["P3", "Padding bottom", 6.5, 6, -0.5, note]]
+  const wantNeg = [["unbound -2", 1, "Edge values"], ["overlap/stack = -8", 1, "Edge values / Stack"]]
+  const set6 = { kind: "set", value: 6, reason: "nearest on-grid" }
+  return {
+    figma: mockFigma({ top: [edge], collections: [spacing, overlap], variables: vars }), mode,
+    assert: (r) => {
+      const got = r.rows.map((x) => [x.priority, x.property, x.current, x.nearest, x.delta, x.note])
+      const neg = r.negatives || {}, gotNeg = (neg.list || []).map((e) => [e.label, e.values, e.examplePath])
+      const fixOk = mode === "rhythm"
+        ? r.rows.every((x) => show(x.fix) === show(set6))
+        : r.rows.every((x) => x.fix && x.fix.kind === "bind" && x.fix.name === "Space/150" && x.fix.value === 6)
+      return check([
+        [r.framesMeasured === 2, "framesMeasured 2, got " + show(r.framesMeasured)],
+        [show(r.byPriority) === show({ P0: 0, P1: 0, P2: 0, P3: 2 }), "byPriority P0 0, P1 0, P2 0, P3 2, got " + show(r.byPriority)],
+        [r.boundPassed === 0, "boundPassed 0, got " + show(r.boundPassed)],
+        [show(r.offRhythmTokens) === "[]", "offRhythmTokens empty, got " + show(r.offRhythmTokens)],
+        [neg.values === 2, "negatives.values 2, got " + show(neg.values)],
+        [show(gotNeg) === show(wantNeg), "negatives.list " + show(wantNeg) + ", got " + show(gotNeg)],
+        [show(got) === show(want), "rows " + show(want) + ", got " + show(got)],
+        [fixOk, (mode === "rhythm" ? "every fix " + show(set6) : "every fix bind Space/150, value 6") + ", got " + show(r.rows.map((x) => x.fix))],
+      ])
+    },
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Cases: each returns { figma, mode, assert(result) } and may add `body`, a collect fence body to run
+// instead of the master's; assert returns the failed messages.
 // ---------------------------------------------------------------------------
 
 const cases = {
@@ -417,6 +491,130 @@ const cases = {
       },
     }
   },
+
+  "17 a negative value is counted on the Negative values line and never becomes a row"() {
+    const stack = node("Stack", "FRAME", { itemSpacing: -2 })
+    const grid = node("Stack on grid", "FRAME", { itemSpacing: -8 })
+    const overlap = node("Overlap", "COMPONENT", { itemSpacing: -6 })
+    const a = instance("Overlap / A", overlap), b = instance("Overlap / B", overlap)
+    // [label, values, exampleId, examplePath]; the inherited -6 is counted once, on the main component.
+    const want = [["unbound -2", 1, stack.id, "Stack"], ["unbound -8", 1, grid.id, "Stack on grid"], ["unbound -6", 1, overlap.id, "Overlap"]]
+    return {
+      figma: mockFigma({ top: [stack, grid, overlap, a, b] }), mode: "rhythm",
+      assert: (r) => {
+        const neg = r.negatives || {}, got = (neg.list || []).map((e) => [e.label, e.values, e.exampleId, e.examplePath])
+        return check([
+          [r.rows.length === 0, "no rows, got " + show(r.rows)],
+          [r.values === 0, "values 0, got " + show(r.values)],
+          [r.tableRows === 0, "tableRows 0, got " + show(r.tableRows)],
+          [show(r.byPriority) === show({ P0: 0, P1: 0, P2: 0, P3: 0 }), "byPriority all 0, got " + show(r.byPriority)],
+          [r.framesMeasured === 5, "framesMeasured 5, got " + show(r.framesMeasured)],
+          [neg.values === 3, "negatives.values 3, got " + show(neg.values)],
+          [show(got) === show(want), "negatives.list " + show(want) + ", got " + show(got)],
+        ])
+      },
+    }
+  },
+
+  "18 rhythm mode: negative values group per variable and per unbound value"() {
+    return negGroups("rhythm")
+  },
+
+  "19 token mode: the same negative values, no rows, no bind offer, not counted as bound"() {
+    return negGroups("tokens")
+  },
+
+  "20 token mode never offers a negative token to a positive value"() {
+    const { col, vars } = spaceTokens([["Space/Negative 025", -1], ["Space/100", 4], ["Space/200", 8]])
+    const f = node("Plain", "FRAME", { paddingTop: 1, paddingLeft: 0.5 })
+    // [priority, property, current, nearest, delta, fix.kind, fix.name], in the order the rows must come back.
+    const want = [
+      ["P1", "Padding left", 0.5, 4, 3.5, "bind", "Space/100"],
+      ["P1", "Padding top", 1, 4, 3, "bind", "Space/100"],
+    ]
+    return {
+      figma: mockFigma({ top: [f], collections: [col], variables: vars }), mode: "tokens",
+      assert: (r) => {
+        const got = r.rows.map((x) => [x.priority, x.property, x.current, x.nearest, x.delta, x.fix && x.fix.kind, x.fix && x.fix.name])
+        return check([[show(got) === show(want), "rows " + show(want) + ", got " + show(got)]])
+      },
+    }
+  },
+
+  "21 rhythm mode: the nearest value comes from the on-grid set, and a snap to an off-rhythm token names it"() {
+    const { col, vars } = spaceTokens([["Space/0", 0], ["Space/Negative 100", -4], ["Space/050", 2], ["Space/100", 4], ["Space/150", 6], ["Space/200", 8]])
+    const f = node("Plain", "FRAME", { paddingTop: 1, paddingRight: 3, paddingBottom: 6.5, paddingLeft: 7, itemSpacing: 5 })
+    // [priority, property, current, nearest, delta, note], in the order the rows must come back.
+    const want = [
+      ["P2", "Padding top", 1, 2, 1, "nearest token Space/050 (2)"],
+      ["P2", "Padding right", 3, 2, -1, "nearest token Space/050 (2)"],
+      ["P2", "Padding left", 7, 8, 1, ""],
+      ["P2", "Gap", 5, 4, -1, ""],
+      ["P3", "Padding bottom", 6.5, 6, -0.5, "fractional; nearest token Space/150 (6)"],
+    ]
+    return {
+      figma: mockFigma({ top: [f], collections: [col], variables: vars }), mode: "rhythm",
+      assert: (r) => {
+        const got = r.rows.map((x) => [x.priority, x.property, x.current, x.nearest, x.delta, x.note])
+        const badFix = r.rows.filter((x) => show(x.fix) !== show({ kind: "set", value: x.nearest, reason: "nearest on-grid" }))
+        return check([
+          [show(got) === show(want), "rows " + show(want) + ", got " + show(got)],
+          [badFix.length === 0, "every fix { kind: set, value: nearest, reason: nearest on-grid }, got " + show(badFix.map((x) => [x.property, x.fix]))],
+          [!r.rows.some((x) => x.nearest <= 0), "nearest at or below 0 on " + show(r.rows.filter((x) => x.nearest <= 0).map((x) => x.property))],
+          [show(r.negatives) === show({ values: 0, list: [] }), "negatives { values: 0, list: [] }, got " + show(r.negatives)],
+        ])
+      },
+    }
+  },
+
+  "22 Edge values, rhythm mode: token 6 is the nearest value and two negative gaps are counted"() {
+    return edgeValues("rhythm")
+  },
+
+  "23 Edge values, token mode: binds to Space/150 and counts the same negative gaps"() {
+    return edgeValues("tokens")
+  },
+
+  "24 the token pack stripped: the base still counts a negative value and does not snap it"() {
+    const lines = masterLines()
+    const pack = loadPack(join(here, "..", "..", "..", "enhancements", "token-conformance"))
+    const body = collectBody(stripUnits(lines, findUnits(lines, pack)))
+    const stack = node("Stack", "FRAME", { itemSpacing: -2, paddingTop: 5 })
+    const want = { values: 1, list: [{ label: "unbound -2", values: 1, exampleId: stack.id, examplePath: "Stack" }] }
+    return {
+      figma: mockFigma({ top: [stack] }), mode: "rhythm", body,
+      assert: (r) => {
+        const row = r.rows[0] || {}
+        return check([
+          [r.rows.length === 1, "one row, got " + show(r.rows)],
+          [row.property === "Padding top" && row.nearest === 4, "Padding top, nearest 4, got " + show([row.property, row.nearest])],
+          [show(r.negatives) === show(want), "negatives " + show(want) + ", got " + show(r.negatives)],
+          [!("mode" in r), "no mode field, got " + show(r.mode)],
+        ])
+      },
+    }
+  },
+
+  "25 more than eight kinds of negative value fold into one others entry"() {
+    const top = Array.from({ length: 10 }, (_, i) => node("S" + (i + 1), "FRAME", { itemSpacing: -(i + 1) }))
+    top.push(node("S1 twin", "FRAME", { itemSpacing: -1 }))
+    const s9 = top[8]
+    return {
+      figma: mockFigma({ top }), mode: "rhythm",
+      assert: (r) => {
+        const neg = r.negatives || {}, list = neg.list || [], first = list[0] || {}
+        const others = { label: "others", values: 2, exampleId: s9.id, examplePath: "S9" }
+        const sum = list.reduce((s, e) => s + e.values, 0)
+        return check([
+          [neg.values === 11, "negatives.values 11, got " + show(neg.values)],
+          [list.length === 9, "nine entries, got " + list.length],
+          [first.label === "unbound -1" && first.values === 2, "first unbound -1 with 2 values, got " + show(first)],
+          [show(list[8]) === show(others), "ninth " + show(others) + ", got " + show(list[8])],
+          [sum === 11, "entries add up to 11, got " + sum],
+        ])
+      },
+    }
+  },
 }
 
 // A case may instead return { files() }: a check on the committed files, run without the mock.
@@ -488,8 +686,8 @@ let failed = 0
 for (const [name, make] of Object.entries(cases)) {
   let problems
   try {
-    const { figma, mode, assert, files } = make()
-    problems = files ? files() : assert(await runCollect(figma, mode))
+    const { figma, mode, assert, files, body } = make()
+    problems = files ? files() : assert(await runCollect(figma, mode, body))
   } catch (e) {
     problems = ["threw: " + (e && e.stack ? e.stack.split("\n")[0] : String(e))]
   }

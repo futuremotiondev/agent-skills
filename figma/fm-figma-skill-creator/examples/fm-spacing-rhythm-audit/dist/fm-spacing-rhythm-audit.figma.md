@@ -32,9 +32,9 @@ Ask one question at a time, wait for the answer, then act. Every question offers
 
 1. **Collect.** For every visible node in scope that has auto layout (frames, components, variants, instances, and slots all count as frames here), read padding top, right, bottom, left, and gap; read the row gap only when the frame wraps. Skip hidden layers and count them. Do not measure absolute-positioned children; count them as not measurable. Stop at 2,000 frames, say the scope was truncated, and ask whether to continue by section.
 2. **Fold inherited values and merge twins.** An instance whose value equals its main component's value is inheriting it. Report that value once, on the main component's row, with a note "inherited by N instances". If the main component sits outside the selection or on another page, still list it once and say where it is. Only a value that differs from the main component gets its own row, marked as an override. Distinct frames that read identically (same component, path, property, and value, such as four nested "Block" frames) merge into one row noted "in N frames"; a fix on that row applies to all of them.
-3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48, 2 becomes 4. A positive value never snaps to 0: below 4 its nearest is 4. Otherwise the largest delta below 48 is 2, so severity keys on 2 versus 1.
+3. **Classify each value.** On-grid values pass. For an off-grid value compute the nearest on-grid value and the delta. When two on-grid values are equally near, prefer the multiple of 8; if neither or both are, prefer the lower value. Example: 18 becomes 16, 14 becomes 16, 50 becomes 48, 2 becomes 4. A positive value never snaps to 0 or below. Otherwise the largest delta below 48 is 2, so severity keys on 2 versus 1. A negative value is never classified, snapped, or bound; the Negative values line counts it.
 
-   Token mode: (a) a bound value passes, in any collection, and is counted in `boundPassed`; tokens whose value is off the 4/8 rhythm are listed once each in the "Tokens off the 4/8 rhythm" header line with how many bound values use them. (b) 0 passes and is never a bind suggestion. (c) An unbound value equal to a spacing-collection candidate's value (in the mode applied to the node's collection, else the Default mode) is a bind opportunity, not a defect: it is counted per token in a "Bind opportunities" table (token, count, one example layer), excluded from the priority counts and the "Off-grid values" line, and listed as an individual P3 row "unbound; bind to Space/200" only when `framesMeasured` is 50 or fewer; on larger selections the fix question's "All" covers listed rows only, and the report says "to bind these, select 50 frames or fewer and run again". (d) An unbound value that no non-alias token equals passes when an alias candidate in that mode resolves to it: it is counted in `aliasMatched` and on the "Matches an alias" line, and is never snapped or offered. Any other unbound value with no equal token snaps to the nearest token value when that value is within 4 of it, delta measured to the token, severity by the existing depth and delta rules, fix is a binding carrying the mode name; when that value is on the rhythm, the row ranks P3 as a bind opportunity with the nearest token named and a tie disclosed; it is excluded from the "P0 and P1 only" answer; beyond 4, if the value is on the rhythm it passes and is counted as "on rhythm, no matching token", otherwise the fix is the rhythm-nearest number with the reason "no token within 4"; ties go to the token that is a multiple of 8, else the lower. (e) Never offer an alias. When several non-alias variables share the value, prefer one already bound in the same top-level frame, then the shortest name, and list the alternatives in the note. (f) The 2 px half-step rule applies in rhythm mode only. (g) A negative value is left unclassified with the note "negative value, not snapped" and is never part of a fix.
+   Token mode: (a) a bound value passes, in any collection, and is counted in `boundPassed`; tokens whose value is off the 4/8 rhythm are listed once each in the "Tokens off the 4/8 rhythm" header line with how many bound values use them. (b) 0 passes; 0 and negative tokens are never bind suggestions. (c) An unbound value equal to a spacing-collection candidate's value (in the mode applied to the node's collection, else the Default mode) is a bind opportunity, not a defect: it is counted per token in a "Bind opportunities" table (token, count, one example layer), excluded from the priority counts and the "Off-grid values" line, and listed as an individual P3 row "unbound; bind to Space/200" only when `framesMeasured` is 50 or fewer; on larger selections the fix question's "All" covers listed rows only, and the report says "to bind these, select 50 frames or fewer and run again". (d) An unbound value that no non-alias token equals passes when an alias candidate in that mode resolves to it: it is counted in `aliasMatched` and on the "Matches an alias" line, and is never snapped or offered. Any other unbound value with no equal token snaps to the nearest token value when that value is within 4 of it, delta measured to the token, severity by the existing depth and delta rules, fix is a binding carrying the mode name; when that value is on the rhythm, the row ranks P3 as a bind opportunity with the nearest token named and a tie disclosed; it is excluded from the "P0 and P1 only" answer; beyond 4, if the value is on the rhythm it passes and is counted as "on rhythm, no matching token", otherwise the fix is the rhythm-nearest number with the reason "no token within 4"; ties go to the token that is a multiple of 8, else the lower. (e) Never offer an alias. When several non-alias variables share the value, prefer one already bound in the same top-level frame, then the shortest name, and list the alternatives in the note. (f) The 2 px half-step rule applies in rhythm mode only.
 4. **Rank.** Assign a priority from the location and the delta. Inside a component, depth counts: the component itself or its direct child frames are what designers see; deeper frames are internals.
    - **P0**: delta of 2 or more on a main component, a component set, or a direct child frame of one.
    - **P1**: delta of 2 or more deeper inside a component, or on any plain frame; delta of 1 anywhere inside a component; or any override inside an instance, because the lasting fix belongs in the main component.
@@ -49,7 +49,7 @@ Ask one question at a time, wait for the answer, then act. Every question offers
 
 ## Output contract
 
-The block below is the report, verbatim: print its headings, line labels, column names, and their order exactly as written, and replace only the `<…>` parts. Each Layer (path) and Note cell is the helper row's `path` and `note`, unchanged. A section prints only when it applies: By component above 30 rows, After fixes once fixes are applied. Use the Figma UI names for properties: Padding top, Padding right, Padding bottom, Padding left, Gap, Row gap. Show deltas signed (−2 means the value comes down by 2). Where the surface supports it, make each layer reference a clickable node link. The main table's Fix column follows Nearest in every mode and reads "set 16" for a rhythm snap. Say "no off-grid values in" followed by the frame count instead of producing an empty table. Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table, when there are any, before the main table; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4. Token mode: a near-miss row's Note reads "on rhythm, no token; nearest Space/400 (16)", or "tie: Space/400 (16) or Space/600 (24)" when two tokens are equally near. Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from.
+The block below is the report, verbatim: print its headings, line labels, column names, and their order exactly as written, and replace only the `<…>` parts. Each Layer (path) and Note cell is the helper row's `path` and `note`, unchanged. A section prints only when it applies: By component above 30 rows, After fixes once fixes are applied, and Negative values when there are any (from `negatives.list`, each `label` unchanged, joined by "; "). Use the Figma UI names for properties: Padding top, Padding right, Padding bottom, Padding left, Gap, Row gap. Show deltas signed (−2 means the value comes down by 2). Where the surface supports it, make each layer reference a clickable node link. The main table's Fix column follows Nearest in every mode and reads "set 16" for a rhythm snap. Say "no off-grid values in" followed by the frame count instead of producing an empty table. Token mode adds these lines: Mode (printed in both modes whenever the file has spacing tokens), Bound values (in place of Bound to variables, which rhythm mode keeps), Tokens off the 4/8 rhythm (omitted when none), Bind opportunities, On rhythm, no matching token, Matches an alias (omitted when 0), and Matched but not offered (from `matchedCollections`, omitted when empty); the Bind opportunities table, when there are any, before the main table; and the Fix column's bind form, "bind Space/200", beside "set 8" for a value with no token within 4. Token mode: a near-miss row's Note reads "on rhythm, no token; nearest Space/400 (16)", or "tie: Space/400 (16) or Space/600 (24)" when two tokens are equally near. Revert adds: the After fixes table, whose Previous column holds each layer's value or binding before the snap, and the line naming where the revert list comes from.
 
 ```markdown
 <One-line answer if the user asked a question.>
@@ -59,6 +59,7 @@ The block below is the report, verbatim: print its headings, line labels, column
 - Scale: <4 pt below 48, 8 pt from 48, or the stated scale>
 - Frames measured: <n> · Hidden skipped: <n> · Not measurable (absolute children): <n>
 - Off-grid values: P0 <n> · P1 <n> · P2 <n> · P3 <n> (<n> values in <n> rows)
+- Negative values: <n> not snapped: <label> (<n> values, example <layer>)
 - Bound to variables: <n> values using <token names>; left to a variable-level decision
 - Bound values: <n> passed
 - Tokens off the 4/8 rhythm: <token> = <value> (<n> values); a scale decision, not a defect
@@ -129,7 +130,7 @@ Previous is the human record; the revert list is the apply result.
 - **Token mode: multi-mode collections.** Match against the token values of the mode applied to the node's collection, else the Default mode, and name that mode in the fix: "bind Space/300 (Compact)".
 - **Token mode: library tokens present but not audited.** Say "library tokens present, not audited" once, on the Mode line; never import a library variable to read its value.
 - **Token mode: a value with no equal token.** Within 4 of a token, an on-rhythm value is a P3 near miss that names the nearest token (both on a tie) and stays out of "P0 and P1 only". More than 4 from every token, a value on the rhythm passes as "on rhythm, no matching token"; otherwise the fix is the rhythm-nearest number with the reason "no token within 4".
-- **Percentages, mixed values, or negative values.** Report them in the Note column; do not snap them. Token mode: a negative value carries the note "negative value, not snapped" and no priority, and is never bound.
+- **Percentages or mixed values.** Report them in the Note column; do not snap them.
 - **Instances with overrides, or a main component outside the selection or on another page.** The lasting fix is the main component: list it once with the inherited count and name its page. Report an override and apply it only on explicit confirmation.
 - **Revert: a layer edited after the snap.** Leave it untouched, list it as skipped "changed since" with the value and binding it reads now, and restore the rest.
 
@@ -143,7 +144,7 @@ let MODE = "discover"; // discover | tokens | rhythm // without the token-confor
 // Collect: read auto-layout padding and gaps, fold inherited instance values into the main component, rank off-grid values, group by component. Read-only.
 const MAX_FRAMES = 2000, MAX_ROWS = 60;
 let onGrid = (v) => v === 0 || (v < 48 ? v % 4 === 0 : v % 8 === 0);
-const nearest = (v) => {
+let nearest = (v) => {
   if (onGrid(v)) return v;
   const step = v < 48 ? 4 : 8;
   const lo = Math.floor(v / step) * step, hi = lo + step;
@@ -201,16 +202,15 @@ if (MODE === "discover" && spacingCollection) return { mode: "discover", tokenCo
 if (tokens.length === 0) MODE = "rhythm";
 const rhythm = onGrid, col = spacingCollection && cols.get(spacingCollection.id);
 const inCol = (t, modeId) => !!col && t.collection === col.id && t.modeId === modeId;
-if (MODE === "rhythm" && col) { const extra = new Set(tokens.filter((t) => inCol(t, col.defaultModeId)).map((t) => t.value)); onGrid = (v) => rhythm(v) || extra.has(v); } // Rhythm mode: the spacing collection's Default-mode values also count as on-grid.
-const cands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && !t.isAlias && t.value !== 0)]) : []); // Per mode: bind candidates are the spacing collection's non-alias, non-zero tokens; its alias tokens are never offered.
+if (MODE === "rhythm" && col) { const extra = new Set(tokens.filter((t) => inCol(t, col.defaultModeId)).map((t) => t.value)), above = [...extra].filter((x) => x > 0), grid = nearest; onGrid = (v) => rhythm(v) || extra.has(v); nearest = (v) => nearestToken(v, [grid(v), ...above]); } // Rhythm mode: the spacing collection's Default-mode values also count as on-grid, and its positive values as snap targets.
+const cands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && !t.isAlias && t.value > 0)]) : []); // Per mode: bind candidates are the spacing collection's non-alias tokens above 0; its alias tokens are never offered.
 const aliasCands = new Map(col ? col.modes.map((m) => [m.modeId, tokens.filter((t) => inCol(t, m.modeId) && t.isAlias)]) : []);
-const bound = new Map(), boundTop = new Map(), opps = new Map(), choices = new Map(), onRhythm = new Set(), negatives = new Map(), aliasMatched = new Map();
+const bound = new Map(), boundTop = new Map(), opps = new Map(), choices = new Map(), onRhythm = new Set(), aliasMatched = new Map();
 const nearestToken = (v, values) => values.reduce((b, x) => { if (b === null) return x; const dx = Math.abs(x - v), db = Math.abs(b - v); if (dx !== db) return dx < db ? x : b; if ((x % 8 === 0) !== (b % 8 === 0)) return x % 8 === 0 ? x : b; return Math.min(x, b); }, null); // Nearest token value; on a tie the multiple of 8 when exactly one is, else the lower.
 // One value in token mode: null when it passes (a value only an alias holds passes too) or is a bind opportunity, else { target, fix }.
 const tokenCheck = (own, k, v, isBound) => {
   if (isBound || v === 0) return null;
   const key = own.id + "|" + k, modes = own.resolvedVariableModes || {};
-  if (v < 0) { negatives.set(key, { own, k, v }); return null; }
   const pool = cands.get(modes[col.id]) || cands.get(col.defaultModeId) || [];
   const eq = pool.filter((t) => t.value === v);
   if (eq.length) { opps.set(key, { own, k, v, eq }); return null; }
@@ -255,7 +255,8 @@ const rank = (delta, info, inst, bound, half) => {
   if (info.root) return delta >= 2 && info.depth <= 1 ? "P0" : "P1";
   return delta >= 2 ? "P1" : "P2";
 };
-const rows = new Map(), inherited = new Map();
+const rows = new Map(), inherited = new Map(), negs = new Map();
+const neg = (s, k, v) => { const b = s.boundVariables && s.boundVariables[k], key = (b ? b.id : "") + "|" + v, e = negs.get(key) || { boundId: b ? b.id : null, value: v, owners: new Set(), exampleId: s.id, examplePath: pathOf(s) }; e.owners.add(s.id + "|" + k); negs.set(key, e); }; // A negative value is never classified or snapped: it is counted per variable and value, or per unbound value, for the Negative values line.
 let frames = 0, hidden = 0, absolute = 0, truncated = false;
 const measure = (n, inst, twin) => {
   frames++;
@@ -264,6 +265,7 @@ const measure = (n, inst, twin) => {
   for (const k of props) {
     const v = n[k];
     if (typeof v !== "number") continue;
+    if (v < 0) { neg(inst && twin && twin[k] === v ? twin : n, k, v); continue; }
     let target = null, fix = null, half = v === 2 && (k === "itemSpacing" || k === "counterAxisSpacing");
     // enhancement: token-conformance begin
     // Record every bound value (both modes); in token mode classify against the tokens instead.
@@ -344,7 +346,8 @@ for (const r of list) {
 }
 const byGroup = [...groups.values()].sort((a, b) => b.rows - a.rows).slice(0, 15);
 const boundValues = list.filter((r) => r.boundId).reduce((s, r) => s + r.count, 0);
-const out = { framesMeasured: frames, hiddenSkipped: hidden, notMeasurable: absolute, truncated, values: rows.size, tableRows: list.length, byPriority, byGroup, boundValues, boundTokens: [...new Set(varNames.values())], rows: list.slice(0, MAX_ROWS) };
+const out = { framesMeasured: frames, hiddenSkipped: hidden, notMeasurable: absolute, truncated, values: rows.size, tableRows: list.length, byPriority, byGroup, boundValues, boundTokens: [...new Set(varNames.values())], negatives: { values: 0, list: [] }, rows: list.slice(0, MAX_ROWS) };
+for (const [i, e] of [...negs.values()].sort((a, b) => b.owners.size - a.owners.size).entries()) { const n = e.owners.size, l = out.negatives.list, va = e.boundId && i < 8 ? await figma.variables.getVariableByIdAsync(e.boundId) : null; out.negatives.values += n; if (i < 8) l.push({ label: (e.boundId ? (va ? va.name : e.boundId) + " = " : "unbound ") + e.value, values: n, exampleId: e.exampleId, examplePath: e.examplePath }); else (l[8] = l[8] || { label: "others", values: 0, exampleId: e.exampleId, examplePath: e.examplePath }).values += n; } // Largest first; past eight entries the rest fold into one "others" entry.
 // enhancement: token-conformance begin
 // Settle bind targets (same top-level frame, then shortest name), summarise bind opportunities per token, list bound tokens off the 4/8 rhythm.
 const inTop = (top, id) => (boundTop.get(top) && boundTop.get(top).has(id) ? 1 : 0);
@@ -355,6 +358,7 @@ for (const r of list) {
   const ch = choices.get(r.fix);
   if (ch) { const t = pick(ch.list, ch.top); r.fix.variableId = t.id; r.fix.name = t.name; r.note = also(nearNote(r), ch.list, t); }
   else if (r.fix.reason === "no token within 4") r.note = (r.note ? r.note + "; " : "") + r.fix.reason;
+  else if (MODE === "rhythm" && col && !rhythm(r.fix.value)) { const t = tokens.filter((x) => inCol(x, col.defaultModeId) && x.value === r.fix.value).sort((a, b) => a.isAlias - b.isAlias || a.name.length - b.name.length)[0]; if (t) r.note = (r.note ? r.note + "; " : "") + "nearest token " + t.name + " (" + t.value + ")"; } // Rhythm mode: a snap to a token value off the 4/8 rhythm names the token.
 }
 const unbound = new Map(), oppRows = [];
 for (const o of opps.values()) {
@@ -363,7 +367,6 @@ for (const o of opps.values()) {
   u.count++; unbound.set(key, u);
   oppRows.push({ id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "P3", boundId: null, note: also("unbound; bind to " + t.name, o.eq, t) + (n ? "; inherited by " + n + " instance" + (n === 1 ? "" : "s") : ""), fix: { kind: "bind", value: o.v, variableId: t.id, name: t.name, modeName: t.modeName }, ids: [id], count: 1 });
 }
-const negRows = [...negatives.values()].map((o) => { const ci = compInfo(o.own); return { id: o.own.id, path: pathOf(o.own), group: ci.root ? ci.root.name : topOf(o.own).name, property: LABEL[o.k], current: o.v, nearest: o.v, delta: 0, priority: "—", boundId: null, note: "negative value, not snapped", fix: null, ids: [o.own.id], count: 1 }; });
 const off = new Map();
 for (const b of bound.values()) {
   if (rhythm(b.v)) continue;
@@ -374,7 +377,7 @@ for (const b of bound.values()) {
 }
 Object.assign(out, { mode: MODE, tokenCount: tokens.length, libraryTokens, spacingCollection, matchedCollections, unbound: [...unbound.values()].sort((a, b) => b.count - a.count), onRhythmNoToken: onRhythm.size, aliasMatched: aliasMatched.size, offRhythmTokens: [...off.values()], boundPassed: MODE === "tokens" ? bound.size : [...bound.values()].filter((b) => onGrid(b.v)).length });
 oppRows.sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0) || (a.property < b.property ? -1 : a.property > b.property ? 1 : 0));
-out.rows = list.concat(frames <= 50 ? oppRows : [], negRows).slice(0, MAX_ROWS);
+out.rows = list.concat(frames <= 50 ? oppRows : []).slice(0, MAX_ROWS);
 // enhancement: token-conformance end
 return out;
 ```

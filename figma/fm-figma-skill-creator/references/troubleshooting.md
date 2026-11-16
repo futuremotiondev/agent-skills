@@ -157,7 +157,7 @@ These are design rules in `fm-spacing-rhythm-audit`'s collect helper. Each was b
 - The spacing collection is elected by candidate count, not variable count; other matched collections appear in `matchedCollections` with a reason and in the "Matched but not offered" line.
 - A value held only by an alias passes, counts in `aliasMatched`, and is never snapped or offered.
 - Zero is never a bind suggestion and passes in both modes. The maximum bind distance is 4.
-- Token mode skips negative values; rhythm mode keeps the v1.3 behaviour (-6 snaps to -8). Changing either is a ruling, not a drive-by.
+- A negative value is never classified, snapped or bound in either mode; it is counted on the report's Negative values line, and a negative token is never offered to a positive value. Ruled by Futuremotion on 2026-11-16 and shipped in 2.4; before that, token mode listed it as a row with no fix and rhythm mode snapped an off-grid one (−2 to 0).
 - Apply fetches the variable first and calls only `setBoundVariable` for bind fixes; a failed bind leaves the node untouched and lands in skipped with the error text. Revert guards a non-numeric `previous` before any write, keeps each row's failure local, and re-reads after every write.
 - Decided 2026-11-03 and shipped in 2.2: an on-rhythm value with no equal token but a candidate within 4 ranks P3 as a bind opportunity, excluded from "P0 and P1 only"; the mode question shows the positive span plus a negatives clause ("2 to 160 px, plus negative tokens to -24").
 
